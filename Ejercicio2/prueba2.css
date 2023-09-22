@@ -1,0 +1,55 @@
+.rojo {
+    color:red;
+}
+
+.resaltado {
+    background:lightgray;
+}
+
+h1{
+    text-align: center;
+    line-height: 3;
+    
+    font-size: 200;
+    background-color: rgb(146, 39, 62);
+    color: grey;
+}
+ul{
+    list-style-type: none;
+    padding: 0; 
+   
+}
+li{
+    line-height: 3;
+    display: inline-block;
+    background-color: black;
+}
+
+#tc{
+    font-style: italic;
+}
+
+img[src$=".png"]{
+    background-color:black;
+}
+
+.fondocabecera{
+    color: white;
+}
+
+.amarillo{
+    background-color: #f3d343;
+}
+
+.rosa{
+    
+    background-color: #e778d5;
+}
+
+.verde{
+    background-color: hsl(123, 70%, 69%);
+}
+
+.gris{
+    background-color:  hsl(300, 2%, 67%);
+}
