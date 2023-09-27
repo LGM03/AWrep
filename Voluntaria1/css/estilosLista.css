@@ -1,0 +1,29 @@
+ul{
+    list-style-type: none;
+   /* padding-top: 1%; 
+    padding-bottom:  1%;
+    padding-left: 0%;
+    margin: auto;  */
+}
+
+li{
+    line-height: 3;
+    display: inline-block;
+    background-color: black;
+   /* padding-left: 15%;
+    padding-right: 10px;*/
+}
+
+.fondoBarraHerramientas{
+    color: white;
+}
+
+.textoCabecera{
+   color: white;
+   /*margin-left: auto;
+   margin-right: auto;*/
+}
+
+.fondocabecera{
+    background-color: #5c4fb8;
+}
