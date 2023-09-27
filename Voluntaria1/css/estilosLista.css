@@ -1,18 +1,25 @@
 ul{
     list-style-type: none;
-    margin: auto;
-    background-color: #796ae5;  
+    background-color: #796ae5; 
+    padding: 10px;
+    justify-content: space-evenly !important;
+    display: flex;
+
 }
 
 li{
     display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
+    justify-content: space-between !important;
 }
 
-.fondoBarraHerramientas{
+.BarraHerramientas{
     color: white;
     font-size: 20px;
+    text-decoration: none;
+}
+.bordecolumnaCabecera{
+    border: 5px solid #5c4fb8;
+    padding: 1%;
 }
 
 .textoCabecera{
@@ -27,4 +34,11 @@ li{
 
 .fondo{
     background-color: #a7a1d7;
+}
+.ajusteimagenes{
+    justify-content: space-between !important;
+    display: flex;
+}
+.sizeimagencard{
+height: 30vh !important; 
 }
