@@ -34,11 +34,9 @@ li{
 
 .fondo{
     background-color: #a7a1d7;
+    margin: auto;
 }
 .ajusteimagenes{
     justify-content: space-between !important;
     display: flex;
-}
-.sizeimagencard{
-height: 30vh !important; 
 }
