@@ -43,6 +43,7 @@ li{
     justify-content: space-between !important;
     display: flex;
 }
+
 .equalheightrow{
     display: flex;
     flex-wrap: wrap;
@@ -50,4 +51,14 @@ li{
 
 .equalheightrow .card{
     flex:1;
+}
+
+.cajaBusqueda{
+    background-color:#796ae5 !important;
+}
+
+.botonBusqueda{
+    background-color: white;
+    color: #5c4fb8;
+    border-color: #5c4fb8;
 }
