@@ -14,8 +14,9 @@ li{
 
 .BarraHerramientas{
     color: white;
-    font-size: 20px;
+    font: size 50px;
     text-decoration: none;
+    font: 1em EB-garamont;
 }
 .bordecolumnaCabecera{
     border: 5px solid #5c4fb8;
@@ -26,6 +27,7 @@ li{
    color: white;
    font: 1em EB-garamont;
    font-size: 40px;
+   text-shadow: #5c4fb8;
 }
 
 .fondocabecera{
@@ -34,7 +36,6 @@ li{
 
 .fondo{
     background-color: #a7a1d7;
-    margin: auto;
 }
 .ajusteimagenes{
     justify-content: space-between !important;
