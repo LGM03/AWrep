@@ -1,0 +1,27 @@
+header{
+    display: block;
+    text-align: center;
+    font-size: 60px;
+    background-color: rgb(163, 247, 247);
+    
+}
+
+section{
+    margin-left: 10%;
+    margin-right: 10%;
+    background-color: rgb(24, 194, 69);
+    display: block;
+    text-align: center;
+    padding-bottom: 400px;
+    margin-top:1%;
+}
+
+
+footer{
+    background-color: rgb(186, 194, 24);
+    display: block;
+    text-align:center;
+    padding-bottom: 40px;
+    margin-top:1%;
+    
+}

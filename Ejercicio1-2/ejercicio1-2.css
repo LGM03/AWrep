@@ -1,0 +1,48 @@
+header{
+    display: block;
+    text-align: center;
+    font-size: 60px;
+    background-color: rgb(163, 247, 247);
+}
+
+section{
+    margin-left: 1%;
+    background-color: rgb(24, 194, 69);
+    display: inline;
+    text-align: center;
+}
+
+option{
+    background-color: rgb(24, 194, 69);
+    display: inline;
+    text-align: center;
+    
+}
+
+footer{
+    background-color: rgb(186, 194, 24);
+    display: block;
+    text-align:center;
+    padding-bottom: 40px;
+    margin-top:1%;
+    
+}
+
+.contenedor{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+
+#opcion{
+    grid-column : 1/2;
+    background-color: rgb(231, 147, 108);
+    margin-right: 5%;
+    padding: 20px;
+}
+
+#seccion{
+    grid-column: 2/2;
+    background-color: blanchedalmond;
+    text-align: center;
+}
+

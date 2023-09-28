@@ -6,7 +6,9 @@ ul{
     display: flex;
 
 }
-
+h6{
+    display: inline-block;
+}
 li{
     display: inline-block;
     justify-content: space-between !important;
@@ -14,9 +16,9 @@ li{
 
 .BarraHerramientas{
     color: white;
-    font: size 50px;
     text-decoration: none;
     font: 1em EB-garamont;
+    font-size: 25px;
 }
 .bordecolumnaCabecera{
     border: 5px solid #5c4fb8;
@@ -40,4 +42,12 @@ li{
 .ajusteimagenes{
     justify-content: space-between !important;
     display: flex;
+}
+.equalheightrow{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.equalheightrow .card{
+    flex:1;
 }
