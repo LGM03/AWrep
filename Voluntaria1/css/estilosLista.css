@@ -4,14 +4,13 @@
     padding: 10px;
     justify-content: space-evenly !important;
     display: flex;
+    margin-bottom: 10px;
 }
+
 h6{
     display: inline-block;
 }
-li{
-    display: inline-block;
-    justify-content: space-between !important;
-}
+
 
 .BarraHerramientas{
     color: white;
@@ -21,8 +20,11 @@ li{
 }
 
 .bordecolumnaCabecera{
-    border: 5px solid #5c4fb8;
     padding: 1%;
+}
+
+.bordecolumnaCabecera a:hover{
+    background-color:  #5c4fb8;
 }
 
 .textoCabecera{
@@ -39,20 +41,13 @@ li{
 .fondo{
     background-color: #a7a1d7;
 }
+
 .ajusteimagenes{
     justify-content: space-between !important;
     display: flex;
 }
 
-.cajaBusqueda{
-    background-color:#796ae5 !important;
-}
 
-.botonBusqueda{
-    background-color: white;
-    color: #5c4fb8; 
-    border-color: #5c4fb8;
-}
 .botonsabermas{
     display: inline-block;
     background-color: #796ae5;
@@ -73,6 +68,18 @@ li{
     font: 1em EB-garamont;
 }
 
-.inline{
-    display: inline !important;
+
+.letrasFooter h6{
+    color : white;
 }
+
+.letrasFooter {
+    color : black;
+}
+
+.letrasFooter a:hover{
+    color:white;
+    padding-left: 5%;
+}
+
+
