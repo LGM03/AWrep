@@ -1,10 +1,9 @@
-ul{
+.lista{
     list-style-type: none;
     background-color: #796ae5; 
     padding: 10px;
     justify-content: space-evenly !important;
     display: flex;
-
 }
 h6{
     display: inline-block;
@@ -72,4 +71,8 @@ li{
     background-color:#796ae5;
     color: white;
     font: 1em EB-garamont;
+}
+
+.inline{
+    display: inline !important;
 }
