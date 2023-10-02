@@ -20,6 +20,7 @@ li{
     font: 1em EB-garamont;
     font-size: 25px;
 }
+
 .bordecolumnaCabecera{
     border: 5px solid #5c4fb8;
     padding: 1%;
@@ -44,21 +45,31 @@ li{
     display: flex;
 }
 
-.equalheightrow{
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.equalheightrow .card{
-    flex:1;
-}
-
 .cajaBusqueda{
     background-color:#796ae5 !important;
 }
 
 .botonBusqueda{
     background-color: white;
-    color: #5c4fb8;
+    color: #5c4fb8; 
     border-color: #5c4fb8;
+}
+.botonsabermas{
+    display: inline-block;
+    background-color: #796ae5;
+    color: white;
+    font: 1em EB-garamont;
+}
+
+.botoncabecera{
+    background-color: #796ae5;
+    color: white;
+    font-size: 40px;
+    font: 1em EB-garamont;
+}
+
+.CabeceraCarta{
+    background-color:#796ae5;
+    color: white;
+    font: 1em EB-garamont;
 }
