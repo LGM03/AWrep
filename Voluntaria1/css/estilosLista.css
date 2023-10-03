@@ -37,6 +37,11 @@ h6{
 .fondocabecera{
     background-color: #5c4fb8;
 }
+.botonbuscar{
+    background-color: #5c4fb8;
+    color: white;
+    font: 1em EB-garamont;
+}
 
 .fondo{
     background-color: #a7a1d7;
@@ -74,11 +79,11 @@ h6{
 }
 
 .letrasFooter {
-    color : black;
+    color:white;
 }
 
 .letrasFooter a:hover{
-    color:white;
+    color:rgba(255, 255, 255, 0.614);
     padding-left: 5%;
 }
 
