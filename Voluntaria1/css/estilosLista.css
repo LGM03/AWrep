@@ -1,4 +1,4 @@
-.lista{
+.barraDeHerramientas{
     list-style-type: none;
     background-color: #796ae5; 
     padding: 10px;
@@ -7,31 +7,25 @@
     margin-bottom: 10px;
 }
 
-h6{
+.card-footer h6{
     display: inline-block;
+    font-size: 30px;
 }
 
-
-.BarraHerramientas{
-    color: white;
-    text-decoration: none;
-    font: 1em EB-garamont;
-    font-size: 25px;
+.card-footer{
+    background-color: white;
 }
 
-.bordecolumnaCabecera{
-    padding: 1%;
-}
 
 .bordecolumnaCabecera a:hover{
     background-color:  #5c4fb8;
+    color: white;
 }
 
 .textoCabecera{
    color: white;
    font: 1em EB-garamont;
    font-size: 40px;
-   text-shadow: #5c4fb8;
 }
 
 .fondocabecera{
@@ -47,16 +41,9 @@ h6{
     background-color: #a7a1d7;
 }
 
-.ajusteimagenes{
-    justify-content: space-between !important;
-    display: flex;
-}
-
-
 .botonsabermas{
-    display: inline-block;
     background-color: #796ae5;
-    color: white;
+    color :white;
     font: 1em EB-garamont;
 }
 
@@ -68,23 +55,26 @@ h6{
 }
 
 .CabeceraCarta{
-    background-color:#796ae5;
-    color: white;
+    color:#796ae5;
     font: 1em EB-garamont;
 }
 
 
-.letrasFooter h6{
-    color : white;
-}
 
 .letrasFooter {
     color:white;
 }
+
 
 .letrasFooter a:hover{
     color:rgba(255, 255, 255, 0.614);
     padding-left: 5%;
 }
 
+.card:hover{
+    box-shadow: 0px 0px 20px #5c4fb8;
+}
 
+.card-img-top{
+    border-radius: 0;
+}
