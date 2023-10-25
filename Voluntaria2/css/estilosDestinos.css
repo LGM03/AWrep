@@ -1,0 +1,17 @@
+.carousel-inner {
+    box-shadow: 0px 0px 20px #5c4fb8;
+}
+
+.fondoGrisTexto {
+    background-color: rgb(0, 0, 0, 0.55);
+}
+
+.carousel-indicators li {
+    list-style: none;
+}
+
+#carousel1 {
+    max-width: 80%;
+    margin: 0 auto;
+    
+}
