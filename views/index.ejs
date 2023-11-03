@@ -35,100 +35,28 @@
    <section class="container justify-content-center "> <!-- Contenedor encargado de almacenar la seccion donde apareceran los destinos disponibles -->
     
         <div class="row"> <!-- formado por x filas que contienen grupos de 3 destinos los cuales se muestran usando el formato card ubicados dentro de columnas -->
-            <div class="col-md-4 pb-4 d-flex">
+            
+          <%destinos.forEach(function(destino){ %>
+
+          <div class="col-md-4 pb-4 d-flex">
                 <div class="card" >
                   <div class="card-header CabeceraCarta">
-                    <h5>Madrid</h5>
+                    <h5><%=destino.nombre%></h5>
                   </div>
-                    <img class="card-img-top " src="images/madrid.png" alt="Imagen Madrid">
+                    <img class="card-img-top " src=<%=destino.imagen%> alt="Imagen Madrid">
                     <div class="card-body">
-                      <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil consectetur nostrum omnis placeat excepturi neque dicta rer</p>                            <div class=" card-footer ">
-                          <h6 >60€</h6>
-                          <a href="./destino" class="btn botonsabermas">Saber Más</a>
+                      <p class="card-text"><%=destino.descripcion%></p><div class="card-footer ">
+                          <h6 ><%=destino.precio%></h6>
+                          <a href="./destino?id=<%=destino.id%>" class="btn botonsabermas">Saber Más</a>
                       </div>
-    
-              
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4 pb-4 d-flex">
-                <div class="card " >
-                  <div class="card-header CabeceraCarta">
-                    <h5>Barcelona</h5>
-                  </div>
-                    <img class="card-img-top " src="images/barcelona.png"   alt="Imagen Barcelona">
-                    <div class="card-body">
-                      <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil consectetur nostrum omnis placeat excepturi neque dicta rer</p>                          <div class="card-footer">
-                        <h6>60€</h6>
-                      <a href="https://es.wikipedia.org/wiki/Barcelona"  target="_blank" class="btn botonsabermas">Saber Más</a>
-                    </div>
-                    </div>
-                  </div>
-            </div>
-            <div class="col-md-4 pb-4 d-flex">
-                <div class="card " >
-                    <div class="card-header CabeceraCarta">
-                      <h5>Benavente</h5>
-                    </div>
-                    <img class="card-img-top " src="images/benavente.png" alt="Imagen Benavente">
-                    <div class="card-body">
-                      <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil consectetur nostrum omnis placeat excepturi neque dicta rer</p>                         
-        
-                    <div class="card-footer">
-                      <h6>60€</h6>
-                      <a href="https://es.wikipedia.org/wiki/Benavente_(Zamora)"  target="_blank" class="btn botonsabermas">Saber Más</a>
-                    </div>
-                    </div>
-                  </div>
-            </div>
-        </div>
+          </div>
 
-        <div class="row ">
-            <div class="col-md-4 pb-4 d-flex">
-                <div class="card " >
-                    <div class="card-header CabeceraCarta">
-                    <h5>Santiago de Compostela</h5>
-                    </div>
-                    <img class="card-img-top " src="images/santiago.png" alt="Imagen Santiago">
-                    <div class="card-body">
-                      <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil consectetur nostrum omnis placeat excepturi neque dicta rer</p>    
-                      <div class="card-footer">
-                        <h6>60€</h6>
-                      <a href="https://es.wikipedia.org/wiki/Santiago_de_Compostela"  target="_blank"  class="btn botonsabermas">Saber Más</a>
-                    </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 pb-4 d-flex"> 
-                <div class="card " >
-                    <div class="card-header CabeceraCarta">
-                     <h5>Sevilla</h5>
-                    </div>
-                    <img class="card-img-top " src="images/sevilla.png"   alt="Imagen Sevilla">
-                    <div class="card-body">
-                      <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil consectetur nostrum omnis placeat excepturi neque dicta rer</p>    
-                    <div class=" card-footer">
-                      <h6 >60€</h6>
-                      <a href="https://es.wikipedia.org/wiki/Sevilla"  target="_blank" class="btn botonsabermas">Saber Más</a>
-                    </div>
-                    </div>
-                  </div>
-            </div>
-            <div class="col-md-4 pb-4 d-flex">
-                <div class="card " >
-                    <div class="card-header CabeceraCarta">
-                     <h5>Toledo</h5>
-                    </div>
-                    <img class="card-img-top " src="images/toledo.png" alt="Imagen Toledo">
-                    <div class="card-body">
-                      <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil consectetur nostrum omnis placeat excepturi neque dicta rer</p>              
-                      <div class="card-footer">
-                        <h6>60€</h6>
-                      <a href="https://es.wikipedia.org/wiki/toledo"  target="_blank" class="btn botonsabermas ">Saber Más</a>
-                    </div>
-                    </div>
-                  </div>
-            </div>
+          <% }); %>
+
+
+
         </div>
    </section>
 

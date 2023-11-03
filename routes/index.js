@@ -13,17 +13,17 @@ const pool = mysql.createPool({
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  console.log("??????????????????????????????????????")
+  
   const DAOAp = require("../mysql/daoDestino")
   const midao = new DAOAp(pool)
 
-  midao.leerDestino(null, (err, datos) => {
+  midao.leerTodos(null, (err, datos) => {
     if (err) {
       console.log(err);
     }
     else {
       console.log("HOLA = "+datos)
-      res.render('index'); 
+      res.render('index', { destinos : datos }); 
     }
   });
 });
