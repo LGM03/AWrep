@@ -10,17 +10,22 @@ const pool = mysql.createPool({
 })
 
 
+
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  //res.render('index', { title: 'Express' });  //Pagina dinamica
-  console.log("hola?")
+  console.log("??????????????????????????????????????")
   const DAOAp = require("../mysql/daoDestino")
   const midao = new DAOAp(pool)
-  midao.insertarUsuario(usuario, midao.cb_insertarUsuario)
-  console.log(midao.nombre)
-  res.sendFile('public/index.html'); //Pagina estatica, puede llevar parametros
+
+  midao.leerDestino(null, (err, datos) => {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      console.log("HOLA = "+datos)
+      res.render('index'); 
+    }
+  });
 });
-
-
 
 module.exports = router;
