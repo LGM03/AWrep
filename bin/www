@@ -7,12 +7,13 @@
 var app = require('../app');
 var debug = require('debug')('aplicacionesweb:server');
 var http = require('http');
+const PUERTO = '3000'
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3001');  //Me sale el 3000 ocupado, pongo el 3001
+var port = normalizePort(process.env.PORT || PUERTO);
 app.set('port', port);
 
 /**
