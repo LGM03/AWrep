@@ -24,10 +24,8 @@ class DAODestino{
                 });
             }
         });
-    }  //index.js crea el pool de conexiones, al llamar al consructor del dao le paso el pool, 
-
-
-    
+    }   
+ 
     leerPorID(id, callback) {
         this.pool.getConnection(function (err, connection) {
             if (err) {
@@ -47,6 +45,7 @@ class DAODestino{
             }
         });
     } 
+    
 }
 
 

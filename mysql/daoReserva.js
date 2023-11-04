@@ -25,7 +25,7 @@ class DAOReserva{
                 });
             }
         });
-    }  //index.js crea el pool de conexiones, al llamar al consructor del dao le paso el pool, 
+    }  
 
 }
 
