@@ -35,10 +35,12 @@ router.post('/', (req, res) => {
     midao.altaReserva(datosReserva, (err, datos) => {
         if (err) {
             console.log(err);  //Si hay un error tengo que poner un mensaje de alerta 
+            console.log("FALLO")
             res.redirect(`/destino?id=${req.query.id}&error=${"No se ha podido realizar la reserva"}`);
         }
         else {
-            res.redirect(`/destino?id=${req.query.id}&error=${'Reserva guardada con éxito'}`);
+            console.log("EXITO")
+            res.redirect(`/destino?id=${req.query.id}&exito=${'Reserva guardada con éxito'}`);
         }
     });
 
@@ -46,11 +48,17 @@ router.post('/', (req, res) => {
 
 function esValido(datos) {
     const nombreComprobar = /^[A-Za-z]+$/
-    const emailComprobar = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
-    const fechaComprobar = /^(\d{2}\/\d{2}\/\d{4})$/
+    const emailComprobar = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
+    const fechaComprobar = /^(\d{1,2}\/\d{1,2}\/\d{4})$/
+   
+    console.log("AQUI VIENEN LAS COMPROBACIONES")
 
+    console.log(nombreComprobar.test(datos.nombre))
+    console.log( nombreComprobar.test(datos.apellido))
+    console.log( emailComprobar.test(datos.correo))
+    console.log(fechaComprobar.test((datos.fecha)))
 
-    return nombreComprobar.test(datos.nombre) && nombreComprobar.test(datos.apellido) && emailComprobar.test(datos.email) && fechaComprobar(datos.fecha)
+    return nombreComprobar.test(datos.nombre) && nombreComprobar.test(datos.apellido) && emailComprobar.test(datos.correo) && fechaComprobar.test((datos.fecha))
 }
 
 

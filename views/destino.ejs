@@ -55,9 +55,15 @@
     </div>
   </nav>
 
-  <% if (mensaje != null) { %>
-    <div class="container alert alert-warning text-center">
-      <%= mensaje %>
+  <% if (error != null) { %>
+    <div class="container alert alert-danger text-center">
+      <%= error %>
+    </div>
+  <% } %>
+
+  <% if (exito != null) { %>
+    <div class="container alert alert-success text-center">
+      <%= exito %>
     </div>
   <% } %>
   

@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
   
   let id = Number(req.query.id)
   let error = req.query.error
-  console.log("HAS SIDO REDIRIIGDO "+ id + error)
+  let exito = req.query.exito
 
   const DAOAp = require("../mysql/daoDestino")
   const midao = new DAOAp(pool)
@@ -24,8 +24,7 @@ router.get('/', function(req, res, next) {
       console.log(err);
     }
     else {
-      console.log(datos)
-      res.render('destino', { destino : datos , mensaje : error}); 
+      res.render('destino', { destino : datos , error : error, exito : exito}); 
     }
   });
 
