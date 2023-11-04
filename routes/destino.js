@@ -10,11 +10,11 @@ const pool = mysql.createPool({
 })
 
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
   
-
-  let id = Number(req.query.id);
+  let id = Number(req.query.id)
+  let error = req.query.error
+  console.log("HAS SIDO REDIRIIGDO "+ id + error)
 
   const DAOAp = require("../mysql/daoDestino")
   const midao = new DAOAp(pool)
@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
     }
     else {
       console.log(datos)
-      res.render('destino', { destino : datos }); 
+      res.render('destino', { destino : datos , mensaje : error}); 
     }
   });
 
