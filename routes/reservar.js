@@ -49,13 +49,14 @@ router.post('/', (req, res) => {
 function esValido(datos) {
     const nombreComprobar = /^[A-Za-z]+$/
     const emailComprobar = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
-    const fechaComprobar = /^(\d{1,2}\/\d{1,2}\/\d{4})$/
+    const fechaComprobar = /^(\d{4}\-\d{1,2}\-\d{1,2})$/
    
     console.log("AQUI VIENEN LAS COMPROBACIONES")
 
     console.log(nombreComprobar.test(datos.nombre))
     console.log( nombreComprobar.test(datos.apellido))
     console.log( emailComprobar.test(datos.correo))
+    console.log(datos.fecha)
     console.log(fechaComprobar.test((datos.fecha)))
 
     return nombreComprobar.test(datos.nombre) && nombreComprobar.test(datos.apellido) && emailComprobar.test(datos.correo) && fechaComprobar.test((datos.fecha))

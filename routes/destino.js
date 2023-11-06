@@ -10,8 +10,8 @@ const pool = mysql.createPool({
 })
 
 
-router.get('/', function(req, res, next) {
-  
+router.get('/', function (req, res, next) {
+
   let id = Number(req.query.id)
   let error = req.query.error
   let exito = req.query.exito
@@ -24,7 +24,14 @@ router.get('/', function(req, res, next) {
       console.log(err);
     }
     else {
-      res.render('destino', { destino : datos , error : error, exito : exito}); 
+      midao.leerImagenes(id, (err, imagenes) => {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          res.render('destino', { destino: datos, imagenes: imagenes, error: error, exito: exito });
+        }
+      });
     }
   });
 
