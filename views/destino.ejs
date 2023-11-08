@@ -55,231 +55,245 @@
     </div>
   </nav>
 
-  <% if (error != null) { %>
+  <% if (error !=null) { %>
     <div class="container alert alert-danger text-center">
       <%= error %>
     </div>
-  <% } %>
+    <% } %>
 
-  <% if (exito != null) { %>
-    <div class="container alert alert-success text-center">
-      <%= exito %>
-    </div>
-  <% } %>
-  
-
-      <section class="container justify-content-center ">
-        <!-- Contenedor encargado de almacenar la seccion donde apareceran los destinos disponibles -->
-        <div id="carousel1" class="carousel slide" data-bs-ride="carousel">
-          <!-- Indicadores -->
-          <!-- Indicadores -->
-          <ol class="carousel-indicators">
-            <li data-bs-target="#carousel1" data-bs-slide-to="0" class="active"></li>
-            <li data-bs-target="#carousel1" data-bs-slide-to="1"></li>
-            <li data-bs-target="#carousel1" data-bs-slide-to="2"></li>
-            <li data-bs-target="#carousel1" data-bs-slide-to="3"></li>
-          </ol>
-
-          <!-- Contenido del carrusel -->
-          <div class="carousel-inner">
-
-            
-
-              <div class="carousel-item active">
-                <img class="d-block w-100" src=<%=destino.imagen%> alt="Imagen no cargada">
-                <div class="carousel-caption d-none d-md-block">
-                  <h3 class ="fondoGrisTexto"><%=destino.nombre%></h3>
-                  <p class="fondoGrisTexto"><%=destino.descripcion%></p>
-                </div>
-              </div>
-
-              <%imagenes.forEach(function(imagen){ %>
-              <div class="carousel-item">
-                <img class="d-block w-100" src=<%=imagen.imagen%> alt="Imagen Palacio Real no cargada">
-                <div class="carousel-caption d-none d-md-block">
-                  <h3 class="fondoGrisTexto"><%=imagen.nombre%></h3>
-                  <p class = "fondoGrisTexto"><%=imagen.descripcion%></p>
-                </div>
-              </div>
-
-            <% }); %>
-
-            <!-- Agrega más elementos carousel-item según sea necesario -->
-          </div>
-
-          <!-- Controles del carrusel -->
-          <a class="carousel-control-prev" href="#carousel1" role="button" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carousel1" role="button" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
+      <% if (exito !=null) { %>
+        <div class="container alert alert-success text-center">
+          <%= exito %>
         </div>
+        <% } %>
 
-        <!--   -->
-        <div class="row mt-4"> <!-- Boton modal hacer reserva -->
 
-          <div class="col-sm-12 ">
-            <button type="button" class="btn botonbuscar mb-2 text-center w-100 p-3" data-bs-toggle="modal"
-              data-bs-target="#Reserva">Realizar Reserva</button>
-            <div class="modal fade" id="Reserva" data-bs-backdrop="static">
-              <!-- data-bs impide que se cierre al pulsar fuera del modal -->
-              <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
+          <section class="container justify-content-center ">
+            <!-- Contenedor encargado de almacenar la seccion donde apareceran los destinos disponibles -->
+            <div id="carousel1" class="carousel slide" data-bs-ride="carousel">
+              <!-- Indicadores -->
+              <!-- Indicadores -->
+              <ol class="carousel-indicators">
+                <li data-bs-target="#carousel1" data-bs-slide-to="0" class="active"></li>
+                <li data-bs-target="#carousel1" data-bs-slide-to="1"></li>
+                <li data-bs-target="#carousel1" data-bs-slide-to="2"></li>
+                <li data-bs-target="#carousel1" data-bs-slide-to="3"></li>
+              </ol>
 
-                  <!-- cabecera del diálogo -->
-                  <div class="modal-header">
-                    <h4 class="modal-title text-center w-100">Formulario de Reserva</h4>
-                    <button type="button" class="btn-close botonbuscar" data-bs-dismiss="modal"></button>
+              <!-- Contenido del carrusel -->
+              <div class="carousel-inner">
+
+
+
+                <div class="carousel-item active">
+                  <img class="d-block w-100" src=<%=destino.imagen%> alt="Imagen no cargada">
+                  <div class="carousel-caption d-none d-md-block">
+                    <h3 class="fondoGrisTexto">
+                      <%=destino.nombre%>
+                    </h3>
+                    <p class="fondoGrisTexto">
+                      <%=destino.descripcion%>
+                    </p>
+                  </div>
+                </div>
+
+                <%imagenes.forEach(function(imagen){ %>
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src=<%=imagen.imagen%> alt="Imagen Palacio Real no cargada">
+                    <div class="carousel-caption d-none d-md-block">
+                      <h3 class="fondoGrisTexto">
+                        <%=imagen.nombre%>
+                      </h3>
+                      <p class="fondoGrisTexto">
+                        <%=imagen.descripcion%>
+                      </p>
+                    </div>
                   </div>
 
-                  <!-- cuerpo del diálogo -->
-                  <div class="modal-body alert fondo">
-                    <div class="container-fluid">
+                  <% }); %>
 
-                      <form id="reservaForm" method="post" action="/reservar?id=<%=destino.id%>">
+                    <!-- Agrega más elementos carousel-item según sea necesario -->
+              </div>
 
-                        <div class="mb-3 row">
-                          <label for="nombre" class="col-md-2 col-form-label text-center">Nombre:</label>
-                          <div class="col-md-4">
-                            <input type="text" class="form-control" id = "nombre" name="nombre" required>
-                          </div>
-                          <label for="apellidos" class="col-md-2 col-form-label text-center">Apellidos:</label>
-                          <div class="col-md-4">
-                            <input type="text" class="form-control" id = "apellido" name="apellido" required>
-                          </div>
+              <!-- Controles del carrusel -->
+              <a class="carousel-control-prev" href="#carousel1" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carousel1" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+
+            <!--   -->
+            <div class="row mt-4"> <!-- Boton modal hacer reserva -->
+
+              <div class="col-sm-12 ">
+                <button type="button" class="btn botonbuscar mb-2 text-center w-100 p-3" data-bs-toggle="modal"
+                  data-bs-target="#Reserva">Realizar Reserva</button>
+                <div class="modal fade" id="Reserva" data-bs-backdrop="static">
+                  <!-- data-bs impide que se cierre al pulsar fuera del modal -->
+                  <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+
+                      <!-- cabecera del diálogo -->
+                      <div class="modal-header">
+                        <h4 class="modal-title text-center w-100">Formulario de Reserva</h4>
+                        <button type="button" class="btn-close botonbuscar" data-bs-dismiss="modal"></button>
+                      </div>
+
+                      <!-- cuerpo del diálogo -->
+                      <div class="modal-body alert fondo">
+                        <div class="container-fluid">
+
+                          <form id="reservaForm" method="post" action="/reservar?id=<%=destino.id%>">
+
+                            <div class="mb-3 row">
+                              <label for="nombre" class="col-md-2 col-form-label text-center">Nombre:</label>
+                              <div class="col-md-4">
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                              </div>
+                              <label for="apellidos" class="col-md-2 col-form-label text-center">Apellidos:</label>
+                              <div class="col-md-4">
+                                <input type="text" class="form-control" id="apellido" name="apellido" required>
+                              </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                              <label for="clave" class="col-sm-3 col-form-label text-center">Correo Electrónico:</label>
+                              <div class="col-sm-9">
+                                <input type="email" class="form-control" id="correo" name="correo"
+                                  placeholder="correo@ejemplo.com" required>
+                              </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                              <label class="control-label col-sm-3 text-center" for="fecha">Fecha:</label>
+                              <div class="col-sm-9">
+                                <input type="date" id="fecha" name="fecha" class="form-control" required>
+                              </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                              <div class="offset-sm-3 col-sm-9">
+                                <button type="submit" class="btn botonbuscar">Confirmar</button>
+                                <button type="button" class="btn botonbuscar" data-bs-dismiss="modal">Cancelar</button>
+                              </div>
+                            </div>
+
+                          </form>
                         </div>
-
-                        <div class="mb-3 row">
-                          <label for="clave" class="col-sm-3 col-form-label text-center">Correo Electrónico:</label>
-                          <div class="col-sm-9">
-                            <input type="email" class="form-control" id = "correo" name="correo" placeholder="correo@ejemplo.com"
-                              required>
-                          </div>
-                        </div>
-
-                        <div class="mb-3 row">
-                          <label class="control-label col-sm-3 text-center" for="fecha">Fecha:</label>
-                          <div class="col-sm-9">
-                            <input type="date" id = "fecha" name="fecha" class="form-control" required>
-                          </div>
-                        </div>
-
-                        <div class="mb-3 row">
-                          <div class="offset-sm-3 col-sm-9">
-                            <button type="submit" class="btn botonbuscar">Confirmar</button>
-                            <button type="button" class="btn botonbuscar" data-bs-dismiss="modal">Cancelar</button>
-                          </div>
-                        </div>
-
-                      </form>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
 
 
 
-      </section>
+          </section>
 
-      <footer> <!--Contenedor encargado de almacenar el Footer donde aparecera la información general de la pagina  -->
-        <div class="container justify-content-center">
-          <div class="row fondocabecera letrasFooter">
-            <!-- Esta formado por una fila en la que se almacenan las 3 columnas con informacion general   -->
-            <div class="col d-flex">
-              <ul class="list-unstyled">
-                <li>
-                  <h6>Legal</h6>
-                </li>
-                <li><a href=# class="text-decoration-none letrasFooter">Privacidad</a></li>
-                <li><a href=# class="text-decoration-none letrasFooter">Seguridad</a></li>
-                <li><a href=# class="text-decoration-none letrasFooter">Cookies</a></li>
-              </ul>
+          <footer>
+            <!--Contenedor encargado de almacenar el Footer donde aparecera la información general de la pagina  -->
+            <div class="container justify-content-center">
+              <div class="row fondocabecera letrasFooter">
+                <!-- Esta formado por una fila en la que se almacenan las 3 columnas con informacion general   -->
+                <div class="col d-flex">
+                  <ul class="list-unstyled">
+                    <li>
+                      <h6>Legal</h6>
+                    </li>
+                    <li><a href=# class="text-decoration-none letrasFooter">Privacidad</a></li>
+                    <li><a href=# class="text-decoration-none letrasFooter">Seguridad</a></li>
+                    <li><a href=# class="text-decoration-none letrasFooter">Cookies</a></li>
+                  </ul>
+                </div>
+                <div class="col d-flex">
+                  <ul class="list-unstyled">
+                    <li>
+                      <h6 class="font-weight-bold">Sobre Nosotros</h6>
+                    </li>
+                    <li><a href=# class="text-decoration-none letrasFooter">Guias de Viajes</a></li>
+                    <li><a href=# class="text-decoration-none letrasFooter">Preguntas</a></li>
+                    <li><a href=# class="text-decoration-none letrasFooter">Afiliados</a></li>
+                  </ul>
+
+                </div>
+                <div class="col d-flex">
+                  <ul class="list-unstyled">
+                    <li>
+                      <h6 class="font-weight-bold">Redes Sociales</h6>
+                    </li>
+                    <li><a href=https://www.instagram.com target="_blank"
+                        class="text-decoration-none letrasFooter">Instagram</a></li>
+                    <li><a href=https://www.facebook.com target="_blank"
+                        class="text-decoration-none letrasFooter">Facebook</a>
+                    </li>
+                    <li><a href=https://twitter.com target="_blank"
+                        class="text-decoration-none letrasFooter">Twitter</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
-            <div class="col d-flex">
-              <ul class="list-unstyled">
-                <li>
-                  <h6 class="font-weight-bold">Sobre Nosotros</h6>
-                </li>
-                <li><a href=# class="text-decoration-none letrasFooter">Guias de Viajes</a></li>
-                <li><a href=# class="text-decoration-none letrasFooter">Preguntas</a></li>
-                <li><a href=# class="text-decoration-none letrasFooter">Afiliados</a></li>
-              </ul>
+          </footer>
 
-            </div>
-            <div class="col d-flex">
-              <ul class="list-unstyled">
-                <li>
-                  <h6 class="font-weight-bold">Redes Sociales</h6>
-                </li>
-                <li><a href=https://www.instagram.com target="_blank"
-                    class="text-decoration-none letrasFooter">Instagram</a></li>
-                <li><a href=https://www.facebook.com target="_blank"
-                    class="text-decoration-none letrasFooter">Facebook</a>
-                </li>
-                <li><a href=https://twitter.com target="_blank" class="text-decoration-none letrasFooter">Twitter</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </footer>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+            crossorigin="anonymous"></script>
 
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
-        crossorigin="anonymous"></script>
-
-        <script>
-          document.getElementById('reservaForm').addEventListener('submit', function(event) {
+          <script>
+            document.getElementById('reservaForm').addEventListener('submit', function (event) {
               // Realiza la validación aquí
+              console.log("!!!!!!!!!!!!!!!!HOLA????????????????")
               if (!validarFormulario()) {
-                  event.preventDefault(); // Evita el envío del formulario si la validación falla
+                event.preventDefault(); // Evita el envío del formulario si la validación falla
               }
-          });
-      
-          function validarFormulario() {
+            });
+
+            function validarFormulario() {
               // Realiza la validación de campos aquí
               const nombre = document.getElementById('nombre').value;
               const email = document.getElementById('correo').value;
               const apellido = document.getElementById('apellido').value;
               const fecha = document.getElementById('fecha').value;
-              console.log(fecha)
-              console.log(email)
-      
-              if (nombre.trim() === '' || apellido.trim()==='') {
-                  alert('Por favor, ingrese un nombre.');
-                  return false;
-              }
-      
-              if (!validarEmail(email)) {
-                  alert('Por favor, ingrese una dirección de correo electrónico válida.');
-                  return false;
-              } else if (!validarFecha(fecha)){
-                alert('Por favor, ingrese una fecha válida.');
+              const fechaActual = new Date();
+              const fechaComparar = new Date(fecha);
+
+              if (nombre.trim() === '' || apellido.trim() === '') {
+                alert('Por favor, ingrese un nombre.');
                 return false;
               }
-      
-              return false; // Si la validación pasa, permite el envío del formulario
+              
+              if (!validarEmail(email)) {
+                alert('Por favor, ingrese una dirección de correo electrónico válida.');
+                return false;
+              } else if (!validarfecha(fecha)) {
+                alert('Por favor, ingrese una fecha válida.');
+                return false;
+              } else if (fechaComparar < fechaActual) {
+                alert('La fecha indicada ya ha ocurrido.');
+                return false;
+              }
 
-          }
-      
-          function validarEmail(email) {
-            const emailComprobar = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
-            return emailComprobar.test(email);
-          }
+              return true; // Si la validación pasa, permite el envío del formulario
 
-          function validarfecha(fecha) {
-            const fechaComprobar = /^\d{4}-\d{2}-\d{2}$/;
-            return fechaComprobar.test(fecha);
-          }
+            }
+
+            function validarEmail(email) {
+              const emailComprobar = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
+              return emailComprobar.test(email);
+            }
+
+            function validarfecha(fecha) {
+              const fechaComprobar = /^\d{4}-\d{2}-\d{2}$/;
+              return fechaComprobar.test(fecha);
+            }
 
 
-      </script>
+          </script>
 
 </body>
 
