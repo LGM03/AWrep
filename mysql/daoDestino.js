@@ -1,4 +1,3 @@
-var nombre 
 
 class DAODestino{
 
@@ -6,7 +5,7 @@ class DAODestino{
         this.pool = pool
     }
 
-    leerTodos(usuario, callback) {
+    leerTodos(callback) {
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 console.log(`Error al obtener la conexión: ${err.message}`);

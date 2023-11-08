@@ -17,12 +17,12 @@ router.get('/', function (req, res, next) {
   const DAOAp = require("../mysql/daoDestino")
   const midao = new DAOAp(pool)
 
-  midao.leerTodos(null, (err, datos) => {
+  midao.leerTodos((err, datos) => {
     if (err) {
-      console.log(err);
+      console.log("Peta en el 3")
+      res.render('error',{error:"Ha ocurrido un error"});
     }
     else {
-      console.log("HOLA = "+datos)
       res.render('index', { destinos : datos }); 
     }
   });

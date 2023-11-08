@@ -21,12 +21,12 @@ router.get('/', function (req, res, next) {
 
   midao.leerPorID(id, (err, datos) => {
     if (err) {
-      console.log(err);
+      res.render('error',{error:"Ha ocurrido un error"});
     }
     else {
       midao.leerImagenes(id, (err, imagenes) => {
         if (err) {
-          console.log(err);
+          res.render('error',{error:"Ha ocurrido un error"});
         }
         else {
           res.render('destino', { destino: datos, imagenes: imagenes, error: error, exito: exito });

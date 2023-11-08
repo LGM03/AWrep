@@ -144,18 +144,18 @@
                         <div class="mb-3 row">
                           <label for="nombre" class="col-md-2 col-form-label text-center">Nombre:</label>
                           <div class="col-md-4">
-                            <input type="text" class="form-control" name="nombre" required>
+                            <input type="text" class="form-control" id = "nombre" name="nombre" required>
                           </div>
                           <label for="apellidos" class="col-md-2 col-form-label text-center">Apellidos:</label>
                           <div class="col-md-4">
-                            <input type="text" class="form-control" name="apellido" required>
+                            <input type="text" class="form-control" id = "apellido" name="apellido" required>
                           </div>
                         </div>
 
                         <div class="mb-3 row">
                           <label for="clave" class="col-sm-3 col-form-label text-center">Correo Electrónico:</label>
                           <div class="col-sm-9">
-                            <input type="email" class="form-control" name="correo" placeholder="correo@ejemplo.com"
+                            <input type="email" class="form-control" id = "correo" name="correo" placeholder="correo@ejemplo.com"
                               required>
                           </div>
                         </div>
@@ -163,7 +163,7 @@
                         <div class="mb-3 row">
                           <label class="control-label col-sm-3 text-center" for="fecha">Fecha:</label>
                           <div class="col-sm-9">
-                            <input type="date" name="fecha" class="form-control" required>
+                            <input type="date" id = "fecha" name="fecha" class="form-control" required>
                           </div>
                         </div>
 
@@ -233,6 +233,53 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
         crossorigin="anonymous"></script>
+
+        <script>
+          document.getElementById('reservaForm').addEventListener('submit', function(event) {
+              // Realiza la validación aquí
+              if (!validarFormulario()) {
+                  event.preventDefault(); // Evita el envío del formulario si la validación falla
+              }
+          });
+      
+          function validarFormulario() {
+              // Realiza la validación de campos aquí
+              const nombre = document.getElementById('nombre').value;
+              const email = document.getElementById('correo').value;
+              const apellido = document.getElementById('apellido').value;
+              const fecha = document.getElementById('fecha').value;
+              console.log(fecha)
+              console.log(email)
+      
+              if (nombre.trim() === '' || apellido.trim()==='') {
+                  alert('Por favor, ingrese un nombre.');
+                  return false;
+              }
+      
+              if (!validarEmail(email)) {
+                  alert('Por favor, ingrese una dirección de correo electrónico válida.');
+                  return false;
+              } else if (!validarFecha(fecha)){
+                alert('Por favor, ingrese una fecha válida.');
+                return false;
+              }
+      
+              return false; // Si la validación pasa, permite el envío del formulario
+
+          }
+      
+          function validarEmail(email) {
+            const emailComprobar = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
+            return emailComprobar.test(email);
+          }
+
+          function validarfecha(fecha) {
+            const fechaComprobar = /^\d{4}-\d{2}-\d{2}$/;
+            return fechaComprobar.test(fecha);
+          }
+
+
+      </script>
 
 </body>
 
