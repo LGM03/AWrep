@@ -34,18 +34,18 @@
 
    <section class="container justify-content-center "> <!-- Contenedor encargado de almacenar la seccion donde apareceran los destinos disponibles -->
     
-        <div class="row"> <!-- formado por x filas que contienen grupos de 3 destinos los cuales se muestran usando el formato card ubicados dentro de columnas -->
-            
+        <div class="row"> 
+            <!--Por cada destino traido por la base de datos pongo una tarjeta -->
           <%destinos.forEach(function(destino){ %>
 
           <div class="col-md-4 pb-4 d-flex">
                 <div class="card" >
                   <div class="card-header CabeceraCarta">
-                    <h5><%=destino.nombre%></h5>
+                    <h5><%=destino.nombre%></h5> <!--Pongo el nombre del destino en cuestion-->
                   </div>
-                    <img class="card-img-top " src=<%=destino.imagen%> alt="Imagen Madrid">
+                    <img class="card-img-top " src=<%=destino.imagen%> alt="Imagen no cargada">  <!--Pongo la imagen del destino en cuestion-->
                     <div class="card-body">
-                      <p class="card-text"><%=destino.descripcion%></p><div class="card-footer ">
+                      <p class="card-text"><%=destino.descripcion%></p><div class="card-footer ">  <!--Pongo la descripcion y precio del destino en cuestion-->
                           <h6 ><%=destino.precio%></h6>
                           <a href="./destino?id=<%=destino.id%>" class="btn botonsabermas">Saber Más</a>
                       </div>
