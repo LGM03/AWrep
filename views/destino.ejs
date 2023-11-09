@@ -71,6 +71,12 @@
 
           <section class="container justify-content-center ">
             <!-- Contenedor encargado de almacenar la seccion donde apareceran los destinos disponibles -->
+            <div class="container pt-3 pb-2 mb-4 rounded d-flex justify-content-between" id="titulo">
+              <h3 class="text-center"><%=destino.nombre%></h3>
+              <h3 class="text-right"><%=destino.precio%>€</h6>
+          </div>
+          
+          
             <div id="carousel1" class="carousel slide" data-bs-ride="carousel">
               <!-- Indicadores -->
               <!-- Indicadores -->
@@ -84,7 +90,6 @@
               <!-- Contenido del carrusel -->
               <div class="carousel-inner">
 
-            
                 <div class="carousel-item active">
                   <img class="d-block w-100" src=<%=destino.imagen%> alt="Imagen no cargada">
                   <div class="carousel-caption d-none d-md-block">

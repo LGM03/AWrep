@@ -1,17 +1,24 @@
-.carousel-inner {
-    box-shadow: 0px 0px 20px #5c4fb8;
+.carousel-inner {  
+    box-shadow: 0px 0px 20px #5c4fb8; /*Sombras en el carrusel*/
 }
 
 .fondoGrisTexto {
-    background-color: rgb(0, 0, 0, 0.55);
+    background-color: rgb(0, 0, 0, 0.55); /*Fondo para el texto del carrusel*/
 }
 
-.carousel-indicators li {
+.carousel-indicators li { /*quito los numeros del carrusel*/
     list-style: none;
 }
 
-#carousel1 {
+#carousel1 {  /*tamaño del carrusel*/
     max-width: 80%;
-    margin: 0 auto;
-    
+    margin: 0 auto;   
+}
+
+#titulo{
+    max-width: 80%;
+    margin: 0 auto;   
+    background-color:white;
+    color:#796ae5;
+    font: 1em EB-garamont;
 }
