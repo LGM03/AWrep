@@ -296,8 +296,8 @@
               return fechaComprobar.test(fecha);
             }
 
-            function validarnombre(nombre) {
-              const nombreComprobar = /^[a-zA-ZáéíóúÁÉÍÓÚüÜ\s]+$/
+            function validarnombre(nombre) {//admite nombres y apellidos compuestos y con tildes 
+              const nombreComprobar = /^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/
               return nombreComprobar.test(nombre);
             }
 
