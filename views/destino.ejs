@@ -267,8 +267,8 @@
               const fechaActual = new Date();
               const fechaComparar = new Date(fecha);
 
-              if (nombre.trim() === '' || apellido.trim() === '') {
-                alert('Por favor, ingrese un nombre.');
+              if (nombre.trim() === '' || apellido.trim() === '' || !validarnombre(nombre) || !validarnombre(apellido)) {
+                alert('Por favor, ingrese un nombre y apellido válidos.');
                 return false;
               }
               
@@ -279,7 +279,7 @@
                 alert('Por favor, ingrese una fecha válida.');
                 return false;
               } else if (fechaComparar < fechaActual) {
-                alert('La fecha indicada ya ha ocurrido.');
+                alert('Solo puede reservar en días posteriores al actual');
                 return false;
               }
 
@@ -294,6 +294,11 @@
             function validarfecha(fecha) {
               const fechaComprobar = /^\d{4}-\d{2}-\d{2}$/;
               return fechaComprobar.test(fecha);
+            }
+
+            function validarnombre(nombre) {
+              const nombreComprobar = /^[a-zA-ZáéíóúÁÉÍÓÚüÜ\s]+$/
+              return nombreComprobar.test(nombre);
             }
 
 
