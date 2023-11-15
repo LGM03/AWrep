@@ -76,3 +76,9 @@
 .card-img-top{ /*Elimina el radio de las imagenes de las tarjetas*/
     border-radius: 0;
 }
+
+.botonInicioSesion{
+background-color: white;
+font: 1.1em EB-garamont;
+color :#5c4fb8
+}
