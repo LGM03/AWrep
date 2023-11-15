@@ -195,7 +195,18 @@
                 </div>
               </div>
             </div>
+            <div class="row mt-4 mb-2 text-center p-3 col-sm-12 zonaComentarios">
 
+              <button id = "botonComentarios" class = "btn text-center" onclick="mostrarComentarios()">Ver Opiniones</button>
+
+              <div id="comentarios">
+                  <!-- Aquí puedes poner tu sección de comentarios -->
+                  <h2>Sección de Comentarios</h2>
+                  <p>¡Deja tu comentario aquí!</p>
+                  <!-- ... más código de comentarios ... -->
+              </div>
+
+            </div>
 
 
           </section>
@@ -303,6 +314,19 @@
 
 
           </script>
+
+          <!--Script boton plegable comentarios-->
+          <script>
+            function mostrarComentarios() {
+                var comentarios = document.getElementById("comentarios");
+    
+                // Cambiar el estilo de la propiedad "display" para mostrar/ocultar la sección de comentarios
+                if (comentarios.style.display === "none" || comentarios.style.display === "") {
+                    comentarios.style.display = "block";
+                } 
+                document.getElementById("botonComentarios").style.display="none";
+            }
+        </script>
 
 </body>
 

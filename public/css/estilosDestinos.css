@@ -22,3 +22,19 @@
     color:#796ae5;
     font: 1em EB-garamont;
 }
+
+#comentarios {
+    display: none;
+}
+
+#botonComentarios {
+    color: #796ae5;
+    background-color: white;
+    font: 1.2em EB Garamond; /* Cambiado de EB-garamont a EB Garamond */
+    font-weight: bold; /* Establecer el grosor de la fuente como negrita */
+}
+
+.zonaComentarios{
+    margin: 0 auto;
+    max-width: 50%;
+}
