@@ -16,59 +16,9 @@
 </head>
 
 <body class="fondo">
-  <header class="container fondocabecera justify-content-center">
-    <!-- Aqui comienza el contenedor que contiene el logo y el texto de la cabecera  -->
-    <div class="row ">
-      <!--  Esta formado por 1 fila que contiene 1 columna de tamaño 2 para el logo y una de tamaño 8 para el texto  -->
-      <div class="col-sm-2 ">
-        <a href="./"><img src="images/logo.png" alt="Icono Página no cargado" width="50" height="60"
-            class="d-flex align-content-center justify-content-center">
-        </a>
-      </div>
-      <div class="col-sm-8 ">
-        <h1 class="textoCabecera d-flex align-items-center justify-content-center ">BigDreams</h1>
-      </div>
-    </div>
-  </header>
-  <nav class="container justify-content-center"> <!-- Contenedor encargado de almacenar la barra de Herramientas -->
 
-    <div class="row barraDeHerramientas">
-      <!-- formado por 1 fila que contiene los 4 botones de opciones, el buscador y el boton de Buscar -->
-      <div class="col-md-2  text-center bordecolumnaCabecera"><a href=https://es.wikipedia.org/wiki/Europa
-          target="_blank" class="btn btn-lg botoncabecera">
-          <h5>Europa</h5>
-        </a></div>
-      <div class="col-md-2  text-center bordecolumnaCabecera"><a href=https://es.wikipedia.org/wiki/Asia target="_blank"
-          class="btn btn-lg botoncabecera">
-          <h5>Asia</h5>
-        </a></div>
-      <div class="col-md-2  text-center bordecolumnaCabecera"><a href=https://es.wikipedia.org/wiki/Am%C3%A9rica
-          target="_blank" class="btn btn-lg botoncabecera">
-          <h5>América</h5>
-        </a></div>
-      <div class="col-md-2  text-center bordecolumnaCabecera"><a href=https://es.wikipedia.org/wiki/%C3%81frica
-          target="_blank" class="btn btn-lg botoncabecera">
-          <h5>África</h5>
-        </a></div>
-      <input class=" col-md-2 bordecolumnaCabecera rounded" type="Search" placeholder="Buscar" aria-label="Buscar">
-      <button class="col-md-2 btn bordecolumnaCabecera botonbuscar" type="button">Buscar</button>
-    </div>
-  </nav>
-<!--Si he recibido un paremeto error muestro un div alerta con su mensaje-->
-  <% if (error !=null) { %>
-    <div class="container alert alert-danger text-center">
-      <%= error %>
-    </div>
-    <% } %>
-
-<!--Si he recibido un paremeto exito muestro un div alerta con su mensaje-->
-      <% if (exito !=null) { %>
-        <div class="container alert alert-success text-center">
-          <%= exito %>
-        </div>
-        <% } %>
-
-
+          <%- include('cabecera.ejs') %>
+          
           <section class="container justify-content-center ">
             <!-- Contenedor encargado de almacenar la seccion donde apareceran los destinos disponibles -->
             <div class="container pt-3 pb-2 mb-4 rounded d-flex justify-content-between" id="titulo">
@@ -223,50 +173,7 @@
 
           </section>
 
-          <footer>
-            <!--Contenedor encargado de almacenar el Footer donde aparecera la información general de la pagina  -->
-            <div class="container justify-content-center">
-              <div class="row fondocabecera letrasFooter">
-                <!-- Esta formado por una fila en la que se almacenan las 3 columnas con informacion general   -->
-                <div class="col d-flex">
-                  <ul class="list-unstyled">
-                    <li>
-                      <h6>Legal</h6>
-                    </li>
-                    <li><a href=# class="text-decoration-none letrasFooter">Privacidad</a></li>
-                    <li><a href=# class="text-decoration-none letrasFooter">Seguridad</a></li>
-                    <li><a href=# class="text-decoration-none letrasFooter">Cookies</a></li>
-                  </ul>
-                </div>
-                <div class="col d-flex">
-                  <ul class="list-unstyled">
-                    <li>
-                      <h6 class="font-weight-bold">Sobre Nosotros</h6>
-                    </li>
-                    <li><a href=# class="text-decoration-none letrasFooter">Guias de Viajes</a></li>
-                    <li><a href=# class="text-decoration-none letrasFooter">Preguntas</a></li>
-                    <li><a href=# class="text-decoration-none letrasFooter">Afiliados</a></li>
-                  </ul>
-
-                </div>
-                <div class="col d-flex">
-                  <ul class="list-unstyled">
-                    <li>
-                      <h6 class="font-weight-bold">Redes Sociales</h6>
-                    </li>
-                    <li><a href=https://www.instagram.com target="_blank"
-                        class="text-decoration-none letrasFooter">Instagram</a></li>
-                    <li><a href=https://www.facebook.com target="_blank"
-                        class="text-decoration-none letrasFooter">Facebook</a>
-                    </li>
-                    <li><a href=https://twitter.com target="_blank"
-                        class="text-decoration-none letrasFooter">Twitter</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </footer>
+          <%- include('footer.ejs') %>
 
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
