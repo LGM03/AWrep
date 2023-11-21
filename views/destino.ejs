@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="css/estilosDestinos.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
     rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <link rel="shortcut icon" href="images/logo.png">
   <title>BigDreams</title>
 </head>
@@ -107,18 +108,18 @@
                             <div class="mb-3 row">
                               <label for="nombre" class="col-md-2 col-form-label text-center">Nombre:</label>
                               <div class="col-md-4">
-                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                <input type="text" class="form-control" id="nombreReserva" name="nombre" required>
                               </div>
                               <label for="apellidos" class="col-md-2 col-form-label text-center">Apellidos:</label>
                               <div class="col-md-4">
-                                <input type="text" class="form-control" id="apellido" name="apellido" required>
+                                <input type="text" class="form-control" id="apellidoReserva" name="apellido" required>
                               </div>
                             </div>
 
                             <div class="mb-3 row">
                               <label for="clave" class="col-sm-3 col-form-label text-center">Correo Electrónico:</label>
                               <div class="col-sm-9">
-                                <input type="email" class="form-control" id="correo" name="correo"
+                                <input type="email" class="form-control" id="correoReserva" name="correo"
                                   placeholder="correo@ejemplo.com" required>
                               </div>
                             </div>
@@ -126,13 +127,13 @@
                             <div class="mb-3 row">
                               <label class="control-label col-sm-3 text-center" for="fecha">Fecha:</label>
                               <div class="col-sm-9">
-                                <input type="date" id="fecha" name="fecha" class="form-control" required>
+                                <input type="date" id="fechaReserva" name="fecha" class="form-control" required>
                               </div>
                             </div>
 
                             <div class="mb-3 row">
                               <div class="offset-sm-3 col-sm-9">
-                                <button type="submit" class="btn botonbuscar">Confirmar</button>
+                                <button type="submit" class="btn botonbuscar" id = "idReservar">Confirmar</button>
                                 <button type="button" class="btn botonbuscar" data-bs-dismiss="modal">Cancelar</button>
                               </div>
                             </div>
@@ -179,60 +180,7 @@
             integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
             crossorigin="anonymous"></script>
 
-          <script>
-            document.getElementById('reservaForm').addEventListener('submit', function (event) {
-              // Realiza la validación aquí
-  
-              if (!validarFormulario()) {
-                event.preventDefault(); // Evita el envío del formulario si la validación falla
-              }
-            });
-
-            function validarFormulario() {
-              // Realiza la validación de campos aquí
-              const nombre = document.getElementById('nombre').value;
-              const email = document.getElementById('correo').value;
-              const apellido = document.getElementById('apellido').value;
-              const fecha = document.getElementById('fecha').value;
-              const fechaActual = new Date();
-              const fechaComparar = new Date(fecha);
-
-              if (nombre.trim() === '' || apellido.trim() === '' || !validarnombre(nombre) || !validarnombre(apellido)) {
-                alert('Por favor, ingrese un nombre y apellido válidos.');
-                return false;
-              }
-              
-              if (!validarEmail(email)) {
-                alert('Por favor, ingrese una dirección de correo electrónico válida.');
-                return false;
-              } else if (!validarfecha(fecha)) {
-                alert('Por favor, ingrese una fecha válida.');
-                return false;
-              } else if (fechaComparar < fechaActual) {
-                alert('Solo puede reservar en días posteriores al actual');
-                return false;
-              }
-
-              return true; // Si la validación pasa, permite el envío del formulario
-            }
-
-            function validarEmail(email) {
-              const emailComprobar = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
-              return emailComprobar.test(email);
-            }
-
-            function validarfecha(fecha) {
-              const fechaComprobar = /^\d{4}-\d{2}-\d{2}$/;
-              return fechaComprobar.test(fecha);
-            }
-
-            function validarnombre(nombre) {//admite nombres y apellidos compuestos y con tildes 
-              const nombreComprobar = /^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/
-              return nombreComprobar.test(nombre);
-            }
-
-
-          </script>
+          <script src="js/validarFormulario.js"></script>
 
           <!--Eesto hay que cambiarlo se hace con bootstrap-->
           <script>

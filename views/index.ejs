@@ -7,7 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/estilosMainView.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="css/estilosMainView.css">
   <link rel="shortcut icon" href="images/logo.png">
   <title>BigDreams</title>
 </head>
@@ -55,52 +56,7 @@
     crossorigin="anonymous"></script>
 
 
-  <script>
-    document.getElementById('crearCuenta').addEventListener('submit', function (event) {
-      // Realiza la validación aquí
-      if (!validarFormulario()) {
-        event.preventDefault(); // Evita el envío del formulario si la validación falla
-      }
-    });
-
-    function validarFormulario() {
-      // Realiza la validación de campos aquí
-
-      const nombre = document.getElementById('nombre').value;
-      const email = document.getElementById('correo').value;
-      const apellido = document.getElementById('apellido').value;
-      const contraseña = document.getElementById('contraseña').value;
-      const contraseñaRep = document.getElementById('contraseñaRep').value;
-    
-      if (nombre.trim() === '' || apellido.trim() === '' || !validarnombre(nombre) || !validarnombre(apellido)) {
-        alert('Por favor, ingrese un nombre y apellido válidos.');
-        return false;
-      }
-
-      if (!validarEmail(email)) {
-        alert('Por favor, ingrese una dirección de correo electrónico válida.');
-        return false;
-      } else if (contraseña != contraseñaRep) {
-        alert('Las contraseñas no coinciden');
-        return false;
-      }
-
-      return true; // Si la validación pasa, permite el envío del formulario
-    }
-
-    function validarEmail(email) {
-      const emailComprobar = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
-      return emailComprobar.test(email);
-    }
-
-    function validarnombre(nombre) {//admite nombres y apellidos compuestos y con tildes 
-      console.log("NOMBRE==" + nombre)
-      const nombreComprobar = /^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/
-      return nombreComprobar.test(nombre);
-    }
-
-
-  </script>
+  <script src="js/validarFormulario.js"></script>
 
 </body>
 
