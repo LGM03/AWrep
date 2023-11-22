@@ -59,6 +59,8 @@ router.post("/logout", (req, res) => {
 
 router.post('/crearCuenta', (req, res) => {
 
+  console.log("????HOLA?")
+
   datosUsuario = { //Recojo la información que viene del forms
     nombre: req.body.nombre,
     apellido: req.body.apellido,
@@ -78,10 +80,10 @@ router.post('/crearCuenta', (req, res) => {
 
       midao.altaUsuario(datosUsuario, (err, datos) => { //Guardamos en la base de datos la información de la reserva
         if (err) {
-          res.redirect(`/?error=${"Ya existe una cuenta con esos datos"}`); //Si ha ocurrido un error, recargo la ventana con mensaje de fallo
+          res.send(null) //Si ha ocurrido un error, recargo la ventana con mensaje de fallo
         }
         else {
-          res.redirect(`/?exito=${'Cuenta creada con éxito'}`); //Si todo ha ido bien redirijo a /destino con el mensaje de exito
+          res.send(datos) //Si todo ha ido bien redirijo a /destino con el mensaje de exito
         }
       });
 
