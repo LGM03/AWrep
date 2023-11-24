@@ -11,189 +11,191 @@
   <link rel="stylesheet" href="css/estilosDestinos.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
     rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <link rel="shortcut icon" href="images/logo.png">
   <title>BigDreams</title>
 </head>
 
 <body class="fondo">
 
-          <%- include('cabecera.ejs') %>
-          
-          <section class="container justify-content-center ">
-            <!-- Contenedor encargado de almacenar la seccion donde apareceran los destinos disponibles -->
-            <div class="container pt-3 pb-2 mb-4 rounded d-flex justify-content-between" id="titulo">
-              <h3 class="text-center"><%=destino.nombre%></h3>
-              <h3 class="text-right"><%=destino.precio%>€</h6>
+  <%- include('cabecera.ejs') %>
+
+    <section class="container justify-content-center ">
+      <!-- Contenedor encargado de almacenar la seccion donde apareceran los destinos disponibles -->
+      <div class="container pt-3 pb-2 mb-4 rounded d-flex justify-content-between" id="titulo">
+        <h3 class="text-center" id = "nombreCiudad">
+          <%=destino.nombre%>
+        </h3>
+        <h3 class="text-right">
+          <%=destino.precio%>€</h6>
+      </div>
+
+
+      <div id="carousel1" class="carousel slide" data-bs-ride="carousel">
+        <!-- Indicadores -->
+        <!-- Indicadores -->
+        <ol class="carousel-indicators">
+          <li data-bs-target="#carousel1" data-bs-slide-to="0" class="active"></li>
+          <li data-bs-target="#carousel1" data-bs-slide-to="1"></li>
+          <li data-bs-target="#carousel1" data-bs-slide-to="2"></li>
+          <li data-bs-target="#carousel1" data-bs-slide-to="3"></li>
+        </ol>
+
+        <!-- Contenido del carrusel -->
+        <div class="carousel-inner">
+
+          <div class="carousel-item active">
+            <img class="d-block w-100" src=<%=destino.imagen%> alt="Imagen no cargada">
+            <div class="carousel-caption d-none d-md-block">
+              <h3 class="fondoGrisTexto">
+                <%=destino.nombre%> <!--El nombre del destino traido por la BD-->
+              </h3>
+              <p class="fondoGrisTexto">
+                <%=destino.descripcion%> <!--La descripcion del destino traido por la BD-->
+              </p>
+            </div>
           </div>
-          
-          
-            <div id="carousel1" class="carousel slide" data-bs-ride="carousel">
-              <!-- Indicadores -->
-              <!-- Indicadores -->
-              <ol class="carousel-indicators">
-                <li data-bs-target="#carousel1" data-bs-slide-to="0" class="active"></li>
-                <li data-bs-target="#carousel1" data-bs-slide-to="1"></li>
-                <li data-bs-target="#carousel1" data-bs-slide-to="2"></li>
-                <li data-bs-target="#carousel1" data-bs-slide-to="3"></li>
-              </ol>
 
-              <!-- Contenido del carrusel -->
-              <div class="carousel-inner">
-
-                <div class="carousel-item active">
-                  <img class="d-block w-100" src=<%=destino.imagen%> alt="Imagen no cargada">
-                  <div class="carousel-caption d-none d-md-block">
-                    <h3 class="fondoGrisTexto">
-                      <%=destino.nombre%> <!--El nombre del destino traido por la BD-->
-                    </h3>
-                    <p class="fondoGrisTexto">
-                      <%=destino.descripcion%> <!--La descripcion del destino traido por la BD-->
-                    </p>
-                  </div>
-                </div>
-
-                <%imagenes.forEach(function(imagen){ %>  <!--Por cada imagen traida por la bd-->
-                  <div class="carousel-item">
-                    <img class="d-block w-100" src=<%=imagen.imagen%> alt="Imagen no cargada">
-                    <div class="carousel-caption d-none d-md-block">
-                      <h3 class="fondoGrisTexto">
-                        <%=imagen.nombre%>  <!--Pone el nombre traido por la bd-->
-                      </h3>
-                      <p class="fondoGrisTexto">
-                        <%=imagen.descripcion%> <!--Pone la descripcion traida por la bd-->
-                      </p>
-                    </div>
-                  </div>
-
-                  <% }); %>
-
+          <%imagenes.forEach(function(imagen){ %> <!--Por cada imagen traida por la bd-->
+            <div class="carousel-item">
+              <img class="d-block w-100" src=<%=imagen.imagen%> alt="Imagen no cargada">
+              <div class="carousel-caption d-none d-md-block">
+                <h3 class="fondoGrisTexto">
+                  <%=imagen.nombre%> <!--Pone el nombre traido por la bd-->
+                </h3>
+                <p class="fondoGrisTexto">
+                  <%=imagen.descripcion%> <!--Pone la descripcion traida por la bd-->
+                </p>
               </div>
-
-              <!-- Controles del carrusel -->
-              <a class="carousel-control-prev" href="#carousel1" role="button" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carousel1" role="button" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
             </div>
 
-            <!--   -->
-            <div class="row mt-4"> <!-- Boton modal hacer reserva -->
+            <% }); %>
 
-              <div class="col-sm-12 ">
-                <button type="button" class="btn botonbuscar mb-2 text-center w-100 p-3" data-bs-toggle="modal"
-                  data-bs-target="#Reserva">Realizar Reserva</button>
-                <div class="modal fade" id="Reserva" data-bs-backdrop="static">
-                  <!-- data-bs impide que se cierre al pulsar fuera del modal -->
-                  <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content">
+        </div>
 
-                      <!-- cabecera del diálogo -->
-                      <div class="modal-header">
-                        <h4 class="modal-title text-center w-100">Formulario de Reserva</h4>
-                        <button type="button" class="btn-close botonbuscar" data-bs-dismiss="modal"></button>
-                      </div>
+        <!-- Controles del carrusel -->
+        <a class="carousel-control-prev" href="#carousel1" role="button" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carousel1" role="button" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
 
-                      <!-- cuerpo del diálogo -->
-                      <div class="modal-body alert fondo">
-                        <div class="container-fluid">
+      <!--   -->
+      <div class="row mt-4"> <!-- Boton modal hacer reserva -->
 
-                          <!--Form lleva a /reservar y le pasa el id en la url-->
-                          <form id="reservaForm" method="post" action="/reservar?id=<%=destino.id%>">
+        <div class="col-sm-12 ">
+          <button type="button" class="btn botonbuscar mb-2 text-center w-100 p-3" data-bs-toggle="modal"
+            data-bs-target="#Reserva">Realizar Reserva</button>
+          <div class="modal fade" id="Reserva" data-bs-backdrop="static">
+            <!-- data-bs impide que se cierre al pulsar fuera del modal -->
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+              <div class="modal-content">
 
-                            <div class="mb-3 row">
-                              <label for="nombre" class="col-md-2 col-form-label text-center">Nombre:</label>
-                              <div class="col-md-4">
-                                <input type="text" class="form-control" id="nombreReserva" name="nombre" required>
-                              </div>
-                              <label for="apellidos" class="col-md-2 col-form-label text-center">Apellidos:</label>
-                              <div class="col-md-4">
-                                <input type="text" class="form-control" id="apellidoReserva" name="apellido" required>
-                              </div>
-                            </div>
+                <!-- cabecera del diálogo -->
+                <div class="modal-header">
+                  <h4 class="modal-title text-center w-100">Formulario de Reserva</h4>
+                  <button type="button" class="btn-close botonbuscar" data-bs-dismiss="modal"></button>
+                </div>
 
-                            <div class="mb-3 row">
-                              <label for="clave" class="col-sm-3 col-form-label text-center">Correo Electrónico:</label>
-                              <div class="col-sm-9">
-                                <input type="email" class="form-control" id="correoReserva" name="correo"
-                                  placeholder="correo@ejemplo.com" required>
-                              </div>
-                            </div>
+                <!-- cuerpo del diálogo -->
+                <div class="modal-body alert fondo">
+                  <div class="container-fluid">
 
-                            <div class="mb-3 row">
-                              <label class="control-label col-sm-3 text-center" for="fecha">Fecha:</label>
-                              <div class="col-sm-9">
-                                <input type="date" id="fechaReserva" name="fecha" class="form-control" required>
-                              </div>
-                            </div>
+                    <!--Form lleva a /reservar y le pasa el id en la url-->
+                    <form id="reservaForm" method="post" action="/reservar?id=<%=destino.id%>">
 
-                            <div class="mb-3 row">
-                              <div class="offset-sm-3 col-sm-9">
-                                <button type="submit" class="btn botonbuscar" id = "idReservar">Confirmar</button>
-                                <button type="button" class="btn botonbuscar" data-bs-dismiss="modal">Cancelar</button>
-                              </div>
-                            </div>
-
-                          </form>
+                      <div class="mb-3 row">
+                        <label for="nombre" class="col-md-2 col-form-label text-center">Nombre:</label>
+                        <div class="col-md-4">
+                          <input type="text" class="form-control" id="nombreReserva" name="nombre" required>
+                        </div>
+                        <label for="apellidos" class="col-md-2 col-form-label text-center">Apellidos:</label>
+                        <div class="col-md-4">
+                          <input type="text" class="form-control" id="apellidoReserva" name="apellido" required>
                         </div>
                       </div>
-                    </div>
+
+                      <div class="mb-3 row">
+                        <label for="clave" class="col-sm-3 col-form-label text-center">Correo Electrónico:</label>
+                        <div class="col-sm-9">
+                          <input type="email" class="form-control" id="correoReserva" name="correo"
+                            placeholder="correo@ejemplo.com" required>
+                        </div>
+                      </div>
+
+                      <div class="mb-3 row">
+                        <label class="control-label col-sm-3 text-center" for="fecha">Fecha:</label>
+                        <div class="col-sm-9">
+                          <input type="date" id="fechaReserva" name="fecha" class="form-control" required>
+                        </div>
+                      </div>
+
+                      <div class="mb-3 row">
+                        <div class="offset-sm-3 col-sm-9">
+                          <button type="submit" class="btn botonbuscar" id="idReservar">Confirmar</button>
+                          <button type="button" class="btn botonbuscar" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                      </div>
+
+                    </form>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="row mt-4 mb-2 text-center p-3 col-sm-12 zonaComentarios">
+          </div>
+        </div>
+      </div>
 
-              <button id = "botonComentarios" class = "btn text-center" onclick="mostrarComentarios()">Ver Comentarios</button>
 
-              <div id="comentarios" class="rounded">
-                 
-                  
-                  <!--Cada caja de comentario-->
-                  <h4 class ="cabeceraComentarios mt-1 ">Comentarios</h4>
-                    <div class="row cajaComentario rounded m-2 align-items-center ">
-                      <div class="col-2 ">
-                        <img src="/images/usuario.png" alt="Foto del usuario" width="60">
-                      </div>
+      <!--Seccion de comentarios-->
 
-                      <div class="col-10 text-start">
-                        <h5>Nombre</h5>
-                        <p> <em>fecha </em></p>
-                        <p>Comentarios varios asfasfasfasfasfasf</p>
-                      </div>
-                    </div>
-            
-              </div>
+      <div class="row mt-4 mb-2 text-center p-3 zonaComentarios">
 
+        <button id="botonComentarios" class="btn text-center">Ver Comentarios</button>
+
+        <div id="comentarios" class="rounded w-100">
+
+          <!--Cada caja de comentario-->
+          <h4 class="cabeceraComentarios mt-1 ">Comentarios</h4>
+
+          <!--Forms para un nuevo comentarios, los comentarios se ponen dinamicamente con ajax y jquery-->
+          <form id="comentarioForm">
+
+            <div class="mb-3 row">
+              <label for="nombre" id = "usuarioComentarios" class="col-md-3 col-form-label text-center"></label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="comentarioNuevo" name="comentarioNuevo" required>
             </div>
 
+            <div class="mb-3 row">
+              <div class="mt-2">
+                <button type="submit" class="btn botonbuscar" id="idComentar">Enviar</button>
+              </div>
+            </div>
 
-          </section>
+          </form>
 
-          <%- include('footer.ejs') %>
+        </div>
 
-          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
-            crossorigin="anonymous"></script>
+        <div id="cajasComentarios" class="rounded w-100"></div>
 
-          <script src="js/validarFormulario.js"></script>
+      </div>
 
-          <!--Eesto hay que cambiarlo se hace con bootstrap-->
-          <script>
-            function mostrarComentarios() {
-                var comentarios = document.getElementById("comentarios");
-    
-                // Cambiar el estilo de la propiedad "display" para mostrar/ocultar la sección de comentarios
-                if (comentarios.style.display === "none" || comentarios.style.display === "") {
-                    comentarios.style.display = "block";
-                } 
-                document.getElementById("botonComentarios").style.display="none";
-            }
-        </script>
+
+    </section>
+
+    <%- include('footer.ejs') %>
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+        crossorigin="anonymous"></script>
+
+      <script src="js/validarFormulario.js"></script>
+      <script src="js/comentarios.js"></script>
 
 </body>
 

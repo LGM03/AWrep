@@ -13,14 +13,11 @@
       <div class="col-sm-2 ">
 
         <%if(usuario){ %>
-          <div class="row d-flex align-items-center">
-            <div class="col-6 textoCabecera text-center">
-              <h6 class="mt-3">¡Bienvenido, <%=usuario.nombre%>!</h2>
-            </div>
+          
             <form method="post" action="/user/logout" class="col-6">
               <button type="submit" class="btn botonInicioSesion mt-3 mb-3">Cerrar Sesión</button>
             </form>
-          </div>
+          
           <%}else{ %>
 
             <button type="button" class="btn botonInicioSesion mt-3" data-bs-toggle="modal"

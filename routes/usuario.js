@@ -30,7 +30,8 @@ router.post("/login", async (req, res) => {
         if(coincide){
           req.session.usuario = {
             nombre: datos.nombre,
-            correo: correo
+            correo: correo,
+            apellido : datos.apellido
           };
           res.redirect('/');
         }else{
