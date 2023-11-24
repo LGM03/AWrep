@@ -67,24 +67,31 @@ $(document).ready(function(){
 
 
 function agregarCajaComentario(element) {
-    const caja = $('<div class="row cajaComentario rounded m-2"></div>');
+  const caja = $('<div class="row cajaComentario rounded m-2"></div>');
 
-    // Sección de imagen de usuario
-    const cajaImagen = $('<div class="col-2"></div>')
-    const imagen = $('<img src="/images/usuario.png" alt="Foto del usuario" class="img-fluid">');
-    cajaImagen.append(imagen);
+  // Sección de imagen de usuario
+  const cajaImagen = $('<div class="col-2"></div>')
+  const imagen = $('<img src="/images/usuario.png" alt="Foto del usuario" class="img-fluid">');
+  cajaImagen.append(imagen);
 
-    // Sección de info del comentario
-    const cajaComentario = $('<div class="col-10 d-flex flex-column"></div>')
-    const nombreCom = $('<h5 class="mb-0"></h5>').text(element.nombre_usuario);
-    const fechaCom = $('<p class="mb-1"><em></em></p>').text(element.fecha_comentario.slice(0, 10));
-    const textoCom = $('<p class="mb-0"></p>').text(element.comentario);
+  // Sección de info del comentario
+  const cajaComentario = $('<div class="col-10 d-flex flex-column"></div>')
+  
+  // Contenedor para el nombre y la fecha
+  const infoContainer = $('<div class="d-flex justify-content-between align-items-center mb-1"></div>');
+  
+  const nombreCom = $('<h5 class="mb-0"></h5>').text(element.nombre_usuario);
+  const fechaCom = $('<p class="mb-0"><em></em></p>').text(element.fecha_comentario.slice(0, 10));
 
-    cajaComentario.append(nombreCom);
-    cajaComentario.append(fechaCom);
-    cajaComentario.append(textoCom);
+  infoContainer.append(nombreCom);
+  infoContainer.append(fechaCom);
 
-    caja.append(cajaImagen);
-    caja.append(cajaComentario);
-    $("#cajasComentarios").prepend(caja);
+  const textoCom = $('<p class="mb-0"></p>').text(element.comentario).css('text-align', 'left');;
+
+  cajaComentario.append(infoContainer);
+  cajaComentario.append(textoCom);
+
+  caja.append(cajaImagen);
+  caja.append(cajaComentario);
+  $("#cajasComentarios").prepend(caja);
 }
