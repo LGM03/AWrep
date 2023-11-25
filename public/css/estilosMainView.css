@@ -1,6 +1,6 @@
 .barraDeHerramientas{  /*clase de la barra de herramientas, pone el fondo a morado oscuro, añade margenes y ordena los elementos con espacios equivalentes*/
     list-style-type: none;
-    background-color: #796ae5; 
+    background-color: #670f22; 
     padding: 10px;
     justify-content: space-evenly !important;
     display: flex;
@@ -18,7 +18,7 @@
 
 
 .bordecolumnaCabecera a:hover{ /*Hace que al pasar por encoima de los botnes de la barra de herraminetas estos cabien de color*/
-    background-color:  #5c4fb8;
+    background-color:  #9a0526;
     color: white;
 }
 
@@ -29,34 +29,34 @@
 }
 
 .fondocabecera{ /*Hace que el fondo de la cabecera cambie de color*/
-    background-color: #5c4fb8;
+    background-color: #9a0526;
 }
 
 .botonbuscar{/*Da color a los botones de buscar y les cambia la letra*/
-    background-color: #5c4fb8;
+    background-color: #9a0526;
     color: white;
     font: 1em EB-garamont;
 }
 
 .fondo{ /*El fondo de toda la pagina es lila*/
-    background-color: #a7a1d7;
+    background-color: #ae5c6e;
 }
 
 .botonsabermas{  /*El boton de saber mas de las tarjetas tiene fondo morado oscuro, color blanco y fuente EB-garamont*/
-    background-color: #796ae5;
+    background-color: #9a0526;
     color :white;
     font: 1em EB-garamont;
 }
 
 .botoncabecera{ /*Los botones de la cabecera tiene fondo morado, de color blanco, fuente 40 EB-garamont*/
-    background-color: #796ae5;
+    background-color: #670f22;
     color: white;
     font-size: 40px;
     font: 1em EB-garamont;
 }
 
 .CabeceraCarta{ /*La fuente de la cabecera es EB-garamont y su color es morado oscuro*/
-    color:#796ae5;
+    color:#9a0526;
     font: 1em EB-garamont;
 }
 
@@ -70,7 +70,7 @@
 }
 
 .card:hover{ /*Cuando se pasa el raton por encima de una tarjeta aparece una sombra*/
-    box-shadow: 0px 0px 20px #5c4fb8;
+    box-shadow: 0px 0px 20px #9a0526;
 }
 
 .card-img-top{ /*Elimina el radio de las imagenes de las tarjetas*/
@@ -80,5 +80,5 @@
 .botonInicioSesion{
 background-color: white;
 font: 1.1em EB-garamont;
-color :#5c4fb8
+color :#9a0526
 }
