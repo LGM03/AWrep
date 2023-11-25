@@ -51,8 +51,8 @@
 .botoncabecera{ /*Los botones de la cabecera tiene fondo morado, de color blanco, fuente 40 EB-garamont*/
     background-color: #670f22;
     color: white;
-    font-size: 40px;
-    font: 1em EB-garamont;
+    font-size: 15px;
+    font: 0.5em EB-garamont;
 }
 
 .CabeceraCarta{ /*La fuente de la cabecera es EB-garamont y su color es morado oscuro*/

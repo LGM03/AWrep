@@ -158,35 +158,12 @@
       <!--#########################################################3-->
     </div>
   </header>
-  <%if(usuario){ %>
-          
-    <nav class="container justify-content-center "> <!-- Contenedor encargado de almacenar la barra de Herramientas -->
-
-      <div class="row barraDeHerramientas">
-        <!-- formado por 1 fila que contiene los 4 botones de opciones, el buscador y el boton de Buscar -->
-        <div class="col-md-2  text-center bordecolumnaCabecera"><a href=https://es.wikipedia.org/wiki/Europa
-            target="_blank" class="btn btn-lg botoncabecera">
-            <h5>Europa</h5>
-          </a></div>
-        <div class="col-md-2  text-center bordecolumnaCabecera"><a href=https://es.wikipedia.org/wiki/Asia target="_blank"
-            class="btn btn-lg botoncabecera">
-            <h5>Asia</h5>
-          </a></div>
-        <div class="col-md-2  text-center bordecolumnaCabecera"><a href=https://es.wikipedia.org/wiki/Am%C3%A9rica
-            target="_blank" class="btn btn-lg botoncabecera">
-            <h5>América</h5>
-          </a></div>
-        <div class="col-md-2  text-center bordecolumnaCabecera"><a href=https://es.wikipedia.org/wiki/%C3%81frica
-            target="_blank" class="btn btn-lg botoncabecera">
-            <h5>África</h5>
-          </a></div>
-        <input class=" col-md-2 bordecolumnaCabecera rounded" type="Search" placeholder="Buscar" aria-label="Buscar">
-        <button class="col-md-2 btn bordecolumnaCabecera botonbuscar" type="button">Buscar</button>
-      </div>
-    </nav>
+  <%if(usuario){ %> <!--NAV BAR ADMIN-->
+          <%-include('navAdmin.ejs')%>
   
-  <%}else{ %>
-
+  
+  <%}else{ %> <!--NAV BAR USER -->
+    <%-include('navUsuario.ejs')%>
     <% } %>
 
   <section class="container justify-content-center mt-3">
