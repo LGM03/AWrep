@@ -4,7 +4,7 @@ $(document).ready(function(){
         $("#botonItinerario").hide()
         $("#itinerario").fadeIn(2000)
 
-        var urlParams = new URLSearchParams(window.location.search);
+        var urlParams = new URLSearchParams(window.location.search);  //Saco el id de los destino en el que estoy de a url
         var dest = urlParams.get('id');
         $.ajax({
             method: "GET",

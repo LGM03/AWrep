@@ -21,7 +21,7 @@ router.get('/', function (req, res, next) {
             res.send("0") //si ocurre un error cargo la ventana de error 
         }
         else {
-            var user = "anonimo"
+            var user = "Anónimo"
             if (req.session.usuario != null) {
                 user = req.session.usuario.nombre + " " + req.session.usuario.apellido
             }
