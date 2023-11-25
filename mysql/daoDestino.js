@@ -59,6 +59,23 @@ class DAODestino{   //DAO que accede a los destinos y su respectiva información
         });
     }
     
+    leerItinerario(destino,callback){
+        this.pool.getConnection(function(err,connection){
+            if(err){
+                callback(err,null)
+            }else{
+                const sql = "SELECT itinerario from destinos where id = ?";
+                connection.query(sql, [destino] , function (err, resultado) {
+                    connection.release(); //Libero la conexion
+                    if (err) {
+                        callback(err, null); //Si ha ocurrido un error lo retorno
+                    } else {
+                        callback(null, resultado[0].itinerario); //Si todo ha ido bien devuelvo toda la información
+                    }
+                });
+            }
+        })
+    }
 }
 
 

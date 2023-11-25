@@ -14,7 +14,6 @@ router.get('/', function (req, res, next) {
 
     const DAOAp = require("../mysql/daoComentarios")
     const midao = new DAOAp(pool)
-    console.log("ABC" + req.query.ciudad)
 
     midao.leerTodos(req.query.ciudad, (err, datos) => {  //Leo en la BD los destinos con el id de la url
         if (err) {
@@ -36,13 +35,10 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
     const DAOAp = require('../mysql/daoComentarios')
     const midao = new DAOAp(pool)
-
-    console.log("ASDFASF222"+ req.body.destino + " "+ req.body.comentario)
-    var user = "anonimo"
+    var user = "Anónimo"
     if (req.session.usuario != null) {
         user = req.session.usuario.nombre + " " + req.session.usuario.apellido
     }
-
 
     datos={
         nombre : user, 

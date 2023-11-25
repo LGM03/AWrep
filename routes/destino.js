@@ -28,7 +28,7 @@ router.get('/', function (req, res, next) {
         if (err) {
           res.render('error',{error:"Ha ocurrido un error"});//si ocurre un error cargo la ventana de error 
         }
-        else {
+        else { 
           res.render('destino', { destino: datos, imagenes: imagenes, error: error, exito: exito });//Cargo la ventana destino con los mensajes y las imagenes
         }
       });
@@ -37,4 +37,19 @@ router.get('/', function (req, res, next) {
 
 });
 
+
+router.get('/itinerario',function(req,res,next){
+
+  const DAOAp = require("../mysql/daoDestino")
+  const midao = new DAOAp(pool)
+
+    midao.leerItinerario(req.query.ciudad, (err, datos) => {  //Leo en la BD los destinos con el id de la url
+    if (err) {
+      res.send('0'); //si ocurre un error cargo la ventana de error 
+    }
+    else {
+      res.send(datos)
+    }
+  });
+})
 module.exports = router;

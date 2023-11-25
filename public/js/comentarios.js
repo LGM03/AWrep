@@ -12,7 +12,6 @@ $(document).ready(function(){
             success: function (datos, state, jqXHR) { //Si todo ha ido bien pongo un mensaje de acierto
               if(datos !== "0"){
                 $("#usuarioComentarios").text(datos.usuario)
-                $("#usuarioComentarios").data("destino",datos.comentarios[0].destino_id )
 
                 datos.comentarios.forEach(element => {
                     agregarCajaComentario(element)
@@ -27,16 +26,11 @@ $(document).ready(function(){
           });
     })
 
-    $("#idComentar").on("click", function(event){
+    $("#idComentar").on("click", function(event){   
+      const coment = $("#comentarioNuevo").prop("value")
 
-      console.log("AADASDAD" +$("#comentarioNuevo").prop("value"))
-
-      console.log($("#usuarioComentarios").data("destino"))
-
-   
-        const coment = $("#comentarioNuevo").prop("value")
-        const dest = $("#usuarioComentarios").data("destino")
-      
+      var urlParams = new URLSearchParams(window.location.search);
+      var dest = urlParams.get('id');
 
       event.preventDefault();
       $.ajax({
@@ -50,6 +44,7 @@ $(document).ready(function(){
               fecha_comentario : new Date().toISOString(),
               comentario : coment
             }
+            $('#comentarioNuevo').prop('value','');
             agregarCajaComentario(element)
           }else{
             console.log()
