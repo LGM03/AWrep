@@ -6,11 +6,11 @@ class DAOUsuario{   //DAO que accede a los destinos y su respectiva información
     }
  
     leerPorID(correo, callback) { //Leo un usuario en funcion de su correo
-        this.pool.getConnection(function (err, connection) {
+        this.pool.getConnection(function (err, connection) {  //Solo pueden iniciar sesion usuarios validados
             if (err) {
                 callback(err, null); //Si ocurre un error lo retorno 
             } else {
-                const sql = "SELECT * from ucm_aw_riu_usu_usuarios where correo = ?";
+                const sql = "SELECT * from ucm_aw_riu_usu_usuarios where correo = ? and rol <> -1 ";
                 connection.query(sql, [correo] , function (err, resultado) {
                     connection.release(); //Libero la conexion
                     if (err) {

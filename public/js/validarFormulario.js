@@ -56,7 +56,7 @@ $(document).ready(function(){
     }
 
     function validarEmail(email) {//El mail deben ser letras o numeros, seguido de @ seguido de letras y numeros un punto y mas de dos letras
-      const emailComprobar = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
+      const emailComprobar = /^[A-Za-z0-9._%+-]+@ucm\.es$/
       return emailComprobar.test(email);
     }
 
