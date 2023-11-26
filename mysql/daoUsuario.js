@@ -10,7 +10,7 @@ class DAOUsuario{   //DAO que accede a los destinos y su respectiva información
             if (err) {
                 callback(err, null); //Si ocurre un error lo retorno 
             } else {
-                const sql = "SELECT * from usuarios where correo = ?";
+                const sql = "SELECT * from ucm_aw_riu_usu_usuarios where correo = ?";
                 connection.query(sql, [correo] , function (err, resultado) {
                     connection.release(); //Libero la conexion
                     if (err) {
@@ -28,7 +28,7 @@ class DAOUsuario{   //DAO que accede a los destinos y su respectiva información
             if (err) {
                 callback(err, null);  //Si ocurre algun error retornamos el error
             } else {
-                const sql = "INSERT INTO `usuarios` VALUES (?,?,?,?,?);";
+                const sql = "INSERT INTO `ucm_aw_riu_usu_usuarios` VALUES (?,?,?,?,?);";
                 connection.query(sql,[datosUsuario.nombre,datosUsuario.apellido, datosUsuario.correo,datosUsuario.contraseña, datosUsuario.salt], function (err, resultado) {
                     connection.release();
                     if (err) {

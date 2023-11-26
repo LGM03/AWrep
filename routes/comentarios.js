@@ -4,9 +4,10 @@ var router = express.Router();
 const mysql = require("mysql")
 const pool = mysql.createPool({
     host: "localhost",
-    user: "admin_aw",
+    user: "root",
     password: "",
-    database: "viajes"
+    database: "UCM_RIU",
+    port : 3306
 })
 
 

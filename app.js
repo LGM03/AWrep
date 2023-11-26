@@ -24,10 +24,11 @@ const middlewareSession = session({
 });
 
 var indexRouter = require('./routes/index');
-var destinoRouter = require('./routes/destino')
+//var destinoRouter = require('./routes/destino')
 var reservarRouter = require('./routes/reservar');
-var usuarioRouter = require('./routes/usuario')
-var comentariosRouter = require ('./routes/comentarios')
+var usuarioRouter = require('./routes/usuario');
+//var comentariosRouter = require ('./routes/comentarios');
+var gestionUsuariosRouter = require('./routes/gestionUsuarios.js')
 
 var app = express();
 
@@ -49,21 +50,16 @@ app.use(function(req, res, next) {
 });
 
 app.use('/', indexRouter);
-app.use('/destino',destinoRouter);
+//app.use('/destino',destinoRouter);
 app.use('/reservar',reservarRouter);
 app.use('/user',usuarioRouter);
-app.use('/comentarios',comentariosRouter);
+//app.use('/comentarios',comentariosRouter);
+app.use('/gestionUsuarios',gestionUsuariosRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
-//TODO ESTOY HAY QUE BORRARLO; es solo para pruebas
-app.use('/gestionUsuarios',function(req,res,next){
-  console.log("hola? esto es gestion de usuarios")
-  res.render('gestionUsuarios')
-})
 
 // error handler
 app.use(function(err, req, res, next) {

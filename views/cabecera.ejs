@@ -3,25 +3,15 @@
     <div class="row ">
       <!--  Esta formado por 1 fila que contiene 1 columna de tamaño 2 para el logo y una de tamaño 8 para el texto  -->
       <div class="col-sm-2 ">
-        <a href="./"><img src="images/logo.png" alt="Icono Página no cargado" width="50" height="60"
+        <a href="/"><img src="/images/logo.png" alt="Icono Página no cargado" width="50"
             class="d-flex align-content-center justify-content-center">
         </a>
       </div>
-      <div class="col-sm-1 ">
-        <button type="button" class="btn botonInicioSesion mt-3" data-bs-toggle="modal"
-        data-bs-target="#InicioSesion">Cambiar logo </button>
-      </div>
-      <div class="col-sm-1 ">
-        <button type="button" class="btn botonInicioSesion mt-3" data-bs-toggle="modal"
-        data-bs-target="#InicioSesion">Cambiar Gama </button>
-      </div>
-      <div class="col-sm-4 ">
+      
+      <div class="col-sm-8 ">
         <h1 class="textoCabecera d-flex align-items-center justify-content-center ">PistasUCM</h1>
       </div>
-      <div class="col-sm-2 ">
-        <button type="button" class="btn botonInicioSesion mt-3" data-bs-toggle="modal"
-        data-bs-target="#InicioSesion">Cambiar Titulo </button>
-      </div>
+      
       <div class="col-sm-2 ">
 
         <%if(usuario){ %>
@@ -166,16 +156,4 @@
     <%-include('navUsuario.ejs')%>
     <% } %>
 
-  <section class="container justify-content-center mt-3">
-    <!-- Contenedor encargado de almacenar la seccion donde apareceran los destinos disponibles -->
-    <% if (error !=null) { %>
-      <div class="container alert alert-danger text-center">
-
-        <%= error %>
-      </div>
-      <% } %>
-        <% if (exito !=null) { %>
-          <div class="container alert alert-success text-center">
-            <%= exito %>
-          </div>
-          <% } %>
+  

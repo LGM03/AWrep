@@ -5,9 +5,10 @@ var router = express.Router();
 const mysql = require("mysql")
 const pool = mysql.createPool({
   host: "localhost",
-  user: "admin_aw",
+  user: "root",
   password: "",
-  database: "viajes"
+  database: "UCM_RIU",
+  port : 3306
 })
 
 //Cuando se mande un formulario de reserva 
@@ -31,7 +32,8 @@ router.post("/login", async (req, res) => {
           req.session.usuario = {
             nombre: datos.nombre,
             correo: correo,
-            apellido : datos.apellido
+            apellido1 : datos.apellido1,
+            rol : datos.rol
           };
           res.redirect('/');
         }else{

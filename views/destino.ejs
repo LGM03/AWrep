@@ -20,7 +20,19 @@
 
   <%- include('cabecera.ejs') %>
 
-    <section class="container justify-content-center ">
+  <section class="container justify-content-center mt-3">
+    <!-- Contenedor encargado de almacenar la seccion donde apareceran los destinos disponibles -->
+    <% if (error !=null) { %>
+      <div class="container alert alert-danger text-center">
+
+        <%= error %>
+      </div>
+      <% } %>
+        <% if (exito !=null) { %>
+          <div class="container alert alert-success text-center">
+            <%= exito %>
+          </div>
+          <% } %>
       <!-- Contenedor encargado de almacenar la seccion donde apareceran los destinos disponibles -->
       <div class="container pt-3 pb-2 mb-4 rounded d-flex justify-content-between" id="titulo">
         <h3 class="text-center" id = "nombreCiudad">
