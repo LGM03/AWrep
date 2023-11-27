@@ -29,6 +29,7 @@ var reservarRouter = require('./routes/reservar');
 var usuarioRouter = require('./routes/usuario');
 //var comentariosRouter = require ('./routes/comentarios');
 var gestionUsuariosRouter = require('./routes/gestionUsuarios.js')
+var instalacionesRouter=require('./routes/intalaciones.js')
 
 var app = express();
 
@@ -54,7 +55,8 @@ app.use('/', indexRouter);
 app.use('/reservar',reservarRouter);
 app.use('/user',usuarioRouter);
 //app.use('/comentarios',comentariosRouter);
-app.use('/gestionUsuarios',gestionUsuariosRouter)
+app.use('/gestionUsuarios',gestionUsuariosRouter);
+app.use('/instalaciones',instalacionesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
