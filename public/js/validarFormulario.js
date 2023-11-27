@@ -5,10 +5,12 @@ $(document).ready(function(){
       //Recojo los valores de las variables del formulario de registro
       var datosInicio ={
         nombre : $("#nombre").prop("value"),
-       apellido : $("#apellido").prop("value"),
+       apellido1 : $("#apellido1").prop("value"),
+       apellido2:  $("#apellido2").prop("value"),
        contraseña : $("#contraseña").prop("value"),
        contraseñaRep : $("#contraseñaRep").prop("value"),
-       email : $("#correo").prop("value")
+       email : $("#correo").prop("value"),
+       facultad: $("#facultad").prop("value")
       }
     
       if (!validarInicio(datosInicio)) {
@@ -20,6 +22,18 @@ $(document).ready(function(){
         if(!validarEmail($("#correoInicio").prop("value"))){
             event.preventDefault();
         }
+    })
+
+    $("#idCrearinstalacion").on("click",function(){
+      var datosCrearIns={
+        nombre : $("#nombre").prop("value"),
+        tipoReserva : $("#tipoReserva").prop("value"), 
+        imagenReserva : $("#imagenResrva").prop("value")
+      }
+      if(!validarInstalacion(instalacion)){
+        event.preventDefault();
+      }
+
     })
 
     $("#idReservar").on("click", function(){
@@ -63,6 +77,10 @@ $(document).ready(function(){
     function validarnombre(nombre) {//admite nombres y apellidos compuestos y con tildes 
       const nombreComprobar = /^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/
       return nombreComprobar.test(nombre);
+    }
+
+    function validarInstalacion(instalacion) {
+     return true;
     }
 
     function validarReserva(datosReserva) {

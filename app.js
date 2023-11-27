@@ -11,7 +11,7 @@ const sessionStore = new MySQLStore({  //donde alamceno las sesiones
   host: "localhost",
   user: "root",
   password: "",
-  database: "viajes"
+  database: "ucm_riu"
 });
 
 //Manejos de sesiones
@@ -29,6 +29,7 @@ var reservarRouter = require('./routes/reservar');
 var usuarioRouter = require('./routes/usuario');
 //var comentariosRouter = require ('./routes/comentarios');
 var gestionUsuariosRouter = require('./routes/gestionUsuarios.js')
+var instalacionesRouter=require('./routes/instalaciones.js')
 var configRouter = require('./routes/config')
 
 
@@ -68,6 +69,7 @@ app.use('/config', function (err, req, res, next) {
   res.status(500).send('Error interno del servidor');
 });
 
+app.use('/instalaciones',instalacionesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
