@@ -11,11 +11,13 @@ const pool = mysql.createPool({
 })
 
 router.post('/crearInstalacion',(req,res)=>{
+   
     datosInstalacion={
         nombre: req.body.nombre,
         tipoReserva: req.body.tipoReserva,
         imagenInstalacion: req.body.imagenInstalacion
     }
+    console.log(datosInstalacion);
 
     const DAOAp = require("../mysql/daoInstalaciones")
     const midao = new DAOAp(pool)

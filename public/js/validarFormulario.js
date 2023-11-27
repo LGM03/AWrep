@@ -24,6 +24,18 @@ $(document).ready(function(){
         }
     })
 
+    $("#idCrearinstalacion").on("click",function(){
+      var datosCrearIns={
+        nombre : $("#nombre").prop("value"),
+        tipoReserva : $("#tipoReserva").prop("value"), 
+        imagenReserva : $("#imagenResrva").prop("value")
+      }
+      if(!validarInstalacion(instalacion)){
+        event.preventDefault();
+      }
+
+    })
+
     $("#idReservar").on("click", function(){
       var datosReserva ={
         nombre : $("#nombreReserva").prop("value"),
@@ -65,6 +77,10 @@ $(document).ready(function(){
     function validarnombre(nombre) {//admite nombres y apellidos compuestos y con tildes 
       const nombreComprobar = /^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/
       return nombreComprobar.test(nombre);
+    }
+
+    function validarInstalacion(instalacion) {
+     return true;
     }
 
     function validarReserva(datosReserva) {

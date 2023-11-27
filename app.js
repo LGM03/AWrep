@@ -29,7 +29,7 @@ var reservarRouter = require('./routes/reservar');
 var usuarioRouter = require('./routes/usuario');
 //var comentariosRouter = require ('./routes/comentarios');
 var gestionUsuariosRouter = require('./routes/gestionUsuarios.js')
-var instalacionesRouter=require('./routes/intalaciones.js')
+var instalacionesRouter=require('./routes/instalaciones.js')
 
 var app = express();
 

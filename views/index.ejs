@@ -31,27 +31,21 @@
             <div class="row">
 
               <!--Por cada destino traido por la base de datos pongo una tarjeta -->
-              <%destinos.forEach(function(destino){ %>
+              <%instalaciones.forEach(function(instalacion){ %>
 
                 <div class="col-md-4 pb-4 d-flex">
                   <div class="card">
                     <div class="card-header CabeceraCarta">
                       <h5>
-                        <%=destino.nombre%>
+                        <%=instalacion.nombre%>
                       </h5> <!--Pongo el nombre del destino en cuestion-->
                     </div>
-                    <img class="card-img-top " src=<%=destino.imagen%> alt="Imagen no cargada">
+                    <img class="card-img-top " src=<%=instalacion.imagen%> alt="Imagen no cargada">
                     <!--Pongo la imagen del destino en cuestion-->
                     <div class="card-body">
                       <p class="card-text">
-                        <%=destino.descripcion%>
+                        <%=instalacion.tipoReserva%>
                       </p>
-                      <div class="card-footer "> <!--Pongo la descripcion y precio del destino en cuestion-->
-                        <h6>
-                          <%=destino.precio%>
-                        </h6>
-                        <a href="./destino?id=<%=destino.id%>" class="btn botonsabermas">Saber Más</a>
-                      </div>
                     </div>
                   </div>
                 </div>
