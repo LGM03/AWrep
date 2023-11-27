@@ -11,7 +11,7 @@ const sessionStore = new MySQLStore({  //donde alamceno las sesiones
   host: "localhost",
   user: "root",
   password: "",
-  database: "viajes"
+  database: "ucm_riu"
 });
 
 //Manejos de sesiones

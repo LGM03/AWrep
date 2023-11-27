@@ -5,10 +5,12 @@ $(document).ready(function(){
       //Recojo los valores de las variables del formulario de registro
       var datosInicio ={
         nombre : $("#nombre").prop("value"),
-       apellido : $("#apellido").prop("value"),
+       apellido1 : $("#apellido1").prop("value"),
+       apellido2:  $("#apellido2").prop("value"),
        contraseña : $("#contraseña").prop("value"),
        contraseñaRep : $("#contraseñaRep").prop("value"),
-       email : $("#correo").prop("value")
+       email : $("#correo").prop("value"),
+       facultad: $("#facultad").prop("value")
       }
     
       if (!validarInicio(datosInicio)) {
