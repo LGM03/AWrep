@@ -67,7 +67,7 @@
               </form>
             </div>
             <div class="modal-footer">
-              <h6>¿No tienes cuenta? </h6>
+              <h6>¿No tienes cuenta?</h6>
               <button type="button" class="btn botonsabermas" data-bs-toggle="modal" data-bs-target="#crearCuenta"
                 data-bs-dismiss="modal">Crear Cuenta</button>
             </div>
@@ -161,11 +161,9 @@
       <!--#########################################################3-->
     </div>
   </header>
-  <%if(usuario){ %> <!--NAV BAR ADMIN-->
+  <%if(usuario && usuario.rol == 1){ %> <!--NAV BAR ADMIN-->
           <%-include('navAdmin.ejs')%>
-  
-  
-  <%}else{ %> <!--NAV BAR USER -->
+  <%}else if (usuario && usuario.rol == 0){ %> <!--NAV BAR USER -->
     <%-include('navUsuario.ejs')%>
     <% } %>
 

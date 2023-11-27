@@ -4,7 +4,7 @@ $(document).ready(function(){
     $("#idCrearCuenta").on("click", function(){
       //Recojo los valores de las variables del formulario de registro
       var datosInicio ={
-        nombre : $("#nombre").prop("value"),
+       nombre : $("#nombre").prop("value"),
        apellido1 : $("#apellido1").prop("value"),
        apellido2:  $("#apellido2").prop("value"),
        contraseña : $("#contraseña").prop("value"),
@@ -54,8 +54,15 @@ $(document).ready(function(){
 
     function validarInicio(datosInicio) { //Toggle es mas bonito que alert
       //Aqui se validan los campos 
-      if (datosInicio.nombre.trim() === '' || datosInicio.apellido.trim() === '' || !validarnombre(datosInicio.nombre) || !validarnombre(datosInicio.apellido)) {
+      if (datosInicio.nombre.trim() === '' || datosInicio.apellido1.trim() === '' || datosInicio.apellido2.trim() === '' || !validarnombre(datosInicio.nombre) || !validarnombre(datosInicio.apellido1)|| !validarnombre(datosInicio.apellido2)) {
         alert('Por favor, ingrese un nombre y apellido válidos.');
+        return false;
+      }
+      console.log("normal"+ datosInicio.contraseña)
+      console.log("rep"+ datosInicio.contraseñaRep)
+
+      if(datosInicio.facultad.trim() ==='' || !validarnombre(datosInicio.facultad)){
+        alert('El nombre de la facultad no puede contener caracteres especiales');
         return false;
       }
       if (!validarEmail(datosInicio.email)) {

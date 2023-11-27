@@ -22,10 +22,13 @@ $(document).ready(function(){
                 alert("No se ha podido guardar la configuracion")
             }
         });
-
-
         $("#cambiarTitulo").modal('hide')
-      
+    })
+
+    $("#cambiarGama").on("click", function(event){
+
+        $("#hojaEstilosGama").prop("href","/css/estiloOscuro.css")
+        $("#cambiarGama").text("Modo Claro")
     })
 
 })

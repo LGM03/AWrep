@@ -21,7 +21,10 @@ router.get('/', function (req, res, next) {
       res.render('error',{error:"Ha ocurrido un error"}); //Cargo una ventana de error y ha ocurrido un problema
     }
     else {
-      res.render('index', { instalaciones : datos, usuario : req.session.usuario, error : req.query.error, exito:req.query.exito });  //Cargo la ventana principal con la información de todos los destinos
+      // si mi cookie esta vacia la relleno
+      //Lo guardas
+
+      res.render('index', { instalaciones : datos, usuario : req.session.usuario, error : req.query.error, exito:req.query.exito, estilo : "/css/estilosMainView.css" });  //Cargo la ventana principal con la información de todos los destinos
     }
   });
 });

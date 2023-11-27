@@ -1,0 +1,56 @@
+.barraDeHerramientas{  /*clase de la barra de herramientas, pone el fondo a morado oscuro, añade margenes y ordena los elementos con espacios equivalentes*/
+    list-style-type: none;
+    background-color: #0f1b67; 
+    padding: 10px;
+    justify-content: space-evenly !important;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+
+.bordecolumnaCabecera a:hover{ /*Hace que al pasar por encoima de los botnes de la barra de herraminetas estos cabien de color*/
+    background-color:  #07059a;
+    color: white;
+}
+
+.fondocabecera{ /*Hace que el fondo de la cabecera cambie de color*/
+    background-color: #054b9a;
+}
+
+.botonbuscar{/*Da color a los botones de buscar y les cambia la letra*/
+    background-color: #05079a;
+    color: white;
+    font: 1em EB-garamont;
+}
+
+.fondo{ /*El fondo de toda la pagina es lila*/
+    background-color: #4a6d95;
+}
+
+.botonsabermas{  /*El boton de saber mas de las tarjetas tiene fondo morado oscuro, color blanco y fuente EB-garamont*/
+    background-color: #054b9a;
+    color :white;
+    font: 1em EB-garamont;
+}
+
+.botoncabecera{ /*Los botones de la cabecera tiene fondo morado, de color blanco, fuente 40 EB-garamont*/
+    background-color: #0f1b67;
+    color: white;
+    font-size: 15px;
+    font: 0.5em EB-garamont;
+}
+
+.CabeceraCarta{ /*La fuente de la cabecera es EB-garamont y su color es morado oscuro*/
+    color:#054b9a;
+    font: 1em EB-garamont;
+}
+
+.card:hover{ /*Cuando se pasa el raton por encima de una tarjeta aparece una sombra*/
+    box-shadow: 0px 0px 20px #056b9a;
+}
+
+.botonInicioSesion{
+background-color: white;
+font: 1.1em EB-garamont;
+color :#053e9a
+}
