@@ -1,26 +1,70 @@
 <nav class="container justify-content-center "> <!-- Contenedor encargado de almacenar la barra de Herramientas -->
 
-<div class="row barraDeHerramientas">
-  <!-- formado por 1 fila que contiene los 4 botones de opciones, el buscador y el boton de Buscar -->
-  <div class="col-md-2  text-center bordecolumnaCabecera text-sm"><a href=https://es.wikipedia.org/wiki/Europa
-       class="btn btn-lg botoncabecera">
-      <h5>Crear Instalacion</h5>
-    </a></div>
-  <div class="col-md-2  text-center bordecolumnaCabecera text-sm"><a href="/config" 
-      class="btn btn-lg botoncabecera">
-      <h5>Configuración Sistema</h5>
-    </a></div>
-  <div class="col-md-2  text-center bordecolumnaCabecera text-sm"><a href="/gestionUsuarios/validar"
-      class="btn btn-lg botoncabecera">
-      <h5>Validación Usuario</h5>
-    </a></div>
-  <div class="col-md-2  text-center bordecolumnaCabecera text-sm"><a href='/gestionUsuarios/gestionar'
-      class="btn btn-lg botoncabecera">
-      <h5>Gestión Usuarios</h5>
-    </a></div>
-    <div class="col-md-2  text-center bordecolumnaCabecera text-sm"><a href=https://es.wikipedia.org/wiki/%C3%81frica
-     class="btn btn-lg botoncabecera">
-      <h5>Mis Mensajes</h5>
-    </a></div>
-</div>
+  <div class="row barraDeHerramientas">
+    <!-- formado por 1 fila que contiene los 4 botones de opciones, el buscador y el boton de Buscar -->
+    <div class="col-md-2  text-center bordecolumnaCabecera text-sm"><a href=# class="btn btn-lg botoncabecera"
+        data-bs-toggle="modal" data-bs-target="#CrearInstalacion">
+        <h5>Crear Instalacion</h5>
+      </a></div>
+    <div class="col-md-2  text-center bordecolumnaCabecera text-sm"><a href="/config" class="btn btn-lg botoncabecera">
+        <h5>Configuración Sistema</h5>
+      </a></div>
+    <div class="col-md-2  text-center bordecolumnaCabecera text-sm"><a href="/gestionUsuarios/validar"
+        class="btn btn-lg botoncabecera">
+        <h5>Validación Usuario</h5>
+      </a></div>
+    <div class="col-md-2  text-center bordecolumnaCabecera text-sm"><a href='/gestionUsuarios/gestionar'
+        class="btn btn-lg botoncabecera">
+        <h5>Gestión Usuarios</h5>
+      </a></div>
+    <div class="col-md-2  text-center bordecolumnaCabecera text-sm"><a href=# class="btn btn-lg botoncabecera">
+        <h5>Mis Mensajes</h5>
+      </a></div>
+  </div>
 </nav>
+
+<div class="modal fade" id="CrearInstalacion" data-bs-backdrop="static">
+  <!-- data-bs impide que se cierre al pulsar fuera del modal -->
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+
+      <!-- cabecera del diálogo -->
+      <div class="modal-header">
+        <h4 class="modal-title">Crear Instalacion</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- cuerpo del diálogo -->
+      <div class="modal-body alert alert-secondary">
+
+        <form id="crearInstalacion" method="post" action="/instalaciones/CrearInstalacion">
+          <div class="mb-3 row">
+            <label for="correo" class="col-sm-3 col-form-label" id="correoInicio">Nombre:</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="nombre" required>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="clave" class="col-sm-3 col-form-label">TipoReserva:</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="tipoReserva" required>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="clave" class="col-sm-3 col-form-label">Imagen Reserva:</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="imagenReserva" required>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <div class="offset-sm-3 col-sm-9">
+              <button type="submit" class="btn botonsabermas" id="idCrearinstalacion">Confirmar</button>
+              <button type="button" class="btn botonsabermas" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -24,17 +24,14 @@ const middlewareSession = session({
 });
 
 var indexRouter = require('./routes/index');
-//var destinoRouter = require('./routes/destino')
-var reservarRouter = require('./routes/reservar');
 var usuarioRouter = require('./routes/usuario');
-//var comentariosRouter = require ('./routes/comentarios');
 var gestionUsuariosRouter = require('./routes/gestionUsuarios.js')
 var instalacionesRouter=require('./routes/instalaciones.js')
 var configRouter = require('./routes/config')
 
 
 var app = express();
-
+app.use(cookieParser());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -44,7 +41,7 @@ app.use(middlewareSession);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));//estaba a false, lo cambio a true
-app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function (req, res, next) {
@@ -53,15 +50,12 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', indexRouter);
-//app.use('/destino',destinoRouter);
-app.use('/reservar', reservarRouter);
 app.use('/user', usuarioRouter);
-//app.use('/comentarios',comentariosRouter);
 app.use('/gestionUsuarios', gestionUsuariosRouter)
 app.use('/configuracion', configRouter)
 
 app.use('/config', function (req, res) {
-  res.render('configuracionSistema');
+  res.render('configuracionSistema',{logo : global.logo, titulo : global.titulo, gama: global.gama });
 });
 
 app.use('/config', function (err, req, res, next) {

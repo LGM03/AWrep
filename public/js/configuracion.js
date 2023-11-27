@@ -13,7 +13,7 @@ $(document).ready(function(){
                 if (datos !== "0") {
                     $("#Titulo").text(tituloNuevo)
                     $("title").text(tituloNuevo)
-                    document.cookie = "titulo=" + tituloNuevo;
+                    global.titulo = tituloNuevo
                 } else {
                     alert("No se ha podido validar")
                 }
@@ -26,21 +26,15 @@ $(document).ready(function(){
     })
 
     $("#cambiarGama").on("click", function(event){
-
-        $("#hojaEstilosGama").prop("href","/css/estiloOscuro.css")
-        $("#cambiarGama").text("Modo Claro")
+        if(global.gama == "/css/estiloOscuro.css"){
+            global.gama = "/css/estiloClaro.css"
+            $("#hojaEstilosGama").prop("href","/css/estiloClaro.css")
+        }else{
+            global.gama = "/css/estiloOscuro.css"
+            $("#hojaEstilosGama").prop("href","/css/estiloOscuro.css")
+        }
     })
 
 })
 
 
-function obtenerValorCookie(nombre) {
-    var cookies = document.cookie.split(';');
-    for (var i = 0; i < cookies.length; i++) {
-        var cookie = cookies[i].trim();
-        if (cookie.indexOf(nombre + "=") === 0) {
-            return cookie.substring((nombre + "=").length, cookie.length);
-        }
-    }
-    return null;
-}

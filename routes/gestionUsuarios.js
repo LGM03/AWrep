@@ -22,7 +22,7 @@ router.get('/validar', function (req, res, next) {
             res.send("0") //si ocurre un error cargo la ventana de error 
         }
         else {
-            res.render('gestionUsuarios',{usuarios : datos});//Cargo la ventana destino con los usuarios no validados
+            res.render('gestionUsuarios',{usuarios : datos, logo : global.logo, titulo : global.titulo, gama: global.gama});//Cargo la ventana destino con los usuarios no validados
         }
     });
 });

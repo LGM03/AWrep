@@ -23,6 +23,26 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
             }
         });
     }  
+
+    leerConfig(callback){
+        this.pool.getConnection(function (err, connection) {
+            if (err) {
+                callback(err, null); //Si ha ocurrido un error retorno el error
+            } else {
+                const sql = "select * from configuracion"
+                connection.query(sql, [], function (err, resultado) {
+                    connection.release(); //Libero la conexion
+                    if (err) {
+                        console.log(err)
+                        callback(err, null); //Si ha ocurrido un error retorno el error
+                    } else {
+                        console.log("res"+ resultado[0].nombre)
+                        callback(null, resultado[0]); //Si todo ha ido bien retorno la información obtenida 
+                    }
+                });
+            }
+        });
+    }
 }
 
 

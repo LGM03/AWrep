@@ -10,8 +10,9 @@
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <link rel="stylesheet" href="/css/estilosMainView.css">
   <link rel="stylesheet" href="/css/estilosUsuarios.css">
-  <link rel="shortcut icon" href="/images/logo.png">
-  <title>PistasUCM</title>
+  <link rel="stylesheet" href=<%=gama%>>
+  <link rel="shortcut icon" href=<%=logo%>>
+  <title><%=titulo%></title>
 </head>
 
 <body class="fondo">
@@ -24,7 +25,7 @@
         <%usuarios.forEach(function(usuario){ %>
             <div class="row cajaUsuario rounded m-2">
               <div class="col-2 d-flex justify-content-between align-items-center ">
-                <img src="/images/usuario.png" alt="Foto del usuario" class="img-fluid">
+                <img src="<%=logo%>" alt="Foto del usuario" class="img-fluid">
               </div>
 
               <div class="col-7 d-flex flex-column">

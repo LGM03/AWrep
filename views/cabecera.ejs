@@ -3,13 +3,13 @@
     <div class="row ">
       <!--  Esta formado por 1 fila que contiene 1 columna de tamaño 2 para el logo y una de tamaño 8 para el texto  -->
       <div class="col-sm-2 ">
-        <a href="/"><img src="/images/logo.png" alt="Icono Página no cargado" width="50"
+        <a href="/"><img src=<%=logo%> alt="Icono Página no cargado" width="50"
             class="d-flex align-content-center justify-content-center">
         </a>
       </div>
       
       <div class="col-sm-8 ">
-        <h1 id = "Titulo" class="textoCabecera d-flex align-items-center justify-content-center " >PistasUCM</h1>
+        <h1 id = "Titulo" class="textoCabecera d-flex align-items-center justify-content-center " ><%=titulo%></h1>
       </div>
       
       <div class="col-sm-2 ">
@@ -43,7 +43,7 @@
             </div>
 
             <!-- cuerpo del diálogo -->
-            <div class="modal-body alert alert-primary">
+            <div class="modal-body alert alert-secondary">
 
               <form id="inicioSesion" method="post" action="/user/login">
                 <div class="mb-3 row">
@@ -91,7 +91,7 @@
             </div>
 
             <!-- cuerpo del diálogo -->
-            <div class="modal-body alert alert-primary">
+            <div class="modal-body alert alert-secondary">
 
               <form id="crearCuenta" method="post" action="/user/crearCuenta">
                 <div class="mb-3 row">
