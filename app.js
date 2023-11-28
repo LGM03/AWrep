@@ -54,15 +54,6 @@ app.use('/user', usuarioRouter);
 app.use('/gestionUsuarios', gestionUsuariosRouter)
 app.use('/configuracion', configRouter)
 
-app.use('/config', function (req, res) {
-  res.render('configuracionSistema',{logo : global.logo, titulo : global.titulo, gama: global.gama });
-});
-
-app.use('/config', function (err, req, res, next) {
-  console.error(err.stack);
-  res.status(500).send('Error interno del servidor');
-});
-
 app.use('/instalaciones',instalacionesRouter);
 
 // catch 404 and forward to error handler

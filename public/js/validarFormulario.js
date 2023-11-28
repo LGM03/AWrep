@@ -24,7 +24,7 @@ $(document).ready(function(){
         }
     })
 
-    $("#idCrearinstalacion").on("click",function(){
+    $("#idCrearinstalacion").on("click",function(){ //TODO
       var datosCrearIns={
         nombre : $("#nombre").prop("value"),
         tipoReserva : $("#tipoReserva").prop("value"), 
@@ -36,6 +36,8 @@ $(document).ready(function(){
 
     })
 
+
+    //Validador de Reserva
     $("#idReservar").on("click", function(){
       var datosReserva ={
         nombre : $("#nombreReserva").prop("value"),
@@ -51,15 +53,13 @@ $(document).ready(function(){
     })
 
 })
-
+    //Validador de formulario de Inicio
     function validarInicio(datosInicio) { //Toggle es mas bonito que alert
       //Aqui se validan los campos 
       if (datosInicio.nombre.trim() === '' || datosInicio.apellido1.trim() === '' || datosInicio.apellido2.trim() === '' || !validarnombre(datosInicio.nombre) || !validarnombre(datosInicio.apellido1)|| !validarnombre(datosInicio.apellido2)) {
         alert('Por favor, ingrese un nombre y apellido válidos.');
         return false;
       }
-      console.log("normal"+ datosInicio.contraseña)
-      console.log("rep"+ datosInicio.contraseñaRep)
 
       if(datosInicio.facultad.trim() ==='' || !validarnombre(datosInicio.facultad)){
         alert('El nombre de la facultad no puede contener caracteres especiales');
@@ -90,6 +90,12 @@ $(document).ready(function(){
      return true;
     }
 
+    function validarfecha(fecha) {
+      const fechaComprobar = /^\d{4}-\d{2}-\d{2}$/;
+      return fechaComprobar.test(fecha);
+    }
+
+    //Validador de formulario de Reserva
     function validarReserva(datosReserva) {
 
       // Realiza la validación de campos aquí
@@ -113,10 +119,4 @@ $(document).ready(function(){
       }
 
       return true; // Si la validación pasa, permite el envío del formulario
-    }
-
-
-    function validarfecha(fecha) {
-      const fechaComprobar = /^\d{4}-\d{2}-\d{2}$/;
-      return fechaComprobar.test(fecha);
     }

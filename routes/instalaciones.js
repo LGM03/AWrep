@@ -21,7 +21,6 @@ router.post('/crearInstalacion',(req,res)=>{
 
     const DAOAp = require("../mysql/daoInstalaciones")
     const midao = new DAOAp(pool)
-    const saltRounds = 10; // Número de rondas para el proceso de hashing (mayor es más seguro, pero más lento)
 
     midao.altaInstalacion(datos, (err, datos) => {
         if (err) {

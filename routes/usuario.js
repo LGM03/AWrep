@@ -43,7 +43,7 @@ router.post("/login", async (req, res) => {
       }
     });
   }catch{
-    res.render('error', { error: 'Ha ocurrido un error', logo : global.logo, titulo : global.titulo, gama: global.gama });
+    res.redirect(`/?error=${'Ha ocurrido un error'}`)
 }
 
 
