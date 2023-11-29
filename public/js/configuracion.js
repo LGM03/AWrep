@@ -34,6 +34,8 @@ $(document).ready(function () {
             data: { direccion: dirNueva },
             success: function (datos, state, jqXHR) { //Si todo ha ido bien pongo un mensaje de acierto
                 if (datos !== "0") {
+                    alert("La direccion física ha sido actualizada")
+                    $("#direccion").prop("value","")
                     $("#footerDireccion").text(dirNueva)
                 } else {
                     alert("No se ha podido validar")
