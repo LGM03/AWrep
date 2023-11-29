@@ -14,7 +14,7 @@ $(document).ready(function(){
               if(datos !== "0"){
                 $("#contenidoItinerario").text(datos)
               }else{
-                alert("Ha ocurrido un error con el itineario222")
+                alert("Ha ocurrido un error con el itineario")
               }
             },
             error: function (jqXHR, statusText, errorThrown) { //Si ha ocurrido un error pongo un mensaje de error

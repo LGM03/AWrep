@@ -32,7 +32,6 @@ class DAOComentarios{   //DAO que accede a los destinos y su respectiva informac
                 connection.query(sql, [datos.destino, datos.nombre, datos.comentario, datos.fecha], function (err, resultado) {
                     connection.release(); //Libero la conexion
                     if (err) {
-                        console.log(err)
                         callback(err, null); //Si ha ocurrido un error retorno el error
                     } else {
                         callback(null, resultado); //Si todo ha ido bien retorno la información obtenida 

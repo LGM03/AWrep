@@ -17,7 +17,6 @@ router.get('/', function (req, res, next) {
 
     midao.leerTodos(req.query.ciudad, (err, datos) => {  //Leo en la BD los destinos con el id de la url
         if (err) {
-            console.log(err)
             res.send("0") //si ocurre un error cargo la ventana de error 
         }
         else {
@@ -25,7 +24,6 @@ router.get('/', function (req, res, next) {
             if (req.session.usuario != null) {
                 user = req.session.usuario.nombre + " " + req.session.usuario.apellido
             }
-            console.log(user)
             res.send({ comentarios: datos, usuario: user});//Cargo la ventana destino con los mensajes y las imagenes
         }
     });

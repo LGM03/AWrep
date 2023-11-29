@@ -14,8 +14,6 @@ const pool = mysql.createPool({
 
 router.post("/login", async (req, res) => {
   try{
-
-  
   const DAOAp = require("../mysql/daoUsuario")
   const midao = new DAOAp(pool)
   var correo = req.body.correo
@@ -47,10 +45,8 @@ router.post("/login", async (req, res) => {
 })
 
 router.post("/logout", (req, res) => {
-  console.log("He llegado aquí")
   req.session.destroy(err => {
     if (err) {
-      console.log(err);
     } else {
       res.redirect('/');
     }

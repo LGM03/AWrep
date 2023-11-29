@@ -47,7 +47,6 @@ $(document).ready(function(){
             $('#comentarioNuevo').prop('value','');
             agregarCajaComentario(element)
           }else{
-            console.log()
             alert("No se pudo publicar el comentario")
           }
         },
