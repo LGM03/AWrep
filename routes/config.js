@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+const multer = require("multer");
+
 const mysql = require("mysql")
 const pool = mysql.createPool({
     host: "localhost",
@@ -27,7 +29,9 @@ router.get("/", function (req, res, next) {
                 global.direccion = "Av. de Madrid"
             } else { // Si la configuración se obtiene correctamente, la almacenamos en global
                 global.titulo = configDatos.nombre;
-                global.logo = configDatos.logo;
+                const base64String = configDatos.logo.toString('base64');
+                const imageUrl = `data:image/png;base64,${base64String}`;
+                global.logo = imageUrl;
                 global.gama = configDatos.gama;
                 global.direccion = configDatos.direccion;
             } // Renderizamos la página principal con la información de todos los destinos
@@ -74,6 +78,43 @@ router.post('/gama', function (req, res, next) {
         } else {
             global.gama = req.body.gama
             res.send("1")
+        }
+    })
+})
+
+router.post('/direccion', function (req, res, next) {
+    const DAOAp = require('../mysql/daoConfig')
+    const midao = new DAOAp(pool)
+
+    midao.altaDireccion(req.body.direccion, (err, datos) => {
+        if (err) {
+            res.send("0")
+        } else {
+            global.direccion = req.body.direccion
+            res.send("1")
+        }
+    })
+})
+
+const multerFactory = multer({ storage: multer.memoryStorage() });
+
+router.post('/logo', multerFactory.single('logo'),function (req, res, next) {
+    const DAOAp = require('../mysql/daoConfig')
+    const midao = new DAOAp(pool)
+
+    const imageBuffer = req.file.buffer;  //paso la imagen a binario
+
+    midao.altaLogo(imageBuffer, (err, datos) => { //subo la imagen a la bd
+        if (err) {
+            res.send("0")
+        } else {
+            const imageBase64 = imageBuffer.toString('base64');
+            // Crea la URL base64
+            const imageUrl = `data:${req.file.mimetype};base64,${imageBase64}`;
+            // Envía la URL de la imagen como respuesta al cliente
+
+            global.logo = imageUrl
+            res.send(imageUrl)
         }
     })
 })

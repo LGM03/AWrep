@@ -17,7 +17,7 @@ router.get('/validar', function (req, res, next) {
     const midao = new DAOAp(pool)
     const DAOConfig = require("../mysql/daoConfig");
     const daoC = new DAOConfig(pool);
-    
+
     midao.leerNOValidados((err, datos) => {  //Leo en la BD los destinos con el id de la url
         if (err) {
             console.log(err)
@@ -33,7 +33,9 @@ router.get('/validar', function (req, res, next) {
                         global.direccion = "Av. de Madrid"
                     } else { // Si la configuración se obtiene correctamente, la almacenamos en global
                         global.titulo = configDatos.nombre;
-                        global.logo = configDatos.logo;
+                        const base64String = configDatos.logo.toString('base64');
+                        const imageUrl = `data:image/png;base64,${base64String}`;
+                        global.logo = imageUrl;
                         global.gama = configDatos.gama;
                         global.direccion = configDatos.direccion;
                     } // Renderizamos la página principal con la información de todos los destinos
@@ -45,13 +47,15 @@ router.get('/validar', function (req, res, next) {
                         gama: global.gama,
                         logo: global.logo,
                         titulo: global.titulo,
-                        direccion : global.direccion
+                        direccion: global.direccion
 
                     });
                 });
             } else {
-                res.render('gestionUsuarios', { usuarios: datos, logo: global.logo, titulo: global.titulo, gama: global.gama,
-                    direccion : global.direccion });//Cargo la ventana destino con los usuarios no validados
+                res.render('gestionUsuarios', {
+                    usuarios: datos, logo: global.logo, titulo: global.titulo, gama: global.gama,
+                    direccion: global.direccion
+                });//Cargo la ventana destino con los usuarios no validados
             }
         }
     });

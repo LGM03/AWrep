@@ -15,8 +15,6 @@ const pool = mysql.createPool({
 
 router.post("/login", async (req, res) => {
   try{
-
-  
   const DAOAp = require("../mysql/daoUsuario")
   const midao = new DAOAp(pool)
   var correo = req.body.correo

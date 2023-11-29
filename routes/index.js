@@ -39,7 +39,9 @@ router.get('/', function (req, res, next) {
             global.gama = "/css/estiloOscuro.css";
           } else { // Si la configuración se obtiene correctamente, la almacenamos en global
             global.titulo = configDatos.nombre;
-            global.logo = configDatos.logo;
+            const base64String = configDatos.logo.toString('base64');
+            const imageUrl = `data:image/png;base64,${base64String}`;
+            global.logo = imageUrl;
             global.gama = configDatos.gama;
             global.direccion = configDatos.direccion;
           } // Renderizamos la página principal con la información de todos los destinos
@@ -51,7 +53,7 @@ router.get('/', function (req, res, next) {
             gama: global.gama,
             logo: global.logo,
             titulo: global.titulo,
-            direccion : global.direccion
+            direccion: global.direccion
           });
         });
       } else {
@@ -64,7 +66,7 @@ router.get('/', function (req, res, next) {
           gama: global.gama,
           logo: global.logo,
           titulo: global.titulo,
-          direccion : global.direccion
+          direccion: global.direccion
         });
       }
     }

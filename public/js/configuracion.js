@@ -1,10 +1,10 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
-    $("#guardarTitulo").on("click",function(event){
+    $("#guardarTitulo").on("click", function (event) {
         var tituloNuevo = $("#nuevoTitulo").prop("value")
         console.log(tituloNuevo)
         event.preventDefault();
-       
+
         $.ajax({
             method: "POST",
             url: "/configuracion/titulo",
@@ -24,16 +24,39 @@ $(document).ready(function(){
         $("#cambiarTitulo").modal('hide')
     })
 
-    $("#cambiarGama").on("click", function(event){
+    $("#guardarDireccion").on("click", function (event) {
+        var dirNueva = $("#direccion").prop("value")
+        console.log(dirNueva)
+        event.preventDefault();
+        $.ajax({
+            method: "POST",
+            url: "/configuracion/direccion",
+            data: { direccion: dirNueva },
+            success: function (datos, state, jqXHR) { //Si todo ha ido bien pongo un mensaje de acierto
+                if (datos !== "0") {
+                    $("#footerDireccion").text(dirNueva)
+                } else {
+                    alert("No se ha podido validar")
+                }
+            },
+            error: function (jqXHR, statusText, errorThrown) { //Si ha ocurrido un error pongo un mensaje de error
+                alert("No se ha podido guardar la configuracion")
+            }
+        });
+        $("#cambiarTitulo").modal('hide')
+    })
 
-        var estilo = $("#hojaEstilosGama").attr('href') 
+
+    $("#cambiarGama").on("click", function (event) {
+
+        var estilo = $("#hojaEstilosGama").attr('href')
         console.log(estilo)
-        if(estilo == "/css/estiloOscuro.css"){
+        if (estilo == "/css/estiloOscuro.css") {
             var nuevo = "/css/estiloClaro.css"
-            $("#hojaEstilosGama").prop("href","/css/estiloClaro.css")
-        }else{
+            $("#hojaEstilosGama").prop("href", "/css/estiloClaro.css")
+        } else {
             var nuevo = "/css/estiloOscuro.css"
-            $("#hojaEstilosGama").prop("href","/css/estiloOscuro.css")
+            $("#hojaEstilosGama").prop("href", "/css/estiloOscuro.css")
         }
 
         $.ajax({
@@ -50,6 +73,37 @@ $(document).ready(function(){
                 alert("No se ha podido guardar la configuracion")
             }
         });
+
+    })
+
+    $("#guardarLogo").on("click", function () {
+
+        const fileInput = $("#logoInput")
+
+        const file = fileInput[0].files[0];
+        console.log(file)
+
+        if (file) {
+            const formData = new FormData();
+            formData.append('logo', file);
+
+            $.ajax({
+                method: "POST",
+                url: "/configuracion/logo",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (datos, state, jqXHR) {
+                    $("#logConfiguracion").attr("src",datos)
+                    $("#cambiarLogo").modal('hide')
+                },
+                error: function (jqXHR, statusText, errorThrown) {
+                    console.error('Error al enviar el formulario al servidor:', errorThrown);
+                },
+            });
+        } else {
+            console.error('Selecciona una imagen antes de intentar guardarla.');
+        }
 
     })
 
