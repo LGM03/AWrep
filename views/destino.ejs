@@ -129,14 +129,14 @@
                         <div class="col-md-4">
                           <input type="text" class="form-control" id="nombreReserva" name="nombre" required>
                         </div>
-                        <label for="apellidos" class="col-md-2 col-form-label text-center">Apellidos:</label>
+                        <label for="apellidoReserva" class="col-md-2 col-form-label text-center">Apellidos:</label>
                         <div class="col-md-4">
                           <input type="text" class="form-control" id="apellidoReserva" name="apellido" required>
                         </div>
                       </div>
 
                       <div class="mb-3 row">
-                        <label for="clave" class="col-sm-3 col-form-label text-center">Correo Electrónico:</label>
+                        <label for="correoReserva" class="col-sm-3 col-form-label text-center">Correo Electrónico:</label>
                         <div class="col-sm-9">
                           <input type="email" class="form-control" id="correoReserva" name="correo"
                             placeholder="correo@ejemplo.com" required>
@@ -144,7 +144,7 @@
                       </div>
 
                       <div class="mb-3 row">
-                        <label class="control-label col-sm-3 text-center" for="fecha">Fecha:</label>
+                        <label class="control-label col-sm-3 text-center" for="fechaReserva">Fecha:</label>
                         <div class="col-sm-9">
                           <input type="date" id="fechaReserva" name="fecha" class="form-control" required>
                         </div>
@@ -182,10 +182,10 @@
           <form id="comentarioForm">
 
             <div class="mb-3 row">
-              <label for="nombre" id = "usuarioComentarios" class="col-md-3 col-form-label text-center"></label>
+              <label for="comentarioNuevo" id = "usuarioComentarios" class="col-md-3 col-form-label text-center"></label>
               <div class="col-md-9">
-                <input type="text" class="form-control" id="comentarioNuevo" name="comentarioNuevo" required>
-            </div>
+                <textarea class="form-control" id="comentarioNuevo" name="comentarioNuevo" required></textarea>
+              </div>
 
             <div class="mb-3 row">
               <div class="mt-2">

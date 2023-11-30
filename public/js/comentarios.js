@@ -1,60 +1,65 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
-    $("#botonComentarios").on("click",function(){
-        $("#botonComentarios").hide()
-        $("#comentarios").fadeIn(1000)
+  $("#botonComentarios").on("click", function () {
+    $("#botonComentarios").hide()
+    $("#comentarios").fadeIn(1000)
 
-        const destino = $('#nombreCiudad').text()
-        $.ajax({
-            method: "GET",
-            url: "/comentarios",
-            data: {ciudad:destino.trim()},
-            success: function (datos, state, jqXHR) { //Si todo ha ido bien pongo un mensaje de acierto
-              if(datos !== "0"){
-                $("#usuarioComentarios").text(datos.usuario)
+    const destino = $('#nombreCiudad').text()
+    $.ajax({
+      method: "GET",
+      url: "/comentarios",
+      data: { ciudad: destino.trim() },
+      success: function (datos, state, jqXHR) { //Si todo ha ido bien pongo un mensaje de acierto
+        if (datos !== "0") {
+          $("#usuarioComentarios").text(datos.usuario)
 
-                datos.comentarios.forEach(element => {
-                    agregarCajaComentario(element)
-                });
-              }else{
-                alert("Ha ocurrido un error con los comentarios")
-              }
-            },
-            error: function (jqXHR, statusText, errorThrown) { //Si ha ocurrido un error pongo un mensaje de error
-             alert("Ha ocurrido un error con los comentarios")
-            }
+          datos.comentarios.forEach(element => {
+            agregarCajaComentario(element)
           });
-    })
+        } else {
+          alert("Ha ocurrido un error con los comentarios")
+        }
+      },
+      error: function (jqXHR, statusText, errorThrown) { //Si ha ocurrido un error pongo un mensaje de error
+        alert("Ha ocurrido un error con los comentarios")
+      }
+    });
+  })
 
-    $("#idComentar").on("click", function(event){   
-      const coment = $("#comentarioNuevo").prop("value")
+  $("#idComentar").on("click", function (event) {
+    const coment = $("#comentarioNuevo").prop("value")
+    event.preventDefault();
+    if (coment.trim() === "") {
+      alert("No se pueden publicar comentarios vacíos")
+    } else {
 
       var urlParams = new URLSearchParams(window.location.search);
       var dest = urlParams.get('id');
 
-      event.preventDefault();
+     
       $.ajax({
         method: "POST",
         url: "/comentarios",
-        data: {comentario: coment, destino : dest},
+        data: { comentario: coment, destino: dest },
         success: function (datos, state, jqXHR) { //Si todo ha ido bien pongo un mensaje de acierto
-          if(datos !== "0"){
+          if (datos !== "0") {
             element = {
-              nombre_usuario : datos,
-              fecha_comentario : new Date().toISOString(),
-              comentario : coment
+              nombre_usuario: datos,
+              fecha_comentario: new Date().toISOString(),
+              comentario: coment
             }
-            $('#comentarioNuevo').prop('value','');
+            $('#comentarioNuevo').prop('value', '');
             agregarCajaComentario(element)
-          }else{
+          } else {
             alert("No se pudo publicar el comentario")
           }
         },
         error: function (jqXHR, statusText, errorThrown) { //Si ha ocurrido un error pongo un mensaje de error
-         alert("No se pudo publicar el comentario")
+          alert("No se pudo publicar el comentario")
         }
       });
-    })
+    }
+  })
 })
 
 
@@ -70,10 +75,10 @@ function agregarCajaComentario(element) {
 
   // Sección de info del comentario
   const cajaComentario = $('<div class="col-10 d-flex flex-column"></div>')
-  
+
   // Contenedor para el nombre y la fecha
   const infoContainer = $('<div class="d-flex justify-content-between align-items-center mb-1"></div>');
-  
+
   const nombreCom = $('<h5 class="mb-0"></h5>').text(element.nombre_usuario);
   const fechaCom = $('<p class="mb-0"><em></em></p>').text(element.fecha_comentario.slice(0, 10));
 

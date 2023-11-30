@@ -9,7 +9,6 @@ const pool = mysql.createPool({
   database: "viajes"
 })
 
-
 router.get('/', function (req, res, next) {  
 
   let id = Number(req.query.id) //Recojo lo datos que vienen en la URL

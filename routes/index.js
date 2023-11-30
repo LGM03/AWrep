@@ -20,6 +20,7 @@ router.get('/', function (req, res, next) {
       res.render('error',{error:"Ha ocurrido un error"}); //Cargo una ventana de error y ha ocurrido un problema
     }
     else {
+      
       res.render('index', { destinos : datos, usuario : req.session.usuario, error : req.query.error, exito:req.query.exito });  //Cargo la ventana principal con la información de todos los destinos
     }
   });

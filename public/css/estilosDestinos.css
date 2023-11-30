@@ -37,6 +37,11 @@
     font-weight: bold; /* Establecer el grosor de la fuente como negrita */
 }
 
+#comentarioNuevo {
+    max-height: 200px;
+    resize: vertical; /* Esto permite redimensionar verticalmente si se supera la altura máxima */
+}
+
 #botonItinerario{
     color: #796ae5;
     background-color: white;
