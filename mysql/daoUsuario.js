@@ -24,12 +24,13 @@ class DAOUsuario{   //DAO que accede a los destinos y su respectiva información
     } 
 
     altaUsuario(datosUsuario, callback) { //guarda en la base de datos la información del usuario
+        console.log(datosUsuario);
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null);  //Si ocurre algun error retornamos el error
             } else {
-                const sql = "INSERT INTO `ucm_aw_riu_usu_usuarios`(nombre,apellido1,apellido2,correo,facultad,contraseña,salt) VALUES (?,?,?,?,?,?,?);";
-                connection.query(sql,[datosUsuario.nombre,datosUsuario.apellido1,datosUsuario.apellido2,datosUsuario.correo,datosUsuario.facultad,datosUsuario.contraseña, datosUsuario.salt], function (err, resultado) {
+                const sql = "INSERT INTO `ucm_aw_riu_usu_usuarios`(nombre,apellido1,apellido2,correo,facultad,curso,grupo,imagen,contraseña,salt) VALUES (?,?,?,?,?,?,?,?,?,?);";
+                connection.query(sql,[datosUsuario.nombre,datosUsuario.apellido1,datosUsuario.apellido2,datosUsuario.correo,datosUsuario.facultad,datosUsuario.curso,datosUsuario.grupo,datosUsuario.imagenUser,datosUsuario.contraseña, datosUsuario.salt], function (err, resultado) {
                     connection.release();
                     if (err) {
                         callback(err, null); //Si ocurre algun error retornamos el error

@@ -66,6 +66,9 @@ router.post('/crearCuenta', (req, res) => {
     apellido2: req.body.apellido2,
     correo: req.body.correo,
     facultad: req.body.facultad,
+    curso: req.body.curso,
+    grupo: req.body.grupo,
+    imagenUser: req.body.imagenUser,
     contraseña: req.body.contraseña
   }
 
