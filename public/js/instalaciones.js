@@ -1,5 +1,7 @@
 $(document).ready(function () {
- $("#idCrearinstalacion").on("click", function(event){
+    
+ $("#idCrearinstalacion").on("click", function(){
+    console.log("datosCrearIns")
     var datosCrearIns = {
         nombre: $("#nombre").prop("value"),
         tipoReserva: $("#tipoReserva").prop("value"),
@@ -8,8 +10,7 @@ $(document).ready(function () {
         horaInicio: $("#horaInicio").prop("value"),
         horaFin: $("#horaFin").prop("value"),
       }
-
-
+      console.log(datosCrearIns)
 
     $.ajax({
         method: "POST",

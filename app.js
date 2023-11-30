@@ -53,7 +53,6 @@ app.use('/', indexRouter);
 app.use('/user', usuarioRouter);
 app.use('/gestionUsuarios', gestionUsuariosRouter)
 app.use('/configuracion', configRouter)
-
 app.use('/instalaciones',instalacionesRouter);
 
 // catch 404 and forward to error handler

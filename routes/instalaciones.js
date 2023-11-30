@@ -10,29 +10,6 @@ const pool = mysql.createPool({
   port : 3306
 })
 
-router.post('/crearInstalacion',(req,res)=>{ //TODO hacer ajax
-   
-    datosInstalacion={
-        nombre: req.body.nombre,
-        tipoReserva: req.body.tipoReserva,
-        imagenInstalacion: req.body.imagenInstalacion,
-    }
-    console.log(datosInstalacion);
-
-    const DAOAp = require("../mysql/daoInstalaciones")
-    const midao = new DAOAp(pool)
-
-    midao.altaInstalacion(datos, (err, datos) => {
-        if (err) {
-            res.send('0'); //Si ha ocurrido un error, recargo la ventana con mensaje de fallo
-          }
-          else {
-            res.redirect('1'); //Si todo ha ido bien recargo la instalacion
-          }
-    })
-
-});
-
 
 router.get('/',(req,res)=>{
   const DAOAp = require("../mysql/daoInstalaciones")
@@ -81,7 +58,7 @@ router.get('/',(req,res)=>{
 
 const multerFactory = multer({ storage: multer.memoryStorage() });
 
-router.post('/CrearInstalacion', multerFactory.single('imagenInstalaciones'),function (req, res, next) {
+router.post('/crearInstalacion', multerFactory.single('imagenInstalaciones'),function(req, res, next){
     const DAOAp = require('../mysql/daoInstalaciones')
     const midao = new DAOAp(pool)
 
@@ -94,9 +71,9 @@ router.post('/CrearInstalacion', multerFactory.single('imagenInstalaciones'),fun
       aforo: req.body.aforo,
       horaInicio: req.body.horaInicio,
       horaFin: req.body.horaFin
-  }
-
-    midao.altaInstalacion(datosInstalacion, (err, datos) => { //subo la imagen a la bd
+    }
+    console.log(datosInstalacion);
+    midao.altaInstalacion(datosInstalacion, (err, datos) => { //subo la info a la bd
         if (err) {
             res.send("0")
         } else {
