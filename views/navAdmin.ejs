@@ -37,11 +37,11 @@
       <!-- cuerpo del diálogo -->
       <div class="modal-body alert alert-secondary">
 
-        <form id="crearInstalacion" method="post" action="/instalaciones/CrearInstalacion" enctype="multipart/form-data">
+        <form id="crearInstalacion">
           <div class="mb-3 row">
               <label for="correo" class="col-sm-3 col-form-label" id="correoInicio">Nombre:</label>
               <div class="col-sm-9">
-                  <input type="text" class="form-control" name="nombre" required>
+                  <input type="text" class="form-control" name="nombre" id="nombreInstalacion" required>
               </div>
           </div>
           <div class="mb-3 row">
@@ -57,7 +57,7 @@
           <div class="mb-3 row">
               <label for="imagenReserva" class="col-sm-3 col-form-label">Imagen instalaciones:</label>
               <div class="col-sm-9">
-                  <input type="file" class="form-control" id="imagenReserva" name="imagenInstalaciones" accept="image/*" required>
+                  <input type="file" class="form-control" id="imagenInstalacion" name="imagenInstalaciones" accept="image/*" required>
               </div>
           </div>
           <div class="mb-3 row">

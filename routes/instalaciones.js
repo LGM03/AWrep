@@ -62,8 +62,9 @@ router.post('/crearInstalacion', multerFactory.single('imagenInstalaciones'),fun
     const DAOAp = require('../mysql/daoInstalaciones')
     const midao = new DAOAp(pool)
 
-    const imageBuffer = req.file.buffer;  //paso la imagen a binario
-
+    const imageBuffer = req.body.imagen;  //paso la imagen a binario
+    console.log(imageBuffer)
+    console.log("AAAAAAAAAAAAAAAAAAAa")
     datosInstalacion={
       nombre: req.body.nombre,
       tipoReserva: req.body.tipoReserva,
