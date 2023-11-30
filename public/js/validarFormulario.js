@@ -3,6 +3,7 @@ $(document).ready(function () {
 
   $("#idCrearCuenta").on("click", function () { //TODO
     //Recojo los valores de las variables del formulario de registro
+    
     var datosInicio = {
       nombre: $("#nombre").prop("value"),
       apellido1: $("#apellido1").prop("value"),
@@ -10,7 +11,11 @@ $(document).ready(function () {
       contraseña: $("#contraseña").prop("value"),
       contraseñaRep: $("#contraseñaRep").prop("value"),
       email: $("#correo").prop("value"),
-      facultad: $("#facultad").prop("value")
+      facultad: $("#facultad").prop("value"),
+      facultad: $("#facultad").prop("value"),
+      curso: $("#curso").prop("value"),
+      grupo: $("#grupo").prop("value"),
+      imagenUser: $("#imagenUser").prop("value")
     }
 
     if (!validarInicio(datosInicio)) {
@@ -60,9 +65,16 @@ function validarInicio(datosInicio) { //Toggle es mas bonito que alert
     alert('Por favor, ingrese un nombre y apellido válidos.');
     return false;
   }
-
-  if (datosInicio.facultad.trim() === '' || !validarnombre(datosInicio.facultad)) {
-    alert('El nombre de la facultad no puede contener caracteres especiales');
+  if (datosInicio.facultad.trim() === '') {
+    alert('Seleccione una facultad');
+    return false;
+  }
+  if (datosInicio.facultad.trim() === '') {
+    alert('Seleccione un Curso');
+    return false;
+  }
+  if (datosInicio.facultad.trim() === '') {
+    alert('Seleccione un Grupo');
     return false;
   }
   if (!validarEmail(datosInicio.email)) {

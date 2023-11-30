@@ -37,32 +37,54 @@
       <!-- cuerpo del diálogo -->
       <div class="modal-body alert alert-secondary">
 
-        <form id="crearInstalacion" method="post" action="/instalaciones/CrearInstalacion">
+        <form id="crearInstalacion" method="post" action="/instalaciones/CrearInstalacion" enctype="multipart/form-data">
           <div class="mb-3 row">
-            <label for="correo" class="col-sm-3 col-form-label" id="correoInicio">Nombre:</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" name="nombre" required>
-            </div>
+              <label for="correo" class="col-sm-3 col-form-label" id="correoInicio">Nombre:</label>
+              <div class="col-sm-9">
+                  <input type="text" class="form-control" name="nombre" required>
+              </div>
           </div>
           <div class="mb-3 row">
-            <label for="clave" class="col-sm-3 col-form-label">TipoReserva:</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" name="tipoReserva" required>
-            </div>
+              <label for="tipoReserva" class="col-sm-3 col-form-label">Tipo Reserva:</label>
+              <div class="col-sm-9">
+                  <select class="form-control" id="tipoReserva" name="tipoReserva" required>
+                      <option value="" disabled selected>Seleccione el tipo de Reserva:</option>
+                      <option value="colectiva">Colectiva</option>
+                      <option value="individual">Individual</option>
+                  </select>
+              </div>
           </div>
           <div class="mb-3 row">
-            <label for="clave" class="col-sm-3 col-form-label">Imagen Reserva:</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" name="imagenReserva" required>
-            </div>
+              <label for="imagenReserva" class="col-sm-3 col-form-label">Imagen Reserva:</label>
+              <div class="col-sm-9">
+                  <input type="file" class="form-control" id="imagenReserva" name="imagenReserva" accept="image/*" required>
+              </div>
           </div>
           <div class="mb-3 row">
-            <div class="offset-sm-3 col-sm-9">
-              <button type="submit" class="btn botonsabermas" id="idCrearinstalacion">Confirmar</button>
-              <button type="button" class="btn botonsabermas" data-bs-dismiss="modal">Cancelar</button>
-            </div>
+              <label for="aforo" class="col-sm-3 col-form-label">Aforo:</label>
+              <div class="col-sm-9">
+                  <input type="number" class="form-control" id="aforo" name="aforo" required>
+              </div>
           </div>
-        </form>
+          <div class="mb-3 row">
+              <label for="horaInicio" class="col-sm-3 col-form-label">Hora Inicio:</label>
+              <div class="col-sm-9">
+                  <input type="time" class="form-control" id="horaInicio" name="horaInicio" required>
+              </div>
+          </div>
+          <div class="mb-3 row">
+              <label for="horaFin" class="col-sm-3 col-form-label">Hora Fin:</label>
+              <div class="col-sm-9">
+                  <input type="time" class="form-control" id="horaFin" name="horaFin" required>
+              </div>
+          </div>
+          <div class="mb-3 row">
+              <div class="offset-sm-3 col-sm-9">
+                  <button type="submit" class="btn botonsabermas" id="idCrearinstalacion">Confirmar</button>
+                  <button type="button" class="btn botonsabermas" data-bs-dismiss="modal">Cancelar</button>
+              </div>
+          </div>
+      </form>
       </div>
     </div>
 
