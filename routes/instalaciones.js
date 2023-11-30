@@ -10,7 +10,7 @@ const pool = mysql.createPool({
   port : 3306
 })
 
-router.post('/crearInstalacion',(req,res)=>{
+router.post('/crearInstalacion',(req,res)=>{ //TODO hacer ajax
    
     datosInstalacion={
         nombre: req.body.nombre,
@@ -32,4 +32,52 @@ router.post('/crearInstalacion',(req,res)=>{
     })
 
 });
+
+
+router.get('/',(req,res)=>{
+  const DAOAp = require("../mysql/daoInstalaciones")
+  const midao = new DAOAp(pool)
+  console.log("estamos en router get / instalacion"+ req.query.id)
+
+  midao.leerInstalacionID(req.query.id, (err, datos) => {
+    if (err) {
+      res.render('error',{error:"Ha ocurrido un error"});//si ocurre un error cargo la ventana de error 
+    }
+    else { 
+      if (global.titulo == null) {
+        daoC.leerConfig((err, configDatos) => {
+          if (err) { // Si hay un error en el acceso a la bd, ponemos la info por defecto
+            global.titulo = "UCM-RIU";
+            global.logo = "/images/logo.png";
+            global.gama = "/css/estiloOscuro.css";
+          } else { // Si la configuración se obtiene correctamente, la almacenamos en global
+            global.titulo = configDatos.nombre;
+            const base64String = configDatos.logo.toString('base64');
+            const imageUrl = `data:image/png;base64,${base64String}`;
+            global.logo = imageUrl;
+            global.gama = configDatos.gama;
+            global.direccion = configDatos.direccion;
+          } // Renderizamos la página principal con la información de todos los destinos
+          res.render('instalacion', {
+            instalacion: datos,
+            gama: global.gama,
+            logo: global.logo,
+            titulo: global.titulo,
+            direccion: global.direccion
+          });
+        });
+      } else {
+        // Si ya tenemos la configuración, renderizamos la página directamente
+        res.render('instalacion', {
+          instalacion: datos,
+          gama: global.gama,
+          logo: global.logo,
+          titulo: global.titulo,
+          direccion: global.direccion
+        });
+      }
+    }
+})
+
+})
 module.exports = router;

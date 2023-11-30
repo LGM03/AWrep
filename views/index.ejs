@@ -11,7 +11,7 @@
     <link rel="stylesheet" id = "hojaEstilosGama" href=<%=gama%>>
     <link rel="stylesheet" href="/css/estilosMainView.css">
     
-  <link rel="shortcut icon" href=<%=logo%>>
+  <link rel="shortcut icon" id = "logoPequeño" href=<%=logo%>>
   <title><%=titulo%></title>
 </head>
 
@@ -44,10 +44,11 @@
                     </div>
                     <img class="card-img-top " src=<%=instalacion.imagen%> alt="Imagen no cargada">
                     <!--Pongo la imagen del destino en cuestion-->
-                    <div class="card-body">
-                      <p class="card-text">
+                    <div class="card-footer"> <!--Pongo la descripcion y precio del destino en cuestion-->
+                      <p class="card-text col-6">
                         <%=instalacion.tipoReserva%>
                       </p>
+                      <a href="./instalaciones?id=<%=instalacion.id%>" class="btn botonsabermas col-6">Saber Más</a>
                     </div>
                   </div>
                 </div>

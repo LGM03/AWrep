@@ -1,0 +1,33 @@
+
+.fondoGrisTexto {
+    background-color: rgb(0, 0, 0, 0.55); /*Fondo para el texto del carrusel*/
+}
+
+.carousel-indicators li { /*quito los numeros del carrusel*/
+    list-style: none;
+}
+
+#titulo{
+    max-width: 80%;
+    margin: 0 auto;   
+    background-color:white;
+    color:#000000;
+    font: 1em EB-garamont;
+}
+
+#itinerario{
+    display: none;
+    background-color: white;
+    box-shadow: 0px 0px 5px #000000;
+}
+
+.cajaInfo{
+    background-color: white;
+    box-shadow: 0px 0px 5px #000000;
+}
+
+.cabeceraInfo{
+    font: 1em EB-garamont;
+   font-size: 30px;
+   color :#000000;
+}

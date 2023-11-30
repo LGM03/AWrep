@@ -23,8 +23,8 @@ const middlewareSession = session({
   store: sessionStore
 });
 
-var indexRouter = require('./routes/index');
-var usuarioRouter = require('./routes/usuario');
+var indexRouter = require('./routes/index')
+var usuarioRouter = require('./routes/usuario')
 var gestionUsuariosRouter = require('./routes/gestionUsuarios.js')
 var instalacionesRouter=require('./routes/instalaciones.js')
 var configRouter = require('./routes/config')

@@ -97,6 +97,7 @@ $(document).ready(function () {
                 processData: false,
                 success: function (datos, state, jqXHR) {
                     $("#logConfiguracion").attr("src",datos)
+                    $("#logoPequeño").attr("src",datos)
                     $("#cambiarLogo").modal('hide')
                 },
                 error: function (jqXHR, statusText, errorThrown) {
