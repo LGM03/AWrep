@@ -15,7 +15,7 @@ router.post('/crearInstalacion',(req,res)=>{ //TODO hacer ajax
     datosInstalacion={
         nombre: req.body.nombre,
         tipoReserva: req.body.tipoReserva,
-        imagenInstalacion: req.body.imagenInstalacion
+        imagenInstalacion: req.body.imagenInstalacion,
     }
     console.log(datosInstalacion);
 
@@ -24,10 +24,10 @@ router.post('/crearInstalacion',(req,res)=>{ //TODO hacer ajax
 
     midao.altaInstalacion(datos, (err, datos) => {
         if (err) {
-            res.redirect(`/?error=${"No se ha dado de alta la instalacion"}`); //Si ha ocurrido un error, recargo la ventana con mensaje de fallo
+            res.send('0'); //Si ha ocurrido un error, recargo la ventana con mensaje de fallo
           }
           else {
-            res.redirect(`/?exito=${'instalacion creada con éxito'}`); //Si todo ha ido bien recargo la instalacion
+            res.redirect('1'); //Si todo ha ido bien recargo la instalacion
           }
     })
 
@@ -79,5 +79,30 @@ router.get('/',(req,res)=>{
     }
 })
 
+const multerFactory = multer({ storage: multer.memoryStorage() });
+
+router.post('/CrearInstalacion', multerFactory.single('imagenInstalaciones'),function (req, res, next) {
+    const DAOAp = require('../mysql/daoInstalaciones')
+    const midao = new DAOAp(pool)
+
+    const imageBuffer = req.file.buffer;  //paso la imagen a binario
+
+    datosInstalacion={
+      nombre: req.body.nombre,
+      tipoReserva: req.body.tipoReserva,
+      imagenInstalacion: imageBuffer,
+      aforo: req.body.aforo,
+      horaInicio: req.body.horaInicio,
+      horaFin: req.body.horaFin
+  }
+
+    midao.altaInstalacion(datosInstalacion, (err, datos) => { //subo la imagen a la bd
+        if (err) {
+            res.send("0")
+        } else {
+            res.send("1")
+        }
+    })
+})
 })
 module.exports = router;

@@ -27,8 +27,8 @@ class DAOInstalaciones{   //DAO que accede a los destinos y su respectiva inform
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
             } else {
-                const sql = "insert into ucm_aw_riu_ins_instalaciones (nombre,tipoReserva,imagen) values (,?,?,?)";
-                connection.query(sql, [datos.nombre, datos.tipoReserva, datos.imagen], function (err, resultado) {
+                const sql = "insert into ucm_aw_riu_ins_instalaciones (nombre,tipoReserva,imagen) values (?,?,?,?,?,?)";
+                connection.query(sql, [datos.nombre, datos.tipoReserva, datos.imagen,datos.aforo,datos.horaInicio,datos.horaFin], function (err, resultado) {
                     connection.release(); //Libero la conexion
                     if (err) {
                         console.log(err)

@@ -29,18 +29,6 @@ $(document).ready(function () {
     }
   })
 
-  $("#idCrearinstalacion").on("click", function () { //TODO
-    var datosCrearIns = {
-      nombre: $("#nombre").prop("value"),
-      tipoReserva: $("#tipoReserva").prop("value"),
-      imagenReserva: $("#imagenResrva").prop("value")
-    }
-    if (!validarInstalacion(instalacion)) {
-      event.preventDefault();
-    }
-
-  })
-
 
   //Validador de Reserva
   $("#idReservar").on("click", function () {
