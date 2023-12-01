@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const multer = require("multer");
 
 const mysql = require("mysql")
 const pool = mysql.createPool({
@@ -11,10 +12,12 @@ const pool = mysql.createPool({
 })
 
 
-router.get('/',(req,res)=>{
+router.get('/',(req,res)=>{ //carga las instalaciones 
   const DAOAp = require("../mysql/daoInstalaciones")
   const midao = new DAOAp(pool)
-  console.log("estamos en router get / instalacion"+ req.query.id)
+  const DAOAp2 = require("../mysql/daoConfig")
+  const daoC = new DAOAp2(pool)
+
 
   midao.leerInstalacionID(req.query.id, (err, datos) => {
     if (err) {

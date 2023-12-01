@@ -14,7 +14,6 @@ $(document).ready(function () {
             horaInicio: $("#horaInicio").prop("value"),
             horaFin: $("#horaFin").prop("value"),
         }
-        console.log(datosCrearIns)
 
         alert("a"+ datosCrearIns.horaFin)
         

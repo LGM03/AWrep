@@ -15,6 +15,10 @@ class DAOInstalaciones{   //DAO que accede a los destinos y su respectiva inform
                     if (err) {
                         callback(err, null); //Si ha ocurrido un error retorno el error
                     } else {
+                        for(var i = 0 ; i<resultado.length ; i++){
+                            const base64String = resultado[i].imagen.toString('base64');
+                            resultado[i].imagen= `data:image/png;base64,${base64String}`
+                        }
                         callback(null, resultado); //Si todo ha ido bien retorno la información obtenida 
                     }
                 });
@@ -52,6 +56,12 @@ class DAOInstalaciones{   //DAO que accede a los destinos y su respectiva inform
                     if (err) {
                         callback(err, null); //Si ha ocurrido un error retorno el error
                     } else {
+                        const base64String = resultado[0].imagen.toString('base64');
+                        const imageUrl = `data:image/png;base64,${base64String}`;
+                        resultado[0].imagen=imageUrl
+                        resultado[0].horaInicio = resultado[0].horaInicio.split(':').slice(0, 2).join(':');
+                        resultado[0].horaFin = resultado[0].horaFin.split(':').slice(0, 2).join(':');
+
                         callback(null, resultado[0]); //Si todo ha ido bien retorno la información obtenida 
                     }
                 });

@@ -20,7 +20,6 @@ const daoC = new DAOConfig(pool)
 
 router.get('/', function (req, res, next) {
 
-  console.log("hoala?")
   const DAOAp = require("../mysql/daoInstalaciones");
   const midao = new DAOAp(pool);
 
