@@ -34,7 +34,7 @@
 
             <div class="container row pt-3 pb-2 mb-4 rounded d-flex ">
                 <div class="col-7">
-                    <img class="container d-block w-75" src=<%=instalacion.imagen%> alt="Imagen no cargada">
+                    <img class="container d-block w-50" src=<%=instalacion.imagen%> alt="Imagen no cargada">
                 </div>
                 <!--adasfadsdfasdf-->
                 <div class="col-5 mt-4 mb-2 text-center p-3 cajaInfo rounded">
@@ -52,9 +52,13 @@
                         <h4>
                             <%=instalacion.tipoReserva%>
                         </h4>
-                        <h3>Horario : </h3>
-                        <h4>
-                            <%=instalacion.horaInicio%> - <%=instalacion.horaFin%>
+                        <h3>Hora de Apertura: </h3>
+                        <h4 id="horaIniInstalacion">
+                            <%=instalacion.horaInicio%>
+                        </h4>
+                        <h3>Hora de Cierre: </h3>
+                        <h4 id="horaFinInstalacion">
+                            <%=instalacion.horaFin%>
                         </h4>
                         <h3>Aforo :</h3>
                         <h4>
@@ -73,11 +77,101 @@
 
                 <div class="col-sm-12 ">
                     <% if(usuario && usuario.rol==0){ %>
-                        <button type="button" class="btn mb-2 text-center w-100 p-3" data-bs-toggle="modal"
+                        <button type="button" class="btn mb-2 text-center w-100 p-3 botonbuscar" data-bs-toggle="modal"
                             data-bs-target="#Reserva">Realizar Reserva</button>
+                            <div class="modal fade" id="Reserva" data-bs-backdrop="static">
+                                <!-- data-bs impide que se cierre al pulsar fuera del modal -->
+                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                    <div class="modal-content">
+
+                                        <!-- cabecera del diálogo -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title text-center w-100">Formulario de Reserva</h4>
+                                            <button type="button" class="btn-close"
+                                                data-bs-dismiss="modal"></button>
+                                        </div>
+
+                                        <!-- cuerpo del diálogo -->
+                                        <div class="modal-body alert alert-secondary">
+                                            <div class="container-fluid">
+
+                                                <!--Form lleva a /reservar y le pasa el id en la url-->
+                                                <form id="reservaForm">
+
+                                                    <div class="mb-3 row">
+                                                        <label for="nombre"
+                                                            class="col-md-2 col-form-label">Nombre:</label>
+                                                        <div class="col-md-4">
+                                                            <input type="text" class="form-control"
+                                                                id="nombreReserva" name="nombre"
+                                                                value=" <%=usuario.nombre%> " readonly>
+                                                        </div>
+                                                        <label for="apellidos"
+                                                            class="col-md-2 col-form-label text-center">Apellidos:</label>
+                                                        <div class="col-md-4">
+                                                            <input type="text" class="form-control"
+                                                                id="apellidoReserva" name="apellido"
+                                                                value=" <%=usuario.apellido1%>  <%=usuario.apellido2%>"
+                                                                readonly>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="mb-3 row">
+                                                        <label for="correoReserva"
+                                                            class="col-sm-3 col-form-label ">Correo:</label>
+                                                        <div class="col-sm-9">
+                                                            <input type="email" class="form-control"
+                                                                id="correoReserva" name="correo"
+                                                                placeholder="correo@ejemplo.com"
+                                                                value=" <%=usuario.correo%> " readonly>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="mb-3 row">
+                                                        <label class="control-label col-sm-3 "
+                                                            for="fecha">Fecha:</label>
+                                                        <div class="col-sm-9">
+                                                            <input type="date" id="fechaReserva" name="fecha"
+                                                                class="form-control" required>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="mb-3 row">
+                                                        <label for="horaInicio"
+                                                            class="col-md-2 col-form-label">Hora
+                                                            Inicio:</label>
+                                                        <div class="col-md-4">
+                                                            <input type="time" class="form-control"
+                                                                id="horaInicio" name="horaInicio" required>
+                                                        </div>
+                                                        <label for="horaFin"
+                                                            class="col-md-2 col-form-label text-center">Hora
+                                                            Fin:</label>
+                                                        <div class="col-md-4">
+                                                            <input type="time" class="form-control" id="horaFin"
+                                                                name="horaFin" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="mb-3 row">
+                                                        <div class="offset-sm-3 col-sm-9">
+                                                            <button type="submit" class="btn botonbuscar"
+                                                                id="confirmarReserva">Confirmar</button>
+                                                            <button type="button" class="btn botonbuscar"
+                                                                data-bs-dismiss="modal">Cancelar</button>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         <%}else if (usuario && usuario.rol==1){ %>
-                            <button type="button" class="btn mb-2 text-center w-100 p-3"
-                                data-bs-toggle="modal" data-bs-target="#HistorialInstalacion" id="botonReserva">Ver
+                            <button type="button" class="btn mb-2 text-center w-100 p-3" data-bs-toggle="modal"
+                                data-bs-target="#HistorialInstalacion" id="botonReserva">Ver
                                 Historial</button>
                             <% }else{ %>
                                 <p class="alert alert-warning text-center">Registrate para poder reservar</p>
@@ -85,95 +179,7 @@
 
 
 
-                                    <div class="modal fade" id="Reserva" data-bs-backdrop="static">
-                                        <!-- data-bs impide que se cierre al pulsar fuera del modal -->
-                                        <div class="modal-dialog modal-lg modal-dialog-centered">
-                                            <div class="modal-content">
-
-                                                <!-- cabecera del diálogo -->
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title text-center w-100">Formulario de Reserva</h4>
-                                                    <button type="button" class="btn-close"
-                                                        data-bs-dismiss="modal"></button>
-                                                </div>
-
-                                                <!-- cuerpo del diálogo -->
-                                                <div class="modal-body alert alert-secondary">
-                                                    <div class="container-fluid">
-
-                                                        <!--Form lleva a /reservar y le pasa el id en la url-->
-                                                        <form id="reservaForm">
-
-                                                            <div class="mb-3 row">
-                                                                <label for="nombre"
-                                                                    class="col-md-2 col-form-label">Nombre:</label>
-                                                                <div class="col-md-4">
-                                                                    <input type="text" class="form-control"
-                                                                        id="nombreReserva" name="nombre"
-                                                                        value=" <%=usuario.nombre%> " readonly>
-                                                                </div>
-                                                                <label for="apellidos"
-                                                                    class="col-md-2 col-form-label text-center">Apellidos:</label>
-                                                                <div class="col-md-4">
-                                                                    <input type="text" class="form-control"
-                                                                        id="apellidoReserva" name="apellido"
-                                                                        value=" <%=usuario.apellido1%>  <%=usuario.apellido2%>"
-                                                                        readonly>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="mb-3 row">
-                                                                <label for="correoReserva"
-                                                                    class="col-sm-3 col-form-label ">Correo:</label>
-                                                                <div class="col-sm-9">
-                                                                    <input type="email" class="form-control"
-                                                                        id="correoReserva" name="correo"
-                                                                        placeholder="correo@ejemplo.com"
-                                                                        value=" <%=usuario.correo%> " readonly>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="mb-3 row">
-                                                                <label class="control-label col-sm-3 "
-                                                                    for="fecha">Fecha:</label>
-                                                                <div class="col-sm-9">
-                                                                    <input type="date" id="fechaReserva" name="fecha"
-                                                                        class="form-control" required>
-                                                                </div>
-                                                            </div>
-
-                                                            
-                                                            <div class="mb-3 row">
-                                                                <label for="horaInicio"
-                                                                    class="col-md-2 col-form-label">Hora
-                                                                    Inicio:</label>
-                                                                <div class="col-md-4">
-                                                                    <input type="time" class="form-control"
-                                                                    id="horaInicio" name="horaInicio" required>
-                                                                </div>
-                                                                <label for="horaFin"
-                                                                    class="col-md-2 col-form-label text-center">Hora Fin:</label>
-                                                                <div class="col-md-4">
-                                                                    <input type="time" class="form-control" id="horaFin"
-                                                                    name="horaFin" required>
-                                                                </div>
-                                                            </div>
-                                                
-                                                            <div class="mb-3 row">
-                                                                <div class="offset-sm-3 col-sm-9">
-                                                                    <button type="submit" class="btn botonbuscar"
-                                                                        id="confirmarReserva">Confirmar</button>
-                                                                    <button type="button" class="btn botonbuscar"
-                                                                        data-bs-dismiss="modal">Cancelar</button>
-                                                                </div>
-                                                            </div>
-
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                 </div>
             </div>
 
