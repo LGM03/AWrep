@@ -62,16 +62,16 @@ router.get('/',(req,res)=>{ //carga las instalaciones
 const multerFactory = multer({ storage: multer.memoryStorage() });
 
 router.post('/crearInstalacion', multerFactory.single('imagenInstalaciones'),function(req, res, next){
+  console.log("hola?")
     const DAOAp = require('../mysql/daoInstalaciones')
     const midao = new DAOAp(pool)
 
-    const imageBuffer = req.body.imagen;  //paso la imagen a binario
-    console.log(imageBuffer)
+    console.log(req.body.imagenInstalacion.buffer)
     console.log("AAAAAAAAAAAAAAAAAAAa")
     datosInstalacion={
       nombre: req.body.nombre,
       tipoReserva: req.body.tipoReserva,
-      imagenInstalacion: imageBuffer,
+      imagenInstalacion: req.body.imagenInstalacion.buffer,
       aforo: req.body.aforo,
       horaInicio: req.body.horaInicio,
       horaFin: req.body.horaFin

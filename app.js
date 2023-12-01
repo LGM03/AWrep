@@ -25,8 +25,8 @@ const middlewareSession = session({
 
 var indexRouter = require('./routes/index')
 var usuarioRouter = require('./routes/usuario')
-var gestionUsuariosRouter = require('./routes/gestionUsuarios.js')
-var instalacionesRouter=require('./routes/instalaciones.js')
+var gestionUsuariosRouter = require('./routes/gestionUsuarios')
+var instalacionesRouter=require('./routes/instalaciones')
 var configRouter = require('./routes/config')
 var reservaRouter = require('./routes/reserva')
 

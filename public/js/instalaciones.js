@@ -2,20 +2,16 @@ $(document).ready(function () {
 
     $("#idCrearinstalacion").on("click", function () {
 
-        const fileInput = $("#imagenInstalacion")
+         const fileInput = $("#imagenInstalacion");
 
-        const file = fileInput[0].files[0];
-
-        var datosCrearIns = {
-            nombre: $("#nombreInstalacion").prop("value"),
-            tipoReserva: $("#tipoReserva").prop("value"),
-            imagenInstalaciones: file,
-            aforo: $("#aforo").prop("value"),
-            horaInicio: $("#horaInicio").prop("value"),
-            horaFin: $("#horaFin").prop("value"),
-        }
-
-        alert("a"+ datosCrearIns.horaFin)
+        // Crear un objeto FormData y agregar datos a él
+        var datosCrearIns = new FormData();
+        datosCrearIns.append("nombre", $("#nombreInstalacion").val());
+        datosCrearIns.append("tipoReserva", $("#tipoReserva").val());
+        datosCrearIns.append("imagenInstalacion", fileInput[0].files[0]);
+        datosCrearIns.append("aforo", $("#aforo").val());
+        datosCrearIns.append("horaInicio", $("#horaInicio").val());
+        datosCrearIns.append("horaFin", $("#horaFin").val());
         
         $.ajax({
             method: "POST",
@@ -30,8 +26,6 @@ $(document).ready(function () {
                 console.error('Error al enviar el formulario al servidor:', errorThrown);
             },
         });
-
-
 
     })
 })
