@@ -8,11 +8,11 @@ const pool = mysql.createPool({
   user: "root",
   password: "",
   database: "UCM_RIU",
-  port : 3306
+  port: 3306
 })
 
 
-router.get('/',(req,res)=>{ //carga las instalaciones 
+router.get('/', (req, res) => { //carga las instalaciones 
   const DAOAp = require("../mysql/daoInstalaciones")
   const midao = new DAOAp(pool)
   const DAOAp2 = require("../mysql/daoConfig")
@@ -21,9 +21,9 @@ router.get('/',(req,res)=>{ //carga las instalaciones
 
   midao.leerInstalacionID(req.query.id, (err, datos) => {
     if (err) {
-      res.render('error',{error:"Ha ocurrido un error"});//si ocurre un error cargo la ventana de error 
+      res.render('error', { error: "Ha ocurrido un error" });//si ocurre un error cargo la ventana de error 
     }
-    else { 
+    else {
       if (global.titulo == null) {
         daoC.leerConfig((err, configDatos) => {
           if (err) { // Si hay un error en el acceso a la bd, ponemos la info por defecto
@@ -57,33 +57,31 @@ router.get('/',(req,res)=>{ //carga las instalaciones
         });
       }
     }
+  })
 })
+
 
 const multerFactory = multer({ storage: multer.memoryStorage() });
+router.post('/crearInstalacion', multerFactory.single("imagenInstalacion"),function (req, res, next) {
+  const DAOAp = require('../mysql/daoInstalaciones')
+  const midao = new DAOAp(pool)
 
-router.post('/crearInstalacion', multerFactory.single('imagenInstalaciones'),function(req, res, next){
-  console.log("hola?")
-    const DAOAp = require('../mysql/daoInstalaciones')
-    const midao = new DAOAp(pool)
+  datosInstalacion = {
+    nombre: req.body.nombre,
+    tipoReserva: req.body.tipoReserva,
+    imagenInstalacion: req.file.buffer,
+    aforo: req.body.aforo,
+    horaInicio: req.body.horaInicio,
+    horaFin: req.body.horaFin
+  }
 
-    console.log(req.body.imagenInstalacion.buffer)
-    console.log("AAAAAAAAAAAAAAAAAAAa")
-    datosInstalacion={
-      nombre: req.body.nombre,
-      tipoReserva: req.body.tipoReserva,
-      imagenInstalacion: req.body.imagenInstalacion.buffer,
-      aforo: req.body.aforo,
-      horaInicio: req.body.horaInicio,
-      horaFin: req.body.horaFin
+  midao.altaInstalacion(datosInstalacion, (err, datos) => { //subo la info a la bd
+    if (err) {
+      res.json("0")
+    } else {
+      res.json(datos)
     }
-    console.log(datosInstalacion);
-    midao.altaInstalacion(datosInstalacion, (err, datos) => { //subo la info a la bd
-        if (err) {
-            res.send("0")
-        } else {
-            res.send("1")
-        }
-    })
-})
+  })
+
 })
 module.exports = router;

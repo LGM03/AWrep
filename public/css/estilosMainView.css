@@ -28,3 +28,8 @@
 .card-img-top{ /*Elimina el radio de las imagenes de las tarjetas*/
     border-radius: 0;
 }
+
+.imagenInstalacion{
+    max-width: 250px; 
+    height: auto;
+}
