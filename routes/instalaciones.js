@@ -75,11 +75,15 @@ router.post('/crearInstalacion', multerFactory.single("imagenInstalacion"),funct
     horaFin: req.body.horaFin
   }
 
+  var buffer =  req.file.buffer 
+  const imageBase64 = buffer.toString('base64');
+  const imageUrl = `data:${req.file.mimetype};base64,${imageBase64}`;
+
   midao.altaInstalacion(datosInstalacion, (err, datos) => { //subo la info a la bd
     if (err) {
       res.json("0")
     } else {
-      res.json(datos)
+      res.json({id : datos, imagen :  imageUrl})
     }
   })
 

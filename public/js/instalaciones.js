@@ -28,8 +28,8 @@ $(document).ready(function () {
                 //Cerramos el modal
                 if(window.location.pathname == "/"){ //Si estamos en el / añadimos la tarjeta correspondiente 
                     agregarTarjeta(datos)
+                    $("#CrearInstalacion").modal('hide')
                 }
-                alert(currentPageUrl)
             },
             error: function (jqXHR, statusText, errorThrown) {
                 alert("Error al crear la instalacion")
@@ -40,14 +40,13 @@ $(document).ready(function () {
     })
 })
 
-function agregarTarjeta(id){
+function agregarTarjeta(datos){
 
+  console.log(datos)
     var contenedor = $("#zonaTarjetas")
 
     const nombre = $("#nombreInstalacion").val()
     const tipo = $("#tipoReserva").val()
-    const imagen = $("#imagenInstalacion")[0].files[0] 
-    var url = URL.createObjectURL(imagen);
     
     var tarjeta = '<div class="col-md-4 pb-4 d-flex">' +
     '<div class="card w-100">' +
@@ -55,11 +54,11 @@ function agregarTarjeta(id){
         '<h5>' + nombre + '</h5>' +
       '</div>' +
       '<div class="text-center">' +
-        '<img class="card-img-top img-fluid imagenInstalacion" src="' + url + '" alt="Imagen no cargada">' +
+        '<img class="card-img-top img-fluid imagenInstalacion" src="' + datos.imagen + '" alt="Imagen no cargada">' +
       '</div>' +
       '<div class="card-footer">' +
         '<p class="card-text col-6">' + tipo + '</p>' +
-        '<a href="./instalaciones?id=' + id + '" class="btn botonsabermas col-6">Saber Más</a>' +
+        '<a href="./instalaciones?id=' + datos.id + '" class="btn botonsabermas col-6">Saber Más</a>' +
       '</div>' +
     '</div>' +
   '</div>';
