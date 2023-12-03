@@ -1,9 +1,34 @@
 
 $(document).ready(function () {
 
-  $("#idCrearCuenta").on("click", function () { //TODO
+  $('#mostrarContrasena2').change(function () {
+    var passwordInput = $('#contraseñaRep');
+    passwordInput.attr('type', this.checked ? 'text' : 'password');
+  });
+
+  $('#mostrarContrasena').change(function () {
+    var passwordInput = $('#contraseña');
+    passwordInput.attr('type', this.checked ? 'text' : 'password');
+  });
+
+
+  $("#idCrearCuenta").on("click", function (event) { //TODO limpiar codigo
     //Recojo los valores de las variables del formulario de registro
-    
+    event.preventDefault();
+    var aux = $("#contraseña").prop("value")
+    console.log(aux)
+
+    var datosCrearUsuario = new FormData();
+    datosCrearUsuario.append("nombre", $("#nombre").val());
+    datosCrearUsuario.append("apellido1", $("#apellido1").val());
+    datosCrearUsuario.append("apellido2", $("#apellido2").val());
+    datosCrearUsuario.append("contrasena", aux);
+    datosCrearUsuario.append("imagenUser", $("#imagenUser")[0].files[0]);
+    datosCrearUsuario.append("facultad", $("#facultad").val());
+    datosCrearUsuario.append("curso", $("#curso").val());
+    datosCrearUsuario.append("correo", $("#correo").val());
+    datosCrearUsuario.append("grupo", $("#grupo").val());
+
     var datosInicio = {
       nombre: $("#nombre").prop("value"),
       apellido1: $("#apellido1").prop("value"),
@@ -15,11 +40,31 @@ $(document).ready(function () {
       facultad: $("#facultad").prop("value"),
       curso: $("#curso").prop("value"),
       grupo: $("#grupo").prop("value"),
-      imagenUser: $("#imagenUser").prop("value")
+      imagenUser: $("#imagenUser")[0].files[0]
     }
 
-    if (!validarInicio(datosInicio)) {
-      event.preventDefault(); // Evita el envío del formulario si la validación falla
+    if (validarInicio(datosInicio)) {
+      $.ajax({
+        method: "POST",
+        url: "/user/crearCuenta",
+        data: datosCrearUsuario,
+        contentType: false,
+        processData: false,
+        success: function (datos, state, jqXHR) {
+          //Cerramos el modal
+          if (datos !== "0") { //Si estamos en el / añadimos la tarjeta correspondiente 
+            $("#crearCuenta").modal('hide')
+            alert("Cuenta creada con éxito")
+
+          } else {
+            alert("No se ha podido crear el usuario")
+          }
+        },
+        error: function (jqXHR, statusText, errorThrown) {
+          alert("Error al crear usuario")
+          console.error('Error al enviar el formulario al servidor:', errorThrown);
+        },
+      });
     }
   })
 
@@ -53,18 +98,26 @@ function validarInicio(datosInicio) { //Toggle es mas bonito que alert
     alert('Por favor, ingrese un nombre y apellido válidos.');
     return false;
   }
-  if (datosInicio.facultad.trim() === '') {
+  if (datosInicio.facultad.trim() == null) {
     alert('Seleccione una facultad');
     return false;
   }
-  if (datosInicio.facultad.trim() === '') {
+  if (datosInicio.curso == null) {
     alert('Seleccione un Curso');
     return false;
   }
-  if (datosInicio.facultad.trim() === '') {
+  if (datosInicio.grupo == null) {
     alert('Seleccione un Grupo');
     return false;
   }
+
+  var comprobarEx = /(\.png)$/i;
+  console.log(datosInicio.imagenUser)
+  if (!datosInicio.imagenUser || !comprobarEx.exec(datosInicio.imagenUser.name) || datosInicio.imagenUser.size > 400000) {
+    alert("Seleccione una imagen válida")
+      return false;
+  }
+
   if (!validarEmail(datosInicio.email)) {
     alert('Por favor, ingrese una dirección de correo electrónico válida.');
     return false;
@@ -86,9 +139,6 @@ function validarnombre(nombre) {//admite nombres y apellidos compuestos y con ti
   return nombreComprobar.test(nombre);
 }
 
-function validarInstalacion(instalacion) {
-  return true;
-}
 
 function validarfecha(fecha) {
   const fechaComprobar = /^\d{4}-\d{2}-\d{2}$/;

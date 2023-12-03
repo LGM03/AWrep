@@ -1,205 +1,219 @@
 <header class="container fondocabecera justify-content-center">
-    <!-- Aqui comienza el contenedor que contiene el logo y el texto de la cabecera  -->
-    <div class="row ">
-      <!--  Esta formado por 1 fila que contiene 1 columna de tamaño 2 para el logo y una de tamaño 8 para el texto  -->
-      <div class="col-sm-2 ">
-        <a href="/"><img id = "logo" src="<%=logo%>" alt="Icono Página no cargado" width="50"
-            class="d-flex align-content-center justify-content-center">
-        </a>
-      </div>
-      
-      <div class="col-sm-8 ">
-        <h1 id = "Titulo" class="textoCabecera d-flex align-items-center justify-content-center " ><%=titulo%></h1>
-      </div>
-      
-      <div class="col-sm-2 ">
+  <!-- Aqui comienza el contenedor que contiene el logo y el texto de la cabecera  -->
+  <div class="row ">
+    <!--  Esta formado por 1 fila que contiene 1 columna de tamaño 2 para el logo y una de tamaño 8 para el texto  -->
+    <div class="col-sm-2 ">
+      <a href="/"><img id="logo" src="<%=logo%>" alt="Icono Página no cargado" width="50"
+          class="d-flex align-content-center justify-content-center">
+      </a>
+    </div>
 
-        <%if(usuario){ %>
-          
-            <form method="post" action="/user/logout" class="col-6">
-              <button type="submit" class="btn botonInicioSesion mt-3 mb-3">Cerrar Sesión</button>
-            </form>
-          
-          <%}else{ %>
+    <div class="col-sm-8 ">
+      <h1 id="Titulo" class="textoCabecera d-flex align-items-center justify-content-center ">
+        <%=titulo%>
+      </h1>
+    </div>
 
-            <button type="button" class="btn botonInicioSesion mt-3" data-bs-toggle="modal"
-              data-bs-target="#InicioSesion">Iniciar Sesión </button>
-            <% } %>
+    <div class="col-sm-2 ">
 
-      </div>
-      <!--##################################################-->
+      <%if(usuario){ %>
 
-      <!--Cuadro Modal inicio de Sesion-->
+        <form method="post" action="/user/logout" class="col-6">
+          <button type="submit" class="btn botonInicioSesion mt-3 mb-3">Cerrar Sesión</button>
+        </form>
 
-      <div class="modal fade" id="InicioSesion" data-bs-backdrop="static">
-        <!-- data-bs impide que se cierre al pulsar fuera del modal -->
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-          <div class="modal-content">
+        <%}else{ %>
 
-            <!-- cabecera del diálogo -->
-            <div class="modal-header">
-              <h4 class="modal-title">Inicio de Sesión</h4>
-              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
+          <button type="button" class="btn botonInicioSesion mt-3" data-bs-toggle="modal"
+            data-bs-target="#InicioSesion">Iniciar Sesión </button>
+          <% } %>
 
-            <!-- cuerpo del diálogo -->
-            <div class="modal-body alert alert-secondary">
+    </div>
+    <!--##################################################-->
 
-              <form id="inicioSesion" method="post" action="/user/login">
-                <div class="mb-3 row">
-                  <label for="correo" class="col-sm-3 col-form-label" id = "correoInicio">Correo:</label>
-                  <div class="col-sm-9">
-                    <input type="email" class="form-control" name="correo" required>
-                  </div>
-                </div>
-                <div class="mb-3 row">
-                  <label for="clave" class="col-sm-3 col-form-label">Contraseña:</label>
-                  <div class="col-sm-9">
-                    <input type="password" class="form-control" name="contraseña" required>
-                  </div>
-                </div>
-                <div class="mb-3 row">
-                  <div class="offset-sm-3 col-sm-9">
-                    <button type="submit" class="btn botonsabermas" id = "idConfirmarInicio">Confirmar</button>
-                    <button type="button" class="btn botonsabermas" data-bs-dismiss="modal">Cancelar</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <h6>¿No tienes cuenta?</h6>
-              <button type="button" class="btn botonsabermas" data-bs-toggle="modal" data-bs-target="#crearCuenta"
-                data-bs-dismiss="modal">Crear Cuenta</button>
-            </div>
+    <!--Cuadro Modal inicio de Sesion-->
+
+    <div class="modal fade" id="InicioSesion" data-bs-backdrop="static">
+      <!-- data-bs impide que se cierre al pulsar fuera del modal -->
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+
+          <!-- cabecera del diálogo -->
+          <div class="modal-header">
+            <h4 class="modal-title">Inicio de Sesión</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
 
+          <!-- cuerpo del diálogo -->
+          <div class="modal-body alert alert-secondary">
+
+            <form id="inicioSesion" method="post" action="/user/login">
+              <div class="mb-3 row">
+                <label for="correo" class="col-sm-3 col-form-label" id="correoInicio">Correo:</label>
+                <div class="col-sm-9">
+                  <input type="email" class="form-control" name="correo" required>
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <label for="clave" class="col-sm-3 col-form-label">Contraseña:</label>
+                <div class="col-sm-9">
+                  <input type="password" class="form-control" name="contraseña" required>
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <div class="offset-sm-3 col-sm-9">
+                  <button type="submit" class="btn botonsabermas" id="idConfirmarInicio">Confirmar</button>
+                  <button type="button" class="btn botonsabermas" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <h6>¿No tienes cuenta?</h6>
+            <button type="button" class="btn botonsabermas" data-bs-toggle="modal" data-bs-target="#crearCuenta"
+              data-bs-dismiss="modal">Crear Cuenta</button>
+          </div>
         </div>
+
       </div>
+    </div>
 
 
-      <!--Cuadro modal crear cuenta-->
+    <!--Cuadro modal crear cuenta-->
 
-      <div class="modal fade" id="crearCuenta" data-bs-backdrop="static">
-        <!-- data-bs impide que se cierre al pulsar fuera del modal -->
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-          <div class="modal-content">
+    <div class="modal fade" id="crearCuenta" data-bs-backdrop="static">
+      <!-- data-bs impide que se cierre al pulsar fuera del modal -->
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
 
-            <!-- cabecera del diálogo -->
-            <div class="modal-header">
-              <h4 class="modal-title">Crear Cuenta</h4>
-              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
+          <!-- cabecera del diálogo -->
+          <div class="modal-header">
+            <h4 class="modal-title">Crear Cuenta</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
 
-            <!-- cuerpo del diálogo -->
-            <div class="modal-body alert alert-secondary">
+          <!-- cuerpo del diálogo -->
+          <div class="modal-body alert alert-secondary">
 
-              <form id="crearCuenta" method="post" action="/user/crearCuenta">
-                <div class="mb-3 row">
-                  <label for="nombre" class="col-sm-3 col-form-label">Nombre:</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="nombre" name="nombre" required>
-                  </div>
+            <form id="crearCuenta">
+              <div class="mb-3 row">
+                <label for="nombre" class="col-sm-3 col-form-label">Nombre:</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="nombre" name="nombre" required>
                 </div>
-                <div class="mb-3 row">
-                  <label for="apellido" class="col-sm-3 col-form-label">1ºApellido:</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="apellido1" name="apellido1" required>
-                  </div>
+              </div>
+              <div class="mb-3 row">
+                <label for="apellido" class="col-sm-3 col-form-label">1ºApellido:</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="apellido1" name="apellido1" required>
                 </div>
+              </div>
 
-                <div class="mb-3 row">
-                  <label for="apellido" class="col-sm-3 col-form-label">2ºApellido:</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="apellido2" name="apellido2" required>
-                  </div>
+              <div class="mb-3 row">
+                <label for="apellido" class="col-sm-3 col-form-label">2ºApellido:</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="apellido2" name="apellido2" required>
                 </div>
+              </div>
 
-                <div class="mb-3 row">
-                  <label for="correo" class="col-sm-3 col-form-label">Correo:</label>
-                  <div class="col-sm-9">
-                    <input type="email" class="form-control" id="correo" name="correo" required>
-                  </div>
+              <div class="mb-3 row">
+                <label for="correo" class="col-sm-3 col-form-label">Correo:</label>
+                <div class="col-sm-9">
+                  <input type="email" class="form-control" id="correo" name="correo" required>
                 </div>
-                <div class="mb-3 row">
-                  <label for="facultad" class="col-sm-3 col-form-label">Facultad:</label>
-                  <div class="col-sm-9">
-                      <select class="form-control" id="facultad" name="facultad" required>
-                          <option value="" disabled selected>Seleccione su facultad:</option>
-                          <option value="Mates">Mates</option>
-                          <option value="Fisica">Fisica</option>
-                          <option value="Informatica">Informatica</option>
-                      </select>
-                  </div>
+              </div>
+              <div class="mb-3 row">
+                <label for="facultad" class="col-sm-3 col-form-label">Facultad:</label>
+                <div class="col-sm-9">
+                  <select class="form-control" id="facultad" name="facultad" required>
+                    <option value="" disabled selected>Seleccione su facultad:</option>
+                    <option value="Mates">Mates</option>
+                    <option value="Fisica">Fisica</option>
+                    <option value="Informatica">Informatica</option>
+                  </select>
+                </div>
               </div>
               <div class="mb-3 row">
                 <label for="curso" class="col-sm-3 col-form-label">Curso:</label>
                 <div class="col-sm-9">
-                    <select class="form-control" id="curso" name="curso" required>
-                        <option value="" disabled selected>Seleccione su Curso:</option>
-                        <option value="1º">1º</option>
-                        <option value="2º">2º</option>
-                        <option value="3º">3º</option>
-                        <option value="4º">4º</option>
-                    </select>
-                </div>
-            </div>
-            <div class="mb-3 row">
-              <label for="grupo" class="col-sm-3 col-form-label">Grupo:</label>
-              <div class="col-sm-9">
-                  <select class="form-control" id="grupo" name="grupo" required>
-                      <option value="" disabled selected>Seleccione su Grupo:</option>
-                      <option value="A">A</option>
-                      <option value="B">B</option>
-                      <option value="C">C</option>
+                  <select class="form-control" id="curso" name="curso" required>
+                    <option value="" disabled selected>Seleccione su Curso:</option>
+                    <option value="1º">1º</option>
+                    <option value="2º">2º</option>
+                    <option value="3º">3º</option>
+                    <option value="4º">4º</option>
                   </select>
+                </div>
               </div>
-          </div>
-          <div class="mb-3 row">
-            <label for="imagenUser" class="col-sm-3 col-form-label">Seleccionar Imagen:</label>
-            <div class="col-sm-9">
-                <input type="file" class="form-control" id="imagenUser" name="imagenUser" accept="image/*" required>
-                <!-- La propiedad "accept" limita la selección a archivos de tipo imagen -->
-            </div>
-        </div>
-                <div class="mb-3 row">
-                  <label for="clave" class="col-sm-3 col-form-label">Contraseña:</label>
-                  <div class="col-sm-9">
-                    <input type="password" class="form-control" name="contraseña" id="contraseña" required>
-                    <!--Esto se tiene que validar con js en cliente-->
-                  </div>
+              <div class="mb-3 row">
+                <label for="grupo" class="col-sm-3 col-form-label">Grupo:</label>
+                <div class="col-sm-9">
+                  <select class="form-control" id="grupo" name="grupo" required>
+                    <option value="" disabled selected>Seleccione su Grupo:</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                  </select>
                 </div>
-                <div class="mb-3 row">
-                  <label for="clave" class="col-sm-3 col-form-label">Repetir Contraseña:</label>
-                  <div class="col-sm-9">
-                    <input type="password" class="form-control" name="contraseñaRep" id="contraseñaRep" required>
+              </div>
+              <div class="mb-3 row">
+                <label for="imagenUser" class="col-sm-3 col-form-label">Seleccionar Imagen:</label>
+                <div class="col-sm-9">
+                  <input type="file" class="form-control" id="imagenUser" name="imagenUser" accept="image/png" required size="400000">
+                  <!-- La propiedad "accept" limita la selección a archivos de tipo imagen -->
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <label for="clave" class="col-sm-3 col-form-label">Contraseña:</label>
+                <div class="col-sm-9">
+                  <input type="password" class="form-control" name="contraseña" id="contraseña"  placeholder="Ingresa tu contraseña" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <input type="checkbox" id="mostrarContrasena" class="form-check-input">
+                      <label class="form-check-label" for="mostrarContrasena">Mostrar Contraseña</label>
+                    </div>
+                  </div>
+                  <!--Esto se tiene que validar con js en cliente-->
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <label for="clave" class="col-sm-3 col-form-label">Repetir Contraseña:</label>
+                <div class="col-sm-9">
+                  <input type="password" class="form-control" name="contraseñaRep" id="contraseñaRep"  placeholder="Ingresa tu contraseña" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <input type="checkbox" id="mostrarContrasena2" class="form-check-input">
+                      <label class="form-check-label" for="mostrarContrasena2">Mostrar Contraseña</label>
+                    </div>
                   </div>
                 </div>
 
-                <div class="mb-3 row">
-                  <div class="offset-sm-3 col-sm-9">
-                    <button type="submit" class="btn botonsabermas" id = "idCrearCuenta">Confirmar</button>
-                    <button type="button" class="btn botonsabermas" data-bs-dismiss="modal">Cancelar</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <h6>¿No tienes una cuenta? </h6>
-              <button type="button" class="btn botonsabermas" data-bs-toggle="modal" data-bs-target="#InicioSesion"
-                data-bs-dismiss="modal">Inicia Sesión</button>
-            </div>
-          </div>
 
+              </div>
+
+              <div class="mb-3 row">
+                <div class="offset-sm-3 col-sm-9">
+                  <button type="submit" class="btn botonsabermas" id="idCrearCuenta">Confirmar</button>
+                  <button type="button" class="btn botonsabermas" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <h6>¿No tienes una cuenta? </h6>
+            <button type="button" class="btn botonsabermas" data-bs-toggle="modal" data-bs-target="#InicioSesion"
+              data-bs-dismiss="modal">Inicia Sesión</button>
+          </div>
         </div>
+
       </div>
-
-      <!--#########################################################3-->
     </div>
-  </header>
-  <%if(usuario && usuario.rol == 1){ %> <!--NAV BAR ADMIN-->
-          <%-include('navAdmin.ejs')%>
-  <%}else if (usuario && usuario.rol == 0){ %> <!--NAV BAR USER -->
-    <%-include('navUsuario.ejs')%>
-    <% } %>
 
-  
+    <!--#########################################################3-->
+  </div>
+</header>
+<%if(usuario && usuario.rol==1){ %> <!--NAV BAR ADMIN-->
+  <%-include('navAdmin.ejs')%>
+    <%}else if (usuario && usuario.rol==0){ %> <!--NAV BAR USER -->
+      <%-include('navUsuario.ejs')%>
+        <% } %>

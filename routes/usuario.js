@@ -1,6 +1,7 @@
 var express = require('express');
 const bcrypt = require('bcrypt');
 var router = express.Router();
+const multer = require("multer");
 
 const mysql = require("mysql")
 const pool = mysql.createPool({
@@ -46,7 +47,7 @@ router.post("/login", async (req, res) => {
 
 
 })
-
+ 
 router.post("/logout", (req, res) => {
   console.log("He llegado aquí")
   req.session.destroy(err => {
@@ -59,7 +60,8 @@ router.post("/logout", (req, res) => {
 })
 
 
-router.post('/crearCuenta', (req, res) => {
+const multerFactory = multer({ storage: multer.memoryStorage() });
+router.post('/crearCuenta', multerFactory.single("imagenUser"), (req, res) => {
   datosUsuario = { //Recojo la información que viene del forms
     nombre: req.body.nombre,
     apellido1: req.body.apellido1,
@@ -68,18 +70,20 @@ router.post('/crearCuenta', (req, res) => {
     facultad: req.body.facultad,
     curso: req.body.curso,
     grupo: req.body.grupo,
-    imagenUser: req.body.imagenUser,
-    contraseña: req.body.contraseña
+    imagenUser: req.file.buffer,
+    contrasena: req.body.contrasena,
   }
+
+  console.log(datosUsuario)
 
   const DAOAp = require("../mysql/daoUsuario")
   const midao = new DAOAp(pool)
   const saltRounds = 10; // Número de rondas para el proceso de hashing (mayor es más seguro, pero más lento)
 
   bcrypt.genSalt(saltRounds, (err, salt) => {
-    bcrypt.hash(datosUsuario.contraseña, salt, (err, hash) => {
+    bcrypt.hash(datosUsuario.contrasena, salt, (err, hash) => {
       // Almacena el 'hash' y el 'salt' en la base de datos
-      datosUsuario.contraseña = hash;
+      datosUsuario.contrasena = hash;
       datosUsuario.salt = salt;
 
       midao.altaUsuario(datosUsuario, (err, datos) => { //Guardamos en la base de datos la información de la reserva

@@ -30,7 +30,7 @@ class DAOUsuario{   //DAO que accede a los destinos y su respectiva información
                 callback(err, null);  //Si ocurre algun error retornamos el error
             } else {
                 const sql = "INSERT INTO `ucm_aw_riu_usu_usuarios`(nombre,apellido1,apellido2,correo,facultad,curso,grupo,imagen,contraseña,salt) VALUES (?,?,?,?,?,?,?,?,?,?);";
-                connection.query(sql,[datosUsuario.nombre,datosUsuario.apellido1,datosUsuario.apellido2,datosUsuario.correo,datosUsuario.facultad,datosUsuario.curso,datosUsuario.grupo,datosUsuario.imagenUser,datosUsuario.contraseña, datosUsuario.salt], function (err, resultado) {
+                connection.query(sql,[datosUsuario.nombre,datosUsuario.apellido1,datosUsuario.apellido2,datosUsuario.correo,datosUsuario.facultad,datosUsuario.curso,datosUsuario.grupo,datosUsuario.imagenUser,datosUsuario.contrasena, datosUsuario.salt], function (err, resultado) {
                     connection.release();
                     if (err) {
                         callback(err, null); //Si ocurre algun error retornamos el error
