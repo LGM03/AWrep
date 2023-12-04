@@ -28,12 +28,20 @@ router.post("/login", async (req, res) => {
       else {
         const coincide = await bcrypt.compare(contraseña, datos.contraseña)
         if(coincide){
+          var url = "/images/usuario.png"
+          if(datos.imagen){
+            const imageBase64 = datos.imagen.toString('base64');
+            url = `data:image/png;base64,${imageBase64}`;
+          }
+         
+
           req.session.usuario = {
             nombre: datos.nombre,
             correo: correo,
             apellido1 : datos.apellido1,
             apellido2 : datos.apellido2,
-            rol : datos.rol
+            rol : datos.rol,
+            imagen : url
           };
           res.redirect('/');
         }else{

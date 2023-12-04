@@ -39,16 +39,9 @@ router.get('/validar', function (req, res, next) {
                         global.gama = configDatos.gama;
                         global.direccion = configDatos.direccion;
                     } // Renderizamos la página principal con la información de todos los destinos
-                    res.render('index', {
-                        instalaciones: datos,
-                        usuario: req.session.usuario,
-                        error: req.query.error,
-                        exito: req.query.exito,
-                        gama: global.gama,
-                        logo: global.logo,
-                        titulo: global.titulo,
+                    res.render('gestionUsuarios', {
+                        usuarios: datos, logo: global.logo, titulo: global.titulo, gama: global.gama,
                         direccion: global.direccion
-
                     });
                 });
             } else {
