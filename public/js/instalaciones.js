@@ -1,3 +1,5 @@
+
+
 $(document).ready(function () {
 
   $("#idCrearinstalacion").on("click", function (event) {
@@ -9,14 +11,21 @@ $(document).ready(function () {
     datosCrearIns.append("nombre", $("#nombreInstalacion").val());
     datosCrearIns.append("tipoReserva", $("#tipoReserva").val());
     datosCrearIns.append("imagenInstalacion", fileInput[0].files[0]);
-    datosCrearIns.append("aforo", $("#aforo").val());
+    if ($("#tipoReserva").val() === 'Individual') {
+      datosCrearIns.append("aforo", 1);
+    }else{
+      datosCrearIns.append("aforo", $("#aforo").val());
+    }
     datosCrearIns.append("horaInicio", $("#horaInicio").val());
     datosCrearIns.append("horaFin", $("#horaFin").val());
 
     /*VALIDAR DATOS*/
-    if ($("#nombreInstalacion").val().trim() == "" || $("#tipoReserva").val() == null || $("#aforo").val() == 0 || $("#horaFin").val() == "" || $("#horaInicio").val() == "" || !imagenValida($("#imagenInstalacion")[0].files[0]) || $("#horaFin").val() <= $("#horaInicio").val()  ) {
+    if ($("#nombreInstalacion").val().trim() == "" || $("#tipoReserva").val() == null || $("#horaFin").val() == "" || $("#horaInicio").val() == "" || !imagenValida($("#imagenInstalacion")[0].files[0]) || $("#horaFin").val() <= $("#horaInicio").val()) {
       alert("Parámetros no válidos")
-    } else {
+    } else if ($("#tipoReserva").val() == "Colectiva" && $("#aforo").val() <= 1) {
+      alert("Tipo de instalacion y aforo no válidos")
+    }  else {
+      console.log(datosCrearIns)
       $.ajax({
         method: "POST",
         url: "/instalaciones/crearInstalacion",
@@ -28,12 +37,13 @@ $(document).ready(function () {
           if (window.location.pathname == "/" && datos !== "0") { //Si estamos en el / añadimos la tarjeta correspondiente 
             agregarTarjeta(datos)
             $("#CrearInstalacion").modal('hide')
-            $("#nombreInstalacion").prop("value","")
-            $("#tipoReserva").prop("value","")
-            $("#imagenInstalacion").prop("value","")
-            $("#horaInicio").prop("value","")
-            $("#horaFin").prop("value","")
-            $("#aforo").prop("value","")
+            $("#nombreInstalacion").prop("value", "")
+            $("#tipoReserva").prop("value", "")
+            $("#imagenInstalacion").prop("value", "")
+            $("#horaInicio").prop("value", "")
+            $("#horaFin").prop("value", "")
+            $("#aforo").prop("value", "")
+            $('#campoAforo').addClass("d-none");
 
           } else {
             alert("No se ha podido crear la instalación, parametros no válidos")
@@ -47,7 +57,21 @@ $(document).ready(function () {
     }
 
   })
+
+  $('#tipoReserva').change(function () {
+    // Verificar si la opción seleccionada es "colectivo"
+    console.log("holaaa" + $(this).val() )
+    if ($(this).val() == 'Colectiva') {
+      console.log("AA")
+      $('#campoAforo').removeClass("d-none");
+    } else {
+      // Ocultar el campo de aforo si no es "colectivo"
+      $('#campoAforo').addClass("d-none");
+
+    }
+  });
 })
+
 
 function agregarTarjeta(datos) {
 
@@ -79,7 +103,7 @@ function agregarTarjeta(datos) {
 function imagenValida(imagen) {
   var comprobarEx = /(\.png)$/i;
   if (!imagen || !comprobarEx.exec(imagen.name) || imagen.size > 400000) {
-      return false;
+    return false;
   }
 
   return true

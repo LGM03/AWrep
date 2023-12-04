@@ -45,27 +45,28 @@
               </div>
           </div>
           <div class="mb-3 row">
-              <label for="tipoReserva" class="col-sm-3 col-form-label">Tipo Reserva:</label>
+              <label for="tipoReserva" class="col-sm-3 col-form-label">Tipo Instalación:</label>
               <div class="col-sm-9">
                   <select class="form-control" id="tipoReserva" name="tipoReserva" required>
-                      <option value="" disabled selected>Seleccione el tipo de Reserva:</option>
+                      <option value="" disabled selected>Seleccione el tipo de Instalación:</option>
                       <option value="Colectiva">Colectiva</option>
                       <option value="Individual">Individual</option>
                   </select>
               </div>
           </div>
+          <div class="mb-3 row d-none" id = "campoAforo">
+            <label for="aforo" class="col-sm-3 col-form-label">Aforo:</label>
+            <div class="col-sm-9">
+                <input type="number" class="form-control" id="aforo" name="aforo" required>
+            </div>
+        </div>
           <div class="mb-3 row">
               <label for="imagenReserva" class="col-sm-3 col-form-label">Imagen instalaciones:</label>
               <div class="col-sm-9">
                 <input type="file" class="form-control" id="imagenInstalacion" name="imagenInstalacion" accept="image/png" required size="400000">
               </div>
           </div>
-          <div class="mb-3 row">
-              <label for="aforo" class="col-sm-3 col-form-label">Aforo:</label>
-              <div class="col-sm-9">
-                  <input type="number" class="form-control" id="aforo" name="aforo" required>
-              </div>
-          </div>
+          
           <div class="mb-3 row">
               <label for="horaInicio" class="col-sm-3 col-form-label">Hora Inicio:</label>
               <div class="col-sm-9">
