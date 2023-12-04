@@ -10,11 +10,17 @@ const pool = mysql.createPool({
     port: 3306
 })
    
-router.post('/direccion', function (req, res, next) {
-    const DAOAp = require('../mysql/daoConfig')
+router.post('/alta', function (req, res, next) {
+    const DAOAp = require('../mysql/daoReserva')
     const midao = new DAOAp(pool)
+    var datosReserva = {
+        correo: req.body.correo,
+            fechaFin : req.body.fechaFin,
+            fechaIni : req.body.fechaIni,
+            instalacion:  req.body.instalacion
+    }
 
-    midao.altaReserva(req.body.datos, (err, datos) => {
+    midao.altaReserva(datosReserva, (err, datos) => {
         if (err) {
             res.send("0")
         } else {
