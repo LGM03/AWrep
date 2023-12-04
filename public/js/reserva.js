@@ -12,7 +12,7 @@ $(document).ready(function () {
         var inst = urlParams.get('id');
 
         var horaIni = $("#horaInicio").prop("value")
-        var horaFin = $("#horaFin").val()
+        var horaFin = $("#horaFin").prop("value")
         var fecha = $("#fechaReserva").prop("value")
 
         var datosReserva = {
@@ -32,7 +32,10 @@ $(document).ready(function () {
                     if (datos > 0) {
                         alert("Reserva realizada con éxito ")
                         $("#Reserva").modal('hide')
-                    }else{
+                        $("#horaInicio").prop("value", "")
+                        $("#horaFin").prop("value", "")
+                        $("#fechaReserva").prop("value", "")
+                    } else {
                         alert("No se ha podido hacer la reserva")
                     }
 

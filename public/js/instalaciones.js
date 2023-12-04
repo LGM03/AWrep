@@ -13,7 +13,6 @@ $(document).ready(function () {
     datosCrearIns.append("horaInicio", $("#horaInicio").val());
     datosCrearIns.append("horaFin", $("#horaFin").val());
 
-    alert($("#imagenInstalacion").val())
     /*VALIDAR DATOS*/
     if ($("#nombreInstalacion").val().trim() == "" || $("#tipoReserva").val() == null || $("#aforo").val() == 0 || $("#horaFin").val() == "" || $("#horaInicio").val() == "" || !imagenValida($("#imagenInstalacion")[0].files[0]) || $("#horaFin").val() <= $("#horaInicio").val()  ) {
       alert("Parámetros no válidos")
@@ -29,6 +28,13 @@ $(document).ready(function () {
           if (window.location.pathname == "/" && datos !== "0") { //Si estamos en el / añadimos la tarjeta correspondiente 
             agregarTarjeta(datos)
             $("#CrearInstalacion").modal('hide')
+            $("#nombreInstalacion").prop("value","")
+            $("#tipoReserva").prop("value","")
+            $("#imagenInstalacion").prop("value","")
+            $("#horaInicio").prop("value","")
+            $("#horaFin").prop("value","")
+            $("#aforo").prop("value","")
+
           } else {
             alert("No se ha podido crear la instalación, parametros no válidos")
           }
