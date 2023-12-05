@@ -18,16 +18,13 @@ router.get('/porInst', function (req, res, next) {
         if (err) {
             res.json("0")
         } else {
-            console.log(datos[0])
             res.json(datos)
         }
     })
 }) 
 
 router.get('/infoUsuarioReserva', function (req, res, next) {
-    console.log("ADASD")
-    console.log(req.query.correo)
-    
+
     const DAOAp = require('../mysql/daoUsuario')
     const midao = new DAOAp(pool)
   

@@ -17,8 +17,8 @@ $(document).ready(function () {
 
         var datosReserva = {
             correo: $("#correoReserva").prop("value"),
-            fechaFin: fecha + "T" + horaIni,
-            fechaIni: fecha + "T" + horaFin,
+            fechaFin: fecha + "T" + horaFin,
+            fechaIni: fecha + "T" + horaIni,
             instalacion: inst
         }
 

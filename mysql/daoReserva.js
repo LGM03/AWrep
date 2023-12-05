@@ -10,12 +10,8 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
             } else {
-                var fechaInicio = new Date(datosReserva.fechaIni)
-                fechaInicio = fechaInicio.toISOString().slice(0, 19).replace('T', ' ')
-
-                var fechaFin = new Date(datosReserva.fechaIni)
-                fechaFin = fechaFin.toISOString().slice(0, 19).replace('T', ' ')
-
+                var fechaInicio = datosReserva.fechaIni.slice(0, 19).replace('T', ' ')
+                var fechaFin = datosReserva.fechaFin.slice(0, 19).replace('T', ' ')
                 const sql = "insert into ucm_aw_riu_res_reservas (fecha, fechafinal, idUsu, idIns) values (?,?,?,?) "
                 connection.query(sql, [fechaInicio, fechaFin ,datosReserva.correo,datosReserva.instalacion], function (err, resultado) {
                     connection.release(); //Libero la conexion
@@ -32,7 +28,6 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
 
 
     leerReservaPorInst(idIns,callback) { //Lee todos los comentarios en funcion 
-        console.log("hola" + idIns)
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
