@@ -18,7 +18,7 @@ router.get('/validar', function (req, res, next) {
     const DAOConfig = require("../mysql/daoConfig");
     const daoC = new DAOConfig(pool);
 
-    midao.leerNOValidados((err, datos) => {  //Leo en la BD los destinos con el id de la url
+    midao.leerTodos((err, datos) => {  //Leo en la BD los destinos con el id de la url
         if (err) {
             console.log(err)
             res.send("0") //si ocurre un error cargo la ventana de error 

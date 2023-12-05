@@ -10,6 +10,37 @@ const pool = mysql.createPool({
     port: 3306
 })
    
+router.get('/porInst', function (req, res, next) {
+    const DAOAp = require('../mysql/daoReserva')
+    const midao = new DAOAp(pool)
+
+    midao.leerReservaPorInst(req.query.id, (err, datos) => {
+        if (err) {
+            res.json("0")
+        } else {
+            console.log(datos[0])
+            res.json(datos)
+        }
+    })
+}) 
+
+router.get('/infoUsuarioReserva', function (req, res, next) {
+    console.log("ADASD")
+    console.log(req.query.correo)
+    
+    const DAOAp = require('../mysql/daoUsuario')
+    const midao = new DAOAp(pool)
+  
+    midao.leerPorID(req.query.correo, (err, datos) => {
+        if (err) {
+            res.json("0")
+        } else {
+            res.json(datos)
+        }
+    })
+}) 
+
+
 router.post('/alta', function (req, res, next) {
     const DAOAp = require('../mysql/daoReserva')
     const midao = new DAOAp(pool)

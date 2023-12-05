@@ -60,9 +60,7 @@ $(document).ready(function () {
 
   $('#tipoReserva').change(function () {
     // Verificar si la opción seleccionada es "colectivo"
-    console.log("holaaa" + $(this).val() )
     if ($(this).val() == 'Colectiva') {
-      console.log("AA")
       $('#campoAforo').removeClass("d-none");
     } else {
       // Ocultar el campo de aforo si no es "colectivo"

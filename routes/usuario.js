@@ -33,8 +33,7 @@ router.post("/login", async (req, res) => {
             const imageBase64 = datos.imagen.toString('base64');
             url = `data:image/png;base64,${imageBase64}`;
           }
-         
-
+        
           req.session.usuario = {
             nombre: datos.nombre,
             correo: correo,
