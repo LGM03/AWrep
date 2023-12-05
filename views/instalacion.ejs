@@ -21,7 +21,7 @@
 
     <%- include('cabecera.ejs') %>
 
-        <section class="container justify-content-center ">
+        <section class="container justify-content-center mt-1 ">
             <!-- Contenedor encargado de almacenar la seccion donde apareceran los destinos disponibles -->
             <div class="container pt-3 pb-2 mb-4 rounded d-flex justify-content-between" id="titulo">
                 <h3 class="text-center">
@@ -32,41 +32,27 @@
                 </h3>
             </div>
 
-            <div class="container row pt-3 pb-2 mb-4 rounded d-flex ">
-                <div class="col-7">
-                    <img class="container d-block w-50" src=<%=instalacion.imagen%> alt="Imagen no cargada">
+            <div class="container row pt-3 pb-2 mb-4 rounded d-flex justify-content-around">
+                <div class="col-6 d-flex justify-content-center align-items-center bg-white ">
+                    <img class="container d-block border border-white p-0" style="width: 100%; height: auto; object-fit: cover;" src="<%=instalacion.imagen%>" alt="Imagen no cargada">
                 </div>
-                <div class="col-5 mt-4 mb-2 text-center p-3 cajaInfo rounded">
-
+            
+                <div class="col-5 text-center p-3 cajaInfo rounded">
                     <div class="rounded w-100">
-
-                        <!--Cada caja de reserva-->
-                        <h2 class="cabeceraInfo mt-1 "><strong>Características</strong></h2>
-                        <h3>
-                            <%=instalacion.nombre%>
-                        </h3>
+                        <h2 class="cabeceraInfo mt-1"><strong>Características</strong></h2>
+                        <h3><%=instalacion.nombre%></h3>
                         <h3>Tipo:</h3>
-                        <h4>
-                            <%=instalacion.tipoReserva%>
-                        </h4>
+                        <h4><%=instalacion.tipoReserva%></h4>
                         <h3>Hora de Apertura: </h3>
-                        <h4 id="horaIniInstalacion">
-                            <%=instalacion.horaInicio%>
-                        </h4>
+                        <h4 id="horaIniInstalacion"><%=instalacion.horaInicio%></h4>
                         <h3>Hora de Cierre: </h3>
-                        <h4 id="horaFinInstalacion">
-                            <%=instalacion.horaFin%>
-                        </h4>
+                        <h4 id="horaFinInstalacion"><%=instalacion.horaFin%></h4>
                         <h3>Aforo :</h3>
-                        <h4>
-                            <%=instalacion.aforo%>
-                        </h4>
-
+                        <h4><%=instalacion.aforo%></h4>
                     </div>
-
                 </div>
-                <!--asdfasfasdfadsfasdf-->
             </div>
+            
 
 
             <!--TODO-->
