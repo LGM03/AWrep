@@ -74,7 +74,6 @@ $(document).ready(function () {
     }
   })
 
-
   //Validador de Reserva
   $("#idReservar").on("click", function () {
     var datosReserva = {

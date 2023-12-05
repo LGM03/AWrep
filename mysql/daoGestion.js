@@ -31,7 +31,7 @@ class DAOGestion{   //DAO que accede a los destinos y su respectiva información
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
             } else {
-                const sql = "SELECT * from ucm_aw_riu_usu_usuarios"; //rol -1 representa los usuarios no validados
+                const sql = "SELECT * from ucm_aw_riu_usu_usuarios where rol <> 1"; //rol -1 representa los usuarios no validados
                 connection.query(sql, [], function (err, resultado) {
                     connection.release(); //Libero la conexion
                     if (err) {
