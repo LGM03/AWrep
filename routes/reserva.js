@@ -23,6 +23,19 @@ router.get('/porInst', function (req, res, next) {
     })
 }) 
 
+router.get('/porUsuario', function (req, res, next) {
+    const DAOAp = require('../mysql/daoReserva')
+    const midao = new DAOAp(pool)
+
+    midao.leerReservaPorUsuario(req.query.correo, (err, datos) => {
+        if (err) {
+            res.json("0")
+        } else {
+            res.json(datos)
+        }
+    })
+}) 
+
 router.get('/infoUsuarioReserva', function (req, res, next) {
 
     const DAOAp = require('../mysql/daoUsuario')
