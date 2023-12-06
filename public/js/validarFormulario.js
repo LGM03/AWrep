@@ -101,17 +101,16 @@ function validarInicio(datosInicio) { //Toggle es mas bonito que alert
     alert('Seleccione una facultad');
     return false;
   }
-  if (datosInicio.curso == null) {
+  if (datosInicio.curso == "") {
     alert('Seleccione un Curso');
     return false;
   }
-  if (datosInicio.grupo == null) {
+  if (datosInicio.grupo == "") {
     alert('Seleccione un Grupo');
     return false;
   }
 
   var comprobarEx = /(\.png)$/i;
-  console.log(datosInicio.imagenUser)
   if (!datosInicio.imagenUser || !comprobarEx.exec(datosInicio.imagenUser.name) || datosInicio.imagenUser.size > 400000) {
     alert("Seleccione una imagen válida")
       return false;

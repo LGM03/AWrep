@@ -99,6 +99,19 @@ router.post('/hacerAdmin', function (req, res, next) {
     })
 }) 
 
+router.get('/filtrar', function (req, res, next) {
+    const DAOAp = require('../mysql/daoGestion')
+    const midao = new DAOAp(pool)
+    midao.filtrar( (err, datos) => {
+        if (err) {
+            console.log(err)
+            res.json("0")
+        } else {
+            res.json(datos)
+        }
+    })
+}) 
+
 
 
 module.exports = router;

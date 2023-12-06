@@ -1,3 +1,5 @@
+
+
 $(document).ready(function () {
 
     if ($('.validarUsuario').length === 0) {
@@ -71,17 +73,17 @@ $(document).ready(function () {
         var data = {
             correo: correo
         };
-    
+
         $.ajax({
             method: "GET",
             url: "/reserva/porUsuario",
             data: data,
             success: function (datos, state, jqXHR) { //Si todo ha ido bien pongo un mensaje de acierto
-                if (datos.length >0) {
-                    agregarCajaUsuario(datos[0],divContenedor)
-        
+                if (datos.length > 0) {
+                    agregarCajaUsuario(datos[0], divContenedor)
+
                     datos.forEach(element => {
-                        agregarCajaHistorial(element,divContenedor)
+                        agregarCajaHistorial(element, divContenedor)
                     });
                 } else {
                     var alerta = $('<h5 class="mt-3 alert alert-warning">No hay reservas disponibles</h2>')
@@ -97,14 +99,14 @@ $(document).ready(function () {
     $(document).on("click", ".darPermisos", function (event) {
         var boton = $(this); // Almacena una referencia al botón fuera de la función success
         boton.removeClass("darPermisos");
-    
+
         var divContenedor = boton.closest('.cajaUsuario'); // Este es el div padre 
         var correo = divContenedor.find('#correoUser').text(); // Busco el p que contiene el correo 
-        console.log("ASDF"+ correo)
+        console.log("ASDF" + correo)
         var data = {
             correo: correo
         };
-    
+
         $.ajax({
             method: "POST",
             url: "/gestionUsuarios/hacerAdmin",
@@ -124,46 +126,156 @@ $(document).ready(function () {
             }
         });
     })
+
+    $("#idFiltrar").on("click", function (event) {
+        event.preventDefault();
+
+        $("#usuariosMostrados").slideUp(2000);
+        $("#divUsuarios .cajaUsuario").slideUp(2000);
+        var filtro = {};
+
+        if (esFiltroValido(filtro)) {
+            $.ajax({
+                method: "GET",
+                url: "/gestionUsuarios/filtrar",
+                data: filtro,  // Enviar los datos como parte de la solicitud GET
+                success: function (datos, state, jqXHR) {
+                    console.log(datos);
+
+                    if (datos.length > 0) {
+                        datos.forEach(element => {
+                            console.log(element)
+                            if ((!filtro.nombre || filtro.nombre === element.nombre) &&
+                                (!filtro.apellido1 || filtro.apellido1 === element.apellido1) &&
+                                (!filtro.apellido2 || filtro.apellido2 === element.apellido2) &&
+                                (!filtro.correo || filtro.correo === element.correo) &&
+                                (!filtro.facultad || filtro.facultad === element.facultad) &&
+                                (!filtro.curso || filtro.curso === element.curso) &&
+                                (!filtro.grupo || filtro.grupo === element.grupo)) {
+
+                                const arrayBuffer = element.imagen.data;
+                                const base64String = btoa(String.fromCharCode.apply(null, new Uint8Array(arrayBuffer)));
+                                const url = `data:image/png;base64,${base64String}`;
+
+                                var nuevo = {
+                                    nombre: element.nombre + " " + element.apellido1 + " " + element.apellido2,
+                                    correo: element.correo,
+                                    urlImagen: url,
+                                    rol : element.rol
+                                };
+
+                                nuevoUsuario(nuevo);
+                            }
+                        });
+                    } else {
+                        var alerta = $('<h5 class="mt-3 alert alert-warning">No hay usuarios que cumplan el filtro indicado</h2>');
+                        divContenedor.append(alerta);
+                    }
+                },
+                error: function (jqXHR, statusText, errorThrown) {
+                    alert("Ha ocurrido un error con los usuarios");
+                }
+            });
+        }
+    });
 })
 
+function esFiltroValido(datos) {
+    var nombre = $("#nombreFiltrar").prop("value")
+    var apellido1 = $("#apellido1Filtrar").prop("value")
+    var apellido2 = $("#apellido2Filtrar").prop("value")
+    var correo = $("#correoFiltrar").prop("value")
+    var facultad = $("#facultadFiltrar").prop("value")
+    var curso = $("#cursoFiltrar").prop("value")
+    var grupo = $("#grupoFiltrar").prop("value")
+
+
+    if (nombre.trim() !== "") {
+        if (validarnombre(nombre)) {
+            datos.nombre = nombre
+        } else {
+
+            alert("El nombre introducido no es válido")
+            return false
+        }
+    }
+    if (apellido1.trim() !== "") {
+        if (validarnombre(apellido1)) {
+            datos.apellido1 = apellido1
+        } else {
+
+            alert("El apellido1 introducido no es válido")
+            return false
+        }
+    }
+    if (apellido2.trim() !== "") {
+        if (validarnombre(apellido2)) {
+            datos.apellido2 = apellido2
+        } else {
+
+            alert("El apellido2 introducido no es válido")
+            return false
+        }
+    }
+    if (correo.trim() !== "") {
+        if (validarEmail(correo)) {
+            datos.correo = correo
+        } else {
+
+            alert("El correo introducido no es válido")
+            return false
+        }
+    }
+
+    if (curso !== "") {
+        datos.curso = curso
+    }
+    if (facultad !== "") {
+        datos.facultad = facultad
+    }
+    if (grupo !== "") {
+        datos.grupo = grupo
+    }
+    return true
+}
 
 function nuevoUsuario(datos) {
 
     const nuevo = '<div class="row cajaUsuario rounded m-2">' +
-    '<div class="col-2 d-flex justify-content-between align-items-center ">' +
-    '<img src="' + datos.urlImagen + '" alt="Foto del usuario" class="img-fluid logoUsuario"></div>' +
-    '<div class="col-7 d-flex flex-column">' +
-    '<div class="d-flex justify-content-between align-items-center mb-1">' +
-    '<h5 class="mb-0">' + datos.nombre + '</h5></div>' +
-    '<p id = "correoUser">' + datos.correo + '</p></div>' +
-    '<div class="col-3 mt-2" id = "zonaBotones">' +
-    '<button class="btn btn-dark mb-2 w-100 verReservas"> Ver Reservas </button>' +
-    '</div></div>';
+        '<div class="col-2 d-flex justify-content-between align-items-center ">' +
+        '<img src="' + datos.urlImagen + '" alt="Foto del usuario" class="img-fluid logoUsuario"></div>' +
+        '<div class="col-7 d-flex flex-column">' +
+        '<div class="d-flex justify-content-between align-items-center mb-1">' +
+        '<h5 class="mb-0">' + datos.nombre + '</h5></div>' +
+        '<p id = "correoUser">' + datos.correo + '</p></div>' +
+        '<div class="col-3 mt-2" id = "zonaBotones">' +
+        '<button class="btn btn-dark mb-2 w-100 verReservas"> Ver Reservas </button>' +
+        '</div></div>';
 
     $("#divUsuarios").append(nuevo)
 
-    if(datos.rol == 1){
+    if (datos.rol == 1) {
         var boton = '<button class="alert alert-success p-1 w-100"> Es Admin </button>'
-    }else{
+    } else {
         var boton = '<button class="btn btn-secondary mb-2 w-100 darPermisos"> Dar Permisos </button>'
     }
 
     $(".cajaUsuario:last").find("#zonaBotones").append(boton);
 }
 
-function agregarCajaHistorial(element,divContenedor) {
+function agregarCajaHistorial(element, divContenedor) {
     const caja = $('<div class="row cajaInfo rounded m-2"></div>');
     // Sección de info de la reserva
     const cajaReserva = $('<div class="col-10 d-flex flex-column"></div>')
-  
+
     // Contenedor para el nombre y la fecha
     const infoContainer = $('<div class="d-flex justify-content-between align-items-center mb-1"></div>');
-  
-    const nombreCom = $('<h5 class="mb-0"> <strong>Instalación : </strong>'+ element.nombreIns + '</h5>')
-    const tipo = $('<p class="mb-0"><strong>Tipo: </strong>'+element.tipoReserva+ '</p>')
-    const aforo = $('<p class="mb-0"><strong>Aforo: </strong>'+element.aforo+ '</p>')
 
-    const plazo = $('<p class="mb-0">  <strong>Plazo de la Reserva : </strong> '+ element.fecha.slice(0, 10) + " "+element.fecha.slice(11, 16) + "-"+element.fechafinal.slice(11, 16)+ '</p>')
+    const nombreCom = $('<h5 class="mb-0"> <strong>Instalación : </strong>' + element.nombreIns + '</h5>')
+    const tipo = $('<p class="mb-0"><strong>Tipo: </strong>' + element.tipoReserva + '</p>')
+    const aforo = $('<p class="mb-0"><strong>Aforo: </strong>' + element.aforo + '</p>')
+
+    const plazo = $('<p class="mb-0">  <strong>Plazo de la Reserva : </strong> ' + element.fecha.slice(0, 10) + " " + element.fecha.slice(11, 16) + "-" + element.fechafinal.slice(11, 16) + '</p>')
 
     infoContainer.append(nombreCom);
     infoContainer.append(tipo);
@@ -171,31 +283,40 @@ function agregarCajaHistorial(element,divContenedor) {
     infoContainer.append(plazo);
 
     cajaReserva.append(infoContainer);
-  
+
     caja.append(cajaReserva);
     divContenedor.append(caja);
 }
 
-function agregarCajaUsuario(element,padre) {
+function agregarCajaUsuario(element, padre) {
     const caja = $('<div class="row rounded alert alert-secondary m-2"></div>');
 
     // Sección de info de la reserva
     const cajaReserva = $('<div class="col-10 d-flex flex-column"></div>')
-  
+
     // Contenedor para el nombre y la fecha
     const infoContainer = $('<div class="d-flex justify-content-between align-items-center mb-1"></div>');
-  
-    const nombreCom = $('<h5 class="mb-0"> <strong>Nombre : </strong>'+ element.nombre + ' '+ element.apellido1+ ' '+ element.apellido2+'</h5>')
-    const facultad = $('<p class="mb-0"><strong>Facultad : </strong>'+element.facultad + '</p>')
-    const clase = $('<p class="mb-0">  <strong>Clase : </strong> '+element.curso + "-"+element.grupo+ '</p>')
+
+    const nombreCom = $('<h5 class="mb-0"> <strong>Nombre : </strong>' + element.nombre + ' ' + element.apellido1 + ' ' + element.apellido2 + '</h5>')
+    const facultad = $('<p class="mb-0"><strong>Facultad : </strong>' + element.facultad + '</p>')
+    const clase = $('<p class="mb-0">  <strong>Clase : </strong> ' + element.curso + "-" + element.grupo + '</p>')
 
     infoContainer.append(nombreCom);
     infoContainer.append(facultad);
     infoContainer.append(clase);
 
     cajaReserva.append(infoContainer);
-  
+
     caja.append(cajaReserva);
     padre.append(caja);
 }
 
+function validarEmail(email) {//El mail deben ser letras o numeros, seguido de @ seguido de letras y numeros un punto y mas de dos letras
+    const emailComprobar = /^[A-Za-z0-9._%+-]+@ucm\.es$/
+    return emailComprobar.test(email);
+}
+
+function validarnombre(nombre) {//admite nombres y apellidos compuestos y con tildes 
+    const nombreComprobar = /^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/
+    return nombreComprobar.test(nombre);
+}
