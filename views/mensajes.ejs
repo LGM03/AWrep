@@ -66,95 +66,35 @@
         </div>
       </div>
 
-    <div class="container row pt-3 pb-2 mb-4 rounded d-flex justify-content-around">
-        <div class="col-5 d-flex justify-content-center align-items-center bg-white ">
-            <h2 class="cabeceraInfo mt-1"><strong>Mensajes Recibidos</strong></h2>
-            <section class="container justify-content-center mt-3">
-                <!-- Contenedor encargado de almacenar los mensajes recibidos -->
-                <% if (error !=null) { %>
-                  <div class="container alert alert-danger text-center">
-            
-                    <%= error %>
-                  </div>
-                  <% } %>
-                    <% if (exito !=null) { %>
-                      <div class="container alert alert-success text-center">
-                        <%= exito %>
-                      </div>
-                      <% } %>
-                        <div class="row" id = "zonaMensajesRecibidos">
-            
-                          <!--Por cada mensaje traido por la base de datos pongo una tarjeta -->
-                          <%mensajes.forEachSend(function(mensaje){ %>
-            
-                            <div class="col-md-5 pb-4 d-flex">
-                              <div class="card w-100">
-                                <div class="card-header CabeceraCarta">
-                                  <h5>
-                                    <%=mensaje.correoEmisor%>
-                                  </h5> <!--Pongo el nombre del destino en cuestion-->
-                                </div>
-                              <div class="card-body text-center">
-                                <h6>
-                                    <%=mensaje.cuerpoMensaje%>
-                                  </h6>
-                              </div>
-                              </div>
-                            </div>
-            
-                            <% }); %>
-            
-            
-            
-                        </div>
-              </section>
+      <div class="row mt-4 mb-2 text-center p-3 zonamensajesRecibidos">
+
+        <button id="botonMensajesRecibidos" class="btn text-center">Ver Mensajes recibidos</button>
+
+        <div id="mensajes" class="rounded w-100">
+
+          <!--Cada caja de comentario-->
+          <h4 class="cabeceraMensajes mt-1 ">Mensajes recibidos</h4>
+
         </div>
 
-        <div class="col-5 d-flex justify-content-center align-items-center bg-white ">
-            <h2 class="cabeceraInfo mt-1"><strong>Mensajes Enviados</strong></h2>
-            <section class="container justify-content-center mt-3">
-                <!-- Contenedor encargado de almacenar los mensajes recibidos -->
-                <% if (error !=null) { %>
-                  <div class="container alert alert-danger text-center">
-            
-                    <%= error %>
-                  </div>
-                  <% } %>
-                    <% if (exito !=null) { %>
-                      <div class="container alert alert-success text-center">
-                        <%= exito %>
-                      </div>
-                      <% } %>
-                        <div class="row" id = "zonaMensajesEnviados">
-            
-                          <!--Por cada mensaje traido por la base de datos pongo una tarjeta -->
-                          <%mensajes.forEachRecive(function(mensaje){ %>
-            
-                            <div class="col-md-5 pb-4 d-flex">
-                              <div class="card w-100">
-                                <div class="card-header CabeceraCarta">
-                                  <h5>
-                                    <%=mensaje.correoReceptor%>
-                                  </h5> <!--Pongo el nombre del destino en cuestion-->
-                                </div>
-                              <div class="card-body text-center">
-                                <h6>
-                                    <%=mensaje.cuerpoMensaje%>
-                                  </h6>
-                              </div>
-                              </div>
-                            </div>
-            
-                            <% }); %>
-            
-            
-            
-                        </div>
-              </section>
-            
+        <div id="cajasMensajesrecibidos" class="rounded w-100"></div>
+
+      </div>
+
+      <div class="row mt-4 mb-2 text-center p-3 zonamensajesRecibidos">
+
+        <button id="botonMensajesEnviados" class="btn text-center">Ver Mensajes Enviados</button>
+
+        <div id="mensajes" class="rounded w-100">
+
+          <!--Cada caja de comentario-->
+          <h4 class="cabeceraMensajes mt-1 ">Mensajes Enviados</h4>
+
         </div>
-    
-    </div>
+
+        <div id="cajasMensajesEnviados" class="rounded w-100"></div>
+
+      </div>
 
         <%- include('footer.ejs') %>
 

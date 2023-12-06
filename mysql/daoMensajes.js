@@ -4,50 +4,31 @@ class DAOInstalaciones{   //DAO que accede a los destinos y su respectiva inform
         this.pool = pool
     }
 
-    leerTodosMensajesRecibidosUser(correo,callback) { //Lee todos los destinos de la base de datos 
+    leerTodos(correo,callback) { //Lee todos los comentarios en funcion 
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
             } else {
-                console.log(correo);
-                const sql = "SELECT * mensajes where correoReceptor = ?";
-                connection.query(sql, [correo] , function (err, resultado) {
+                const sql = "SELECT mensajes.correoEmisor, mensajes.correoReceptor, mensajes.cuerpoMensaje, comentarios.fecha from mensajes where mensajes.correoemisor=? OR mensajes.correoreceptor=?  ";
+                connection.query(sql, [correo,correo], function (err, resultado) {
                     connection.release(); //Libero la conexion
                     if (err) {
-                        callback(err, null);
+                        callback(err, null); //Si ha ocurrido un error retorno el error
                     } else {
-                        callback(null, resultado);  //Si todo ha ido bien retorno los datos del destino
+                        callback(null, resultado); //Si todo ha ido bien retorno la información obtenida 
                     }
                 });
             }
         });
-    }  
-
-    leerTodosMensajesMandadosUser(correo,callback) { //Lee todos los destinos de la base de datos 
-        this.pool.getConnection(function (err, connection) {
-            if (err) {
-                callback(err, null); //Si ha ocurrido un error retorno el error
-            } else {
-                const sql = "SELECT * mensajes where correoEmisor = ?";
-                connection.query(sql, [correo] , function (err, resultado) {
-                    connection.release(); //Libero la conexion
-                    if (err) {
-                        callback(err, null);
-                    } else {
-                        callback(null, resultado);  //Si todo ha ido bien retorno los datos del destino
-                    }
-                });
-            }
-        });
-    }
+    } 
 
     altaMensaje(datos,callback) { //Lee todos los comentarios en funcion 
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
             } else {
-                const sql = "insert into mensajes (correoEmisor,correoReceptor,cuerpoMensaje) values (?,?,?)";
-                connection.query(sql, [datos.correoEmisor, datos.correoReceptor,datos.cuerpoMensaje], function (err, resultado) {
+                const sql = "insert into mensajes (correoEmisor,correoReceptor,cuerpoMensaje,fecha) values (?,?,?,?)";
+                connection.query(sql, [datos.correoEmisor, datos.correoReceptor,datos.cuerpoMensaje,datos.fecha], function (err, resultado) {
                     connection.release(); //Libero la conexion
                     if (err) {
                         console.log(err)
