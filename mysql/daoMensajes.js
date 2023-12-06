@@ -9,7 +9,7 @@ class DAOInstalaciones{   //DAO que accede a los destinos y su respectiva inform
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
             } else {
-                const sql = "SELECT mensajes.correoEmisor, mensajes.correoReceptor, mensajes.cuerpoMensaje, comentarios.fecha from mensajes where mensajes.correoemisor=? OR mensajes.correoreceptor=?  ";
+                const sql = "SELECT mensajes.correoEmisor, mensajes.correoReceptor, mensajes.cuerpoMensaje, mensajes.fecha from mensajes where mensajes.correoemisor=? OR mensajes.correoreceptor=?  ";
                 connection.query(sql, [correo,correo], function (err, resultado) {
                     connection.release(); //Libero la conexion
                     if (err) {

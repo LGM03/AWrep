@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
   $("#botonMensajesRecibidos").on("click", function () {
-    $("#botonMensajes").hide()
+    $("#botonMensajesRecibidos").hide()
     $("#mensajes").fadeIn(1000)
 
     $.ajax({
@@ -25,7 +25,7 @@ $(document).ready(function () {
   })
 
   $("#botonMensajesEnviados").on("click", function () {
-    $("#botonMensajes").hide()
+    $("#botonMensajesEnviados").hide()
     $("#mensajes").fadeIn(1000)
 
     $.ajax({
