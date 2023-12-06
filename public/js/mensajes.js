@@ -1,98 +1,119 @@
-   
-
 $(document).ready(function () {
 
-    $("#idMandarmensaje").on("click", function (event) {
-      event.preventDefault();
-      // Crear un objeto FormData y agregar datos a él
-      var datosMandarmensaje = new FormData();
-      datosMandarmensaje.append("correoEmisor", $("#correoEmisor").val());
-      datosMandarmensaje.append("correoReceptor", $("#correoReceptor").val());
-      datosMandarmensaje.append("cuerpoMensaje", $("#cuerpoMensaje").val());
+  $("#botonMensajesRecibidos").on("click", function () {
+    $("#botonMensajes").hide()
+    $("#mensajes").fadeIn(1000)
 
-      /*VALIDAR DATOS*/
-      if ($("#correoReceptor").val().trim() == "" || $("#cuerpoMensaje").val().trim() == "" ) {
-        alert("Parámetros no válidos")
-      } else {
-        console.log(datosCrearIns)
-
-        $.ajax({
-          method: "POST",
-          url: "/mensajes/alta",
-          data: datosCrearIns,
-          contentType: false,
-          processData: false,
-          success: function (datos, state, jqXHR) {
-            //Cerramos el modal
-            if (window.location.pathname == "/" && datos !== "0") { //Si estamos en el / añadimos la tarjeta correspondiente 
-              agregarTarjeta(datos)
-              $("#Mandarmensaje").modal('hide')
-              $("#correoEmisor").prop("value", "")
-              $("#correoReceptor").prop("value", "")
-              $("#cuerpoMensaje").prop("value", "")
-            } else {
-              alert("No se ha podido mandar el mensaje, parametros no válidos")
-            }
-          },
-          error: function (jqXHR, statusText, errorThrown) {
-            alert("Error al mandar un mensaje")
-            console.error('Error al enviar el formulario al servidor:', errorThrown);
-          },
-        });
-      }
-  
-    })
-  
-    $('#tipoReserva').change(function () {
-      // Verificar si la opción seleccionada es "colectivo"
-      console.log("holaaa" + $(this).val() )
-      if ($(this).val() == 'Colectiva') {
-        console.log("AA")
-        $('#campoAforo').removeClass("d-none");
-      } else {
-        // Ocultar el campo de aforo si no es "colectivo"
-        $('#campoAforo').addClass("d-none");
-  
+    $.ajax({
+      method: "GET",
+      url: "/mensajes",
+      data: {  },
+      success: function (datos, state, jqXHR) { //Si todo ha ido bien pongo un mensaje de acierto
+        if (datos !== "0") {
+          $("#CorreoReceptor").text(datos.usuario)
+          datos.mensajes.forEach(element => {
+            agregarCajaMensajes(element)
+          });
+        } else {
+          alert("Ha ocurrido un error con los mensajes")
+        }
+      },
+      error: function (jqXHR, statusText, errorThrown) { //Si ha ocurrido un error pongo un mensaje de error
+        alert("Ha ocurrido un error con los mensajes")
       }
     });
   })
-   
-   
-   function agregarTarjetaMensajesRecibidos(datos) {
 
-    var contenedor = $("#zonaMensajesRecibidos")
-  
-    const correoEmisor = $("#correoEmisor").val()
-    const cuerpoMensaje = $("#cuerpoMensaje").val()
-  
-    var tarjeta = '<div class="col-md-4 pb-4 d-flex">' +
-      '<div class="card w-100">' +
-      '<div class="card-header CabeceraCarta">' +
-      '<h5>' + correoEmisor + '</h5>' +
-      '</div>' +
-      '<div class="text-center">' +
-      '<h5>' + cuerpoMensaje + '</h5>' +
-      '</div>' +
-      '</div>';
-    contenedor.append(tarjeta)
-  
-  }
+  $("#botonMensajesEnviados").on("click", function () {
+    $("#botonMensajes").hide()
+    $("#mensajes").fadeIn(1000)
 
-  function agregarTarjetaMensajesenviados(datos) {
+    $.ajax({
+      method: "GET",
+      url: "/mensajes",
+      data: {  },
+      success: function (datos, state, jqXHR) { //Si todo ha ido bien pongo un mensaje de acierto
+        if (datos !== "0") {
+          $("#CorreoEmisor").text(datos.usuario)
+          datos.mensajes.forEach(element => {
+            agregarCajaMensajes(element)
+          });
+        } else {
+          alert("Ha ocurrido un error con los mensajes")
+        }
+      },
+      error: function (jqXHR, statusText, errorThrown) { //Si ha ocurrido un error pongo un mensaje de error
+        alert("Ha ocurrido un error con los mensajes")
+      }
+    });
+  })
 
-    var contenedor = $("#zonaMensajesEnviados")
-    const correoReceptor = $("#correoReceptor").val()
-    const cuerpoMensaje = $("#cuerpoMensaje").val()
-  
-    var tarjeta = '<div class="col-md-4 pb-4 d-flex">' +
-      '<div class="card w-100">' +
-      '<div class="card-header CabeceraCarta">' +
-      '<h5>' + correoReceptor + '</h5>' +
-      '</div>' +
-      '<div class="text-center">' +
-      '<h5>' + cuerpoMensaje + '</h5>' +
-      '</div>' +
-      '</div>';
-    contenedor.append(tarjeta)
-  
-  }
+  $("#idComentar").on("click", function (event) {
+
+    const coment = $("#comentarioNuevo").prop("value")
+    event.preventDefault();
+    if (coment.trim() === "") {
+      alert("No se pueden publicar comentarios vacíos")
+    } else {
+
+      var urlParams = new URLSearchParams(window.location.search);
+      var dest = urlParams.get('id');
+
+     
+      $.ajax({
+        method: "POST",
+        url: "/mensajes",
+        data: { comentario: coment, destino: dest },
+        success: function (datos, state, jqXHR) { //Si todo ha ido bien pongo un mensaje de acierto
+          if (datos !== "0") {
+            element = {
+              nombre_usuario: datos,
+              fecha_comentario: new Date().toISOString(),
+              comentario: coment
+            }
+            $('#comentarioNuevo').prop('value', '');
+            agregarCajaComentario(element)
+          } else {
+            alert("No se pudo publicar el comentario")
+          }
+        },
+        error: function (jqXHR, statusText, errorThrown) { //Si ha ocurrido un error pongo un mensaje de error
+          alert("No se pudo publicar el comentario")
+        }
+      });
+    }
+  })
+})
+
+
+
+
+function agregarCajaMensajes(element) {
+  const caja = $('<div class="row cajaComentario rounded m-2"></div>');
+
+  // Sección de imagen de usuario
+  const cajaImagen = $('<div class="col-2"></div>')
+  const imagen = $('<img src="/images/usuario.png" alt="Foto del usuario" class="img-fluid">');
+  cajaImagen.append(imagen);
+
+  // Sección de info del comentario
+  const cajaMensaje = $('<div class="col-10 d-flex flex-column"></div>')
+
+  // Contenedor para el nombre y la fecha
+  const infoContainer = $('<div class="d-flex justify-content-between align-items-center mb-1"></div>');
+
+  const correo = $('<h5 class="mb-0"></h5>').text(element.correoReceptor);
+  const fechaMen = $('<p class="mb-0"><em></em></p>').text(element.fecha.slice(0, 10));
+
+  infoContainer.append(correo);
+  infoContainer.append(fechaMen);
+
+  const textoCom = $('<p class="mb-0"></p>').text(element.cuerpoMensaje).css('text-align', 'left');;
+
+  cajaMensaje.append(infoContainer);
+  cajaMensaje.append(textoCom);
+
+  caja.append(cajaImagen);
+  caja.append(cajaMensaje);
+  $("#cajasComentarios").prepend(caja);
+}
