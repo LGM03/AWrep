@@ -130,9 +130,10 @@ $(document).ready(function () {
     $("#idFiltrar").on("click", function (event) {
         event.preventDefault();
 
-        $("#usuariosMostrados").slideUp(2000);
-        $("#divUsuarios .cajaUsuario").slideUp(2000);
+        $("#usuariosMostrados").slideUp(1000);
+        $("#divUsuarios .cajaUsuario").slideUp(1000);
         var filtro = {};
+        var existe= false
 
         if (esFiltroValido(filtro)) {
             $.ajax({
@@ -140,7 +141,6 @@ $(document).ready(function () {
                 url: "/gestionUsuarios/filtrar",
                 data: filtro,  // Enviar los datos como parte de la solicitud GET
                 success: function (datos, state, jqXHR) {
-                    console.log(datos);
 
                     if (datos.length > 0) {
                         datos.forEach(element => {
@@ -163,13 +163,14 @@ $(document).ready(function () {
                                     urlImagen: url,
                                     rol : element.rol
                                 };
-
                                 nuevoUsuario(nuevo);
+                                existe = true
                             }
                         });
-                    } else {
-                        var alerta = $('<h5 class="mt-3 alert alert-warning">No hay usuarios que cumplan el filtro indicado</h2>');
-                        divContenedor.append(alerta);
+                    } 
+                    if(!existe){
+                        var alerta = $('<h5 class="mt-3 alert alert-warning cajaUsuario">No hay usuarios que mostrar</h2>');
+                        $("#divUsuarios").append(alerta);
                     }
                 },
                 error: function (jqXHR, statusText, errorThrown) {
