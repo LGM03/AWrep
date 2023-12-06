@@ -41,13 +41,13 @@ router.get('/validar', function (req, res, next) {
                     } // Renderizamos la página principal con la información de todos los destinos
                     res.render('gestionUsuarios', {
                         usuarios: datos, logo: global.logo, titulo: global.titulo, gama: global.gama,
-                        direccion: global.direccion
+                        direccion: global.direccion,sesion :req.session.usuario
                     });
                 });
             } else {
                 res.render('gestionUsuarios', {
                     usuarios: datos, logo: global.logo, titulo: global.titulo, gama: global.gama,
-                    direccion: global.direccion
+                    direccion: global.direccion, sesion :req.session.usuario
                 });//Cargo la ventana destino con los usuarios no validados
             }
         }
@@ -84,6 +84,20 @@ router.post('/eliminar', function (req, res, next) {
         }
     });
 });
+
+router.post('/hacerAdmin', function (req, res, next) {
+    const DAOAp = require('../mysql/daoGestion')
+    const midao = new DAOAp(pool)
+
+    midao.hacerAdmin(req.body.correo, (err, datos) => {
+        if (err) {
+            console.log(err)
+            res.json("0")
+        } else {
+            res.json("1")
+        }
+    })
+}) 
 
 
 

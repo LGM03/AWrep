@@ -31,7 +31,7 @@ class DAOGestion{   //DAO que accede a los destinos y su respectiva información
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
             } else {
-                const sql = "SELECT * from ucm_aw_riu_usu_usuarios where rol <> 1"; //rol -1 representa los usuarios no validados
+                const sql = "SELECT * from ucm_aw_riu_usu_usuarios"; //Leo todos los usuarios
                 connection.query(sql, [], function (err, resultado) {
                     connection.release(); //Libero la conexion
                     if (err) {
@@ -86,6 +86,25 @@ class DAOGestion{   //DAO que accede a los destinos y su respectiva información
             }
         });
     }
+
+    hacerAdmin(idUsu,callback) { //Lee todos los comentarios en funcion 
+        this.pool.getConnection(function (err, connection) {
+            if (err) {
+                callback(err, null); //Si ha ocurrido un error retorno el error
+            } else {
+                const sql = "update ucm_aw_riu_usu_usuarios set rol = 1 where correo = ?"
+                connection.query(sql, [idUsu], function (err, resultado) {
+                    connection.release(); //Libero la conexion
+                    if (err) {
+                        console.log(err)
+                        callback(err, null); //Si ha ocurrido un error retorno el error
+                    } else {
+                        callback(null, resultado); //Si todo ha ido bien retorno la información obtenida 
+                    }
+                });
+            }
+        });
+    }  
 }
 
 

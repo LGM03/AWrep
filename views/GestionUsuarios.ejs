@@ -56,22 +56,26 @@
     <h3 class  = "textoCabecera text-center">Usuarios Disponibles</h3>
 
     <!--Por cada destino traido por la base de datos pongo una tarjeta -->
-    <%usuarios.forEach(function(usuario){ %>
-      <%if(usuario.rol == 0){ %>
+    <%usuarios.forEach(function(user){ %>
+      <%if(user.rol !== -1 && user.correo !== sesion.correo){ %>
         <div class="row cajaUsuario rounded m-2">
           <div class="col-2 d-flex justify-content-between align-items-center ">
-            <img src="<%=usuario.imagen%>" alt="Foto del usuario" class="img-fluid logoUsuario">
+            <img src="<%=user.imagen%>" alt="Foto del usuario" class="img-fluid logoUsuario">
           </div>
 
           <div class="col-7 d-flex flex-column">
             <div class="d-flex justify-content-between align-items-center mb-1">
-              <h5 class="mb-0"><%= usuario.nombre%> <%=usuario.apellido1%> <%= usuario.apellido2%> </h5>
+              <h5 class="mb-0"><%= user.nombre%> <%=user.apellido1%> <%= user.apellido2%> </h5>
             </div>
-            <p><%= usuario.correo%></p>
+            <p id = "correoUser"><%= user.correo%></p>
           </div>
           <div class="col-3 mt-2">
             <button class="btn btn-dark mb-2 w-100 verReservas"> Ver Reservas </button>
+            <%if(user.rol !== 1){ %>
             <button class="btn btn-secondary mb-2 w-100 darPermisos"> Dar Permisos </button>
+            <%}else{ %>
+              <button class="alert alert-success p-1 w-100"> Es Admin </button>
+              <%}%>
           </div>
         </div>
         <%}%>

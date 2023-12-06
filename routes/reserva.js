@@ -36,6 +36,7 @@ router.get('/porUsuario', function (req, res, next) {
     })
 }) 
 
+
 router.get('/infoUsuarioReserva', function (req, res, next) {
 
     const DAOAp = require('../mysql/daoUsuario')
