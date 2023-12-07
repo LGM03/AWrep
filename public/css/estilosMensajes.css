@@ -1,0 +1,11 @@
+#mensajesEnviados{
+    display: none;
+    background-color: white;
+    box-shadow: 0px 0px 5px #000000;
+}
+
+#mensajesRecibidos{
+    display: none;
+    background-color: white;
+    box-shadow: 0px 0px 5px #000000;
+}
