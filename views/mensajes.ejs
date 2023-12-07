@@ -20,7 +20,7 @@
 
     <%- include('cabecera.ejs') %>
 
-    <div class="col-md-2  text-center bordecolumnaCabecera text-sm"><a href=# class="btn btn-lg botoncabecera"
+    <div class="col-md-12  text-center bordecolumnaCabecera text-sm"><a href=# class="btn btn-lg botoncabecera"
         data-bs-toggle="modal" data-bs-target="#MandarMensaje">
         <h5>MandarMensaje</h5>
       </a></div>
@@ -76,14 +76,35 @@
         </div>
       </div>
 
-      <div class="row mt-4 mb-2 text-center p-3 zonamensajesRecibidos">
+      <div class="row mt-4 mb-2  text-center p-3 zonamensajesRecibidos">
 
         <button id="botonMensajesRecibidos" class="btn text-center">Ver Mensajes recibidos</button>
 
-        <div id="mensajesRecibidos" class="rounded w-100">
-
-          <!--Cada caja de comentario-->
-          <h4 class="cabeceraMensajes mt-1 ">Mensajes recibidos</h4>
+        <div class="container text-center">
+          <div class="col-8 mx-auto" id="mensajesRecibidos" class="rounded w-100">
+      
+              <div id="cajamensajesRecibidos" class="row mb-3 w-100">
+                  <h3 class="text-center">Mensajes Recibidos</h3>
+      
+                  <% mensajes.forEach(function(mensaje) { %>
+                      <% if (mensaje.correoReceptor === sesion.correo) { %>
+                        <div class="row align-items-center text-center m-2 my-2">
+                          <div class="col-12 cajamensaje d-flex flex-column">
+                              <div class="d-flex justify-content-between align-items-center mb-1">
+                                  <h5 class="mb-0"><%= mensaje.correoEmisor %></h5>
+                                  <p class="mb-0"><em><%= mensaje.fecha %></em></p>
+                              </div>
+                              <p class="mb-0"><%= mensaje.cuerpoMensaje %></p>
+                          </div>
+                      </div>
+                      <% } %>
+                  <% }); %>
+      
+              </div>
+          </div>
+      </div>
+        
+        </div>
 
         <div id="cajasMensajesrecibidos" class="rounded w-100"></div>
 
@@ -95,12 +116,29 @@
 
         <button id="botonMensajesEnviados" class="btn text-center">Ver Mensajes Enviados</button>
 
-        <div id="mensajesEnviados" class="rounded w-100" >
-
-          <!--Cada caja de comentario-->
-          <h4 class="cabeceraMensajes mt-1 ">Mensajes Enviados</h4>
-
-        <div id="cajasMensajesEnviados" class="rounded w-100"></div>
+        <div class="container text-center">
+          <div class="col-8 mx-auto" id="mensajesEnviados" class="rounded w-100">
+      
+              <div id="cajamensajesRecibidos" class="row mb-3 w-100">
+                  <h3 class="text-center">Mensajes Enviados</h3>
+      
+                  <% mensajes.forEach(function(mensaje) { %>
+                      <% if (mensaje.correoEmisor === sesion.correo) { %>
+                        <div class="row align-items-center text-center m-2 my-2">
+                          <div class="col-12 cajamensaje d-flex flex-column">
+                              <div class="d-flex justify-content-between align-items-center mb-1">
+                                  <h5 class="mb-0"><%= mensaje.correoReceptor %></h5>
+                                  <p class="mb-0"><em><%= mensaje.fecha %></em></p>
+                              </div>
+                              <p class="mb-0"><%= mensaje.cuerpoMensaje %></p>
+                          </div>
+                      </div>
+                      <% } %>
+                  <% }); %>
+      
+      
+              </div>
+          </div>
       </div>
 
       </div>

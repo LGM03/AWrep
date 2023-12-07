@@ -67,9 +67,8 @@ router.post('/mandarMensaje', function (req, res, next) {
         correoEmisor : req.body.correoEmisor, 
         correoReceptor : req.body.correoReceptor,
         cuerpoMensaje : req.body.cuerpoMensaje,
-        fecha: date.slice(0,10) //fecha actual, en la que se hace el comentario
+        fecha: date
     }
-    console.log(datos)
 
     midao.altaMensaje(datos, (err, datos) => {
         if (err) {
