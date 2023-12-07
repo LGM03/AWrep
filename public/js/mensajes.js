@@ -52,14 +52,13 @@ $(document).ready(function () {
     });
   })
 
-  $("#idMandarMensaje").on("click", function (event) {
+  $("#idMandarMensaje").on("click", function (event) {  //TODO validacion en cliente de valores
 
 
     var datosMensaje = {
       correoEmisor: $("#correoEmisor").prop("value"),
       correoReceptor: $("#correoReceptor").prop("value"),
       cuerpoMensaje: $("#cuerpoMensaje").prop("value"),
-      fecha: new Date().toISOString(),
       }
 
 

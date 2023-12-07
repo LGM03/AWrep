@@ -59,23 +59,23 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/mandarMensaje', function (req, res, next) {
-    const DAOAp = require('../mysql/daoMensaje')
+    const DAOAp = require('../mysql/daoMensajes')
     const midao = new DAOAp(pool)
 
+    var date = new Date().toISOString()
     datos={
         correoEmisor : req.body.correoEmisor, 
         correoReceptor : req.body.correoReceptor,
         cuerpoMensaje : req.body.cuerpoMensaje,
-        fecha: new Date() ,  //fecha actual, en la que se hace el comentario
+        fecha: date.slice(0,10) //fecha actual, en la que se hace el comentario
     }
-
-    console.log(datos);
+    console.log(datos)
 
     midao.altaMensaje(datos, (err, datos) => {
         if (err) {
-            res.send("0")
+            res.json("0")
         } else {
-            res.send(datos)
+            res.json(datos)
         }
     })
 })
