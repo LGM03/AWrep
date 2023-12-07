@@ -2,7 +2,7 @@ $(document).ready(function () {
 
   $("#botonMensajesRecibidos").on("click", function () {
     $("#botonMensajesRecibidos").hide()
-    $("#mensajes").fadeIn(1000)
+    $("#mensajesRecibidos").fadeIn(1000)
 
     $.ajax({
       method: "GET",
@@ -12,7 +12,9 @@ $(document).ready(function () {
         if (datos !== "0") {
           $("#CorreoReceptor").text(datos.usuario)
           datos.mensajes.forEach(element => {
-            agregarCajaMensajes(element)
+            if(element.correoReceptor == datos.usuario.correo){
+              agregarCajaMensajes(element)
+            }
           });
         } else {
           alert("Ha ocurrido un error con los mensajes")
@@ -26,7 +28,7 @@ $(document).ready(function () {
 
   $("#botonMensajesEnviados").on("click", function () {
     $("#botonMensajesEnviados").hide()
-    $("#mensajes").fadeIn(1000)
+    $("#mensajesEnviados").fadeIn(1000)
 
     $.ajax({
       method: "GET",
@@ -36,7 +38,9 @@ $(document).ready(function () {
         if (datos !== "0") {
           $("#CorreoEmisor").text(datos.usuario)
           datos.mensajes.forEach(element => {
-            agregarCajaMensajes(element)
+            if(element.correoEmisor == datos.usuario.correo){
+              agregarCajaMensajes(element)
+            }
           });
         } else {
           alert("Ha ocurrido un error con los mensajes")
@@ -48,40 +52,36 @@ $(document).ready(function () {
     });
   })
 
-  $("#idComentar").on("click", function (event) {
+  $("#idMandarMensaje").on("click", function (event) {
 
-    const coment = $("#comentarioNuevo").prop("value")
-    event.preventDefault();
-    if (coment.trim() === "") {
-      alert("No se pueden publicar comentarios vacíos")
-    } else {
 
-      var urlParams = new URLSearchParams(window.location.search);
-      var dest = urlParams.get('id');
+    var datosMensaje = {
+      correoEmisor: $("#correoEmisor").prop("value"),
+      correoReceptor: $("#correoReceptor").prop("value"),
+      cuerpoMensaje: $("#cuerpoMensaje").prop("value"),
+      fecha: new Date().toISOString(),
+      }
 
-     
+
       $.ajax({
         method: "POST",
-        url: "/mensajes",
-        data: { comentario: coment, destino: dest },
+        url: "/mensajes/mandarMensaje",
+        data: datosMensaje,
         success: function (datos, state, jqXHR) { //Si todo ha ido bien pongo un mensaje de acierto
           if (datos !== "0") {
-            element = {
-              nombre_usuario: datos,
-              fecha_comentario: new Date().toISOString(),
-              comentario: coment
-            }
-            $('#comentarioNuevo').prop('value', '');
-            agregarCajaComentario(element)
+            alert("Mensaje enviado con éxito ")
           } else {
-            alert("No se pudo publicar el comentario")
+            alert("No se pudo enviar el mensaje")
           }
         },
         error: function (jqXHR, statusText, errorThrown) { //Si ha ocurrido un error pongo un mensaje de error
-          alert("No se pudo publicar el comentario")
+          console.error('Error al enviar el formulario al servidor:', errorThrown);
+          console.error('Error al enviar el formulario al servidor:', statusText);
+          console.error('Error al enviar el formulario al servidor:', jqXHR);
+          alert(errorThrown)
         }
       });
-    }
+    
   })
 })
 

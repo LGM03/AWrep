@@ -40,21 +40,32 @@
             <div class="modal-body alert alert-secondary">
       
               <form id="MandarMensaje">
+
                 <div class="mb-3 row">
-                    <label for="correo" class="col-sm-3 col-form-label" id="correoReceptor">Correo Receptor:</label>
+                  <label for="correoEmisor"
+                      class="col-sm-3 col-form-label ">Correo Emisor:</label>
+                  <div class="col-sm-9">
+                      <input type="email" class="form-control" id="correoEmisor"
+                          name="correo" placeholder="correo@ejemplo.com"
+                          value=" <%=usuario.correo%> " readonly>
+                  </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="correoReceptor" class="col-sm-3 col-form-label">Correo Receptor:</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="nombre" id="correoReceptor" required>
+                        <input type="email" class="form-control" name="correo" id="correoReceptor" required>
                     </div>
                 </div>
-                <div class="mb-3 row">
-                    <label for="cuerpoMensaje" class="col-sm-3 col-form-label" id="cuerpoMensaje">Text:</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" name="nombre" id="cuerpoMensaje" required>
-                    </div>
+                 <div class="mb-3 row">
+               <label for="cuerpoMensaje" class="col-md-3 col-form-label text-center"> Cuerpo del mensaje:</label>
+                <div class="col-md-9">
+                <textarea class="form-control" id="cuerpoMensaje" name="cuerpoMensaje" required></textarea>
+                </div>
                 </div>
                 <div class="mb-3 row">
                     <div class="offset-sm-3 col-sm-9">
-                        <button type="submit" class="btn botonsabermas" id="idCrearinstalacion">Confirmar</button>
+                        <button type="submit" class="btn botonsabermas" id="idMandarMensaje">Confirmar</button>
                         <button type="button" class="btn botonsabermas" data-bs-dismiss="modal">Cancelar</button>
                     </div>
                 </div>
@@ -69,7 +80,7 @@
 
         <button id="botonMensajesRecibidos" class="btn text-center">Ver Mensajes recibidos</button>
 
-        <div id="mensajes" class="rounded w-100">
+        <div id="mensajesRecibidos" class="rounded w-100">
 
           <!--Cada caja de comentario-->
           <h4 class="cabeceraMensajes mt-1 ">Mensajes recibidos</h4>
@@ -84,7 +95,7 @@
 
         <button id="botonMensajesEnviados" class="btn text-center">Ver Mensajes Enviados</button>
 
-        <div id="mensajes" class="rounded w-100" >
+        <div id="mensajesEnviados" class="rounded w-100" >
 
           <!--Cada caja de comentario-->
           <h4 class="cabeceraMensajes mt-1 ">Mensajes Enviados</h4>

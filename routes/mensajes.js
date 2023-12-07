@@ -4,9 +4,10 @@ var router = express.Router();
 const mysql = require("mysql")
 const pool = mysql.createPool({
     host: "localhost",
-    user: "admin_aw",
+    user: "root",
     password: "",
-    database: "UCM_RIU"
+    database: "UCM_RIU",
+    port: 3306
 })
 
 
@@ -57,23 +58,24 @@ router.get('/', function (req, res, next) {
 
 });
 
-router.post('/', function (req, res, next) {
+router.post('/mandarMensaje', function (req, res, next) {
     const DAOAp = require('../mysql/daoMensaje')
     const midao = new DAOAp(pool)
-    var user = req.session.usuario.correo
 
     datos={
-        correoEmisor : user, 
+        correoEmisor : req.body.correoEmisor, 
         correoReceptor : req.body.correoReceptor,
         cuerpoMensaje : req.body.cuerpoMensaje,
         fecha: new Date() ,  //fecha actual, en la que se hace el comentario
     }
 
+    console.log(datos);
+
     midao.altaMensaje(datos, (err, datos) => {
         if (err) {
             res.send("0")
         } else {
-            res.send(user)
+            res.send(datos)
         }
     })
 })

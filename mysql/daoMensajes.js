@@ -23,6 +23,9 @@ class DAOInstalaciones{   //DAO que accede a los destinos y su respectiva inform
     } 
 
     altaMensaje(datos,callback) { //Lee todos los comentarios en funcion 
+
+        console.log(datos);
+
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
