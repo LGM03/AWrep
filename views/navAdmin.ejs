@@ -6,14 +6,20 @@
         data-bs-toggle="modal" data-bs-target="#CrearInstalacion">
         <h5>Crear Instalacion</h5>
       </a></div>
-    <div class="col-md-2  text-center bordecolumnaCabecera text-sm"><a href="/configuracion" class="btn btn-lg botoncabecera">
+    <div class="col-md-2  text-center bordecolumnaCabecera text-sm"><a href="/configuracion"
+        class="btn btn-lg botoncabecera">
         <h5>Configuración Sistema</h5>
       </a></div>
     <div class="col-md-2  text-center bordecolumnaCabecera text-sm"><a href="/gestionUsuarios/validar"
         class="btn btn-lg botoncabecera">
         <h5>Gestionar Usuarios</h5>
       </a></div>
-    <div class="col-md-2  text-center bordecolumnaCabecera text-sm"><a href='/mensajes' class="btn btn-lg botoncabecera">
+    <div class="col-md-2  text-center bordecolumnaCabecera text-sm"><a href="/reserva"
+        class="btn btn-lg botoncabecera">
+        <h5>Gestionar Reservas</h5>
+      </a></div>
+    <div class="col-md-2  text-center bordecolumnaCabecera text-sm"><a href='/mensajes'
+        class="btn btn-lg botoncabecera">
         <h5>Mis Mensajes</h5>
       </a></div>
   </div>
@@ -35,53 +41,54 @@
 
         <form id="crearInstalacion">
           <div class="mb-3 row">
-              <label for="correo" class="col-sm-3 col-form-label" id="correoInicio">Nombre:</label>
-              <div class="col-sm-9">
-                  <input type="text" class="form-control" name="nombre" id="nombreInstalacion" required>
-              </div>
+            <label for="correo" class="col-sm-3 col-form-label" id="correoInicio">Nombre:</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="nombre" id="nombreInstalacion" required>
+            </div>
           </div>
           <div class="mb-3 row">
-              <label for="tipoReserva" class="col-sm-3 col-form-label">Tipo Instalación:</label>
-              <div class="col-sm-9">
-                  <select class="form-control" id="tipoReserva" name="tipoReserva" required>
-                      <option value="" disabled selected>Seleccione el tipo de Instalación:</option>
-                      <option value="Colectiva">Colectiva</option>
-                      <option value="Individual">Individual</option>
-                  </select>
-              </div>
+            <label for="tipoReserva" class="col-sm-3 col-form-label">Tipo Instalación:</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="tipoReserva" name="tipoReserva" required>
+                <option value="" disabled selected>Seleccione el tipo de Instalación:</option>
+                <option value="Colectiva">Colectiva</option>
+                <option value="Individual">Individual</option>
+              </select>
+            </div>
           </div>
-          <div class="mb-3 row d-none" id = "campoAforo">
+          <div class="mb-3 row d-none" id="campoAforo">
             <label for="aforo" class="col-sm-3 col-form-label">Aforo:</label>
             <div class="col-sm-9">
-                <input type="number" class="form-control" id="aforo" name="aforo" required>
+              <input type="number" class="form-control" id="aforo" name="aforo" required>
             </div>
-        </div>
-          <div class="mb-3 row">
-              <label for="imagenReserva" class="col-sm-3 col-form-label">Imagen instalaciones:</label>
-              <div class="col-sm-9">
-                <input type="file" class="form-control" id="imagenInstalacion" name="imagenInstalacion" accept="image/png" required size="400000">
-              </div>
-          </div>
-          
-          <div class="mb-3 row">
-              <label for="horaInicio" class="col-sm-3 col-form-label">Hora Inicio:</label>
-              <div class="col-sm-9">
-                  <input type="time" class="form-control" id="horaInicio" name="horaInicio" required>
-              </div>
           </div>
           <div class="mb-3 row">
-              <label for="horaFin" class="col-sm-3 col-form-label">Hora Fin:</label>
-              <div class="col-sm-9">
-                  <input type="time" class="form-control" id="horaFin" name="horaFin" required>
-              </div>
+            <label for="imagenReserva" class="col-sm-3 col-form-label">Imagen instalaciones:</label>
+            <div class="col-sm-9">
+              <input type="file" class="form-control" id="imagenInstalacion" name="imagenInstalacion" accept="image/png"
+                required size="400000">
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <label for="horaInicio" class="col-sm-3 col-form-label">Hora Inicio:</label>
+            <div class="col-sm-9">
+              <input type="time" class="form-control" id="horaInicio" name="horaInicio" required>
+            </div>
           </div>
           <div class="mb-3 row">
-              <div class="offset-sm-3 col-sm-9">
-                  <button type="submit" class="btn botonsabermas" id="idCrearinstalacion">Confirmar</button>
-                  <button type="button" class="btn botonsabermas" data-bs-dismiss="modal">Cancelar</button>
-              </div>
+            <label for="horaFin" class="col-sm-3 col-form-label">Hora Fin:</label>
+            <div class="col-sm-9">
+              <input type="time" class="form-control" id="horaFin" name="horaFin" required>
+            </div>
           </div>
-      </form>
+          <div class="mb-3 row">
+            <div class="offset-sm-3 col-sm-9">
+              <button type="submit" class="btn botonsabermas" id="idCrearinstalacion">Confirmar</button>
+              <button type="button" class="btn botonsabermas" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
 

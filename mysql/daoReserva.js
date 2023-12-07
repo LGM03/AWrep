@@ -66,6 +66,26 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
         });
     }  
 
+    leerReservas(callback) { //Lee todos los comentarios en funcion 
+        this.pool.getConnection(function (err, connection) {
+            if (err) {
+                callback(err, null); //Si ha ocurrido un error retorno el error
+            } else {
+                const sql = "select ucm_aw_riu_res_reservas.fecha, ucm_aw_riu_res_reservas.fechafinal, ucm_aw_riu_ins_instalaciones.nombre as nombreIns, ucm_aw_riu_ins_instalaciones.tipoReserva,  ucm_aw_riu_ins_instalaciones.horaInicio,  ucm_aw_riu_ins_instalaciones.horaFin,  ucm_aw_riu_ins_instalaciones.aforo,  ucm_aw_riu_ins_instalaciones.imagen as imagenIns, ucm_aw_riu_usu_usuarios.nombre,ucm_aw_riu_usu_usuarios.apellido1,ucm_aw_riu_usu_usuarios.apellido2,ucm_aw_riu_usu_usuarios.facultad,ucm_aw_riu_usu_usuarios.curso,ucm_aw_riu_usu_usuarios.grupo,ucm_aw_riu_usu_usuarios.imagen as imagenUsu from ucm_aw_riu_res_reservas inner join ucm_aw_riu_ins_instalaciones on ucm_aw_riu_ins_instalaciones.id = idIns inner join ucm_aw_riu_usu_usuarios on correo = idUsu"
+                connection.query(sql, [], function (err, resultado) {
+                    connection.release(); //Libero la conexion
+                    if (err) {
+                        console.log(err)
+                        callback(err, null); //Si ha ocurrido un error retorno el error
+                    } else {
+                        callback(null, resultado); //Si todo ha ido bien retorno la información obtenida 
+                    }
+                });
+            }
+        });
+    }  
+
+
     hacerAdmin(idUsu,callback) { //Lee todos los comentarios en funcion 
         this.pool.getConnection(function (err, connection) {
             if (err) {
