@@ -26,7 +26,7 @@ $(document).ready(function () {
 
                     if (datos.datos.length > 0) {
                         var existe = false
-                        console.log(datos)
+
                         datos.datos.forEach(element => {
                             console.log(element)
                             if ((!filtro.nombre || filtro.nombre === element.nombre) &&
@@ -44,6 +44,10 @@ $(document).ready(function () {
                                 const base64String = btoa(String.fromCharCode.apply(null, new Uint8Array(arrayBuffer)));
                                 const url = `data:image/png;base64,${base64String}`;
 
+                                const arrayBufferUsu = element.imagenUsu.data; //recojo la imagen de la instalacion y la paso a URL
+                                const base64StringUsu = btoa(String.fromCharCode.apply(null, new Uint8Array(arrayBufferUsu)));
+                                const urlUsu = `data:image/png;base64,${base64StringUsu}`;
+
                                 var nuevo = { //info de la reserva
                                     nombreIns: element.nombreIns,
                                     fecha: element.fecha,
@@ -51,6 +55,11 @@ $(document).ready(function () {
                                     tipoReserva: element.tipoReserva,
                                     aforo: element.aforo,
                                     urlImagen: url,
+                                    nombre: element.nombre + " " + element.apellido1 + " " + element.apellido2,
+                                    correo: element.correo,
+                                    imagenUsu: urlUsu,
+                                    facultad: element.facultad,
+                                    clase: element.curso + " " + element.grupo
                                 };
 
                                 agregarCajaReserva(datos.esAdmin, nuevo, $("#divListaReservas"))
@@ -97,35 +106,44 @@ function agregarCajaReserva(esAdmin, element, padre) {
     infoContainer.append(plazo);
 
     cajaReserva.append(infoContainer);
-    if (esAdmin == 1) {//TODO
-        infoContainer.append(botonCancelar);
-    }
     caja.append(cajaReserva);
     padre.append(caja);
+    console.log("esAdmi " + esAdmin)
+    if (esAdmin == 0) {//TODO
+        infoContainer.append(botonCancelar);
+    } else {
+        console.log("A")
+        infoUsuario(element, caja)
+    }
 }
 
-function nuevoUsuario(datos) {
+function infoUsuario(datos, padre) {
 
-    const nuevo = '<div class="row cajaUsuario rounded m-2">' +
-        '<div class="col-2 d-flex justify-content-between align-items-center ">' +
-        '<img src="' + datos.urlImagen + '" alt="Foto del usuario" class="img-fluid logoUsuario"></div>' +
-        '<div class="col-7 d-flex flex-column">' +
-        '<div class="d-flex justify-content-between align-items-center mb-1">' +
-        '<h5 class="mb-0">' + datos.nombre + '</h5></div>' +
-        '<p id = "correoUser">' + datos.correo + '</p></div>' +
-        '<div class="col-3 mt-2" id = "zonaBotones">' +
-        '<button class="btn btn-dark mb-2 w-100 verReservas"> Ver Reservas </button>' +
-        '</div></div>';
+    const nuevo = `
+    <div class="row alert alert-secondary rounded m-2 align-items-center">
+        <div class="col-2 d-flex justify-content-between align-items-center">
+            <img src="${datos.imagenUsu}" alt="Foto del usuario" class="img-fluid logoUsuario">
+        </div>
+        <div class="col-7">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+                <h5 class="mb-0">${datos.nombre}</h5>
+            </div>
+            <p id="correoUser" class="mb-1">${datos.correo}</p>
+            <div class="d-flex flex-column">
+                <div class="d-flex mb-1">
+                    <h5 class="mb-0 mr-2">Facultad:</h5>
+                    <p class="mb-0">${datos.facultad}</p>
+                </div>
+                <div class="d-flex">
+                    <h5 class="mb-0 mr-2">Grupo:</h5>
+                    <p class="mb-0">${datos.clase}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
 
-    $("#divUsuarios").append(nuevo)
-
-    if (datos.rol == 1) {
-        var boton = '<button class="alert alert-success p-1 w-100"> Es Admin </button>'
-    } else {
-        var boton = '<button class="btn btn-secondary mb-2 w-100 darPermisos"> Dar Permisos </button>'
-    }
-
-    $(".cajaUsuario:last").find("#zonaBotones").append(boton);
+    padre.append(nuevo)
 }
 
 function validarFiltro(datos) {
