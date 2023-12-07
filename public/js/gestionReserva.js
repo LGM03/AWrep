@@ -5,11 +5,13 @@ $(document).ready(function () {
             $("#filtroFin").removeClass("d-none")
         } else {
             $("#filtroFin").addClass("d-none")
+            $("#fechaFinFiltro").prop("value","")
         }
     })
 
     $("#filtrarReservas").on("click", function (event) {
         event.preventDefault();
+        $("#divListaReservas .cajaUsuario").slideUp(1000);
 
         filtro = {
             fechaIni: $("#fechaIniFiltro").prop("value"),
@@ -29,6 +31,8 @@ $(document).ready(function () {
 
                         datos.datos.forEach(element => {
                             console.log(element)
+                            console.log(filtro.fechaFin  + " "+ filtro.fechaIni + " "+element.fecha.slice(0,10) )
+                            console.log( element.fechafinal.slice(0,10))
                             if ((!filtro.nombre || filtro.nombre === element.nombre) &&
                                 (!filtro.apellido1 || filtro.apellido1 === element.apellido1) &&
                                 (!filtro.apellido2 || filtro.apellido2 === element.apellido2) &&
@@ -36,8 +40,8 @@ $(document).ready(function () {
                                 (!filtro.facultad || filtro.facultad === element.facultad) &&
                                 (!filtro.instalacion || filtro.instalacion === element.nombreIns) &&
 
-                                (!filtro.fechaIni || filtro.fechaIni === element.fecha) &&
-                                (!filtro.fechaFin || filtro.fechaFin === element.fechafinal)) {
+                                (!filtro.fechaIni || (filtro.fechaFin && filtro.fechaIni <= element.fecha.slice(0,10)) || ( !filtro.fechaFin  && filtro.fechaIni === element.fecha.slice(0,10))) &&
+                                (!filtro.fechaFin || filtro.fechaFin >= element.fechafinal.slice(0,10))) {
 
 
                                 const arrayBuffer = element.imagenIns.data; //recojo la imagen de la instalacion y la paso a URL
@@ -48,21 +52,12 @@ $(document).ready(function () {
                                 const base64StringUsu = btoa(String.fromCharCode.apply(null, new Uint8Array(arrayBufferUsu)));
                                 const urlUsu = `data:image/png;base64,${base64StringUsu}`;
 
-                                var nuevo = { //info de la reserva
-                                    nombreIns: element.nombreIns,
-                                    fecha: element.fecha,
-                                    fechafinal: element.fechafinal,
-                                    tipoReserva: element.tipoReserva,
-                                    aforo: element.aforo,
-                                    urlImagen: url,
-                                    nombre: element.nombre + " " + element.apellido1 + " " + element.apellido2,
-                                    correo: element.correo,
-                                    imagenUsu: urlUsu,
-                                    facultad: element.facultad,
-                                    clase: element.curso + " " + element.grupo
-                                };
+                                element.urlImagen = url
+                                element.nombre =  element.nombre + " " + element.apellido1 + " " + element.apellido2
+                                element.imagenUsu = urlUsu
+                                element.clase = element.curso + " " + element.grupo
 
-                                agregarCajaReserva(datos.esAdmin, nuevo, $("#divListaReservas"))
+                                agregarCajaReserva(datos.esAdmin, element, $("#divListaReservas"))
                                 existe = true
                             }
                         });
@@ -78,6 +73,34 @@ $(document).ready(function () {
             })
 
         }
+    })
+
+    $(document).on("click", ".cancelarReserva", function (event) {
+
+        var divContenedor = $(this).closest('.cajaUsuario'); // Este es el div padre 
+        var idReserva = divContenedor.data("id")
+        
+        var data = {
+            idReserva: idReserva
+        };
+
+        $.ajax({
+            method: "DELETE",
+            url: "/reserva/borrarReserva",
+            data: data,
+            success: function (datos, state, jqXHR) { // Si todo ha ido bien pongo un mensaje de acierto
+                console.log(datos);
+                if (datos == "1") {
+                    console.log("reseva borrada");
+                    
+                } else {
+                    alert("No se ha podido borrar la reserva");
+                }
+            },
+            error: function (jqXHR, statusText, errorThrown) { // Si ha ocurrido un error pongo un mensaje de error
+                alert("Ha ocurrido un error con los usuarios");
+            }
+        });
     })
 })
 
@@ -107,12 +130,12 @@ function agregarCajaReserva(esAdmin, element, padre) {
 
     cajaReserva.append(infoContainer);
     caja.append(cajaReserva);
+    caja.data("id", element.id) //Esto va a permitir saber que reserva hay que eliminar 
     padre.append(caja);
     console.log("esAdmi " + esAdmin)
-    if (esAdmin == 0) {//TODO
+    if (esAdmin == 0) {
         infoContainer.append(botonCancelar);
     } else {
-        console.log("A")
         infoUsuario(element, caja)
     }
 }
@@ -153,7 +176,7 @@ function validarFiltro(datos) {
     var correo = $("#correoFiltrar").prop("value")
     var facultad = $("#facultadFiltrar").prop("value")
 
-    if (nombre.trim() !== "") {
+    if (nombre && nombre.trim() !== "") {
         if (validarnombre(nombre)) {
             datos.nombre = nombre
         } else {
@@ -162,7 +185,7 @@ function validarFiltro(datos) {
             return false
         }
     }
-    if (apellido1.trim() !== "") {
+    if (apellido1 && apellido1.trim() !== "") {
         if (validarnombre(apellido1)) {
             datos.apellido1 = apellido1
         } else {
@@ -171,7 +194,7 @@ function validarFiltro(datos) {
             return false
         }
     }
-    if (apellido2.trim() !== "") {
+    if (apellido2 && apellido2.trim() !== "") {
         if (validarnombre(apellido2)) {
             datos.apellido2 = apellido2
         } else {
@@ -180,7 +203,7 @@ function validarFiltro(datos) {
             return false
         }
     }
-    if (correo.trim() !== "") {
+    if (correo && correo.trim() !== "") {
         if (validarEmail(correo)) {
             datos.correo = correo
         } else {
@@ -188,6 +211,11 @@ function validarFiltro(datos) {
             alert("El correo introducido no es válido")
             return false
         }
+    }
+
+    if(datos.fechaFin && datos.fechaIni>datos.fechaFin){
+        alert("Periodo de fechas no válido")
+        return false
     }
 
     if (facultad !== "") {

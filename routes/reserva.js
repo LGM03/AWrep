@@ -24,7 +24,6 @@ router.get('/porInst', function (req, res, next) {
 })
 
 router.get('/', function (req, res, next) {
-    console.log("ASF")
 
     const DAOAp = require("../mysql/daoReserva")
     const midao = new DAOAp(pool)
@@ -110,29 +109,52 @@ router.post('/alta', function (req, res, next) {
 })
 
 router.get('/filtrar', function (req, res, next) {
+    console.log("ASGASG")
     const DAOAp = require('../mysql/daoReserva')
     const midao = new DAOAp(pool)
-    if(req.session.usuario.rol  == 1){
+    if (req.session.usuario.rol == 1) {
 
         midao.leerReservas((err, datos) => { //Saca todas las reservas si es el admin
             if (err) {
                 res.json("0")
             } else {
                 //retorno tambien el rol para saber como construir la vista
-                res.json({datos : datos,esAdmin :  req.session.usuario.rol })
+                res.json({ datos: datos, esAdmin: req.session.usuario.rol })
             }
         })
-        
-    }else{
-        midao.leerReservaPorUsuario(req.query.correo, (err, datos) => { //Si es usuario saca solo sus reservas
+
+    } else {
+        console.log("ASGASG")
+        midao.leerReservaPorUsuario(req.session.usuario.correo, (err, datos) => { //Si es usuario saca solo sus reservas
             if (err) {
                 res.json("0")
             } else {
-                res.json({datos : datos,esAdmin :  req.session.usuario.rol })
+                res.json({ datos: datos, esAdmin: req.session.usuario.rol })
             }
         })
     }
- 
+
 })
+
+
+
+router.delete('/borrarReserva', function (req, res, next) {
+
+    const DAOAp = require('../mysql/daoReserva')
+    const midao = new DAOAp(pool)
+
+    console.log(req.body.idReserva)
+
+    midao.borrarReserva(req.body.idReserva , (err, datos) => { //Saca todas las reservas si es el admin
+        if (err) {
+            res.json("0")
+        } else {
+            //retorno tambien el rol para saber como construir la vista
+            res.json("1")
+        }
+    })
+
+})
+
 
 module.exports = router;
