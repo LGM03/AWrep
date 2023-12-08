@@ -18,8 +18,9 @@ $(document).ready(function () {
             fechaFin: $("#fechaFinFiltro").prop("value"),
             instalacion: $("#instalacionFiltro").prop("value")
         }
+        
         if (validarFiltro(filtro)) {
-
+       
             $.ajax({
                 method: "GET",
                 url: "/reserva/filtrar",
@@ -31,8 +32,7 @@ $(document).ready(function () {
 
                         datos.datos.forEach(element => {
                             console.log(element)
-                            console.log(filtro.fechaFin  + " "+ filtro.fechaIni + " "+element.fecha.slice(0,10) )
-                            console.log( element.fechafinal.slice(0,10))
+
                             if ((!filtro.nombre || filtro.nombre === element.nombre) &&
                                 (!filtro.apellido1 || filtro.apellido1 === element.apellido1) &&
                                 (!filtro.apellido2 || filtro.apellido2 === element.apellido2) &&
@@ -43,11 +43,11 @@ $(document).ready(function () {
                                 (!filtro.fechaIni || (filtro.fechaFin && filtro.fechaIni <= element.fecha.slice(0,10)) || ( !filtro.fechaFin  && filtro.fechaIni === element.fecha.slice(0,10))) &&
                                 (!filtro.fechaFin || filtro.fechaFin >= element.fechafinal.slice(0,10))) {
 
-
+                                
                                 const arrayBuffer = element.imagenIns.data; //recojo la imagen de la instalacion y la paso a URL
                                 const base64String = btoa(String.fromCharCode.apply(null, new Uint8Array(arrayBuffer)));
                                 const url = `data:image/png;base64,${base64String}`;
-
+                
                                 const arrayBufferUsu = element.imagenUsu.data; //recojo la imagen de la instalacion y la paso a URL
                                 const base64StringUsu = btoa(String.fromCharCode.apply(null, new Uint8Array(arrayBufferUsu)));
                                 const urlUsu = `data:image/png;base64,${base64StringUsu}`;
@@ -56,14 +56,23 @@ $(document).ready(function () {
                                 element.nombre =  element.nombre + " " + element.apellido1 + " " + element.apellido2
                                 element.imagenUsu = urlUsu
                                 element.clase = element.curso + " " + element.grupo
+                            console.log("A")
+                                var fecha = new Date(element.fecha.toLocaleString('es-ES', { timeZone: 'Europe/Madrid' }));
+                                var fechafinal = new Date(element.fechafinal);
+                                element.fecha=fecha.toLocaleString()
+                                element.fechafinal=fechafinal.toLocaleString()
+                                console.log("B")
+                              
 
                                 agregarCajaReserva(datos.esAdmin, element, $("#divListaReservas"))
+                                console.log("C")
                                 existe = true
                             }
                         });
                     }
                     if (!existe) {
                         var alerta = $('<h5 class="mt-3 alert alert-warning cajaUsuario">No hay usuarios que mostrar</h2>');
+                        $("#divUsuarios .cajaUsuario").slideUp(1000)
                         $("#divUsuarios").append(alerta);
                     }
                 },
@@ -89,9 +98,8 @@ $(document).ready(function () {
             url: "/reserva/borrarReserva",
             data: data,
             success: function (datos, state, jqXHR) { // Si todo ha ido bien pongo un mensaje de acierto
-                console.log(datos);
                 if (datos == "1") {
-                    console.log("reseva borrada");
+                    divContenedor.slideUp(2000)
                     
                 } else {
                     alert("No se ha podido borrar la reserva");
@@ -110,17 +118,17 @@ function agregarCajaReserva(esAdmin, element, padre) {
     const cajaReserva = $('<div class="col-10 d-flex flex-column"></div>')
 
     const cajaImagen = $('<div class="col-2 d-flex justify-content-between align-items-center "> </div>')
-    const imagen = '<img src="' + element.urlImagen + '" alt="Foto del usuario" class="img-fluid logoUsuario"></div>'
+    const imagen = '<img src="' + element.urlImagen + '" alt="Foto del usuario" class="img-fluid logoUsuario mt-2"></div>'
     cajaImagen.append(imagen)
 
     // Contenedor para el nombre y la fecha
     const infoContainer = $('<div class="d-flex justify-content-between align-items-center mb-1"></div>');
-    botonCancelar = $('<button class="btn btn-danger m-2 cancelarReserva"> X </button>');
+    var botonCancelar = $('<button class="btn btn-danger m-2 cancelarReserva"> X </button>');
     const nombreCom = $('<h5 class="mb-0"> <strong>Instalación : </strong>' + element.nombreIns + '</h5>')
     const tipo = $('<p class="mb-0"><strong>Tipo: </strong>' + element.tipoReserva + '</p>')
     const aforo = $('<p class="mb-0"><strong>Aforo: </strong>' + element.aforo + '</p>')
 
-    const plazo = $('<p class="mb-0">  <strong>Plazo de la Reserva : </strong> ' + element.fecha.slice(0, 10) + " " + element.fecha.slice(11, 16) + "-" + element.fechafinal.slice(11, 16) + '</p>')
+    const plazo = $('<p class="mb-0">  <strong>Plazo de la Reserva : </strong> ' + element.fecha.slice(0, 10) + " " + element.fecha.slice(11 ,-3) + "-" + element.fechafinal.slice(11, -3) + '</p>')
 
     infoContainer.append(cajaImagen);
     infoContainer.append(nombreCom);
@@ -132,7 +140,6 @@ function agregarCajaReserva(esAdmin, element, padre) {
     caja.append(cajaReserva);
     caja.data("id", element.id) //Esto va a permitir saber que reserva hay que eliminar 
     padre.append(caja);
-    console.log("esAdmi " + esAdmin)
     if (esAdmin == 0) {
         infoContainer.append(botonCancelar);
     } else {

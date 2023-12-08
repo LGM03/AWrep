@@ -34,9 +34,10 @@ $(document).ready(function () {
         processData: false,
         success: function (datos, state, jqXHR) {
           //Cerramos el modal
-          if (window.location.pathname == "/" && datos !== "0") { //Si estamos en el / añadimos la tarjeta correspondiente 
-            agregarTarjeta(datos)
+          if( datos !== "0") { //Si estamos en el / añadimos la tarjeta correspondiente 
             $("#CrearInstalacion").modal('hide')
+            if (window.location.pathname == "/"){
+            agregarTarjeta(datos)
             $("#nombreInstalacion").prop("value", "")
             $("#tipoReserva").prop("value", "")
             $("#imagenInstalacion").prop("value", "")
@@ -46,8 +47,11 @@ $(document).ready(function () {
             $('#campoAforo').addClass("d-none");
 
           } else {
-            alert("No se ha podido crear la instalación, parametros no válidos")
+            alert("Instalación creada con éxito")
           }
+        }else{
+          alert("No se ha podido crear la instalación")
+        }
         },
         error: function (jqXHR, statusText, errorThrown) {
           alert("Error al crear la instalacion")
@@ -100,7 +104,7 @@ function agregarTarjeta(datos) {
 
 function imagenValida(imagen) {
   var comprobarEx = /(\.png)$/i;
-  if (!imagen || !comprobarEx.exec(imagen.name) || imagen.size > 400000) {
+  if (!imagen || !comprobarEx.exec(imagen.name) || imagen.size > 60000) {
     return false;
   }
 

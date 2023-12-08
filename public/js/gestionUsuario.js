@@ -161,7 +161,9 @@ $(document).ready(function () {
                                     nombre: element.nombre + " " + element.apellido1 + " " + element.apellido2,
                                     correo: element.correo,
                                     urlImagen: url,
-                                    rol : element.rol
+                                    rol : element.rol,
+                                    clase : element.curso +" "+ element.grupo,
+                                    facultad : element.facultad
                                 };
                                 nuevoUsuario(nuevo);
                                 existe = true
@@ -240,18 +242,34 @@ function esFiltroValido(datos) {
     return true
 }
 
-function nuevoUsuario(datos) {
+function nuevoUsuario(datos) {  //datos.nombre, datos.urlImage, datos.correo
 
-    const nuevo = '<div class="row cajaUsuario rounded m-2">' +
-        '<div class="col-2 d-flex justify-content-between align-items-center ">' +
-        '<img src="' + datos.urlImagen + '" alt="Foto del usuario" class="img-fluid logoUsuario"></div>' +
-        '<div class="col-7 d-flex flex-column">' +
-        '<div class="d-flex justify-content-between align-items-center mb-1">' +
-        '<h5 class="mb-0">' + datos.nombre + '</h5></div>' +
-        '<p id = "correoUser">' + datos.correo + '</p></div>' +
-        '<div class="col-3 mt-2" id = "zonaBotones">' +
-        '<button class="btn btn-dark mb-2 w-100 verReservas"> Ver Reservas </button>' +
-        '</div></div>';
+    const nuevo = `
+    <div class="row cajaUsuario rounded m-2 align-items-center">
+        <div class="col-2 d-flex justify-content-between align-items-center">
+            <img src="${datos.urlImagen}" alt="Foto del usuario" class="img-fluid logoUsuario">
+        </div>
+        <div class="col-7">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+                <h5 class="mb-0">${datos.nombre}</h5>
+            </div>
+            <p id="correoUser" class="mb-1">${datos.correo}</p>
+            <div class="d-flex flex-column">
+                <div class="d-flex mb-1">
+                    <h5 class="mb-0 mr-2">Facultad:</h5>
+                    <p class="mb-0">${datos.facultad}</p>
+                </div>
+                <div class="d-flex">
+                    <h5 class="mb-0 mr-2">Grupo:</h5>
+                    <p class="mb-0">${datos.clase}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 mt-2" id = "zonaBotones">
+        <button class="btn btn-dark mb-2 w-100 verReservas"> Ver Reservas </button>
+        </div>
+    </div>
+`;
 
     $("#divUsuarios").append(nuevo)
 
