@@ -37,7 +37,6 @@ $(document).ready(function () {
       contraseñaRep: $("#contraseñaRep").prop("value"),
       email: $("#correo").prop("value"),
       facultad: $("#facultad").prop("value"),
-      facultad: $("#facultad").prop("value"),
       curso: $("#curso").prop("value"),
       grupo: $("#grupo").prop("value"),
       imagenUser: $("#imagenUser")[0].files[0]
@@ -54,6 +53,16 @@ $(document).ready(function () {
           //Cerramos el modal
           if (datos !== "0") { //Si estamos en el / añadimos la tarjeta correspondiente 
             $("#crearCuenta").modal('hide')
+            $("#nombre").prop("value", "")
+            $("#apellido1").prop("value", "")
+            $("#apellido2").prop("value", "")
+            $("#contraseña").prop("value", "")
+            $("#contraseñaRep").prop("value", "")
+            $("#correo").prop("value", "")
+            $("#facultad").prop("value", "")
+            $("#curso").prop("value", "")
+            $("#grupo").prop("value", "")
+            $("#imagenUser").prop("value", "")
             alert("Cuenta creada con éxito")
 
           } else {
@@ -72,21 +81,6 @@ $(document).ready(function () {
     if (!validarEmail($("#correoInicio").prop("value"))) {
       event.preventDefault();
     }
-  })
-
-  //Validador de Reserva
-  $("#idReservar").on("click", function () {
-    var datosReserva = {
-      nombre: $("#nombreReserva").prop("value"),
-      apellido: $("#apellidoReserva").prop("value"),
-      email: $("#correoReserva").prop("value"),
-      fecha: $("#fechaReserva").prop("value")
-    }
-
-    if (!validarReserva(datosReserva)) {
-      event.preventDefault();
-    }
-
   })
 
 })
@@ -111,9 +105,9 @@ function validarInicio(datosInicio) { //Toggle es mas bonito que alert
   }
 
   var comprobarEx = /(\.png)$/i;
-  if (!datosInicio.imagenUser || !comprobarEx.exec(datosInicio.imagenUser.name) || datosInicio.imagenUser.size > 400000) {
+  if (!datosInicio.imagenUser || !comprobarEx.exec(datosInicio.imagenUser.name) || datosInicio.imagenUser.size > 60000) {
     alert("Seleccione una imagen válida")
-      return false;
+    return false;
   }
 
   if (!validarEmail(datosInicio.email)) {
