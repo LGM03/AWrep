@@ -67,7 +67,8 @@ router.post('/mandarMensaje', function (req, res, next) {
         correoEmisor : req.body.correoEmisor, 
         correoReceptor : req.body.correoReceptor,
         cuerpoMensaje : req.body.cuerpoMensaje,
-        fecha: date
+        fecha: date,
+        rolEmisor :req.session.usuario.rol,
     }
 
     midao.altaMensaje(datos, (err, datos) => {

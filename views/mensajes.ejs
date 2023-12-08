@@ -77,9 +77,9 @@
       </div>
 
       <div class="row mt-4 mb-2  text-center p-3 zonamensajesRecibidos">
-
-        <button id="botonMensajesRecibidos" class="btn text-center">Ver Mensajes recibidos</button>
-
+        <div class="col-12"> 
+             <button id="botonMensajesRecibidos" class="btn botonbuscar text-center">Ver Mensajes recibidos</button>
+        </div>
         <div class="container text-center">
           <div class="col-8 mx-auto" id="mensajesRecibidos" class="rounded w-100">
       
@@ -94,7 +94,7 @@
                                   <h5 class="mb-0"><%= mensaje.correoEmisor %></h5>
                                   <p class="mb-0"><em><%= mensaje.fecha %></em></p>
                               </div>
-                              <p class="mb-0"><%= mensaje.cuerpoMensaje %></p>
+                              <p class="mb-0"style="text-align: left;"><%= mensaje.cuerpoMensaje %></p>
                           </div>
                       </div>
                       <% } %>
@@ -113,9 +113,9 @@
       </div>
 
       <div class="row mt-4 mb-2 text-center p-3 zonamensajesRecibidos">
-
-        <button id="botonMensajesEnviados" class="btn text-center">Ver Mensajes Enviados</button>
-
+        <div class="col-12">
+        <button id="botonMensajesEnviados" class="btn botonbuscar text-center">Ver Mensajes Enviados</button>
+         </div>
         <div class="container text-center">
           <div class="col-8 mx-auto" id="mensajesEnviados" class="rounded w-100">
       
