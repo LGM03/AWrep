@@ -11,8 +11,8 @@ $(document).ready(function () {
         var urlParams = new URLSearchParams(window.location.search);
         var inst = urlParams.get('id');
 
-        var horaIni = $("#horaInicio").prop("value")
-        var horaFin = $("#horaFin").prop("value")
+        var horaIni = $("#horaInicioReserva").prop("value")
+        var horaFin = $("#horaFinReserva").prop("value")
         var fecha = $("#fechaReserva").prop("value")
 
         var datosReserva = {
@@ -51,38 +51,6 @@ $(document).ready(function () {
 
     })
 
-    $("#botonHistorial").on("click", function (event) {
-
-        $("#botonHistorial").hide()
-        $("#historiales").removeClass("d-none")
-
-        //Saco el id de la instalacion correspondiente
-        var urlParams = new URLSearchParams(window.location.search);
-        var inst = urlParams.get('id');
-        var data = {
-            id: inst
-        };
-    
-        $.ajax({
-            method: "GET",
-            url: "/reserva/porInst",
-            data: data,
-            success: function (datos, state, jqXHR) { //Si todo ha ido bien pongo un mensaje de acierto
-                if (datos.length >0) {
-                    datos.forEach(element => {
-                        agregarCajaHistorial(element)
-                    });
-                } else {
-                    mensajeVacio()
-                }
-            },
-            error: function (jqXHR, statusText, errorThrown) { //Si ha ocurrido un error pongo un mensaje de error
-                alert("Ha ocurrido un error con los comentarios")
-            }
-        });
-
-
-    })
 
     $(document).on("click", ".masInfo", function () {
         var divContenedor = $(this).closest('.cajaInfo') //Este es el div padre
@@ -129,40 +97,4 @@ function infoAdicional(element,padre) {
   
     caja.append(cajaReserva);
     padre.append(caja);
-}
-
-function agregarCajaHistorial(element) {
-    const caja = $('<div class="row cajaInfo rounded m-2"></div>');
-
-    // Sección de info de la reserva
-    const cajaReserva = $('<div class="col-10 d-flex flex-column"></div>')
-  
-    // Contenedor para el nombre y la fecha
-    const infoContainer = $('<div class="d-flex justify-content-between align-items-center mb-1"></div>');
-    const botonX = $('<button type="button" class="btn btn-success m-2"> <span aria-hidden="true">+</span> </button>')
-    botonX.addClass("masInfo")
-  
-    const nombreCom = $('<h5 class="mb-0"> <strong>Responsable : </strong>'+ element.idUsu + '</h5>')
-    const fechaCom = $('<p class="mb-0"><strong>Fecha : </strong>'+element.fecha.slice(0, 10) + '</p>')
-    const fechaCom2 = $('<p class="mb-0">  <strong>Horas : </strong> '+element.fecha.slice(11, 16) + "-"+element.fechafinal.slice(11, 16)+ '</p>')
-
-    infoContainer.append(botonX);
-    infoContainer.append(nombreCom);
-    infoContainer.append(fechaCom);
-    infoContainer.append(fechaCom2);
-
-    cajaReserva.append(infoContainer);
-  
-    caja.append(cajaReserva);
-    $("#cajasHistorial").prepend(caja);
-}
-
-function mensajeVacio(){
-    var contenedor = $("<div class='col-12 text-center'>")
-    var mensaje = $("<h2 class='mt-3'>Historial de reservas vacío</h2>")
-    var imagen = $("<img class='img-fluid h-75' src='/images/vacio.png' alt='Imagen de Vacio'>")
-
-    contenedor.append(mensaje)
-    contenedor.append(imagen)
-    $("#cajasHistorial").append(contenedor)
 }

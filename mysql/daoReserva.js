@@ -26,26 +26,24 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
         });
     }  
 
-
-    leerReservaPorInst(idIns,callback) { //Lee todos los comentarios en funcion 
+    leerReservaPorInstyDia(datos,callback) { //Lee todos los comentarios en funcion 
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
             } else {
-                const sql = "SELECT * FROM ucm_aw_riu_res_reservas WHERE idIns = ?"
-                connection.query(sql, [idIns], function (err, resultado) {
+                const sql = "SELECT * FROM ucm_aw_riu_res_reservas WHERE idIns = ? and  CAST(? AS DATE) = CAST(fecha AS DATE)"
+                connection.query(sql, [datos.id,datos.dia], function (err, resultado) {
                     connection.release(); //Libero la conexion
                     if (err) {
-                        console.log(err)
                         callback(err, null); //Si ha ocurrido un error retorno el error
                     } else {
+                        console.log(resultado[0])
                         callback(null, resultado); //Si todo ha ido bien retorno la información obtenida 
                     }
                 });
             }
         });
     }  
-
     
     leerReservaPorUsuario(idUsu,callback) { //Lee todos los comentarios en funcion 
         console.log("SASDFFAS"+idUsu)

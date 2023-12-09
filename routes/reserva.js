@@ -10,15 +10,21 @@ const pool = mysql.createPool({
     port: 3306
 })
 
-router.get('/porInst', function (req, res, next) {
+
+router.get('/porInstyDia', function (req, res, next) {
     const DAOAp = require('../mysql/daoReserva')
     const midao = new DAOAp(pool)
 
-    midao.leerReservaPorInst(req.query.id, (err, datos) => {
+    var info = {
+        id : req.query.id,
+        dia : req.query.dia
+    }
+
+    midao.leerReservaPorInstyDia(info, (err, datos) => {
         if (err) {
             res.json("0")
         } else {
-            res.json(datos)
+            res.json({reservas : datos, esAdmin : req.session.usuario.rol})
         }
     })
 })

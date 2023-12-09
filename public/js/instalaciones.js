@@ -2,6 +2,8 @@
 
 $(document).ready(function () {
 
+  let esAdmin = 1;
+
   $("#idCrearinstalacion").on("click", function (event) {
     event.preventDefault();
     const fileInput = $("#imagenInstalacion");
@@ -72,8 +74,8 @@ $(document).ready(function () {
 
     }
   });
+  
 })
-
 
 function agregarTarjeta(datos) {
 
