@@ -4,7 +4,29 @@ class DAOMensajes{   //DAO que accede a los destinos y su respectiva informació
         this.pool = pool
     }
     
-    
+    mandaNotificacion(datos,callback){
+        this.pool.getConnection((err, connection) => {
+            if (err) {
+                callback(err, null);
+            } else {
+                const sql = "INSERT INTO mensajes (correoEmisor, correoReceptor, cuerpoMensaje, fecha) VALUES (?, ?, ?, ?)";
+                connection.query(sql, [datos.correoEmisor, datos.correoReceptor, datos.cuerpoMensaje, datos.fecha], (err, resultado) => {
+                    connection.release();
+                    if (err) {
+                        console.log(err);
+                        callback(err, null);
+                    } else {
+                        callback(null, resultado.insertId);
+                    }
+                });
+            }
+        });
+
+
+
+    }
+
+
     leerTodos(correo,callback) { //Lee todos los comentarios en funcion 
         this.pool.getConnection(function (err, connection) {
             if (err) {

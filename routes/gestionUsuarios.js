@@ -58,6 +58,9 @@ router.post('/validar', function (req, res, next) {
 
     const DAOAp = require("../mysql/daoGestion")
     const midao = new DAOAp(pool)
+    const DAOAs = require("../mysql/daoMensajes")
+    const daome = new DAOAs(pool)
+
 
     midao.validarUsuario(req.body.correo, (err, datos) => {  //Leo en la BD los destinos con el id de la url
         if (err) {
@@ -68,6 +71,19 @@ router.post('/validar', function (req, res, next) {
             res.send("1");//Cargo la ventana destino con los usuarios no validados
         }
     });
+
+    var date = new Date().toISOString()
+    var mensaje ="Has sido aceptado dentro de la organizacion"
+    datos={
+        correoEmisor : req.session.usuario.correo,
+        correoReceptor : req.body.correo,
+        cuerpoMensaje : mensaje,
+        fecha: date,
+        rolEmisor :req.session.usuario.rol,
+    }
+
+    daome.mandaNotificacion(datos, (err, datos) => {
+    })
 });
 
 router.post('/eliminar', function (req, res, next) {
