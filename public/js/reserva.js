@@ -51,7 +51,6 @@ $(document).ready(function () {
 
     })
 
-
     $(document).on("click", ".masInfo", function () {
         var divContenedor = $(this).closest('.cajaInfo') //Este es el div padre
         var correo = divContenedor.find('h5').text().slice(15,); //busco el p que contiene el correo 

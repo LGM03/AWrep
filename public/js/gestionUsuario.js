@@ -83,6 +83,12 @@ $(document).ready(function () {
                     agregarCajaUsuario(datos[0], divContenedor)
 
                     datos.forEach(element => {
+                        var fecha = new Date(element.fecha);
+                        var fechafinal = new Date(element.fechafinal);
+                        element.fecha = fecha.toLocaleString()
+                        element.fechafinal = fechafinal.toLocaleString()
+
+
                         agregarCajaHistorial(element, divContenedor)
                     });
                 } else {
@@ -294,7 +300,7 @@ function agregarCajaHistorial(element, divContenedor) {
     const tipo = $('<p class="mb-0"><strong>Tipo: </strong>' + element.tipoReserva + '</p>')
     const aforo = $('<p class="mb-0"><strong>Aforo: </strong>' + element.aforo + '</p>')
 
-    const plazo = $('<p class="mb-0">  <strong>Plazo de la Reserva : </strong> ' + element.fecha.slice(0, 10) + " " + element.fecha.slice(11, 16) + "-" + element.fechafinal.slice(11, 16) + '</p>')
+    const plazo = $('<p class="mb-0">  <strong>Plazo de la Reserva : </strong> ' + element.fecha.slice(0, 10) + " " + element.fecha.slice(11, -3) + "-" + element.fechafinal.slice(11, -3) + '</p>')
 
     infoContainer.append(nombreCom);
     infoContainer.append(tipo);
