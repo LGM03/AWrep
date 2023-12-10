@@ -5,7 +5,7 @@ $(document).ready(function () {
             $("#filtroFin").removeClass("d-none")
         } else {
             $("#filtroFin").addClass("d-none")
-            $("#fechaFinFiltro").prop("value","")
+            $("#fechaFinFiltro").prop("value", "")
         }
     })
 
@@ -18,9 +18,9 @@ $(document).ready(function () {
             fechaFin: $("#fechaFinFiltro").prop("value"),
             instalacion: $("#instalacionFiltro").prop("value")
         }
-        
+
         if (validarFiltro(filtro)) {
-       
+
             $.ajax({
                 method: "GET",
                 url: "/reserva/filtrar",
@@ -40,32 +40,32 @@ $(document).ready(function () {
                                 (!filtro.facultad || filtro.facultad === element.facultad) &&
                                 (!filtro.instalacion || filtro.instalacion === element.nombreIns) &&
 
-                                (!filtro.fechaIni || (filtro.fechaFin && filtro.fechaIni <= element.fecha.slice(0,10)) || ( !filtro.fechaFin  && filtro.fechaIni === element.fecha.slice(0,10))) &&
-                                (!filtro.fechaFin || filtro.fechaFin >= element.fechafinal.slice(0,10))) {
+                                (!filtro.fechaIni || (filtro.fechaFin && filtro.fechaIni <= element.fecha.slice(0, 10)) || (!filtro.fechaFin && filtro.fechaIni === element.fecha.slice(0, 10))) &&
+                                (!filtro.fechaFin || filtro.fechaFin >= element.fechafinal.slice(0, 10))) {
 
-                                
+
                                 const arrayBuffer = element.imagenIns.data; //recojo la imagen de la instalacion y la paso a URL
                                 const base64String = btoa(String.fromCharCode.apply(null, new Uint8Array(arrayBuffer)));
                                 const url = `data:image/png;base64,${base64String}`;
-                
+
                                 const arrayBufferUsu = element.imagenUsu.data; //recojo la imagen de la instalacion y la paso a URL
                                 const base64StringUsu = btoa(String.fromCharCode.apply(null, new Uint8Array(arrayBufferUsu)));
                                 const urlUsu = `data:image/png;base64,${base64StringUsu}`;
 
                                 element.urlImagen = url
-                                element.nombre =  element.nombre + " " + element.apellido1 + " " + element.apellido2
+                                element.nombre = element.nombre + " " + element.apellido1 + " " + element.apellido2
                                 element.imagenUsu = urlUsu
                                 element.clase = element.curso + " " + element.grupo
-                            console.log("A")
-                                var fecha = new Date(element.fecha.toLocaleString('es-ES', { timeZone: 'Europe/Madrid' }));
+
+                                var fecha = new Date(element.fecha);
                                 var fechafinal = new Date(element.fechafinal);
-                                element.fecha=fecha.toLocaleString()
-                                element.fechafinal=fechafinal.toLocaleString()
-                                console.log("B")
-                              
+                                element.fecha = fecha.toLocaleString()
+                                element.fechafinal = fechafinal.toLocaleString()
+
+
 
                                 agregarCajaReserva(datos.esAdmin, element, $("#divListaReservas"))
-                                console.log("C")
+
                                 existe = true
                             }
                         });
@@ -88,7 +88,7 @@ $(document).ready(function () {
 
         var divContenedor = $(this).closest('.cajaUsuario'); // Este es el div padre 
         var idReserva = divContenedor.data("id")
-        
+
         var data = {
             idReserva: idReserva
         };
@@ -100,7 +100,7 @@ $(document).ready(function () {
             success: function (datos, state, jqXHR) { // Si todo ha ido bien pongo un mensaje de acierto
                 if (datos == "1") {
                     divContenedor.slideUp(2000)
-                    
+
                 } else {
                     alert("No se ha podido borrar la reserva");
                 }
@@ -128,7 +128,7 @@ function agregarCajaReserva(esAdmin, element, padre) {
     const tipo = $('<p class="mb-0"><strong>Tipo: </strong>' + element.tipoReserva + '</p>')
     const aforo = $('<p class="mb-0"><strong>Aforo: </strong>' + element.aforo + '</p>')
 
-    const plazo = $('<p class="mb-0">  <strong>Plazo de la Reserva : </strong> ' + element.fecha.slice(0, 10) + " " + element.fecha.slice(11 ,-3) + "-" + element.fechafinal.slice(11, -3) + '</p>')
+    const plazo = $('<p class="mb-0">  <strong>Plazo de la Reserva : </strong> ' + element.fecha.slice(0, 10) + " " + element.fecha.slice(11, -3) + "-" + element.fechafinal.slice(11, -3) + '</p>')
 
     infoContainer.append(cajaImagen);
     infoContainer.append(nombreCom);
@@ -220,7 +220,7 @@ function validarFiltro(datos) {
         }
     }
 
-    if(datos.fechaFin && datos.fechaIni>datos.fechaFin){
+    if (datos.fechaFin && datos.fechaIni > datos.fechaFin) {
         alert("Periodo de fechas no válido")
         return false
     }
