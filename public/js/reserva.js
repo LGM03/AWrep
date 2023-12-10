@@ -23,7 +23,9 @@ $(document).ready(function () {
         }
 
         //Valido que la reserva este en el rango apropiado
-        if (new Date(fecha) > new Date() && horaIni < horaFin && horaIni > datosInst.horaIni && horaFin < datosInst.horaFin) {
+        console.log("INFO INSTALACION : "+datosInst.horaIni +" : "+ datosInst.horaFin)
+        console.log("INFO RESERVA : "+horaIni+" : "+ horaFin)
+        if (new Date(fecha) > new Date() && horaIni < horaFin && horaIni >= datosInst.horaIni && horaFin <= datosInst.horaFin) {
             $.ajax({
                 method: "POST",
                 url: "/reserva/alta",
@@ -35,8 +37,14 @@ $(document).ready(function () {
                         $("#horaInicio").prop("value", "")
                         $("#horaFin").prop("value", "")
                         $("#fechaReserva").prop("value", "")
-                    } else {
-                        alert("No se ha podido hacer la reserva")
+                    } else if(datos == -1) {
+                        alert("No se ha podido hacer la reserva. Vuelva a intentarlo")
+                    }else{
+                        $("#Reserva").modal('hide')
+                        $("#horaInicio").prop("value", "")
+                        $("#horaFin").prop("value", "")
+                        $("#fechaReserva").prop("value", "")
+                        alert("No se ha podido hacer la reserva. Añadido a lista de Espera")
                     }
 
                 },

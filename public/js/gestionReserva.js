@@ -71,9 +71,9 @@ $(document).ready(function () {
                         });
                     }
                     if (!existe) {
-                        var alerta = $('<h5 class="mt-3 alert alert-warning cajaUsuario">No hay usuarios que mostrar</h2>');
-                        $("#divUsuarios .cajaUsuario").slideUp(1000)
-                        $("#divUsuarios").append(alerta);
+                        var alerta = $('<h5 class="mt-3 alert alert-warning cajaUsuario">No hay reservas que mostrar</h2>');
+                        $("#divListaReservas .cajaUsuario").slideUp(1000)
+                        $("#divListaReservas").append(alerta);
                     }
                 },
                 error: function (jqXHR, statusText, errorThrown) {
@@ -84,7 +84,7 @@ $(document).ready(function () {
         }
     })
 
-    $(document).on("click", ".cancelarReserva", function (event) {
+    $(document).on("click", ".cancelarReserva", function (event) { //TODO notificacion
 
         var divContenedor = $(this).closest('.cajaUsuario'); // Este es el div padre 
         var idReserva = divContenedor.data("id")

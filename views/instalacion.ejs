@@ -69,8 +69,9 @@
                 </div>
             </div>
 
+            <%if(usuario){%>
             <!--CALENDARIO-->
-            <div class="container fondoCalendario rounded" id = "cuadranteCalendario">
+            <div class="container fondoCalendario rounded pb-3" id = "cuadranteCalendario">
                 <div class="row">
                     <div class="col-md-12">
                         <h2 class="text-center">Calendario</h2>
@@ -82,9 +83,7 @@
                     </div>
                 </div>
             </div>
-
-
-            <!--TODO-->
+ 
             <div class="row mt-4"> <!-- Boton modal hacer reserva -->
 
                 <div class="col-sm-12 ">
@@ -174,12 +173,21 @@
 
 
                     <div class="row mt-4 mb-3 text-center p-3 d-none rounded" id="historiales">
-                        <div class="rounded w-100">
-
+                        <div class="rounded w-100 m-2">
                             <!--Cada caja de -->
-                            <h4 class="cabeceraInfo mt-1 " id = "fechaListaReservas">Reservas</h4>
+                            <h4 class="cabeceraInfo mt-1 " id = "fechaListaReservas"></h4>
 
                             <div id="cajasHistorial" class="rounded w-100">
+                                <!--Aqui se meten cajitas con cada reserva con ajax-->
+
+                            </div>
+                        </div>
+
+                        <div class="rounded w-100 mt-4">
+                            <!--Cada caja de -->
+                            <h4 class="cabeceraInfo mt-1 " id = "ListaEspera"></h4>
+
+                            <div id="cajasEsperas" class="rounded w-100">
                                 <!--Aqui se meten cajitas con cada reserva con ajax-->
 
                             </div>
@@ -187,7 +195,9 @@
                     </div>
                 </div>
             </div>
-
+            <%}else{%>
+                <h5 class = "alert alert-warning">Inicia Sesión para Reservar</h5>
+                <%}%>
         </section>
 
         <%- include('footer.ejs') %>
@@ -201,7 +211,7 @@
 
             <script src="/js/validarFormulario.js"></script>
             <script src="/js/reserva.js"></script>
-            <script src="/js/instalaciones.js"></script>
+            <script src="/js/instalaciones.js"></script>  
             <script src="/js/calendario.js"></script>
 
 </body>

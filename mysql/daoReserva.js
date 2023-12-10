@@ -25,6 +25,70 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
         });
     }  
 
+
+    comprobarOcupacion(datosReserva,callback){
+        this.pool.getConnection(function (err, connection) {
+            if (err) {
+                callback(err, null); //Si ha ocurrido un error retorno el error
+            } else {
+                var fechaInicio = datosReserva.fechaIni.replace('T', ' ')
+                var fechaFin = datosReserva.fechaFin.replace('T', ' ')
+                fechaFin += ":00"
+                fechaInicio += ":00"
+                const sql = "SELECT * FROM `ucm_aw_riu_res_reservas` WHERE idIns = ? AND ( (fecha>? AND fecha<?) OR (fechafinal>? AND fechafinal<?) OR ( fecha<? AND fechaFinal>?))"
+                connection.query(sql, [datosReserva.instalacion, fechaInicio, fechaFin ,fechaInicio, fechaFin,fechaInicio,fechaFin], function (err, resultado) {
+                    connection.release(); //Libero la conexion
+                    if (err) {
+                        console.log(err)
+                        callback(err, null); //Si ha ocurrido un error retorno el error
+                    } else {
+                        console.log(sql)
+                        callback(null, resultado); //Si todo ha ido bien retorno la información obtenida 
+                    }
+                });
+            }
+        });
+    }
+
+    listaEspera(datosReserva,callback){
+        this.pool.getConnection(function (err, connection) {
+            if (err) {
+                callback(err, null); //Si ha ocurrido un error retorno el error
+            } else {
+                var fechaInicio = datosReserva.fechaIni.slice(0, 10).replace('T', ' ')
+                const sql = "insert into listaespera (idUsu, idIns,fechaReserva) values (?,?,?) "
+                connection.query(sql, [datosReserva.correo, datosReserva.instalacion ,fechaInicio], function (err, resultado) {
+                    connection.release(); //Libero la conexion
+                    if (err) {
+                        callback(err, null); //Si ha ocurrido un error retorno el error
+                    } else {
+                        callback(null, resultado.insertId); //Si todo ha ido bien retorno la información obtenida 
+                    }
+                });
+            }
+        });
+    }
+
+    leerListaEspera(datos,callback){
+        this.pool.getConnection(function (err, connection) {
+            if (err) {
+                callback(err, null); //Si ha ocurrido un error retorno el error
+            } else {
+                console.log("AAA" + datos.id+" " + datos.dia)
+                const sql = "SELECT * FROM listaespera inner join ucm_aw_riu_usu_usuarios on idUsu = correo where idIns = ? and fechaReserva = ? order by fechaEntrada"
+                connection.query(sql, [datos.id,datos.dia], function (err, resultado) {
+                    connection.release(); //Libero la conexion
+                    if (err) {
+                        console.log(err)
+                        callback(err, null); //Si ha ocurrido un error retorno el error
+                    } else {
+                        callback(null, resultado); //Si todo ha ido bien retorno la información obtenida 
+                    }
+                });
+            }
+        });
+    }
+
     leerReservaPorInstyDia(datos,callback) { //Retorno las reservas de un dia e instalación ordenadas por fecha
         this.pool.getConnection(function (err, connection) {
             if (err) {

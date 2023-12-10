@@ -214,6 +214,6 @@
 </header>
 <%if(usuario && usuario.rol==1){ %> <!--NAV BAR ADMIN-->
   <%-include('navAdmin.ejs')%>
-    <%}else if (usuario && usuario.rol==0){ %> <!--NAV BAR USER -->
+    <%}else if(usuario){ %> <!--NAV BAR USER -->
       <%-include('navUsuario.ejs')%>
         <% } %>

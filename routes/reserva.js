@@ -98,18 +98,34 @@ router.get('/infoUsuarioReserva', function (req, res, next) {
 router.post('/alta', function (req, res, next) {
     const DAOAp = require('../mysql/daoReserva')
     const midao = new DAOAp(pool)
+
     var datosReserva = {
         correo: req.body.correo,
         fechaFin: req.body.fechaFin,
         fechaIni: req.body.fechaIni,
-        instalacion: req.body.instalacion
+        instalacion: req.body.instalacion,
     }
 
-    midao.altaReserva(datosReserva, (err, datos) => {
+    midao.comprobarOcupacion(datosReserva, (err,datos) =>{
         if (err) {
-            res.send("0")
-        } else {
-            res.send("1")
+            res.json("-1")
+        } else if(datos.length != 0) { //Si hay coincidente guardo en lista de espera
+            midao.listaEspera(datosReserva, (err, datos) => {
+                if (err) {
+                    res.json("-1")
+                } else {
+                    res.json("0")
+                }
+            })
+        }else{ //si no hay reservas coincidentes
+            console.log(datos)
+            midao.altaReserva(datosReserva, (err, datos) => {
+                if (err) {
+                    res.json("0")
+                } else {
+                    res.json("1")
+                }
+            })
         }
     })
 })
@@ -130,7 +146,6 @@ router.get('/filtrar', function (req, res, next) {
         })
 
     } else {
-        console.log("ASGASG")
         midao.leerReservaPorUsuario(req.session.usuario.correo, (err, datos) => { //Si es usuario saca solo sus reservas
             if (err) {
                 res.json("0")
@@ -161,6 +176,21 @@ router.delete('/borrarReserva', function (req, res, next) {
     })
 
 })
+
+router.get('/leerListaEspera', function (req, res, next) {
+
+    const DAOAp = require('../mysql/daoReserva')
+    const midao = new DAOAp(pool)
+
+    midao.leerListaEspera({id : req.query.id,dia : req.query.dia}, (err, datos) => {
+        if (err) {
+            res.json("0")
+        } else {
+            res.json(datos)
+        }
+    })
+})
+
 
 
 module.exports = router;
