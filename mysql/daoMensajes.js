@@ -83,7 +83,7 @@ class DAOMensajes{   //DAO que accede a los destinos y su respectiva informació
                 facultadEmisor=resultEmisor[0].facultad;
 
 
-                if (datos.rolEmisor == 1 || facultadEmisor == facultadReceptor || rolReceptor==1) {
+                if (datos.rolEmisor == 1 || (facultadEmisor == facultadReceptor && rolEmisor!=-1) || (rolReceptor==1 && rolEmisor!=-1)) {
                     this.pool.getConnection((err, connection) => {
                         if (err) {
                             callback(err, null);
