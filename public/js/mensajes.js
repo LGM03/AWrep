@@ -1,8 +1,8 @@
 $(document).ready(function () {
 
   $("#botonMensajesRecibidos").on("click", function () {
-    $("#botonMensajesRecibidos").hide()
     $("#mensajesRecibidos").fadeIn(1000)
+    $("#mensajesEnviados").fadeOut(0)
 
     $.ajax({
       method: "GET",
@@ -27,8 +27,8 @@ $(document).ready(function () {
   })
 
   $("#botonMensajesEnviados").on("click", function () {
-    $("#botonMensajesEnviados").hide()
     $("#mensajesEnviados").fadeIn(1000)
+    $("#mensajesRecibidos").fadeOut(0)
 
     $.ajax({
       method: "GET",
@@ -83,60 +83,3 @@ $(document).ready(function () {
     
   })
 })
-
-
-
-
-function agregarCajaEnviadosMensajes(element) {
-  const caja = $('<div class="row cajaComentario rounded m-2"></div>');
-
-  // Sección de imagen de usuario
-  const cajaImagen = $('<div class="col-2"></div>')
-  const imagen = $('<img src="/images/usuario.png" alt="Foto del usuario" class="img-fluid">');
-  cajaImagen.append(imagen);
-
-  // Sección de info del comentario
-  const cajaMensaje = $('<div class="col-10 d-flex flex-column"></div>')
-
-  // Contenedor para el nombre y la fecha
-  const infoContainer = $('<div class="d-flex justify-content-between align-items-center mb-1"></div>');
-
-  const correo = $('<h5 class="mb-0"></h5>').text(element.correoReceptor);
-  const fechaMen = $('<p class="mb-0"><em></em></p>').text(element.fecha.slice(0, 10));
-
-  infoContainer.append(correo);
-  infoContainer.append(fechaMen);
-
-  const textoCom = $('<p class="mb-0"></p>').text(element.cuerpoMensaje).css('text-align', 'left');;
-
-  cajaMensaje.append(infoContainer);
-  cajaMensaje.append(textoCom);
-
-  caja.append(cajaImagen);
-  caja.append(cajaMensaje);
-  $("#cajasMensajesEnviados").prepend(caja);
-}
-function agregarCajaRecibidosMensajes(element) {
-  const caja = $('<div class="row cajaComentario rounded m-2"></div>');
-
-  // Sección de info del comentario
-  const cajaMensaje = $('<div class="col-10 d-flex flex-column"></div>')
-
-  // Contenedor para el nombre y la fecha
-  const infoContainer = $('<div class="d-flex justify-content-between align-items-center mb-1"></div>');
-
-  const correo = $('<h5 class="mb-0"></h5>').text(element.correoReceptor);
-  const fechaMen = $('<p class="mb-0"><em></em></p>').text(element.fecha.slice(0, 10));
-
-  infoContainer.append(correo);
-  infoContainer.append(fechaMen);
-
-  const textoCom = $('<p class="mb-0"></p>').text(element.cuerpoMensaje).css('text-align', 'left');;
-
-  cajaMensaje.append(infoContainer);
-  cajaMensaje.append(textoCom);
-
-  caja.append(cajaImagen);
-  caja.append(cajaMensaje);
-  $("#cajasMensajesRecibidos").prepend(caja);
-}
