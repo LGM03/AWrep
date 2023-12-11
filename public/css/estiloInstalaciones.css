@@ -38,4 +38,10 @@
 
 .fondoCalendario{
     background-color: #b07d88;
+    
+}
+
+#calendario{
+    max-width: 75%; /* Ajusta según sea necesario */
+
 }

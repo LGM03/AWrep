@@ -226,18 +226,24 @@ $(document).on("click", ".eliminarElementoEspera", function () {
     var divContenedor = $(this).closest('.infoEspera') //Este es el div padre
     var correo = divContenedor.find('h5').text().slice(15,); //busco el p que contiene el correo 
     data={
-        correo:correo,
         idEspera : divContenedor.data("idEspera")
     }
     $.ajax({
-        method: "GET",
+        method: "DELETE",
         url: "/reserva/eliminarEspera",
         data: data,
         success: function (datos, state, jqXHR) { //Si todo ha ido bien pongo un mensaje de acierto
             if (datos !== "0") {
-                infoAdicional(datos,divContenedor);
+                
+               
+
+                divContenedor.slideUp(1500,function () {
+                    alert("Elemento de lista de Espera eliminado")
+                })
+
+
             } else {
-                alert("No se tiene mas información de este usuario")
+                alert("No se pudo eliminar el elemento de la reserva")
             }
         },
         error: function (jqXHR, statusText, errorThrown) { //Si ha ocurrido un error pongo un mensaje de error

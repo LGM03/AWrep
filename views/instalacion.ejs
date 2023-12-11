@@ -10,6 +10,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.32/moment-timezone-with-data.min.js"></script>
+       
+
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.css" rel="stylesheet">
     <link rel="stylesheet" id="hojaEstilosGama" href=<%=gama%>>
     <link rel="stylesheet" href="/css/estilosMainView.css">
@@ -70,134 +72,135 @@
             </div>
 
             <%if(usuario){%>
-            <!--CALENDARIO-->
-            <div class="container fondoCalendario rounded pb-3" id = "cuadranteCalendario">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2 class="text-center">Calendario</h2>
+                <!--CALENDARIO-->
+                <div class="container fondoCalendario rounded pb-3 mx-auto" id="cuadranteCalendario">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="text-center">Calendario</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center d-flex align-items-center">
+                            <div id="calendario" class="calendario mx-auto"></div>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div id="calendario" class="calendario"></div>
-                    </div>
-                </div>
-            </div>
- 
-            <div class="row mt-4"> <!-- Boton modal hacer reserva -->
 
-                <div class="col-sm-12 ">
+                <div class="row mt-4"> <!-- Boton modal hacer reserva -->
 
-                    <div class="modal fade" id="Reserva" data-bs-backdrop="static">
-                        <!-- data-bs impide que se cierre al pulsar fuera del modal -->
-                        <div class="modal-dialog modal-lg modal-dialog-centered">
-                            <div class="modal-content">
+                    <div class="col-sm-12 ">
 
-                                <!-- cabecera del diálogo -->
-                                <div class="modal-header">
-                                    <h4 class="modal-title text-center w-100">Formulario de Reserva</h4>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                </div>
+                        <div class="modal fade" id="Reserva" data-bs-backdrop="static">
+                            <!-- data-bs impide que se cierre al pulsar fuera del modal -->
+                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                <div class="modal-content">
 
-                                <!-- cuerpo del diálogo -->
-                                <div class="modal-body alert alert-secondary">
-                                    <div class="container-fluid">
+                                    <!-- cabecera del diálogo -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title text-center w-100">Formulario de Reserva</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
 
-                                        <!--Form lleva a /reservar y le pasa el id en la url-->
-                                        <form id="reservaForm">
+                                    <!-- cuerpo del diálogo -->
+                                    <div class="modal-body alert alert-secondary">
+                                        <div class="container-fluid">
 
-                                            <div class="mb-3 row">
-                                                <label for="nombre" class="col-md-2 col-form-label">Nombre:</label>
-                                                <div class="col-md-4">
-                                                    <input type="text" class="form-control" id="nombreReserva"
-                                                        name="nombre" value=" <%=usuario.nombre%> " readonly>
+                                            <!--Form lleva a /reservar y le pasa el id en la url-->
+                                            <form id="reservaForm">
+
+                                                <div class="mb-3 row">
+                                                    <label for="nombre" class="col-md-2 col-form-label">Nombre:</label>
+                                                    <div class="col-md-4">
+                                                        <input type="text" class="form-control" id="nombreReserva"
+                                                            name="nombre" value=" <%=usuario.nombre%> " readonly>
+                                                    </div>
+                                                    <label for="apellidos"
+                                                        class="col-md-2 col-form-label text-center">Apellidos:</label>
+                                                    <div class="col-md-4">
+                                                        <input type="text" class="form-control" id="apellidoReserva"
+                                                            name="apellido"
+                                                            value=" <%=usuario.apellido1%>  <%=usuario.apellido2%>"
+                                                            readonly>
+                                                    </div>
                                                 </div>
-                                                <label for="apellidos"
-                                                    class="col-md-2 col-form-label text-center">Apellidos:</label>
-                                                <div class="col-md-4">
-                                                    <input type="text" class="form-control" id="apellidoReserva"
-                                                        name="apellido"
-                                                        value=" <%=usuario.apellido1%>  <%=usuario.apellido2%>"
-                                                        readonly>
-                                                </div>
-                                            </div>
 
-                                            <div class="mb-3 row">
-                                                <label for="correoReserva"
-                                                    class="col-sm-3 col-form-label ">Correo:</label>
-                                                <div class="col-sm-9">
-                                                    <input type="email" class="form-control" id="correoReserva"
-                                                        name="correo" placeholder="correo@ejemplo.com"
-                                                        value=" <%=usuario.correo%> " readonly>
+                                                <div class="mb-3 row">
+                                                    <label for="correoReserva"
+                                                        class="col-sm-3 col-form-label ">Correo:</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="email" class="form-control" id="correoReserva"
+                                                            name="correo" placeholder="correo@ejemplo.com"
+                                                            value=" <%=usuario.correo%> " readonly>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="mb-3 row">
-                                                <label class="control-label col-sm-3 " for="fecha">Fecha:</label>
-                                                <div class="col-sm-9">
-                                                    <input type="date" id="fechaReserva" name="fecha"
-                                                        class="form-control" required>
+                                                <div class="mb-3 row">
+                                                    <label class="control-label col-sm-3 " for="fecha">Fecha:</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="date" id="fechaReserva" name="fecha"
+                                                            class="form-control" required>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="mb-3 row">
-                                                <label for="horaInicioReserva" class="col-md-2 col-form-label">Hora
-                                                    Inicio:</label>
-                                                <div class="col-md-4">
-                                                    <input type="time" class="form-control" id="horaInicioReserva"
-                                                        name="horaInicioReserva" required>
+                                                <div class="mb-3 row">
+                                                    <label for="horaInicioReserva" class="col-md-2 col-form-label">Hora
+                                                        Inicio:</label>
+                                                    <div class="col-md-4">
+                                                        <input type="time" class="form-control" id="horaInicioReserva"
+                                                            name="horaInicioReserva" required>
+                                                    </div>
+                                                    <label for="horaFinReserva"
+                                                        class="col-md-2 col-form-label text-center">Hora
+                                                        Fin:</label>
+                                                    <div class="col-md-4">
+                                                        <input type="time" class="form-control" id="horaFinReserva"
+                                                            name="horaFinReserva" required>
+                                                    </div>
                                                 </div>
-                                                <label for="horaFinReserva" class="col-md-2 col-form-label text-center">Hora
-                                                    Fin:</label>
-                                                <div class="col-md-4">
-                                                    <input type="time" class="form-control" id="horaFinReserva" name="horaFinReserva"
-                                                        required>
-                                                </div>
-                                            </div>
 
-                                            <div class="mb-3 row">
-                                                <div class="offset-sm-3 col-sm-9">
-                                                    <button type="submit" class="btn botonbuscar"
-                                                        id="confirmarReserva">Confirmar</button>
-                                                    <button type="button" class="btn botonbuscar"
-                                                        data-bs-dismiss="modal">Cancelar</button>
+                                                <div class="mb-3 row">
+                                                    <div class="offset-sm-3 col-sm-9">
+                                                        <button type="submit" class="btn botonbuscar"
+                                                            id="confirmarReserva">Confirmar</button>
+                                                        <button type="button" class="btn botonbuscar"
+                                                            data-bs-dismiss="modal">Cancelar</button>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                        </form>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
 
-                    <div class="row mt-4 mb-3 text-center p-3 d-none rounded" id="historiales">
-                        <div class="rounded w-100 m-2">
-                            <!--Cada caja de -->
-                            <h4 class="cabeceraInfo mt-1 " id = "fechaListaReservas"></h4>
+                        <div class="row mt-4 mb-3 text-center p-3 d-none rounded" id="historiales">
+                            <div class="rounded w-100 m-2">
+                                <!--Cada caja de -->
+                                <h4 class="cabeceraInfo mt-1 " id="fechaListaReservas"></h4>
 
-                            <div id="cajasHistorial" class="rounded w-100">
-                                <!--Aqui se meten cajitas con cada reserva con ajax-->
+                                <div id="cajasHistorial" class="rounded w-100">
+                                    <!--Aqui se meten cajitas con cada reserva con ajax-->
 
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="rounded w-100 mt-4">
-                            <!--Cada caja de -->
-                            <h4 class="cabeceraInfo mt-1 " id = "ListaEspera"></h4>
+                            <div class="rounded w-100 mt-4">
+                                <!--Cada caja de -->
+                                <h4 class="cabeceraInfo mt-1 " id="ListaEspera"></h4>
 
-                            <div id="cajasEsperas" class="rounded w-100">
-                                <!--Aqui se meten cajitas con cada reserva con ajax-->
+                                <div id="cajasEsperas" class="rounded w-100">
+                                    <!--Aqui se meten cajitas con cada reserva con ajax-->
 
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <%}else{%>
-                <h5 class = "alert alert-warning">Inicia Sesión para Reservar</h5>
-                <%}%>
+                <%}else{%>
+                    <h5 class="alert alert-warning">Inicia Sesión para Reservar</h5>
+                    <%}%>
         </section>
 
         <%- include('footer.ejs') %>
@@ -205,13 +208,15 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
                 crossorigin="anonymous"></script>
+
             <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.32/moment-timezone-with-data.min.js"></script>
+            <script
+                src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.32/moment-timezone-with-data.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.js"></script>
 
             <script src="/js/validarFormulario.js"></script>
             <script src="/js/reserva.js"></script>
-            <script src="/js/instalaciones.js"></script>  
+            <script src="/js/instalaciones.js"></script>
             <script src="/js/calendario.js"></script>
 
 </body>

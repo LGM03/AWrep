@@ -88,7 +88,8 @@ $(document).ready(function () {
 
         var divContenedor = $(this).closest('.cajaUsuario'); // Este es el div padre 
         var idReserva = divContenedor.data("id")
-
+        var fecha =  $(this).closest('em');
+        console.log(fecha)
         var data = {
             idReserva: idReserva
         };
@@ -99,6 +100,7 @@ $(document).ready(function () {
             data: data,
             success: function (datos, state, jqXHR) { // Si todo ha ido bien pongo un mensaje de acierto
                 if (datos == "1") {
+                    notificarUsuario(idReseva,fecha)
                     divContenedor.slideUp(2000)
 
                 } else {
@@ -112,36 +114,66 @@ $(document).ready(function () {
     })
 })
 
+function notificarUsuario(idReserva, fecha){
+//Busco al usuario en la lista de espera para ese dia
+$.ajax({
+    method: "POST",
+    url: "/mensajes/notificarUsuario",
+    data: {},
+    success: function (datos, state, jqXHR) { // Si todo ha ido bien pongo un mensaje de acierto
+        if (datos == "1") {
+            notificarUsuario(idReseva,fecha)
+            divContenedor.slideUp(2000)
+
+        } else {
+            alert("No se ha podido borrar la reserva");
+        }
+    },
+    error: function (jqXHR, statusText, errorThrown) { // Si ha ocurrido un error pongo un mensaje de error
+        alert("Ha ocurrido un error con los usuarios");
+    }
+});
+//Le mando el mensaje
+
+}
+
 function agregarCajaReserva(esAdmin, element, padre) {
     const caja = $('<div class="row cajaUsuario rounded m-2"></div>');
     // Sección de info de la reserva
-    const cajaReserva = $('<div class="col-10 d-flex flex-column"></div>')
 
-    const cajaImagen = $('<div class="col-2 d-flex justify-content-between align-items-center "> </div>')
+    const cajaImagen = $('<div class="col-md-2 col-sm-5 d-flex justify-content-between align-items-center "> </div>')
     const imagen = '<img src="' + element.urlImagen + '" alt="Foto del usuario" class="img-fluid logoUsuario mt-2"></div>'
     cajaImagen.append(imagen)
 
     // Contenedor para el nombre y la fecha
-    const infoContainer = $('<div class="d-flex justify-content-between align-items-center mb-1"></div>');
-    var botonCancelar = $('<button class="btn btn-danger m-2 cancelarReserva"> X </button>');
+    const cajaNombre = $('<div class="col-md-3 col-sm-5  d-flex justify-content-between align-items-center mb-1"></div>');
     const nombreCom = $('<h5 class="mb-0"> <strong>Instalación : </strong>' + element.nombreIns + '</h5>')
+    cajaNombre.append(nombreCom)
+
+    var botonCancelar = $('<button class="btn btn-danger m-2 cancelarReserva"> X </button>');
+
+    const cajatipo = $('<div class=" col-md-2 col-sm-5  d-flex justify-content-between align-items-center mb-1"></div>');
     const tipo = $('<p class="mb-0"><strong>Tipo: </strong>' + element.tipoReserva + '</p>')
+    cajatipo.append(tipo)
+
+    const cajaAforo = $('<div class="col-md-2 col-sm-5  d-flex justify-content-between align-items-center mb-1"></div>');
     const aforo = $('<p class="mb-0"><strong>Aforo: </strong>' + element.aforo + '</p>')
+    cajaAforo.append(aforo)
 
-    const plazo = $('<p class="mb-0">  <strong>Plazo de la Reserva : </strong> ' + element.fecha.slice(0, 10) + " " + element.fecha.slice(11, -3) + "-" + element.fechafinal.slice(11, -3) + '</p>')
+    const cajaPlazo = $('<div class=" col-md-3 col-sm-5  d-flex justify-content-between align-items-center mb-1"></div>');
+    const plazo = $('<p class="mb-0">  <strong>Plazo de la Reserva : </strong> <em>'+ element.fecha.slice(0, 10) +'</em> ' + element.fecha.slice(11, -3) + "-" + element.fechafinal.slice(11, -3) + '</p>')
+    cajaPlazo.append(plazo)
 
-    infoContainer.append(cajaImagen);
-    infoContainer.append(nombreCom);
-    infoContainer.append(tipo);
-    infoContainer.append(aforo);
-    infoContainer.append(plazo);
+    caja.append(cajaImagen)
+    caja.append(cajaNombre)
+    caja.append(cajatipo)
+    caja.append(cajaAforo)
+    caja.append(cajaPlazo)
 
-    cajaReserva.append(infoContainer);
-    caja.append(cajaReserva);
     caja.data("id", element.id) //Esto va a permitir saber que reserva hay que eliminar 
     padre.append(caja);
     if (esAdmin == 0) {
-        infoContainer.append(botonCancelar);
+        cajaPlazo.append(botonCancelar);
     } else {
         infoUsuario(element, caja)
     }

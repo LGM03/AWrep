@@ -165,6 +165,24 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
         });
     }  
 
+    borrarEspera(idEspera,callback) { //Lee todos los comentarios en funcion 
+        this.pool.getConnection(function (err, connection) {
+            if (err) {
+                callback(err, null); //Si ha ocurrido un error retorno el error
+            } else {
+                const sql = "delete from listaEspera where id = ?"
+                connection.query(sql, [idEspera], function (err, resultado) {
+                    connection.release(); //Libero la conexion
+                    if (err) {
+                        callback(err, null); //Si ha ocurrido un error retorno el error
+                    } else {
+                        callback(null, resultado); //Si todo ha ido bien retorno la información obtenida 
+                    }
+                });
+            }
+        });
+    } 
+
 
 }
 
