@@ -35,7 +35,7 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
                 var fechaFin = datosReserva.fechaFin.replace('T', ' ')
                 fechaFin += ":00"
                 fechaInicio += ":00"
-                const sql = "s SELECT * FROM `ucm_aw_riu_res_reservas` WHERE idIns = ? AND ( (fecha>? AND fecha<?) OR (fechafinal>? AND fechafinal<?) OR ( fecha<? AND fechaFinal>?) OR  (fechafinal>? AND fecha<?) or fechafinal = ? or fecha = ?)"
+                const sql = "SELECT * FROM `ucm_aw_riu_res_reservas` WHERE idIns = ? AND ( (fecha>? AND fecha<?) OR (fechafinal>? AND fechafinal<?) OR ( fecha<? AND fechaFinal>?) OR  (fechafinal>? AND fecha<?) or fechafinal = ? or fecha = ?)"
                 connection.query(sql, [datosReserva.instalacion, fechaInicio, fechaFin ,fechaInicio, fechaFin,fechaInicio,fechaFin,fechaInicio,fechaInicio,fechaFin,fechaInicio], function (err, resultado) {
                     connection.release(); //Libero la conexion
                     if (err) {
