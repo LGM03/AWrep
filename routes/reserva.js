@@ -163,8 +163,13 @@ router.delete('/borrarReserva', function (req, res, next) {
 
     const DAOAp = require('../mysql/daoReserva')
     const midao = new DAOAp(pool)
+    
 
     console.log(req.body.idReserva)
+
+    midao.notificacionAdelantarListaespera(req.body.idReserva , (err, datos) => { //avisamos al usuarion que ahora va a ser el nuevo 
+        
+    })
 
     midao.borrarReserva(req.body.idReserva , (err, datos) => { //Saca todas las reservas si es el admin
         if (err) {
@@ -174,6 +179,8 @@ router.delete('/borrarReserva', function (req, res, next) {
             res.json("1")
         }
     })
+
+
 
 })
 
@@ -191,6 +198,8 @@ router.delete('/eliminarEspera', function (req, res, next) {
             res.json("1")
         }
     })
+
+
 
 })
 
