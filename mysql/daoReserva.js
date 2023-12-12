@@ -168,6 +168,7 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
         
         let idIns;
         let fechaReserva;
+        let fechaacortada;
         let userCola;
         let correoEmisor = "ADMINISTRACION";
         let mensaje = "Su reserva que se encontraba en cola de espera ahora es una reserva";
@@ -194,12 +195,13 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
         };
 
         const getUserCola = (idIns,Fecha) => {
+            fechaReserva=Fecha.slice(0,10);
             return new Promise((resolve, reject) => {
                 this.pool.getConnection((err, connection) => {
                     if (err) {
                         reject(err);
                     } else {
-                        const sql = "SELECT idUsu FROM ucm_aw_riu_res_reservas WHERE (idIns=? AND fecha=?)";
+                        const sql = "SELECT idUsu FROM listaespera WHERE idIns=? AND fecha=? order by fechEntrada";
                         connection.query(sql, [idIns,Fecha], (err, resultado) => {
                             connection.release();
                             if (err) {
