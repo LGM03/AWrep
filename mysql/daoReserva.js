@@ -54,6 +54,7 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
             } else {
+                console.log(datosReserva.fechaIni);
                 var fechaInicio = datosReserva.fechaIni.slice(0, 10).replace('T', ' ')
                 const sql = "insert into listaespera (idUsu, idIns,fechaReserva) values (?,?,?) "
                 connection.query(sql, [datosReserva.correo, datosReserva.instalacion ,fechaInicio], function (err, resultado) {
@@ -168,11 +169,10 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
         
         let idIns;
         let fechaReserva;
-        let fechaacortada;
+        let fechaAux;
         let userCola;
         let correoEmisor = "ADMINISTRACION";
         let mensaje = "Su reserva que se encontraba en cola de espera ahora es una reserva";
-        let fecha = new Date().toISOString();
 
         const getInfoReserva = (idReserva) => {
             return new Promise((resolve, reject) => {
@@ -195,13 +195,14 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
         };
 
         const getUserCola = (idIns,Fecha) => {
-            fechaReserva=Fecha.slice(0,10);
+            console.log(Fecha);
+            console.log("Fecha");
             return new Promise((resolve, reject) => {
                 this.pool.getConnection((err, connection) => {
                     if (err) {
                         reject(err);
                     } else {
-                        const sql = "SELECT idUsu FROM listaespera WHERE idIns=? AND fecha=? order by fechEntrada";
+                        const sql = "SELECT idUsu FROM listaespera WHERE idIns=? AND fechaReserva=? order by fechaEntrada";
                         connection.query(sql, [idIns,Fecha], (err, resultado) => {
                             connection.release();
                             if (err) {
@@ -220,9 +221,14 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
                 const resultReserva = await getInfoReserva(idReserva);
     
                 fechaReserva = resultReserva[0].fecha;
+                fechaAux=new Date(fechaReserva);
+                
                 idIns = resultReserva[0].idIns;
+
+                console.log(fechaReserva);
     
                 const resultUserCola = await getUserCola(idIns, fechaReserva);
+
                 console.log(resultUserCola);
                 try{userCola=resultUserCola[0].idUsu;}
                 catch{}
@@ -234,7 +240,7 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
                         }
     
                         const sql = "INSERT INTO mensajes (correoEmisor, correoReceptor, cuerpoMensaje, fecha) VALUES (?, ?, ?, ?)";
-                        connection.query(sql, [correoEmisor, userCola, mensaje, fecha], (err, resultado) => {
+                        connection.query(sql, [correoEmisor, userCola, mensaje, fechaReserva], (err, resultado) => {
                             connection.release();
                             if (err) {
                                 console.error(err);
