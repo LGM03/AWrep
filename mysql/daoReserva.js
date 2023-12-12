@@ -167,19 +167,19 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
     notificacionAdelantarListaespera(idReserva, callback) {
         
         let idIns;
-        let Fechareserva;
+        let fechaReserva;
         let userCola;
-        let correoEmisor;
-        let mensaje;
-        let fecha;
+        let correoEmisor = "ADMINISTRACION";
+        let mensaje = "Su reserva que se encontraba en cola de espera ahora es una reserva";
+        let fecha = new Date().toISOString();
 
-        const getInforeserva = (idReserva) => {
+        const getInfoReserva = (idReserva) => {
             return new Promise((resolve, reject) => {
                 this.pool.getConnection((err, connection) => {
                     if (err) {
                         reject(err);
                     } else {
-                        const sql = "SELECT (*) FROM ucm_aw_riu_res_reservas WHERE id=?";
+                        const sql = "SELECT * FROM ucm_aw_riu_res_reservas WHERE id=?";
                         connection.query(sql, [idReserva], (err, resultado) => {
                             connection.release();
                             if (err) {
@@ -214,44 +214,39 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
         };
 
         const executeQueries = async () => {
-            try {
-                const resultReserva = await getInforeserva(idReserva);
-                
-                Fechareserva = resultReserva[0].fecha;
-                idIns=resultReserva[0].idIns;
-
-                const resulUserCola= await getUserCola(idIns,Fechareserva);
-
-                userCola= resulUserCola[0].idUsu
-                correoEmisor="ADMINISTRACION"
-                mensaje="SU Reserva que se encontraba en cola de espera ahora es una reserva"
-                fecha=new Date().toISOString();
-
-                if (userCola!= null) {
+            
+                const resultReserva = await getInfoReserva(idReserva);
+    
+                fechaReserva = resultReserva[0].fecha;
+                idIns = resultReserva[0].idIns;
+    
+                const resultUserCola = await getUserCola(idIns, fechaReserva);
+                console.log(resultUserCola);
+                try{userCola=resultUserCola[0].idUsu;}
+                catch{}
+                if (userCola != null) {
                     this.pool.getConnection((err, connection) => {
                         if (err) {
                             callback(err, null);
-                        } else {
-                            const sql = "INSERT INTO mensajes (correoEmisor, correoReceptor, cuerpoMensaje, fecha) VALUES (?, ?, ?, ?)";
-                            connection.query(sql, [datos.correoEmisor, userCola,mensaje, fecha], (err, resultado) => {
-                                connection.release();
-                                if (err) {
-                                    console.log(err);
-                                    callback(err, null);
-                                } else {
-                                    callback(null, resultado.insertId);
-                                }
-                            });
+                            return;
                         }
+    
+                        const sql = "INSERT INTO mensajes (correoEmisor, correoReceptor, cuerpoMensaje, fecha) VALUES (?, ?, ?, ?)";
+                        connection.query(sql, [correoEmisor, userCola, mensaje, fecha], (err, resultado) => {
+                            connection.release();
+                            if (err) {
+                                console.error(err);
+                                callback(err, null);
+                            } else {
+                                callback(null, resultado.insertId);
+                            }
+                        });
                     });
                 } else {
-                    callback(err, null); // Change the error handling as needed
+                    callback(null, null); // No user in the waiting list
                 }
-            } catch (err) {
-                callback(err, null);
-            }
         };
-
+    
         executeQueries();
     }
 
