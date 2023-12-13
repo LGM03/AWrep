@@ -149,7 +149,7 @@ function elementoListaEspera(element, padre) {
 
 
     // Contenedor para el nombre y la fecha
-    const infoContainer = $('<div class="d-flex justify-content-between align-items-center mb-1"></div>');
+    const infoContainer = $('<div class="d-flex justify-content-between align-items-center mx-auto"></div>');
 
     const correo = $('<h5 class="mb-0"> <strong>Correo : </strong>' + element.correo + '</h5>')
 

@@ -84,7 +84,7 @@ $(document).ready(function () {
 })
 
 function infoAdicional(element,padre) {
-    const caja = $('<div class="row rounded alert alert-secondary m-2"></div>');
+    const caja = $('<div class="mx-auto rounded alert alert-secondary m-2"></div>');
 
     // Sección de info de la reserva
     const cajaReserva = $('<div class="col-10 d-flex flex-column"></div>')
