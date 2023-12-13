@@ -168,11 +168,9 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
     notificacionAdelantarListaespera(idReserva, callback) {
         
         let idIns;
-        let fechaReserva;
-        let fechaAux;
         let userCola;
         let correoEmisor = "ADMINISTRACION";
-        let mensaje = "Su reserva que se encontraba en cola de espera ahora es una reserva";
+        let fechanueva= new Date;
 
         const getInfoReserva = (idReserva) => {
             return new Promise((resolve, reject) => {
@@ -195,14 +193,12 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
         };
 
         const getUserCola = (idIns,Fecha) => {
-            console.log(Fecha);
-            console.log("Fecha");
-            return new Promise((resolve, reject) => {
+             return new Promise((resolve, reject) => {
                 this.pool.getConnection((err, connection) => {
                     if (err) {
                         reject(err);
                     } else {
-                        const sql = "SELECT idUsu FROM listaespera WHERE idIns=? AND fechaReserva=? order by fechaEntrada";
+                        const sql = "SELECT * FROM listaespera WHERE idIns=? AND fechaReserva=? order by fechaEntrada";
                         connection.query(sql, [idIns,Fecha], (err, resultado) => {
                             connection.release();
                             if (err) {
@@ -216,21 +212,80 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
             });
         };
 
+        const eliminarListadeespera=(idListaEspera) => {
+            return new Promise((resolve, reject) => {
+                this.pool.getConnection((err, connection) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        const sql = "DELETE FROM listaespera WHERE id=?";
+                        connection.query(sql, [idListaEspera], (err, resultado) => {
+                            connection.release();
+                            if (err) {
+                                reject(err);
+                            } else {
+                                resolve(resultado);
+                            }
+                        });
+                    }
+                });
+            });
+
+        }
+
+        const getInfoInstalacion = (idInstalacion) => {
+            return new Promise((resolve, reject) => {
+                this.pool.getConnection((err, connection) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        const sql = "SELECT * FROM ucm_aw_riu_ins_instalaciones WHERE id=?";
+                        connection.query(sql, [idInstalacion], (err, resultado) => {
+                            connection.release();
+                            if (err) {
+                                reject(err);
+                            } else {
+                                resolve(resultado);
+                            }
+                        });
+                    }
+                });
+            });
+        };
+
+
+
         const executeQueries = async () => {
             
                 const resultReserva = await getInfoReserva(idReserva);
-    
-                fechaReserva = resultReserva[0].fecha;
-                fechaAux=new Date(fechaReserva);
-                
-                idIns = resultReserva[0].idIns;
 
-                console.log(fechaReserva);
+                var fechaInicioISO=resultReserva[0].fecha
+                idIns=resultReserva[0].idIns
     
-                const resultUserCola = await getUserCola(idIns, fechaReserva);
+                // Crear un objeto de fecha a partir de la cadena ISO 8601
+                var fechaInicio = new Date(fechaInicioISO);
 
-                console.log(resultUserCola);
-                try{userCola=resultUserCola[0].idUsu;}
+                // Obtener las partes de la fecha
+                var año = fechaInicio.getFullYear();
+                var mes = ('0' + (fechaInicio.getMonth() + 1)).slice(-2); // Los meses van de 0 a 11
+                var dia = ('0' + fechaInicio.getDate()).slice(-2);
+
+                // Construir la nueva cadena de fecha en el formato deseado
+                var fechaFormateada = año + '-' + mes + '-' + dia;
+
+                const resultInfoIns = await getInfoInstalacion(idIns);
+
+                let nombreins =resultInfoIns[0].nombre
+
+                let mensaje = "Su reserva de la instalacion "+ nombreins + " para el dia "+fechaFormateada+" que se encontraba en lista de espera ahora esta disponible";
+
+                const resultUserCola = await getUserCola(idIns, fechaFormateada);
+                 console.log(resultUserCola);
+                try{
+                    userCola=resultUserCola[0].idUsu;
+                    let idLista=resultUserCola[0].id;
+                    eliminarListadeespera(idLista);
+                }
                 catch{}
                 if (userCola != null) {
                     this.pool.getConnection((err, connection) => {
@@ -238,9 +293,8 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
                             callback(err, null);
                             return;
                         }
-    
                         const sql = "INSERT INTO mensajes (correoEmisor, correoReceptor, cuerpoMensaje, fecha) VALUES (?, ?, ?, ?)";
-                        connection.query(sql, [correoEmisor, userCola, mensaje, fechaReserva], (err, resultado) => {
+                        connection.query(sql, [correoEmisor, userCola, mensaje, fechanueva], (err, resultado) => {
                             connection.release();
                             if (err) {
                                 console.error(err);
