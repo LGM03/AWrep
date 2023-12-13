@@ -180,8 +180,6 @@ router.delete('/borrarReserva', function (req, res, next) {
         }
     })
 
-
-
 })
 
 router.delete('/eliminarEspera', function (req, res, next) {

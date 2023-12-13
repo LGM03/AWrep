@@ -58,4 +58,17 @@ router.get('/', function (req, res, next) {
 
 });
 
+router.get('/porFacultad', function (req, res, next) {
+  const DAOAp = require('../mysql/daoEstadisticas')
+  const midao = new DAOAp(pool)
+  midao.porFacultad(req.query.facultad ,(err, datos) => {
+      if (err) {
+          res.json("0")
+      } else {
+          res.json(datos)
+      }
+  })
+}) 
+
+
 module.exports = router;
