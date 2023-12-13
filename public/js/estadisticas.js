@@ -34,22 +34,23 @@ $(document).ready(function () {
       success: function (datos, state, jqXHR) {
         console.log(datos)
 
-        var datos = []
+        var dates = []
         var inst = []
         datos.forEach(element => {
-            datos.append(element.contador)
-            inst.append(element.nombre)
+            dates.push(element.contador)
+            inst.push(element.nombre)
         });
+        console.log(dates)
+        console.log(inst)
 
-        var canva = $("<canvas id='miGrafica'</canvas>")
-        $("#cajaGraficas").append(canva)
+        var canva = $("<canvas id='miGrafica'></canvas>")
         
         var barColors = [
-          "rgba(0,0,255,1.0)",
-          "rgba(0,0,255,0.8)",
-          "rgba(0,0,255,0.6)",
-          "rgba(0,0,255,0.4)",
-          "rgba(0,0,255,0.2)",
+          "darkkhaki" ,
+          "darkmagenta",
+          "darkolivegreen",
+          "darkorange" ,
+          "darkorchid"
         ];
 
         new Chart("miGrafica", {
@@ -58,18 +59,18 @@ $(document).ready(function () {
             labels: inst,
             datasets: [{
               backgroundColor: barColors,
-              data: datos
+              data: dates
             }]
           },
           options: {
             title: {
               display: true,
-              text: "World Wide Wine Production"
+              text: "Estadisticas reserva facultad"
             }
           }
         });
 
-
+        $("#cajaGraficas").append(canva)
 
       },
       error: function (jqXHR, statusText, errorThrown) {
