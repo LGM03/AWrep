@@ -13,7 +13,7 @@ $(document).ready(function () {
           $("#CorreoReceptor").text(datos.usuario)
           datos.mensajes.forEach(element => {
             if(element.correoReceptor == datos.usuario.correo){
-              agregarCajaEnviadosMensajes(element,$("#cajamensajesRecibidos"))
+              agregarCajaRecibidosMensajes(element,$("#cajamensajesRecibidos"))
             }
           });
         } else {
@@ -86,15 +86,41 @@ $(document).ready(function () {
   })
 })
 
-function agregarCajaEnviadosMensajes(mensaje, padre){
+function agregarCajaRecibidosMensajes(mensaje, padre){
 
   var fecha = mensaje.fecha.slice(0,10)
   var hora = mensaje.fecha.slice(11,-8)
-  var cajaMensaje = `<div class="row align-items-center text-center m-2 my-2">
+  var cajaMensaje = `<div class="row align-items-center m-2 my-2">
   <div class="col-12 cajamensaje d-flex flex-column">
       <div class="d-flex justify-content-between align-items-center mb-1">
           <h5 class="mb-0">
                ${mensaje.correoEmisor}
+          </h5>
+          <p class="mb-0"><em>
+          ${fecha}   ${hora}
+              </em></p>
+      </div>
+      <p class="mb-0" style="text-align: left;">
+      ${mensaje.cuerpoMensaje}
+      </p>
+  </div>
+</div>`
+
+padre.append(cajaMensaje)
+padre.removeClass("d-none")
+
+
+}
+
+function agregarCajaEnviadosMensajes(mensaje, padre){
+
+  var fecha = mensaje.fecha.slice(0,10)
+  var hora = mensaje.fecha.slice(11,-8)
+  var cajaMensaje = `<div class="row align-items-center m-2 my-2">
+  <div class="col-12 cajamensaje d-flex flex-column">
+      <div class="d-flex justify-content-between align-items-center mb-1">
+          <h5 class="mb-0">
+               ${mensaje.correoReceptor}
           </h5>
           <p class="mb-0"><em>
           ${fecha}   ${hora}
