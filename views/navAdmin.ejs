@@ -2,23 +2,29 @@
 
   <div class="row barraDeHerramientas">
     <!-- formado por 1 fila que contiene los 4 botones de opciones, el buscador y el boton de Buscar -->
-    <div class="col-md-2  text-center bordecolumnaCabecera text-sm"><a href=# class="btn btn-lg botoncabecera"
+    <div class="col-lg-1  col-sm-3 text-center bordecolumnaCabecera"><a href="/" class="btn btn-lg botoncabecera">
+      <h5>Inicio</h5>
+    </a></div>
+    <div class="col-lg-1  col-sm-3 text-center bordecolumnaCabecera"><a href="/estadisticas" class="btn btn-lg botoncabecera">
+      <h5>Estadísticas</h5>
+    </a></div>
+    <div class="col-lg-2  col-sm-3 text-center bordecolumnaCabecera text-sm"><a href=# class="btn btn-lg botoncabecera"
         data-bs-toggle="modal" data-bs-target="#CrearInstalacion">
         <h5>Crear Instalacion</h5>
       </a></div>
-    <div class="col-md-2  text-center bordecolumnaCabecera text-sm"><a href="/configuracion"
+    <div class="col-lg-2  col-sm-3 text-center bordecolumnaCabecera text-sm"><a href="/configuracion"
         class="btn btn-lg botoncabecera">
-        <h5>Configuración Sistema</h5>
+        <h5>Configurar Sistema</h5>
       </a></div>
-    <div class="col-md-2  text-center bordecolumnaCabecera text-sm"><a href="/gestionUsuarios/validar"
+    <div class="col-lg-2  col-sm-3 text-center bordecolumnaCabecera text-sm"><a href="/gestionUsuarios/validar"
         class="btn btn-lg botoncabecera">
         <h5>Gestionar Usuarios</h5>
       </a></div>
-    <div class="col-md-2  text-center bordecolumnaCabecera text-sm"><a href="/reserva"
+    <div class="col-lg-2  col-sm-3 text-center bordecolumnaCabecera text-sm"><a href="/reserva"
         class="btn btn-lg botoncabecera">
         <h5>Gestionar Reservas</h5>
       </a></div>
-    <div class="col-md-2  text-center bordecolumnaCabecera text-sm"><a href='/mensajes'
+    <div class="col-lg-2  col-sm-3 text-center bordecolumnaCabecera text-sm"><a href='/mensajes'
         class="btn btn-lg botoncabecera">
         <h5>Mis Mensajes</h5>
       </a></div>
@@ -41,7 +47,7 @@
 
         <form id="crearInstalacion">
           <div class="mb-3 row">
-            <label for="correo" class="col-sm-3 col-form-label" id="correoInicio">Nombre:</label>
+            <label for="nombreInstalacion" class="col-sm-3 col-form-label">Nombre:</label>
             <div class="col-sm-9">
               <input type="text" class="form-control" name="nombre" id="nombreInstalacion" required>
             </div>
@@ -63,7 +69,7 @@
             </div>
           </div>
           <div class="mb-3 row">
-            <label for="imagenReserva" class="col-sm-3 col-form-label">Imagen instalaciones:</label>
+            <label for="imagenInstalacion" class="col-sm-3 col-form-label">Imagen instalaciones:</label>
             <div class="col-sm-9">
               <input type="file" class="form-control" id="imagenInstalacion" name="imagenInstalacion" accept="image/png"
                 required size="400000">

@@ -19,10 +19,6 @@ router.get('/', function (req, res, next) {
   const DAOConfig = require("../mysql/daoConfig");
   const daoC = new DAOConfig(pool);
 
-  midao.leerTodas((err, datos) => {
-    if (err) {
-      res.render('error', { error: "Ha ocurrido un error" });
-    } else {
       if (global.titulo == null) {
         daoC.leerConfig((err, configDatos) => {
           if (err) { // Si hay un error en el acceso a la bd, ponemos la info por defecto
@@ -37,8 +33,7 @@ router.get('/', function (req, res, next) {
             global.gama = configDatos.gama;
             global.direccion = configDatos.direccion;
           } // Renderizamos la página principal con la información de todos los destinos
-          res.render('index', {
-            instalaciones: datos,
+          res.render('estadisticas', {
             usuario: req.session.usuario,
             error: req.query.error,
             exito: req.query.exito,
@@ -50,8 +45,7 @@ router.get('/', function (req, res, next) {
         });
       } else {
         // Si ya tenemos la configuración, renderizamos la página directamente
-        res.render('index', {
-          instalaciones: datos,
+        res.render('estadisticas', {
           usuario: req.session.usuario,
           error: req.query.error,
           exito: req.query.exito,
@@ -61,8 +55,6 @@ router.get('/', function (req, res, next) {
           direccion: global.direccion
         });
       }
-    }
-  });
 
 });
 

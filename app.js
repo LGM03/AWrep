@@ -30,6 +30,7 @@ var instalacionesRouter=require('./routes/instalaciones')
 var configRouter = require('./routes/config')
 var reservaRouter = require('./routes/reserva')
 var mensajesRouter= require('./routes/mensajes')
+var estadisticasRouter= require('./routes/estadisticas')
 
 
 var app = express();
@@ -58,6 +59,7 @@ app.use('/configuracion', configRouter)
 app.use('/instalaciones',instalacionesRouter);
 app.use('/reserva', reservaRouter)
 app.use('/mensajes',mensajesRouter)
+app.use('/estadisticas', estadisticasRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

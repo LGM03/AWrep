@@ -42,6 +42,7 @@ $(document).ready(function () {
             if (esAdmin == 0) {
                 $('#Reserva').modal('show');
                 $("#fechaReserva").prop("value", date.format('YYYY-MM-DD'))
+                
 
             } else if (esAdmin == 1) {
 
@@ -57,8 +58,6 @@ $(document).ready(function () {
                     id: inst,
                     dia: date.format('YYYY-MM-DD')
                 };
-
-                console.log(data.id + " " + data.dia)
 
                 $.ajax({
                     method: "GET",

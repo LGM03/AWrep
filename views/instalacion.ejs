@@ -9,8 +9,9 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.32/moment-timezone-with-data.min.js"></script>
-       
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.32/moment-timezone-with-data.min.js"></script>
+
 
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.css" rel="stylesheet">
     <link rel="stylesheet" id="hojaEstilosGama" href=<%=gama%>>
@@ -30,45 +31,43 @@
         <section class="container justify-content-center mt-1 ">
             <!-- Contenedor encargado de almacenar la seccion donde apareceran los destinos disponibles -->
             <div class="container pt-3 pb-2 mb-4 rounded d-flex justify-content-between" id="titulo">
-                <h3 class="text-center">
+                <h1 class="text-center">
                     <%=instalacion.nombre%>
-                </h3>
-                <h3 class="text-right">
+                </h1>
+                <h1 class="text-right">
                     <%=instalacion.tipoReserva%>
-                </h3>
+                </h1>
             </div>
 
-            <div class="container row pt-3 pb-2 mb-4 rounded d-flex justify-content-around">
+            <div class="container row pt-3 pb-2 mb-4 rounded d-flex justify-content-around ">
                 <div class="col-6 d-flex justify-content-center align-items-center bg-white ">
-                    <img class="container d-block border border-white p-0"
-                        style="width: 100%; height: auto; object-fit: cover;" src="<%=instalacion.imagen%>"
+                    <img class="container d-block border border-white p-0" src="<%=instalacion.imagen%>"
                         alt="Imagen no cargada">
                 </div>
 
-                <div class="col-5 text-center p-3 cajaInfo rounded">
-                    <div class="rounded w-100">
-                        <h2 class="cabeceraInfo mt-1"><strong>Características</strong></h2>
-                        <h3>
-                            <%=instalacion.nombre%>
-                        </h3>
-                        <h3>Tipo:</h3>
-                        <h4>
-                            <%=instalacion.tipoReserva%>
-                        </h4>
-                        <h3>Hora de Apertura: </h3>
-                        <h4 id="horaIniInstalacion">
-                            <%=instalacion.horaInicio%>
-                        </h4>
-                        <h3>Hora de Cierre: </h3>
-                        <h4 id="horaFinInstalacion">
-                            <%=instalacion.horaFin%>
-                        </h4>
-                        <h3>Aforo :</h3>
-                        <h4>
-                            <%=instalacion.aforo%>
-                        </h4>
+                <div class="col-5 text-center p-3 cajaInfo rounded text-center">
+                    <div class="mx-auto">
+                        <div class="rounded d-flex justify-content-around m-4">
+                            <p class="text-center"> <strong>Hora de Apertura: </strong> </p>
+                            <p id="horaIniInstalacion" class="text-center">
+                                <%=instalacion.horaInicio%>
+                            </p>
+                        </div>
+                        <div class="rounded d-flex justify-content-around  m-4">
+                            <p class="text-center"> <strong>Hora de Cierre:</strong> </p>
+                            <p id="horaFinInstalacion" class="text-center">
+                                <%=instalacion.horaFin%>
+                            </p>
+                        </div>
+                        <div class="rounded d-flex justify-content-around  m-4">
+                            <p class="text-center"> <strong> Aforo :</strong></p>
+                            <p class="text-center">
+                                <%=instalacion.aforo%>
+                            </p>
+                        </div>
                     </div>
                 </div>
+            </div>
             </div>
 
             <%if(usuario){%>
@@ -109,12 +108,13 @@
                                             <form id="reservaForm">
 
                                                 <div class="mb-3 row">
-                                                    <label for="nombre" class="col-md-2 col-form-label">Nombre:</label>
+                                                    <label for="nombreReserva"
+                                                        class="col-md-2 col-form-label">Nombre:</label>
                                                     <div class="col-md-4">
                                                         <input type="text" class="form-control" id="nombreReserva"
                                                             name="nombre" value=" <%=usuario.nombre%> " readonly>
                                                     </div>
-                                                    <label for="apellidos"
+                                                    <label for="apellidoReserva"
                                                         class="col-md-2 col-form-label text-center">Apellidos:</label>
                                                     <div class="col-md-4">
                                                         <input type="text" class="form-control" id="apellidoReserva"
@@ -135,7 +135,8 @@
                                                 </div>
 
                                                 <div class="mb-3 row">
-                                                    <label class="control-label col-sm-3 " for="fecha">Fecha:</label>
+                                                    <label class="control-label col-sm-3 "
+                                                        for="fechaReserva">Fecha:</label>
                                                     <div class="col-sm-9">
                                                         <input type="date" id="fechaReserva" name="fecha"
                                                             class="form-control" required>

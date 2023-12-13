@@ -5,6 +5,8 @@ $(document).ready(function () {
         console.log(tituloNuevo)
         event.preventDefault();
 
+      
+
         $.ajax({
             method: "POST",
             url: "/configuracion/titulo",
@@ -35,7 +37,7 @@ $(document).ready(function () {
             success: function (datos, state, jqXHR) { //Si todo ha ido bien pongo un mensaje de acierto
                 if (datos !== "0") {
                     alert("La direccion física ha sido actualizada")
-                    $("#direccion").prop("value","")
+                    $("#direccion").prop("value", "")
                     $("#footerDireccion").text(dirNueva)
                 } else {
                     alert("No se ha podido validar")
@@ -83,7 +85,13 @@ $(document).ready(function () {
         const fileInput = $("#logoInput")
 
         const file = fileInput[0].files[0];
-        console.log(file)
+
+        var comprobarEx = /(\.png)$/i;
+        if (!file|| !comprobarEx.exec(file.name) || file.size > 300000) {
+            alert("Seleccione una imagen válida")
+            return false;
+        }
+
 
         if (file) {
             const formData = new FormData();
@@ -96,9 +104,10 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (datos, state, jqXHR) {
-                    $("#logConfiguracion").attr("src",datos)
-                    $("#logoPequeño").attr("src",datos)
+                    $("#logConfiguracion").attr("src", datos)
+                    $("#logoPequeño").attr("src", datos)
                     $("#cambiarLogo").modal('hide')
+                    $("#logoInput").prop("value","")
                 },
                 error: function (jqXHR, statusText, errorThrown) {
                     console.error('Error al enviar el formulario al servidor:', errorThrown);

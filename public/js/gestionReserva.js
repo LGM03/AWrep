@@ -100,8 +100,8 @@ $(document).ready(function () {
             data: data,
             success: function (datos, state, jqXHR) { // Si todo ha ido bien pongo un mensaje de acierto
                 if (datos == "1") {
+                    divContenedor.slideUp(1000)
                     notificarUsuario(idReseva,fecha)
-                    divContenedor.slideUp(2000)
 
                 } else {
                     alert("No se ha podido borrar la reserva");
