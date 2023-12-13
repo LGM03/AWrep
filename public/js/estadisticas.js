@@ -1,32 +1,49 @@
 $(document).ready(function () {
 
-    $(document).on("click", ".cancelarReserva", function (event) { //TODO notificacion
+    $("#btnEstadFacultad").on("click", function (event) { //Muestra una grafica de las instalaciones reservadas en la facultad seleccionada
+        var divGeneral = $("<div class = 'row'> </div>")
+        var div = $("<div class = 'col-3'> </div>")
+        var textCombo = $("<p>Seleccione facultad para ver sus estadísticas:</p>")
+        var div2 = $("<div class = 'col-sm-9'> </div>")
+        var combo = `
+        <select class="form-control" id="facultad" name="facultad" required>
+          <option value="" disabled selected>Seleccione su facultad aquí:</option>
+          <option value="Mates">Mates</option>
+          <option value="Fisica">Fisica</option>
+          <option value="Informatica">Informatica</option>
+        </select>
+      `;
+        div2.append(combo)
+        div.append(textCombo)
 
-        var divContenedor = $(this).closest('.cajaUsuario'); // Este es el div padre 
-        var idReserva = divContenedor.data("id")
-        var fecha =  $(this).closest('em');
-        console.log(fecha)
-        var data = {
-            idReserva: idReserva
-        };
+        divGeneral.append(div)
+        divGeneral.append(div2)
+        $("#divFacultad").append(divGeneral)
 
-        $.ajax({
-            method: "DELETE",
-            url: "/reserva/borrarReserva",
-            data: data,
-            success: function (datos, state, jqXHR) { // Si todo ha ido bien pongo un mensaje de acierto
-                if (datos == "1") {
-                    notificarUsuario(idReseva,fecha)
-                    divContenedor.slideUp(2000)
+        $("#divFacultad").removeClass('d-none')
 
-                } else {
-                    alert("No se ha podido borrar la reserva");
-                }
-            },
-            error: function (jqXHR, statusText, errorThrown) { // Si ha ocurrido un error pongo un mensaje de error
-                alert("Ha ocurrido un error con los usuarios");
-            }
-        });
+    })
+
+
+    $("#btnEstadUsuario").on("click", function (event) { //Muestra una grafica de las instalaciones reservadas para el usuario seleccionado
+        var divGeneral = $("<div class = 'row'> </div>")
+        var div = $("<div class = 'col-3'> </div>")
+        var textCombo = $("<p>Seleccione usuario para ver sus estadísticas:</p>")
+        var div2 = $("<div class = 'col-sm-9'> </div>")
+       
+        //Accedo a la base de datos busncado todos los usuarios
+
+
+
+        div2.append(combo)
+        div.append(textCombo)
+
+        divGeneral.append(div)
+        divGeneral.append(div2)
+        $("#divFacultad").append(divGeneral)
+
+        $("#divFacultad").removeClass('d-none')
+
     })
 })
 

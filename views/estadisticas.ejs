@@ -27,12 +27,14 @@
           <button class="btn mr-2 mt-2 mb-2 p-3" id="btnEstadFacultad">Estadísticas por Facultad</button>
         </div>
         <div class="row">
-          <button class="btn mr-2 mt-2 mb-2 p-3" id="btnEstadFacultad">Estadísticas por Usuario</button>
+          <button class="btn mr-2 mt-2 mb-2 p-3" id="btnEstadUsuario">Estadísticas por Usuario</button>
         </div>
       </div>
 
       <div class="container justify-content-center mt-3 col-9 bg-warning" id="cajaGraficas ">
-        
+        <div id ="divFacultad" class = "d-none"></div>
+
+        <div id ="divUsuario" class = 'd-none'></div>
       </div>
     </section>
     <%- include('footer.ejs') %>
