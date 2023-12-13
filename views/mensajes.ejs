@@ -20,128 +20,106 @@
 
     <%- include('cabecera.ejs') %>
 
-    <div class="row barrabotones container mx-auto">
-      <div class="col-3 text-center" >
-          <button id="botonMensajesRecibidos" class="btn btn-lg botonbarramensajes ">Ver Mensajes recibidos</button>
-      </div>
-      <div class="col-4 text-center">
-          <button id="botonMensajesEnviados" class="btn btn-lg botonbarramensajes ">Ver Mensajes Enviados</button>
-      </div>
-      <div class="col-3 text-center">
-          <a href="#" class="btn btn-lg botonbarramensajes" data-bs-toggle="modal" data-bs-target="#MandarMensaje">
-              <h7>Mandar Mensaje</h7>
-          </a>
-      </div>
-  </div>
-      
-
-      <div class="modal fade" id="MandarMensaje" data-bs-backdrop="static">
-        <!-- data-bs impide que se cierre al pulsar fuera del modal -->
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-          <div class="modal-content">
-      
-            <!-- cabecera del diálogo -->
-            <div class="modal-header">
-              <h4 class="modal-title">Mandar Mensaje</h4>
-              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <div class="row barrabotones container mx-auto">
+            <div class="col-3 text-center">
+                <button id="botonMensajesRecibidos" class="btn btn-lg botonbarramensajes ">Ver Mensajes
+                    recibidos</button>
             </div>
-      
-            <!-- cuerpo del diálogo -->
-            <div class="modal-body alert alert-secondary">
-      
-              <form id="MandarMensaje">
-
-                <div class="mb-3 row">
-                  <label for="correoEmisor"
-                      class="col-sm-3 col-form-label ">Correo Emisor:</label>
-                  <div class="col-sm-9">
-                      <input type="email" class="form-control" id="correoEmisor"
-                          name="correo" placeholder="correo@ejemplo.com"
-                          value=" <%=usuario.correo%> " readonly>
-                  </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label for="correoReceptor" class="col-sm-3 col-form-label">Correo Receptor:</label>
-                    <div class="col-sm-9">
-                        <input type="email" class="form-control" name="correo" id="correoReceptor" required>
-                    </div>
-                </div>
-                 <div class="mb-3 row">
-               <label for="cuerpoMensaje" class="col-md-3 col-form-label text-center"> Cuerpo del mensaje:</label>
-                <div class="col-md-9">
-                <textarea class="form-control" id="cuerpoMensaje" name="cuerpoMensaje" required></textarea>
-                </div>
-                </div>
-                <div class="mb-3 row">
-                    <div class="offset-sm-3 col-sm-9">
-                        <button type="submit" class="btn botonsabermas" id="idMandarMensaje">Confirmar</button>
-                        <button type="button" class="btn botonsabermas" data-bs-dismiss="modal">Cancelar</button>
-                    </div>
-                </div>
-            </form>
+            <div class="col-4 text-center">
+                <button id="botonMensajesEnviados" class="btn btn-lg botonbarramensajes ">Ver Mensajes Enviados</button>
             </div>
-          </div>
-      
-        </div>
-      </div>
-
-      <div class="row text-center zonamensajesRecibidos container mx-auto">
-        
-          <div class="col-12 mx-auto" id="mensajesRecibidos">
-      
-              <div id="cajamensajesRecibidos" class="row mb-3 w-100">
-                  <h3 class="text-center">Mensajes Recibidos</h3>
-      
-                  <% mensajes.forEach(function(mensaje) { %>
-                      <% if (mensaje.correoReceptor === sesion.correo) { %>
-                        <div class="row align-items-center text-center m-2 my-2">
-                          <div class="col-12 cajamensaje d-flex flex-column">
-                              <div class="d-flex justify-content-between align-items-center mb-1">
-                                  <h5 class="mb-0"><%= mensaje.correoEmisor %></h5>
-                                  <p class="mb-0"><em><%= mensaje.fecha %></em></p>
-                              </div>
-                              <p class="mb-0"style="text-align: left;"><%= mensaje.cuerpoMensaje %></p>
-                          </div>
-                      </div>
-                      <% } %>
-                  <% }); %>
-      
-              </div>
-          </div>
+            <div class="col-3 text-center">
+                <a href="#" class="btn btn-lg botonbarramensajes" data-bs-toggle="modal"
+                    data-bs-target="#MandarMensaje">
+                    <h7>Mandar Mensaje</h7>
+                </a>
+            </div>
         </div>
 
-        <div id="cajasMensajesrecibidos" class="rounded w-100"></div>
 
-      </div>
+        <div class="modal fade" id="MandarMensaje" data-bs-backdrop="static">
+            <!-- data-bs impide que se cierre al pulsar fuera del modal -->
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
 
-      </div>
+                    <!-- cabecera del diálogo -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Mandar Mensaje</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
 
-      <div class="row text-center zonamensajesRecibidos container mx-auto">
+                    <!-- cuerpo del diálogo -->
+                    <div class="modal-body alert alert-secondary">
 
-          <div class="col-12 mx-auto" id="mensajesEnviados" >
+                        <form id="MandarMensaje">
+
+                            <div class="mb-3 row">
+                                <label for="correoEmisor" class="col-sm-3 col-form-label ">Correo Emisor:</label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" id="correoEmisor" name="correo"
+                                        placeholder="correo@ejemplo.com" value=" <%=usuario.correo%> " readonly>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label for="correoReceptor" class="col-sm-3 col-form-label">Correo Receptor:</label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" name="correo" id="correoReceptor" required>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="cuerpoMensaje" class="col-md-3 col-form-label text-center"> Cuerpo del
+                                    mensaje:</label>
+                                <div class="col-md-9">
+                                    <textarea class="form-control" id="cuerpoMensaje" name="cuerpoMensaje"
+                                        required></textarea>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <div class="offset-sm-3 col-sm-9">
+                                    <button type="submit" class="btn botonsabermas"
+                                        id="idMandarMensaje">Confirmar</button>
+                                    <button type="button" class="btn botonsabermas"
+                                        data-bs-dismiss="modal">Cancelar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row text-center zonamensajesRecibidos container mx-auto">
+
+            <div class="col-12 mx-auto" id="mensajesRecibidos">
+
+                <div id="cajamensajesRecibidos" class="row mb-3 w-100 d-none">
+                    <h3 class="text-center">Mensajes Recibidos</h3>
+
+                   
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row text-center zonamensajesEnviados container mx-auto">
+
+            <div class="col-12 mx-auto" id="mensajesEnviados">
+
+                <div id="cajamensajesEnviados" class="row mb-3 w-100 d-none">
+                    <h3 class="text-center">Mensajes Enviados</h3>
+
+                   
+
+                </div>
+            </div>
+        </div>
+
+    
+
       
-              <div id="cajamensajesRecibidos" class="row mb-3 w-100">
-                  <h3 class="text-center">Mensajes Enviados</h3>
-      
-                  <% mensajes.forEach(function(mensaje) { %>
-                      <% if (mensaje.correoEmisor === sesion.correo) { %>
-                        <div class="row align-items-center text-center m-2 my-2">
-                          <div class="col-12 cajamensaje d-flex flex-column">
-                              <div class="d-flex justify-content-between align-items-center mb-1">
-                                  <h5 class="mb-0"><%= mensaje.correoReceptor %></h5>
-                                  <p class="mb-0"><em><%= mensaje.fecha %></em></p>
-                              </div>
-                              <p class="mb-0"><%= mensaje.cuerpoMensaje %></p>
-                          </div>
-                      </div>
-                      <% } %>
-                  <% }); %>
-      
-      
-              </div>
-          </div>
-      </div>
 
         <%- include('footer.ejs') %>
 
