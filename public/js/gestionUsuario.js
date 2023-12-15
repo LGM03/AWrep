@@ -1,6 +1,6 @@
 
 
-$(document).ready(function () {
+$(function () {
 
     if ($('.validarUsuario').length === 0) {
         $("#NoValidar").removeClass("d-none")
@@ -139,7 +139,7 @@ $(document).ready(function () {
         $("#usuariosMostrados").slideUp(1000);
         $("#divUsuarios .cajaUsuario").slideUp(1000);
         var filtro = {};
-        var existe= false
+        var existe = false
 
         if (esFiltroValido(filtro)) {
             $.ajax({
@@ -150,33 +150,25 @@ $(document).ready(function () {
 
                     if (datos.length > 0) {
                         datos.forEach(element => {
-                            console.log(element)
-                            if ((!filtro.nombre || filtro.nombre === element.nombre) &&
-                                (!filtro.apellido1 || filtro.apellido1 === element.apellido1) &&
-                                (!filtro.apellido2 || filtro.apellido2 === element.apellido2) &&
-                                (!filtro.correo || filtro.correo === element.correo) &&
-                                (!filtro.facultad || filtro.facultad === element.facultad) &&
-                                (!filtro.curso || filtro.curso === element.curso) &&
-                                (!filtro.grupo || filtro.grupo === element.grupo)) {
 
-                                const arrayBuffer = element.imagen.data;
-                                const base64String = btoa(String.fromCharCode.apply(null, new Uint8Array(arrayBuffer)));
-                                const url = `data:image/png;base64,${base64String}`;
+                            const arrayBuffer = element.imagen.data;
+                            const base64String = btoa(String.fromCharCode.apply(null, new Uint8Array(arrayBuffer)));
+                            const url = `data:image/png;base64,${base64String}`;
 
-                                var nuevo = {
-                                    nombre: element.nombre + " " + element.apellido1 + " " + element.apellido2,
-                                    correo: element.correo,
-                                    urlImagen: url,
-                                    rol : element.rol,
-                                    clase : element.curso +" "+ element.grupo,
-                                    facultad : element.facultad
-                                };
-                                nuevoUsuario(nuevo);
-                                existe = true
-                            }
+                            var nuevo = {
+                                nombre: element.nombre + " " + element.apellido1 + " " + element.apellido2,
+                                correo: element.correo,
+                                urlImagen: url,
+                                rol: element.rol,
+                                clase: element.curso + " " + element.grupo,
+                                facultad: element.facultad
+                            };
+                            nuevoUsuario(nuevo);
+                            existe = true
+
                         });
-                    } 
-                    if(!existe){
+                    }
+                    if (!existe) {
                         var alerta = $('<h5 class="mt-3 alert alert-warning cajaUsuario">No hay usuarios que mostrar</h2>');
                         $("#divUsuarios").append(alerta);
                     }
@@ -187,6 +179,52 @@ $(document).ready(function () {
             });
         }
     });
+
+
+    $("#idListarTodos").on("click", function (event) {
+        event.preventDefault();
+
+        $("#usuariosMostrados").slideUp(1000);
+        $("#divUsuarios .cajaUsuario").slideUp(1000);
+        var existe = false
+
+        $.ajax({
+            method: "GET",
+            url: "/gestionUsuarios/listarTodos",
+            data: null,  // Enviar los datos como parte de la solicitud GET
+            success: function (datos, state, jqXHR) {
+
+                if (datos.length > 0) {
+                    datos.forEach(element => {
+
+                        const arrayBuffer = element.imagen.data;
+                        const base64String = btoa(String.fromCharCode.apply(null, new Uint8Array(arrayBuffer)));
+                        const url = `data:image/png;base64,${base64String}`;
+                        var nuevo = {
+                            nombre: element.nombre + " " + element.apellido1 + " " + element.apellido2,
+                            correo: element.correo,
+                            urlImagen: url,
+                            rol: element.rol,
+                            clase: element.curso + " " + element.grupo,
+                            facultad: element.facultad
+                        };
+                        nuevoUsuario(nuevo);
+                        existe = true
+
+                    });
+                }
+                if (!existe) {
+                    var alerta = $('<h5 class="mt-3 alert alert-warning cajaUsuario">No hay usuarios que mostrar</h2>');
+                    $("#divUsuarios").append(alerta);
+                }
+            },
+            error: function (jqXHR, statusText, errorThrown) {
+                alert("Ha ocurrido un error con los usuarios");
+            }
+        });
+
+    });
+
 })
 
 function esFiltroValido(datos) {
@@ -204,7 +242,7 @@ function esFiltroValido(datos) {
             datos.nombre = nombre
         } else {
 
-            alert("El nombre introducido no es válido")
+            alert("El nombre introducido no es válido para filtrar")
             return false
         }
     }
@@ -213,7 +251,7 @@ function esFiltroValido(datos) {
             datos.apellido1 = apellido1
         } else {
 
-            alert("El apellido1 introducido no es válido")
+            alert("El apellido1 introducido no es válido para filtrar")
             return false
         }
     }
@@ -222,7 +260,7 @@ function esFiltroValido(datos) {
             datos.apellido2 = apellido2
         } else {
 
-            alert("El apellido2 introducido no es válido")
+            alert("El apellido2 introducido no es válido para filtrar")
             return false
         }
     }
@@ -231,7 +269,7 @@ function esFiltroValido(datos) {
             datos.correo = correo
         } else {
 
-            alert("El correo introducido no es válido")
+            alert("El correo introducido no es válido para filtrar")
             return false
         }
     }

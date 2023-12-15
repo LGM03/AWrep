@@ -118,7 +118,35 @@ router.post('/hacerAdmin', function (req, res, next) {
 router.get('/filtrar', function (req, res, next) {
     const DAOAp = require('../mysql/daoGestion')
     const midao = new DAOAp(pool)
-    midao.filtrar( (err, datos) => {
+
+    const nombreComprobar = /^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/
+    const emailComprobar = /^[A-Za-z0-9._%+-]+@ucm\.es$/
+    var filtro={}
+
+    if(req.query.nombre && nombreComprobar.test(req.query.nombre)){
+        filtro.nombre = req.query.nombre
+    }
+    if(req.query.apellido1 && nombreComprobar.test(req.query.apellido1)){
+        filtro.apellido1 = req.query.apellido1
+    }
+    if(req.query.apellido2 && nombreComprobar.test(req.query.apellido2)){
+        filtro.apellido2 = req.query.apellido2
+    }
+    if(req.query.correo && emailComprobar.test(req.query.correo)){
+        filtro.nombre = req.query.nombre
+    }
+    if(req.query.curso ){
+        filtro.curso = req.query.curso
+    }
+    if(req.query.facultad ){
+        filtro.facultad = req.query.facultad
+    }
+    if(req.query.grupo ){
+        filtro.grupo = req.query.grupo
+    }
+
+
+    midao.filtrar( filtro,(err, datos) => {
         if (err) {
             console.log(err)
             res.json("0")
@@ -128,6 +156,18 @@ router.get('/filtrar', function (req, res, next) {
     })
 }) 
 
+router.get('/listarTodos', function (req, res, next) {
+    const DAOAp = require('../mysql/daoGestion')
+    const midao = new DAOAp(pool)
+    midao.listarTodos( (err, datos) => {
+        if (err) {
+            console.log(err)
+            res.json("0")
+        } else {
+            res.json(datos)
+        }
+    })
+}) 
 
 
 module.exports = router;
