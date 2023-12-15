@@ -34,14 +34,15 @@
         </div>
       </div>
 
-      <div class="container justify-content-center mt-3 col-9 bg-warning" id="cajaGraficas ">
-        <div id="divFacultad" class="d-none">
+      <div class="container justify-content-center mt-3 mb-3 col-9 rounded colorEstadisticas" id="cajaGraficas ">
+
+        <div id="selector" class="d-none">
 
         </div>
 
-        <div id="divUsuario" class='d-none'>
+        <p id = "noEstadisticas" class ="alert alert-warning d-none">No hay estadisticas disponibles para esta facultad</p>
+        <canvas id='miGrafica' class ="mb-2 d-none"></canvas>
 
-        </div>
       </div>
     </section>
     <%- include('footer.ejs') %>

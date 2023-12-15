@@ -15,7 +15,7 @@ $(document).ready(function () {
     datosCrearIns.append("imagenInstalacion", fileInput[0].files[0]);
     if ($("#tipoReserva").val() === 'Individual') {
       datosCrearIns.append("aforo", 1);
-    }else{
+    } else {
       datosCrearIns.append("aforo", $("#aforo").val());
     }
     datosCrearIns.append("horaInicio", $("#horaInicio").val());
@@ -26,7 +26,7 @@ $(document).ready(function () {
       alert("Parámetros no válidos")
     } else if ($("#tipoReserva").val() == "Colectiva" && $("#aforo").val() <= 1) {
       alert("Tipo de instalacion y aforo no válidos")
-    }  else {
+    } else {
       console.log(datosCrearIns)
       $.ajax({
         method: "POST",
@@ -36,10 +36,8 @@ $(document).ready(function () {
         processData: false,
         success: function (datos, state, jqXHR) {
           //Cerramos el modal
-          if( datos !== "0") { //Si estamos en el / añadimos la tarjeta correspondiente 
+          if (datos !== "0") { //Si estamos en el / añadimos la tarjeta correspondiente 
             $("#CrearInstalacion").modal('hide')
-            if (window.location.pathname == "/"){
-            agregarTarjeta(datos)
             $("#nombreInstalacion").prop("value", "")
             $("#tipoReserva").prop("value", "")
             $("#imagenInstalacion").prop("value", "")
@@ -47,13 +45,14 @@ $(document).ready(function () {
             $("#horaFin").prop("value", "")
             $("#aforo").prop("value", "")
             $('#campoAforo').addClass("d-none");
-
+            if (window.location.pathname == "/") {
+              agregarTarjeta(datos)
+            } else {
+              alert("Instalación creada con éxito")
+            }
           } else {
-            alert("Instalación creada con éxito")
+            alert("No se ha podido crear la instalación")
           }
-        }else{
-          alert("No se ha podido crear la instalación")
-        }
         },
         error: function (jqXHR, statusText, errorThrown) {
           alert("Error al crear la instalacion")
@@ -74,7 +73,7 @@ $(document).ready(function () {
 
     }
   });
-  
+
 })
 
 function agregarTarjeta(datos) {

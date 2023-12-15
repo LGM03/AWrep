@@ -1,7 +1,8 @@
-$(document).ready(function () {
+$(function () {
 
   $("#btnEstadFacultad").on("click", function () { //Muestra una grafica de las instalaciones reservadas en la facultad seleccionada
-    var divGeneral = $("<div class = 'row'> </div>")
+    $('#divGeneral').remove()
+    var divGeneral = $("<div class = 'row' id= 'divGeneral'> </div>")
     var div = $("<div class = 'col-3'> </div>")
     var textCombo = $("<p>Seleccione facultad para ver sus estadísticas:</p>")
     var div2 = $("<div class = 'col-sm-9'> </div>")
@@ -18,9 +19,9 @@ $(document).ready(function () {
 
     divGeneral.append(div)
     divGeneral.append(div2)
-    $("#divFacultad").append(divGeneral)
+    $("#selector").append(divGeneral)
 
-    $("#divFacultad").removeClass('d-none')
+    $("#selector").removeClass('d-none')
 
   })
 
@@ -32,45 +33,47 @@ $(document).ready(function () {
       url: "/estadisticas/porFacultad",
       data: { facultad: facultad },
       success: function (datos, state, jqXHR) {
-        console.log(datos)
+        if (datos.length == 0) {
+          
+          $("#miGrafica").addClass('d-none')
+          $("#noEstadisticas").removeClass('d-none')
+        } else { 
+          $("#miGrafica").removeClass('d-none')
+          $("#noEstadisticas").addClass('d-none')
 
-        var dates = []
-        var inst = []
-        datos.forEach(element => {
+          var dates = []
+          var inst = []
+          datos.forEach(element => {
             dates.push(element.contador)
             inst.push(element.nombre)
-        });
-        console.log(dates)
-        console.log(inst)
+          });
 
-        var canva = $("<canvas id='miGrafica'></canvas>")
-        
-        var barColors = [
-          "darkkhaki" ,
-          "darkmagenta",
-          "darkolivegreen",
-          "darkorange" ,
-          "darkorchid"
-        ];
+          var barColors = [
+            "darkkhaki",
+            "darkmagenta",
+            "darkolivegreen",
+            "darkorange",
+            "darkorchid"
+          ];
 
-        new Chart("miGrafica", {
-          type: "pie",
-          data: {
-            labels: inst,
-            datasets: [{
-              backgroundColor: barColors,
-              data: dates
-            }]
-          },
-          options: {
-            title: {
-              display: true,
-              text: "Estadisticas reserva facultad"
+          new Chart('miGrafica', {
+            type: "pie",
+            data: {
+              labels: inst,
+              datasets: [{
+                backgroundColor: barColors,
+                data: dates
+              }]
+            },
+            options: {
+              title: {
+                display: true,
+                text: "Estadisticas reservas facultad de "+facultad
+              }
             }
-          }
-        });
+          });
+        }
 
-        $("#cajaGraficas").append(canva)
 
       },
       error: function (jqXHR, statusText, errorThrown) {
