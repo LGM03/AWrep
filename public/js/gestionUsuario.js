@@ -69,7 +69,7 @@ $(function () {
     $(document).on("click", ".verReservas", function (event) {
         $(this).removeClass("verReservas");
         var divContenedor = $(this).closest('.cajaUsuario') //Este es el div padre 
-        var correo = divContenedor.find('p').text(); //busco el p que contiene el correo 
+        var correo = divContenedor.find('#correoUser').text(); //busco el p que contiene el correo 
         var data = {
             correo: correo
         };
@@ -77,7 +77,7 @@ $(function () {
         $.ajax({
             method: "GET",
             url: "/reserva/porUsuario",
-            data: data,
+            data: data, 
             success: function (datos, state, jqXHR) { //Si todo ha ido bien pongo un mensaje de acierto
                 if (datos.length > 0) {
                     agregarCajaUsuario(datos[0], divContenedor)

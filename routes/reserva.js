@@ -70,8 +70,9 @@ router.get('/porUsuario', function (req, res, next) {
     const DAOAp = require('../mysql/daoReserva')
     const midao = new DAOAp(pool)
 
+    console.log(req.query.correo+ "A")
     midao.leerReservaPorUsuario(req.query.correo, (err, datos) => {
-        if (err) {
+        if (err) { 
             res.json("0")
         } else {
             res.json(datos)
@@ -118,7 +119,7 @@ router.post('/alta', function (req, res, next) {
                 }
             })
         }else{ //si no hay reservas coincidentes
-            console.log(datos)
+        
             midao.altaReserva(datosReserva, (err, datos) => {
                 if (err) {
                     res.json("0")
@@ -131,7 +132,7 @@ router.post('/alta', function (req, res, next) {
 })
 
 router.get('/filtrar', function (req, res, next) {
-    console.log("ASGASG")
+
     const DAOAp = require('../mysql/daoReserva')
     const midao = new DAOAp(pool)
     if (req.session.usuario.rol == 1) {
@@ -163,9 +164,6 @@ router.delete('/borrarReserva', function (req, res, next) {
 
     const DAOAp = require('../mysql/daoReserva')
     const midao = new DAOAp(pool)
-    
-
-    console.log(req.body.idReserva)
 
     midao.notificacionAdelantarListaespera(req.body.idReserva , (err, datos) => { //avisamos al usuarion que ahora va a ser el nuevo 
         

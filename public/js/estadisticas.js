@@ -1,6 +1,9 @@
 $(function () {
 
   $("#btnEstadFacultad").on("click", function () { //Muestra una grafica de las instalaciones reservadas en la facultad seleccionada
+
+    $("#miGrafica").addClass('d-none')
+    $("#noEstadisticas").addClass('d-none')
     $('#divGeneral').remove()
     var divGeneral = $("<div class = 'row' id= 'divGeneral'> </div>")
     var div = $("<div class = 'col-3'> </div>")
@@ -34,10 +37,12 @@ $(function () {
       data: { facultad: facultad },
       success: function (datos, state, jqXHR) {
         if (datos.length == 0) {
-          
           $("#miGrafica").addClass('d-none')
           $("#noEstadisticas").removeClass('d-none')
-        } else { 
+          $("#noEstadisticas").text("No hay estadisticas disponibles para esta facultad")
+
+        } else {
+
           $("#miGrafica").removeClass('d-none')
           $("#noEstadisticas").addClass('d-none')
 
@@ -68,7 +73,7 @@ $(function () {
             options: {
               title: {
                 display: true,
-                text: "Estadisticas reservas facultad de "+facultad
+                text: "Estadisticas reservas facultad de " + facultad
               }
             }
           });
@@ -96,48 +101,48 @@ $(function () {
         console.log(datos)
 
         if (datos.length == 0) {
-          
+
           $("#miGraficaUsuario").addClass('d-none')
           $("#noEstadisticas").removeClass('d-none')
-        } else { 
+        } else {
           $("#miGraficaUsuario").removeClass('d-none')
           $("#noEstadisticas").addClass('d-none')
-        
 
-        var dates = []
-        var inst = []
-        datos.forEach(element => {
+
+          var dates = []
+          var inst = []
+          datos.forEach(element => {
             dates.push(element.contador)
             inst.push(element.nombre)
-        });
-        console.log(dates)
-        console.log(inst)
+          });
+          console.log(dates)
+          console.log(inst)
 
-        var barColors = [
-          "darkkhaki" ,
-          "darkmagenta",
-          "darkolivegreen",
-          "darkorange" ,
-          "darkorchid"
-        ];
+          var barColors = [
+            "darkkhaki",
+            "darkmagenta",
+            "darkolivegreen",
+            "darkorange",
+            "darkorchid"
+          ];
 
-        new Chart("miGraficaUsuario", {
-          type: "pie",
-          data: {
-            labels: inst,
-            datasets: [{
-              backgroundColor: barColors,
-              data: dates
-            }]
-          },
-          options: {
-            title: {
-              display: true,
-              text: "Estadísticas reserva por usuario"
+          new Chart("miGraficaUsuario", {
+            type: "pie",
+            data: {
+              labels: inst,
+              datasets: [{
+                backgroundColor: barColors,
+                data: dates
+              }]
+            },
+            options: {
+              title: {
+                display: true,
+                text: "Estadísticas reserva por usuario"
+              }
             }
-          }
-        });
-      }
+          });
+        }
       },
       error: function (jqXHR, statusText, errorThrown) {
         alert("Ha ocurrido un error con las estadísticas");
