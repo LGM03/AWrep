@@ -83,25 +83,66 @@ $(function () {
   })
 
 
-  $("#btnEstadUsuario").on("click", function () { //Muestra una grafica de las instalaciones reservadas para el usuario seleccionado
-    var divGeneral = $("<div class = 'row'> </div>")
-    var div = $("<div class = 'col-3'> </div>")
-    var textCombo = $("<p>Seleccione usuario para ver sus estadísticas:</p>")
-    var div2 = $("<div class = 'col-sm-9'> </div>")
+  $("#btnEstadUsuario").on("click", function () {
+    // Obtener el correo del usuario desde el input
+    var usuario = $("#txtUsuario").val();
 
-    //Accedo a la base de datos busncado todos los usuarios
+    // Realizar la petición AJAX
+    $.ajax({
+      method: "GET",
+      url: "/estadisticas/porUsuario",
+      data: { usuario: usuario },
+      success: function (datos, state, jqXHR) {
+        console.log(datos)
 
+        if (datos.length == 0) {
+          
+          $("#miGraficaUsuario").addClass('d-none')
+          $("#noEstadisticas").removeClass('d-none')
+        } else { 
+          $("#miGraficaUsuario").removeClass('d-none')
+          $("#noEstadisticas").addClass('d-none')
+        
 
+        var dates = []
+        var inst = []
+        datos.forEach(element => {
+            dates.push(element.contador)
+            inst.push(element.nombre)
+        });
+        console.log(dates)
+        console.log(inst)
 
-    div2.append(combo)
-    div.append(textCombo)
+        var barColors = [
+          "darkkhaki" ,
+          "darkmagenta",
+          "darkolivegreen",
+          "darkorange" ,
+          "darkorchid"
+        ];
 
-    divGeneral.append(div)
-    divGeneral.append(div2)
-    $("#divFacultad").append(divGeneral)
-
-    $("#divFacultad").removeClass('d-none')
-
-  })
+        new Chart("miGraficaUsuario", {
+          type: "pie",
+          data: {
+            labels: inst,
+            datasets: [{
+              backgroundColor: barColors,
+              data: dates
+            }]
+          },
+          options: {
+            title: {
+              display: true,
+              text: "Estadísticas reserva por usuario"
+            }
+          }
+        });
+      }
+      },
+      error: function (jqXHR, statusText, errorThrown) {
+        alert("Ha ocurrido un error con las estadísticas");
+      }
+    });
+  });
 })
 

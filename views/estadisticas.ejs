@@ -30,7 +30,8 @@
           <button class="btn mr-2 mt-2 mb-2 p-3" id="btnEstadFacultad">Estadísticas por Facultad</button>
         </div>
         <div class="row">
-          <button class="btn mr-2 mt-2 mb-2 p-3" id="btnEstadUsuario">Estadísticas por Usuario</button>
+          <input type="text" class="form-control" id="txtUsuario" placeholder="Ingrese el correo del usuario">
+          <button id="btnEstadUsuario" class="btn btn-primary">Ver estadísticas por usuario</button>
         </div>
       </div>
 
@@ -42,6 +43,14 @@
 
         <p id = "noEstadisticas" class ="alert alert-warning d-none">No hay estadisticas disponibles para esta facultad</p>
         <canvas id='miGrafica' class ="mb-2 d-none"></canvas>
+
+
+        <div id="selector" class="d-none">
+
+        </div>
+
+        <p id = "noEstadisticas" class ="alert alert-warning d-none">No hay estadisticas disponibles para este usuario</p>
+        <canvas id='miGraficaUsuario' class ="mb-2 d-none"></canvas>
 
       </div>
     </section>
