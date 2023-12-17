@@ -78,6 +78,7 @@ $(function () {
         var data = {
             idReserva: idReserva
         };
+ 
 
         $.ajax({
             method: "DELETE",
@@ -134,6 +135,7 @@ function agregarCajaReserva(esAdmin, element, padre) {
 
     caja.data("id", element.id) //Esto va a permitir saber que reserva hay que eliminar 
     padre.append(caja);
+    console.log(element.id)
     if (esAdmin == 0) {
         cajaPlazo.append(botonCancelar);
     } else {

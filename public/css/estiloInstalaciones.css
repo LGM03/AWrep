@@ -1,9 +1,6 @@
 
-.fondoGrisTexto {
-    background-color: rgb(0, 0, 0, 0.55); /*Fondo para el texto del carrusel*/
-}
 
-#titulo{
+#titulo{  /*El titulo de las intalaciones debe ser negro, ocupar un 80% fondo blanco y tipografia EB-garamont*/
     max-width: 80%;
     margin: 0 auto;   
     background-color:white;
@@ -11,28 +8,28 @@
     font: 1em EB-garamont;
 }
 
-.cajaInfo{
+.cajaInfo{ /*fondo blanco y sombra negra */
     background-color: white;
     box-shadow: 0px 0px 5px #000000;
 }
 
-.cabeceraInfo{
+.cabeceraInfo{ /*color negro y tipografia garamont*/
     font: 2.2em EB-garamont;
    color :#000000;
 }
-
-.zonaHistorial{
+ 
+.zonaHistorial{  /*anchos minimos y maximos*/
     margin: 0 auto;
     max-width: 70%;
     min-width: 40%;
 }
 
-#historiales {
+#historiales {   /*fondo blanco y sombra negra */
     background-color: white;
     box-shadow: 0px 0px 5px #000000;
 }
 
-p{
+p{ /*todos los p tienen tipografia eb-garamont*/
     font: 1.2em EB-garamont;
 }
 
@@ -40,7 +37,7 @@ p{
 /*CALENDARIO*/
 
 
-#calendario{
+#calendario{ /*el calendario tiene como maximo un ancho del 75%*/
     max-width: 75%; /* Ajusta según sea necesario */
 
 }

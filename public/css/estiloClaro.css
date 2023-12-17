@@ -48,32 +48,32 @@
     box-shadow: 0px 0px 20px #68059a;
 }
 
-.botonInicioSesion{
+.botonInicioSesion{ /*Boton blanco con letras moradas*/
 background-color: white;
 font: 1.1em EB-garamont;
 color :#68059a
 }
 
 
-#btnEstadFacultad{
+#btnEstadFacultad{ /* boton morado claro con sombra morada oscura y letras EB-garamont*/
     background-color: #ceafda ;
     box-shadow: 0px 0px 20px #4e0f67;
     font: 1.3em EB-garamont;
 }
 
-#btnEstadMostrarUsu{
+#btnEstadMostrarUsu{/* boton morado claro con sombra morada oscura y letras EB-garamont*/
     background-color: #ceafda ;
     box-shadow: 0px 0px 20px #4e0f67;
     font: 1.3em EB-garamont;
 }
 
 
-.colorEstadisticas{
+.colorEstadisticas{/* boton morado claro con sombra morada oscura*/
     background-color: #ceafda ;
     box-shadow: 0px 0px 20px #4e0f67;
 }
 
-.fondoCalendario{
+.fondoCalendario{ /*colo de fondo del calendario*/
     background-color: #b693c3;
     
 }

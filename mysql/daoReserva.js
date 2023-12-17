@@ -109,7 +109,7 @@ class DAOConfig {   //DAO que accede a los destinos y su respectiva información
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
             } else {
-                const sql = "select ucm_aw_riu_res_reservas.fecha, ucm_aw_riu_res_reservas.fechafinal, ucm_aw_riu_ins_instalaciones.nombre as nombreIns, ucm_aw_riu_ins_instalaciones.tipoReserva,  ucm_aw_riu_ins_instalaciones.horaInicio,  ucm_aw_riu_ins_instalaciones.horaFin,  ucm_aw_riu_ins_instalaciones.aforo,  ucm_aw_riu_ins_instalaciones.imagen as imagenIns, ucm_aw_riu_usu_usuarios.nombre,ucm_aw_riu_usu_usuarios.apellido1,ucm_aw_riu_usu_usuarios.apellido2,ucm_aw_riu_usu_usuarios.facultad,ucm_aw_riu_usu_usuarios.curso,ucm_aw_riu_usu_usuarios.grupo,ucm_aw_riu_usu_usuarios.imagen as imagenUsu ,ucm_aw_riu_usu_usuarios.correo from ucm_aw_riu_res_reservas inner join ucm_aw_riu_ins_instalaciones on ucm_aw_riu_ins_instalaciones.id = idIns inner join ucm_aw_riu_usu_usuarios on correo = idUsu"+
+                const sql = "select ucm_aw_riu_res_reservas.id,ucm_aw_riu_res_reservas.fecha, ucm_aw_riu_res_reservas.fechafinal, ucm_aw_riu_ins_instalaciones.nombre as nombreIns, ucm_aw_riu_ins_instalaciones.tipoReserva,  ucm_aw_riu_ins_instalaciones.horaInicio,  ucm_aw_riu_ins_instalaciones.horaFin,  ucm_aw_riu_ins_instalaciones.aforo,  ucm_aw_riu_ins_instalaciones.imagen as imagenIns, ucm_aw_riu_usu_usuarios.nombre,ucm_aw_riu_usu_usuarios.apellido1,ucm_aw_riu_usu_usuarios.apellido2,ucm_aw_riu_usu_usuarios.facultad,ucm_aw_riu_usu_usuarios.curso,ucm_aw_riu_usu_usuarios.grupo,ucm_aw_riu_usu_usuarios.imagen as imagenUsu ,ucm_aw_riu_usu_usuarios.correo from ucm_aw_riu_res_reservas inner join ucm_aw_riu_ins_instalaciones on ucm_aw_riu_ins_instalaciones.id = idIns inner join ucm_aw_riu_usu_usuarios on correo = idUsu"+
                 " where (? is NULL OR ucm_aw_riu_usu_usuarios.nombre = ?) "+ 
                 "and (? is null or ucm_aw_riu_usu_usuarios.apellido1 = ?)"+
                 "and (? is null or ucm_aw_riu_usu_usuarios.apellido2 = ?)"+
@@ -119,7 +119,7 @@ class DAOConfig {   //DAO que accede a los destinos y su respectiva información
                 "and ucm_aw_riu_usu_usuarios.correo = ?"+
                 "and( (? is null or fecha=?) or (? is null or (fecha<=? and fecha>=?)))"
                 var variables = [filtro.nombre, filtro.nombre, filtro.apellido1, filtro.apellido1, filtro.apellido2, filtro.apellido2 ,
-                    filtro.correo,filtro.correo, filtro.facultad,filtro.facultad,filtro.instalacion,filtro.instalacion,filtro.correo,filtro.fechaIni,filtro.fechaIni,
+                    filtro.correo,filtro.correo, filtro.facultad,filtro.facultad,filtro.instalacion,filtro.instalacion,filtro.usuario,filtro.fechaIni,filtro.fechaIni,
                     filtro.fechaFin,filtro.fechaFin,filtro.fechaIni
                     ]
                 connection.query(sql, variables, function (err, resultado) {
@@ -135,11 +135,12 @@ class DAOConfig {   //DAO que accede a los destinos y su respectiva información
         });
     }
 
-    leerReservas(filtro, callback) { //Lee todos los comentarios en funcion 
+    leerReservas(filtro, callback) { //Lee todas las reserva en funcion 
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
             } else {
+                //Si el parametro es nulo o coincide con el valor
                 const sql = "select ucm_aw_riu_res_reservas.fecha, ucm_aw_riu_res_reservas.fechafinal, ucm_aw_riu_ins_instalaciones.nombre as nombreIns, ucm_aw_riu_ins_instalaciones.tipoReserva,  ucm_aw_riu_ins_instalaciones.horaInicio,  ucm_aw_riu_ins_instalaciones.horaFin,  ucm_aw_riu_ins_instalaciones.aforo,  ucm_aw_riu_ins_instalaciones.imagen as imagenIns, ucm_aw_riu_usu_usuarios.nombre,ucm_aw_riu_usu_usuarios.apellido1,ucm_aw_riu_usu_usuarios.apellido2,ucm_aw_riu_usu_usuarios.facultad,ucm_aw_riu_usu_usuarios.curso,ucm_aw_riu_usu_usuarios.grupo,ucm_aw_riu_usu_usuarios.imagen as imagenUsu ,ucm_aw_riu_usu_usuarios.correo from ucm_aw_riu_res_reservas inner join ucm_aw_riu_ins_instalaciones on ucm_aw_riu_ins_instalaciones.id = idIns inner join ucm_aw_riu_usu_usuarios on correo = idUsu"+
                 " where (? is NULL OR ucm_aw_riu_usu_usuarios.nombre = ?) "+ 
                 "and (? is null or ucm_aw_riu_usu_usuarios.apellido1 = ?)"+
@@ -168,7 +169,7 @@ class DAOConfig {   //DAO que accede a los destinos y su respectiva información
     }
 
 
-    borrarReserva(idReserva, callback) { //Lee todos los comentarios en funcion 
+    borrarReserva(idReserva, callback) { //Borra una reserva de la base de datos
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
@@ -186,14 +187,14 @@ class DAOConfig {   //DAO que accede a los destinos y su respectiva información
         });
     }
 
-    notificacionAdelantarListaespera(idReserva, callback) {
+    notificacionAdelantarListaespera(idReserva, callback) {  //Envia una notificacion al primer usuario de la lista de espera
 
         let idIns;
         let userCola;
         let correoEmisor = "ADMINISTRACION";
         let fechanueva = new Date;
 
-        const getInfoReserva = (idReserva) => {
+        const getInfoReserva = (idReserva) => {  //Recoge la informacion de la reserva que ha sido borrada
             return new Promise((resolve, reject) => {
                 this.pool.getConnection((err, connection) => {
                     if (err) {
@@ -201,10 +202,12 @@ class DAOConfig {   //DAO que accede a los destinos y su respectiva información
                     } else {
                         const sql = "SELECT * FROM ucm_aw_riu_res_reservas WHERE id=?";
                         connection.query(sql, [idReserva], (err, resultado) => {
-                            connection.release();
+                            connection.release();  //Libera la conexion
                             if (err) {
+                                console.log(err)
                                 reject(err);
                             } else {
+                                console.log(resultado)
                                 resolve(resultado);
                             }
                         });
@@ -213,15 +216,15 @@ class DAOConfig {   //DAO que accede a los destinos y su respectiva información
             });
         };
 
-        const getUserCola = (idIns, Fecha) => {
+        const getUserCola = (idIns, Fecha) => {  //recojo el primer usuario de la lista de espera para ese dia y esa instalacion
             return new Promise((resolve, reject) => {
                 this.pool.getConnection((err, connection) => {
                     if (err) {
                         reject(err);
                     } else {
-                        const sql = "SELECT * FROM listaespera WHERE idIns=? AND fechaReserva=? order by fechaEntrada";
+                        const sql = "SELECT * FROM listaespera WHERE idIns=? AND fechaReserva=? order by fechaEntrada"; //Los usuarios van ordenados por fecha de entrada a la bd
                         connection.query(sql, [idIns, Fecha], (err, resultado) => {
-                            connection.release();
+                            connection.release();  //Libero la conexion
                             if (err) {
                                 reject(err);
                             } else {
@@ -233,7 +236,7 @@ class DAOConfig {   //DAO que accede a los destinos y su respectiva información
             });
         };
 
-        const eliminarListadeespera = (idListaEspera) => {
+        const eliminarListadeespera = (idListaEspera) => { //Elimino el elemento de la lista de espera 
             return new Promise((resolve, reject) => {
                 this.pool.getConnection((err, connection) => {
                     if (err) {
@@ -254,7 +257,7 @@ class DAOConfig {   //DAO que accede a los destinos y su respectiva información
 
         }
 
-        const getInfoInstalacion = (idInstalacion) => {
+        const getInfoInstalacion = (idInstalacion) => { //Recojo la información de la instalacion
             return new Promise((resolve, reject) => {
                 this.pool.getConnection((err, connection) => {
                     if (err) {
@@ -276,7 +279,7 @@ class DAOConfig {   //DAO que accede a los destinos y su respectiva información
 
 
 
-        const executeQueries = async () => {
+        const executeQueries = async () => {  //Ejecuto todas las query puestas arriba
 
             const resultReserva = await getInfoReserva(idReserva);
 
@@ -311,7 +314,7 @@ class DAOConfig {   //DAO que accede a los destinos y su respectiva información
             // Construir la nueva cadena de fecha en el formato deseado
             var fechaFormateada = año + '-' + mes + '-' + dia;
 
-            const resultInfoIns = await getInfoInstalacion(idIns);
+            const resultInfoIns = await getInfoInstalacion(idIns); //Espero a que se ejecute la query getInfoInstalacion
 
             let nombreins = resultInfoIns[0].nombre
 
@@ -326,7 +329,7 @@ class DAOConfig {   //DAO que accede a los destinos y su respectiva información
             }
             catch { }
             if (userCola != null) {
-                this.pool.getConnection((err, connection) => {
+                this.pool.getConnection((err, connection) => {  //Si todo ha ido bien le mando el mensaje
                     if (err) {
                         callback(err, null);
                         return;
@@ -347,14 +350,14 @@ class DAOConfig {   //DAO que accede a los destinos y su respectiva información
             }
         };
 
-        executeQueries();
+        executeQueries(); //Ejecuto las querys
     }
 
 
 
 
 
-    borrarEspera(idEspera, callback) { //Lee todos los comentarios en funcion 
+    borrarEspera(idEspera, callback) { //Borra un elemento de la lista de espera
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error

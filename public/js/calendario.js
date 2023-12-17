@@ -1,19 +1,19 @@
 $(function () {
     //CALENDARIO
-    $('#calendario').fullCalendar({
+    $('#calendario').fullCalendar({ //
         header: {
-            left: 'prev,next today',
-            center: 'title',
+            left: 'prev,next today',  //opciones para moverse por las fechas del calendario
+            center: 'title', //centramos el titulo
         },
         dayRender: function (date, cell) {
             var urlParams = new URLSearchParams(window.location.search);
-            var inst = urlParams.get('id');
+            var inst = urlParams.get('id'); //recojo el id de la instalacion de la url
             var data = {
                 id: inst,
                 dia: date.format('YYYY-MM-DD')  // Utiliza date.format para obtener la fecha en el formato deseado
             };
 
-            $.ajax({
+            $.ajax({ // veo para cada dia que reservas hay
                 method: "GET",
                 url: "/reserva/porInstyDia",
                 data: data,
@@ -25,9 +25,9 @@ $(function () {
                         
                         if (comprobarOcupacion(datos.reservas)) { //Si es true no hay huevos libre 
                         
-                            cell.css("background-color", "#FE1E50");
+                            cell.css("background-color", "#FE1E50"); // rojo para dias totalmente ocupados
                         } else {
-                            cell.css("background-color", "#FFE390");
+                            cell.css("background-color", "#FFE390");  //amarillo para dias con momentos libres 
 
                         }
                     }
@@ -38,12 +38,12 @@ $(function () {
             });
         }, dayClick: function (date, jsEvent, view) {
 
-            if (esAdmin == 0) {
-                $('#Reserva').modal('show');
+            if (esAdmin == 0) { //Al pulsar un dia si mi rol ess usuario validado
+                $('#Reserva').modal('show'); //Aparece el modal de hacer reserva
                 $("#fechaReserva").prop("value", date.format('YYYY-MM-DD'))
                 
 
-            } else if (esAdmin == 1) {
+            } else if (esAdmin == 1) { //Al pulsar un dia si mi rol es admin
 
                 $("#historiales").removeClass("d-none")
                 $("#historiales .cajaInfo").slideUp(1500);
@@ -51,14 +51,14 @@ $(function () {
                 $("#cajasEsperas .infoEspera").slideUp(1500);
                 $("#cajasEsperas .cajaInfo").slideUp(1500)
 
-                var urlParams = new URLSearchParams(window.location.search);
+                var urlParams = new URLSearchParams(window.location.search); //Recojo el id de la instalacion de la url
                 var inst = urlParams.get('id');
                 var data = {
                     id: inst,
                     dia: date.format('YYYY-MM-DD')
                 };
 
-                $.ajax({
+                $.ajax({  //Veo que reservas hay ese dia para mostrarselas al admin
                     method: "GET",
                     url: "/reserva/porInstyDia",
                     data: data,
@@ -66,7 +66,7 @@ $(function () {
 
                         $("#fechaListaReservas").text("Reservas " + date.format('DD-MM-YY'))
                         if (datos.reservas.length == 0) {
-                            mensajeVacio($("#cajasHistorial"), "Historial de reservas vacío")
+                            mensajeVacio($("#cajasHistorial"), "Historial de reservas vacío") //Si no hay reservas se lo digo
                         } else {
                             datos.reservas.forEach(element => {
                                 agregarCajaHistorial(element)

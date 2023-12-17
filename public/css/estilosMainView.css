@@ -29,12 +29,12 @@
     border-radius: 0;
 }
 
-.imagenInstalacion{
+.imagenInstalacion{ /*Como maximo la instalacion tendra un 250px de ancho */
     max-width: 250px; 
     height: auto;
 }
 
-#cuerpoMensaje{
+#cuerpoMensaje{ /*text area tendra como maximo 200 px de alto y solo se hara resize vertical*/
     max-height: 200px;
     resize: vertical;
 }

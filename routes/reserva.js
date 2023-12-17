@@ -158,13 +158,13 @@ router.get('/filtrar', function (req, res, next) {
         fechaFin: req.query.fechaFin,
         fechaIni: req.query.fechaIni,
         instalacion: req.query.instalacion,
-        correo :req.session.usuario.correo
+        usuario :req.session.usuario.correo
 
     }
     if (validarFiltro(filtro)) {
-        console.log(filtro)
 
         if (req.session.usuario.rol == 1) {
+            
             midao.leerReservas(filtro, (err, datos) => { //Saca todas las reservas si es el admin
                 if (err) {
                     res.json("0")
@@ -238,6 +238,8 @@ router.delete('/borrarReserva', function (req, res, next) {
 
     const DAOAp = require('../mysql/daoReserva')
     const midao = new DAOAp(pool)
+
+    
 
     midao.notificacionAdelantarListaespera(req.body.idReserva, (err, datos) => { //avisamos al usuarion que ahora va a ser el nuevo 
     })

@@ -1,9 +1,9 @@
-.cajaUsuario{
+.cajaUsuario{ /*caja de usuario whitesmoke y letra negra*/
     background-color: whitesmoke;
     box-shadow: 0px 0px 20px #000000;
 }
 
-.logoUsuario{
+.logoUsuario{  /*alto y ancho maximos en 100 px*/
     max-height: 100px;
     max-width: 100px;
 }

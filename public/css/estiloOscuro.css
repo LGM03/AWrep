@@ -32,21 +32,21 @@
     font: 1em EB-garamont;
 }
 
-#btnEstadFacultad{
+#btnEstadFacultad{  /*fondo azul claro, sombra y letra blanca y tipografia garamont */
     background-color: #4a6d95 ;
     box-shadow: 0px 0px 20px white;
     color: white;
     font: 1.3em EB-garamont;
 }
 
-#btnEstadMostrarUsu{
+#btnEstadMostrarUsu{  /*fondo azul claro, sombra y letra blanca y tipografia garamont */
     background-color: #4a6d95 ;
     color: white;
     box-shadow: 0px 0px 20px white;
     font: 1.3em EB-garamont;
 }
 
-.colorEstadisticas{
+.colorEstadisticas{  /*fondo azul claro, sombra y letra blanca y tipografia garamont */
     background-color: #4a6d95 ;
     box-shadow: 0px 0px 20px white;
     color: white;
@@ -68,13 +68,13 @@
     box-shadow: 0px 0px 20px #056b9a;
 }
 
-.botonInicioSesion{
+.botonInicioSesion{  /*fondo blanco letra azul y tipografia garamont */
 background-color: white;
 font: 1.1em EB-garamont;
 color :#053e9a
 }
 
-.fondoCalendario{
+.fondoCalendario{ /*fondo azul claro para el calendario*/
     background-color: #4a6d95;
     
 }

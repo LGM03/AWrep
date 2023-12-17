@@ -46,14 +46,3 @@ class DAOUsuario{   //DAO que accede a los destinos y su respectiva información
 
 
 module.exports = DAOUsuario
-
-
-/*bcrypt.compare(contraseña, usuario.contraseña, (err, resultado) => {
-      if (resultado) {
-        // Contraseña válida, establece la sesión
-        req.session.usuario = nombreDeUsuario;
-        res.send('Inicio de sesión exitoso');
-      } else {
-        res.send('Credenciales incorrectas');
-      }
-    });*/

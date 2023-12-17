@@ -1,20 +1,20 @@
-#mensajesEnviados{
+#mensajesEnviados{ /*fondo de color gris */
     display: none;
     background-color: rgb(162, 162, 162);
 }
 
-#mensajesRecibidos{
+#mensajesRecibidos{/*fondo de color gris */
     display: none;
     background-color: rgb(162, 162, 162);
 }
 
-.cajamensaje{
+.cajamensaje{/*fondo de color blnaco */
     background-color:white;
 }
-.zonaMensajes{
-    background: rgb(180, 180, 180) ;
+.zonaMensajes{ /*fondo de color gris */
+    background: rgb (180, 180, 180) ;
 }
-.barrabotones{
+.barrabotones{ /*fondo de color gris, sin estilo de lista y justificado space-evenly*/
     background-color: rgb(162, 162, 162);;
     list-style-type: none;
     padding: 10px;
@@ -22,7 +22,7 @@
     display: flex;
 }
 
-.botonbarramensajes{
+.botonbarramensajes{ /*fondo de color gris, letra blanca y tipografia eb-garamont */
         background-color: rgb(162, 162, 162);
         color :white;
         font: 1em EB-garamont; 
