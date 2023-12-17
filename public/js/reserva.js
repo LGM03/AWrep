@@ -49,7 +49,6 @@ $(function () {
                     console.error('Error al enviar el formulario al servidor:', errorThrown);
                 },
             });
-
         } else {
             alert("Los datos de reserva no son validos")
         }

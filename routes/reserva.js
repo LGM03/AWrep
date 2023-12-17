@@ -158,6 +158,7 @@ router.get('/filtrar', function (req, res, next) {
         fechaFin: req.query.fechaFin,
         fechaIni: req.query.fechaIni,
         instalacion: req.query.instalacion,
+        correo :req.session.usuario.correo
 
     }
     if (validarFiltro(filtro)) {
@@ -166,7 +167,6 @@ router.get('/filtrar', function (req, res, next) {
         if (req.session.usuario.rol == 1) {
             midao.leerReservas(filtro, (err, datos) => { //Saca todas las reservas si es el admin
                 if (err) {
-                    console.log(err)
                     res.json("0")
                 } else {
                     //retorno tambien el rol para saber como construir la vista
@@ -174,9 +174,8 @@ router.get('/filtrar', function (req, res, next) {
                 }
             })
         } else {
-            midao.leerReservaPorUsuario(req.session.usuario.correo, (err, datos) => { //Si es usuario saca solo sus reservas
+            midao.leerReservaPorUsuario(filtro, (err, datos) => { //Si es usuario saca solo sus reservas
                 if (err) {
-                    console.log("A")
                     res.json("0")
                 } else {
                     res.json({ datos: datos, esAdmin: req.session.usuario.rol })
@@ -184,7 +183,6 @@ router.get('/filtrar', function (req, res, next) {
             })
         }
     } else {
-        console.log("error")
         res.json("0")
     }
 
