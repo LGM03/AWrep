@@ -87,10 +87,11 @@ class DAOMensajes{   //DAO que accede a los destinos y su respectiva informació
                         if (err) {
                             callback(err,  "0");
                         } else {
-                            const sql = "INSERT INTO mensajes (correoEmisor, correoReceptor, cuerpoMensaje, fecha) VALUES (?, ?, ?, ?)";
-                            connection.query(sql, [datos.correoEmisor, datos.correoReceptor, datos.cuerpoMensaje, datos.fecha], (err, resultado) => {
+                            const sql = "INSERT INTO mensajes (correoEmisor, correoReceptor, cuerpoMensaje) VALUES (?, ?, ?)";
+                            connection.query(sql, [datos.correoEmisor, datos.correoReceptor, datos.cuerpoMensaje], (err, resultado) => {
                                 connection.release();
                                 if (err) {
+                                    console.log(err)
                                     callback(err,  "0");
                                 } else {
                                     callback(null, resultado.insertId);

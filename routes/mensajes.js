@@ -73,8 +73,6 @@ router.get('/leerEnviados', function (req, res, next) {
 
 });
 
-
-
 router.post('/mandarMensaje', function (req, res, next) {
     const DAOAp = require('../mysql/daoMensajes')
     const midao = new DAOAp(pool)

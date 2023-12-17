@@ -93,8 +93,8 @@ $(function () {
 
 function agregarCajaRecibidosMensajes(mensaje, padre){
 
-  var fecha = mensaje.fecha.slice(0,10)
-  var hora = mensaje.fecha.slice(11,-8)
+  
+  var fecha = new Date(mensaje.fecha).toLocaleString()
   var cajaMensaje = `<div class="row align-items-center m-2 my-2 cajaMensaje">
   <div class="col-12 cajamensaje d-flex flex-column">
       <div class="d-flex justify-content-between align-items-center mb-1">
@@ -102,7 +102,7 @@ function agregarCajaRecibidosMensajes(mensaje, padre){
                ${mensaje.correoEmisor}
           </h5>
           <p class="mb-0"><em>
-          ${fecha}   ${hora}
+          ${fecha} 
               </em></p>
       </div>
       <p class="mb-0" style="text-align: left;">
@@ -119,8 +119,7 @@ padre.removeClass("d-none")
 
 function agregarCajaEnviadosMensajes(mensaje, padre){
 
-  var fecha = mensaje.fecha.slice(0,10)
-  var hora = mensaje.fecha.slice(11,-8)
+  var fecha = new Date(mensaje.fecha).toLocaleString()
   var cajaMensaje = `<div class="row align-items-center m-2 my-2 cajaMensaje">
   <div class="col-12 cajamensaje d-flex flex-column">
       <div class="d-flex justify-content-between align-items-center mb-1">
@@ -128,7 +127,7 @@ function agregarCajaEnviadosMensajes(mensaje, padre){
                ${mensaje.correoReceptor}
           </h5>
           <p class="mb-0"><em>
-          ${fecha}   ${hora}
+          ${fecha} 
               </em></p>
       </div>
       <p class="mb-0" style="text-align: left;">
