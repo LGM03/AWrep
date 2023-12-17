@@ -32,7 +32,7 @@ router.get('/', function (req, res, next) {  //Cargo la configuracion para la ve
                 global.logo = imageUrl;
                 global.gama = configDatos.gama;
                 global.direccion = configDatos.direccion;
-            } // Renderizamos la página principal con la información de todos los destinos
+            } // Renderizamos la página principal con la información de todos los instalacion
             if (req.session.usuario && req.session.usuario.rol !== -1) {  //Solo puedo acceder a mensajes usuarios validades y admin rol == 1 o 0
                 res.render('mensajes', {
                     logo: global.logo, titulo: global.titulo, gama: global.gama,
@@ -61,7 +61,7 @@ router.get('/leerEnviados', function (req, res, next) {
     const midao = new DAOAp(pool)
 
     if (validarEmail(req.session.usuario.correo)) {
-        midao.leerTodos(req.session.usuario.correo, (err, datos) => {  //Leo en la BD los destinos con el id de la url
+        midao.leerTodos(req.session.usuario.correo, (err, datos) => {  //Leo en la BD los instalacion con el id de la url
             if (err) {
                 res.send("0") //si ocurre un error cargo la ventana de error 
             }

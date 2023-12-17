@@ -101,7 +101,7 @@ router.post('/crearCuenta', multerFactory.single("imagenUser"), (req, res) => {
             res.redirect(`/?error=${"Ya existe una cuenta con esos datos"}`); //Si ha ocurrido un error, recargo la ventana con mensaje de fallo
           }
           else {
-            res.redirect(`/?exito=${'Cuenta creada con éxito'}`); //Si todo ha ido bien redirijo a /destino con el mensaje de exito
+            res.redirect(`/?exito=${'Cuenta creada con éxito'}`); //Si todo ha ido bien redirijo a / con el mensaje de exito
           }
         });
 

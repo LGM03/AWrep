@@ -50,7 +50,7 @@ router.get('/', function (req, res, next) {
                 global.logo = imageUrl;
                 global.gama = configDatos.gama;
                 global.direccion = configDatos.direccion;
-            } // Renderizamos la página principal con la información de todos los destinos
+            } // Renderizamos la página principal con la información de todas las instalaciones
             if (req.session.usuario && req.session.usuario.rol !== -1) {  //Si tengo usuario validado o admin cargo gestion de reserva
                 res.render('gestionReserva', {
                     logo: global.logo, titulo: global.titulo, gama: global.gama,

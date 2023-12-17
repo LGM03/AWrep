@@ -18,7 +18,7 @@ router.get('/validar', function (req, res, next) {
     const DAOConfig = require("../mysql/daoConfig");
     const daoC = new DAOConfig(pool);
 
-    midao.leerTodos((err, datos) => {  //Leo en la BD los destinos con el id de la url
+    midao.leerTodos((err, datos) => {  //Leo en la BD los instalacion con el id de la url
         if (err) {
             res.send("0") //si ocurre un error cargo la ventana de error 
         }
@@ -37,7 +37,7 @@ router.get('/validar', function (req, res, next) {
                         global.logo = imageUrl;
                         global.gama = configDatos.gama;
                         global.direccion = configDatos.direccion;
-                    } // Renderizamos la página principal con la información de todos los destinos
+                    } // Renderizamos la página principal con la información de todos las instalaciones
                     if (req.session.usuario && req.session.usuario.rol == 1) {  //Solo puedo acceder a gestion de usuarios si soy admin (rol = 1)
                         res.render('gestionUsuarios', {
                             usuarios: datos, logo: global.logo, titulo: global.titulo, gama: global.gama,

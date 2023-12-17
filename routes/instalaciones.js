@@ -37,7 +37,7 @@ router.get('/', (req, res) => { //carga las instalaciones
             global.logo = imageUrl;
             global.gama = configDatos.gama;
             global.direccion = configDatos.direccion;
-          } // Renderizamos la página principal con la información de todos los destinos
+          } // Renderizamos la página principal con la información de todos los instalacion
           res.render('instalacion', {
             instalacion: datos,
             gama: global.gama,

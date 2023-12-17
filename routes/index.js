@@ -36,7 +36,7 @@ router.get('/', function (req, res, next) {
             global.logo = imageUrl;
             global.gama = configDatos.gama;
             global.direccion = configDatos.direccion;
-          } // Renderizamos la página principal con la información de todos los destinos
+          } // Renderizamos la página principal con la información de todos los instalacion
           res.render('index', {
             instalaciones: datos,
             usuario: req.session.usuario,
