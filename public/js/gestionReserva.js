@@ -67,7 +67,6 @@ $(function () {
                     alert("Ha ocurrido un error con los usuarios A");
                 }
             })
-
         }
     })
 
@@ -75,7 +74,6 @@ $(function () {
 
         var divContenedor = $(this).closest('.cajaUsuario'); // Este es el div padre 
         var idReserva = divContenedor.data("id")
-        var fecha = $(this).closest('em');
 
         var data = {
             idReserva: idReserva
@@ -145,31 +143,37 @@ function agregarCajaReserva(esAdmin, element, padre) {
 
 function infoUsuario(datos, padre) {
 
-    const nuevo = `
-    <div class="row alert alert-secondary rounded m-2 align-items-center">
-        <div class="col-2 d-flex justify-content-between align-items-center">
-            <img src="${datos.imagenUsu}" alt="Foto del usuario" class="img-fluid logoUsuario">
-        </div>
-        <div class="col-7">
-            <div class="d-flex justify-content-between align-items-center mb-1">
-                <h5 class="mb-0">${datos.nombre}</h5>
-            </div>
-            <p id="correoUser" class="mb-1">${datos.correo}</p>
-            <div class="d-flex flex-column">
-                <div class="d-flex mb-1">
-                    <h5 class="mb-0 mr-2">Facultad:</h5>
-                    <p class="mb-0">${datos.facultad}</p>
-                </div>
-                <div class="d-flex">
-                    <h5 class="mb-0 mr-2">Grupo:</h5>
-                    <p class="mb-0">${datos.clase}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-`;
+    const caja = $('<div class="row alert alert-secondary  rounded m-2"></div>');
+    // Sección de info de la reserva
 
-    padre.append(nuevo)
+    const cajaImagen = $('<div class="col-md-2 col-sm-5 d-flex justify-content-between align-items-center "> </div>')
+    const imagen = '<img src="' + datos.imagenUsu + '" alt="Foto del usuario" class="img-fluid logoUsuario mt-2"></div>'
+    cajaImagen.append(imagen)
+
+    // Contenedor para el nombre y la fecha
+    const cajaNombre = $('<div class="col-md-3 col-sm-5  d-flex justify-content-between align-items-center mb-1"></div>');
+    const nombreCom = $('<p><strong>' + datos.nombre + '</strong></p>')
+    cajaNombre.append(nombreCom)
+
+    const cajaCorreo = $('<div class=" col-md-2 col-sm-5  d-flex justify-content-between align-items-center mb-1"></div>');
+    const correo = $('<p class="mb-0"><strong>Correo: </strong>' + datos.correo + '</p>')
+    cajaCorreo.append(correo)
+
+    const cajaFacultad = $('<div class="col-md-2 col-sm-5  d-flex justify-content-between align-items-center mb-1"></div>');
+    const facultad = $('<p class="mb-0"><strong>Facultad: </strong>' + datos.facultad + '</p>')
+    cajaFacultad.append(facultad)
+
+    const cajaClase = $('<div class=" col-md-3 col-sm-5  d-flex justify-content-between align-items-center mb-1"></div>');
+    const clases = $('<p class="mb-0">  <strong>Grupo : </strong> <em>' +datos.clase+ '</p>')
+    cajaClase.append(clases)
+
+    caja.append(cajaImagen)
+    caja.append(cajaNombre)
+    caja.append(cajaCorreo)
+    caja.append(cajaFacultad)
+    caja.append(cajaClase)
+
+    padre.append(caja);
 }
 
 function validarFiltro(datos) {

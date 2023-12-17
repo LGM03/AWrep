@@ -289,10 +289,10 @@ function nuevoUsuario(datos) {
 
     const nuevo = `
     <div class="row cajaUsuario rounded m-2 align-items-center">
-        <div class="col-2 d-flex justify-content-between align-items-center">
+        <div class="col-12 col-sm-6 col-md-2  d-flex justify-content-between align-items-center">
             <img src="${datos.urlImagen}" alt="Foto del usuario" class="img-fluid logoUsuario">
         </div>
-        <div class="col-7">
+        <div class="col-12 col-sm-6 col-md-7 ">
             <div class="d-flex justify-content-between align-items-center mb-1">
                 <h5 class="mb-0">${datos.nombre}</h5>
             </div>
@@ -308,7 +308,7 @@ function nuevoUsuario(datos) {
                 </div>
             </div>
         </div>
-        <div class="col-3 mt-2" id = "zonaBotones">
+        <div class="col-12 mt-2 col-md-3" id = "zonaBotones">
         <button class="btn btn-dark mb-2 w-100 verReservas"> Ver Reservas </button>
         </div>
     </div>
@@ -326,27 +326,33 @@ function nuevoUsuario(datos) {
 }
 
 function agregarCajaHistorial(element, divContenedor) {
-    const caja = $('<div class="row cajaInfo rounded m-2"></div>');
+
+    const caja = $('<div class="row cajaInfo bg-secondary text-white rounded m-2"></div>');
     // Sección de info de la reserva
-    const cajaReserva = $('<div class="col-10 d-flex flex-column"></div>')
 
     // Contenedor para el nombre y la fecha
-    const infoContainer = $('<div class="d-flex justify-content-between align-items-center mb-1"></div>');
+    const infoContainer = $('<div class="d-flex justify-content-between align-items-center mb-1 col-12 col-md-6 col-lg-3"></div>');
 
     const nombreCom = $('<h5 class="mb-0"> <strong>Instalación : </strong>' + element.nombreIns + '</h5>')
+    infoContainer.append(nombreCom)
+    
+    const tipoContainer = $('<div class="d-flex justify-content-between align-items-center mb-1 col-12 col-md-6 col-lg-3"></div>');
     const tipo = $('<p class="mb-0"><strong>Tipo: </strong>' + element.tipoReserva + '</p>')
+    tipoContainer.append(tipo)
+
+    const aforoContainer = $('<div class="d-flex justify-content-between align-items-center mb-1 col-12 col-md-6 col-lg-3"></div>');
     const aforo = $('<p class="mb-0"><strong>Aforo: </strong>' + element.aforo + '</p>')
+    aforoContainer.append(aforo)
 
+    const plazoContainer = $('<div class="d-flex justify-content-between align-items-center mb-1 col-12 col-md-6 col-lg-3"></div>');
     const plazo = $('<p class="mb-0">  <strong>Plazo de la Reserva : </strong> ' + element.fecha.slice(0, 10) + " " + element.fecha.slice(11, -3) + "-" + element.fechafinal.slice(11, -3) + '</p>')
+    plazoContainer.append(plazo)
 
-    infoContainer.append(nombreCom);
-    infoContainer.append(tipo);
-    infoContainer.append(aforo);
-    infoContainer.append(plazo);
+    caja.append(infoContainer);
+    caja.append(tipoContainer);
+    caja.append(aforoContainer);
+    caja.append(plazoContainer);
 
-    cajaReserva.append(infoContainer);
-
-    caja.append(cajaReserva);
     divContenedor.append(caja);
 }
 
@@ -354,7 +360,7 @@ function agregarCajaUsuario(element, padre) {
     const caja = $('<div class="row rounded alert alert-secondary m-2"></div>');
 
     // Sección de info de la reserva
-    const cajaReserva = $('<div class="col-10 d-flex flex-column"></div>')
+    const cajaReserva = $('<div class="d-flex flex-column"></div>')
 
     // Contenedor para el nombre y la fecha
     const infoContainer = $('<div class="d-flex justify-content-between align-items-center mb-1"></div>');
