@@ -1,7 +1,6 @@
 $(function () {
 
   $("#btnEstadFacultad").on("click", function () { //Muestra una grafica de las instalaciones reservadas en la facultad seleccionada
-
     $("#miGrafica").addClass('d-none')
     $("#noEstadisticas").addClass('d-none')
     $('#divGeneral').remove()
@@ -19,9 +18,9 @@ $(function () {
       `;
     div2.append(combo)
     div.append(textCombo)
-
     divGeneral.append(div)
     divGeneral.append(div2)
+    $("#selector").empty()
     $("#selector").append(divGeneral)
 
     $("#selector").removeClass('d-none')
@@ -30,6 +29,9 @@ $(function () {
 
   $(document).on('change', 'select', function () {
     var facultad = $(this).prop("value")
+
+    $("#divGeneral1").empty();
+    $("#miGrafica").empty();
 
     $.ajax({
       method: "GET",
@@ -42,7 +44,6 @@ $(function () {
           $("#noEstadisticas").text("No hay estadisticas disponibles para esta facultad")
 
         } else {
-
           $("#miGrafica").removeClass('d-none')
           $("#noEstadisticas").addClass('d-none')
 
@@ -87,11 +88,31 @@ $(function () {
     })
   })
 
+  $("#btnEstadMostrarUsu").on("click", function () { //Muestra una grafica de las instalaciones reservadas en la facultad seleccionada
+    $("#miGrafica").addClass('d-none')
+    $("#noEstadisticas").addClass('d-none')
+    $('#divGeneral1').remove()
+    var divGeneral1 = $("<div class = 'row' id= 'divGeneral1'> </div>")
+    var div3 = $("<div class = 'col-6'> </div>")
+    var input = $('<input type="text" class="form-control" id="txtUsuario" placeholder="Ingrese el correo del usuario">')
+    var botonuser =$('<button id="btnEstadUsuario" class="btn btn-primary">Ver estadísticas por usuario</button>')
+    var div4 = $("<div class = 'col-sm-6'> </div>")
+    div4.append(botonuser)
+    div3.append(input)
+    divGeneral1.append(div3)
+    divGeneral1.append(div4)
+    $("#selector").empty()
+    $("#selector").append(divGeneral1)
 
-  $("#btnEstadUsuario").on("click", function () {
+    $("#selector").removeClass('d-none')
+
+  })
+
+  $(document).on("click", "#btnEstadUsuario", function () {
     // Obtener el correo del usuario desde el input
     var usuario = $("#txtUsuario").val();
-
+    $("#divGeneral1").empty();
+    $("#miGrafica").empty();
     // Realizar la petición AJAX
     $.ajax({
       method: "GET",
@@ -100,11 +121,11 @@ $(function () {
       success: function (datos, state, jqXHR) {
       
         if (datos.length == 0) {
-
-          $("#miGraficaUsuario").addClass('d-none')
+          $("#miGrafica").addClass('d-none')
           $("#noEstadisticas").removeClass('d-none')
+          $("#noEstadisticas").text("No hay estadisticas disponibles para este usuario")
         } else {
-          $("#miGraficaUsuario").removeClass('d-none')
+          $("#miGrafica").removeClass('d-none')
           $("#noEstadisticas").addClass('d-none')
 
 
@@ -123,7 +144,7 @@ $(function () {
             "darkorchid"
           ];
 
-          new Chart("miGraficaUsuario", {
+          new Chart("miGrafica", {
             type: "pie",
             data: {
               labels: inst,
