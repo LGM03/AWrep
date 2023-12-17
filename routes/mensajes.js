@@ -33,16 +33,24 @@ router.get('/', function (req, res, next) {  //Cargo la configuracion para la ve
                 global.gama = configDatos.gama;
                 global.direccion = configDatos.direccion;
             } // Renderizamos la página principal con la información de todos los destinos
+            if (req.session.usuario && req.session.usuario.rol !== -1) {  //Solo puedo acceder a mensajes usuarios validades y admin rol == 1 o 0
+                res.render('mensajes', {
+                    logo: global.logo, titulo: global.titulo, gama: global.gama,
+                    direccion: global.direccion, sesion: req.session.usuario
+                });
+            } else {
+                res.redirect('/')
+            }
+        });
+    } else {
+        if (req.session.usuario && req.session.usuario.rol !== -1) {  //Solo puedo acceder a mensajes usuarios validades y admin rol == 1 o 0
             res.render('mensajes', {
                 logo: global.logo, titulo: global.titulo, gama: global.gama,
                 direccion: global.direccion, sesion: req.session.usuario
             });
-        });
-    } else {
-        res.render('mensajes', {
-            logo: global.logo, titulo: global.titulo, gama: global.gama,
-            direccion: global.direccion, sesion: req.session.usuario
-        });//Cargo la ventana destino con los usuarios no validados
+        } else {
+            res.redirect('/')
+        }
     }
 
 });
@@ -52,27 +60,27 @@ router.get('/leerEnviados', function (req, res, next) {
     const DAOAp = require("../mysql/daoMensajes")
     const midao = new DAOAp(pool)
 
+    if (validarEmail(req.session.usuario.correo)) {
+        midao.leerTodos(req.session.usuario.correo, (err, datos) => {  //Leo en la BD los destinos con el id de la url
+            if (err) {
+                console.log(err)
+                res.send("0") //si ocurre un error cargo la ventana de error 
+            }
+            else {
+                res.json({ mensajes: datos, usuario: req.session.usuario })
+            }
+        })
+    }
 
-    midao.leerTodos(req.session.usuario.correo, (err, datos) => {  //Leo en la BD los destinos con el id de la url
-        if (err) {
-            console.log(err)
-            res.send("0") //si ocurre un error cargo la ventana de error 
-        }
-        else {
-            res.json({mensajes : datos, usuario : req.session.usuario})
-        }
-    })
-
-    });
+});
 
 
 
 router.post('/mandarMensaje', function (req, res, next) {
     const DAOAp = require('../mysql/daoMensajes')
     const midao = new DAOAp(pool)
-    console.log("ASDFASF")
 
-    var date = new Date().toISOString()
+    var date = new Date().toLocaleString()
     datos = {
         correoEmisor: req.body.correoEmisor,
         correoReceptor: req.body.correoReceptor,
@@ -81,14 +89,21 @@ router.post('/mandarMensaje', function (req, res, next) {
         rolEmisor: req.session.usuario.rol,
     }
 
-    midao.altaMensaje(datos, (err, datos) => {
-        if (err) {
-            res.json("0")
-        } else {
-            console.log("1223123")
-            res.json(datos)
-        }
-    })
+    if (validarEmail(req.body.correoEmisor) && validarEmail(req.body.correoReceptor)) { //Validacion en servidor de los datos del mensaje
+        midao.altaMensaje(datos, (err, datos) => {
+            if (err) {
+                res.json("0")
+            } else {
+                res.json(datos)
+            }
+        })
+    }
 })
+
+function validarEmail(email) {//El mail deben ser letras o numeros, seguido de @ seguido de letras y numeros un punto y mas de dos letras
+    const emailComprobar = /^[A-Za-z0-9._%+-]+@ucm\.es$/
+    return emailComprobar.test(email);
+}
+
 
 module.exports = router;

@@ -33,6 +33,23 @@ router.get('/', function (req, res, next) {
             global.gama = configDatos.gama;
             global.direccion = configDatos.direccion;
           } // Renderizamos la página principal con la información de todos los destinos
+          if(req.session.usuario && req.session.usuario.rol == 1){  //Solo puedo acceder a estadisticas si soy admin (rol = 1)
+            res.render('estadisticas', {
+              usuario: req.session.usuario,
+              error: req.query.error,
+              exito: req.query.exito,
+              gama: global.gama,
+              logo: global.logo,
+              titulo: global.titulo,
+              direccion: global.direccion
+            });
+          }else{
+            res.redirect('/')
+          }
+        });
+      } else {
+        // Si ya tenemos la configuración, renderizamos la página directamente
+        if(req.session.usuario && req.session.usuario.rol == 1){  //Solo puedo acceder a estadisticas si soy admin (rol = 1)
           res.render('estadisticas', {
             usuario: req.session.usuario,
             error: req.query.error,
@@ -42,20 +59,10 @@ router.get('/', function (req, res, next) {
             titulo: global.titulo,
             direccion: global.direccion
           });
-        });
-      } else {
-        // Si ya tenemos la configuración, renderizamos la página directamente
-        res.render('estadisticas', {
-          usuario: req.session.usuario,
-          error: req.query.error,
-          exito: req.query.exito,
-          gama: global.gama,
-          logo: global.logo,
-          titulo: global.titulo,
-          direccion: global.direccion
-        });
+        }else{
+          res.redirect('/')
+        }
       }
-
 });
 
 router.get('/porFacultad', function (req, res, next) {

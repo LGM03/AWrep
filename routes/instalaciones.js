@@ -61,8 +61,14 @@ router.get('/', (req, res) => { //carga las instalaciones
 })
 
 
-const multerFactory = multer({ storage: multer.memoryStorage() });
-router.post('/crearInstalacion', multerFactory.single("imagenInstalacion"),function (req, res, next) {
+const multerFactory = multer({
+  storage: multer.memoryStorage(), 
+  limits: {
+    fileSize: 300000,
+  }
+});
+
+router.post('/crearInstalacion', multerFactory.single("imagenInstalacion"), function (req, res, next) {
   const DAOAp = require('../mysql/daoInstalaciones')
   const midao = new DAOAp(pool)
 
@@ -74,18 +80,30 @@ router.post('/crearInstalacion', multerFactory.single("imagenInstalacion"),funct
     horaInicio: req.body.horaInicio,
     horaFin: req.body.horaFin
   }
+  if ($("#nombreInstalacion").val().trim() !== "" && $("#tipoReserva").val() !== null && $("#horaFin").val() !== "" && $("#horaInicio").val() !== "" && imagenValida($("#imagenInstalacion")[0].files[0]) && $("#horaFin").val() > $("#horaInicio").val()) {
 
-  var buffer =  req.file.buffer 
-  const imageBase64 = buffer.toString('base64');
-  const imageUrl = `data:${req.file.mimetype};base64,${imageBase64}`;
+    var buffer = req.file.buffer
+    const imageBase64 = buffer.toString('base64');
+    const imageUrl = `data:${req.file.mimetype};base64,${imageBase64}`;
 
-  midao.altaInstalacion(datosInstalacion, (err, datos) => { //subo la info a la bd
-    if (err) {
-      res.json("0")
-    } else {
-      res.json({id : datos, imagen :  imageUrl})
-    }
-  })
+    midao.altaInstalacion(datosInstalacion, (err, datos) => { //subo la info a la bd
+      if (err) {
+        res.json("0")
+      } else {
+        res.json({ id: datos, imagen: imageUrl })
+      }
+    })
+  }
 
 })
+
+function imagenValida(imagen) {
+  var comprobarEx = /(\.png)$/i;
+  if (!imagen || !comprobarEx.exec(imagen.name) || imagen.size > 300000) {
+    return false;
+  }
+
+  return true
+}
+
 module.exports = router;

@@ -1,6 +1,6 @@
 
 
-$(document).ready(function () {
+$(function () {
 
   let esAdmin = 1;
 
@@ -105,7 +105,7 @@ function agregarTarjeta(datos) {
 
 function imagenValida(imagen) {
   var comprobarEx = /(\.png)$/i;
-  if (!imagen || !comprobarEx.exec(imagen.name) || imagen.size > 60000) {
+  if (!imagen || !comprobarEx.exec(imagen.name) || imagen.size > 300000) {
     return false;
   }
 

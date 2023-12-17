@@ -1,12 +1,9 @@
-$(document).ready(function () {
+$(function () {
 
     $("#guardarTitulo").on("click", function (event) {
         var tituloNuevo = $("#nuevoTitulo").prop("value")
-        console.log(tituloNuevo)
+       
         event.preventDefault();
-
-      
-
         $.ajax({
             method: "POST",
             url: "/configuracion/titulo",
@@ -28,7 +25,6 @@ $(document).ready(function () {
 
     $("#guardarDireccion").on("click", function (event) {
         var dirNueva = $("#direccion").prop("value")
-        console.log(dirNueva)
         event.preventDefault();
         $.ajax({
             method: "POST",
@@ -110,11 +106,11 @@ $(document).ready(function () {
                     $("#logoInput").prop("value","")
                 },
                 error: function (jqXHR, statusText, errorThrown) {
-                    console.error('Error al enviar el formulario al servidor:', errorThrown);
+                    alert('No se ha podido actualizar la iamgen')
                 },
             });
         } else {
-            console.error('Selecciona una imagen antes de intentar guardarla.');
+            alert('Selecciona una imagen antes de intentar guardarla.');
         }
 
     })

@@ -9,57 +9,55 @@ const pool = mysql.createPool({
   user: "root",
   password: "",
   database: "UCM_RIU",
-  port : 3306
+  port: 3306
 })
 
 //Cuando se mande un formulario de reserva 
 
-router.post("/login", async (req, res) => {
-  try{
-  const DAOAp = require("../mysql/daoUsuario")
-  const midao = new DAOAp(pool)
-  var correo = req.body.correo
-  var contraseña = req.body.contraseña
-
+router.get("/login", async (req, res) => {
+  try {
+    const DAOAp = require("../mysql/daoUsuario")
+    const midao = new DAOAp(pool)
+    var correo = req.query.correo
+    var contraseña = req.query.contraseña
     midao.leerPorID(correo, async (err, datos) => { //Aqui habria que pasarle la contraseña 
       if (err || datos == null) {
-        res.redirect(`/?error=${"No se ha podido iniciar sesion"}`) //Cargo una ventana de error y ha ocurrido un problema
+        res.redirect(`/?error=${"Su usuario no existe o no ha sido validado"}`) //Cargo una ventana de error y ha ocurrido un problema
       }
       else {
         const coincide = await bcrypt.compare(contraseña, datos.contraseña)
-        if(coincide){
+        if (coincide) {
           var url = "/images/usuario.png"
-          if(datos.imagen){
+          if (datos.imagen) {
             const imageBase64 = datos.imagen.toString('base64');
             url = `data:image/png;base64,${imageBase64}`;
           }
-        
+
           req.session.usuario = {
             nombre: datos.nombre,
             correo: correo,
-            apellido1 : datos.apellido1,
-            apellido2 : datos.apellido2,
-            rol : datos.rol,
-            imagen : url
+            apellido1: datos.apellido1,
+            apellido2: datos.apellido2,
+            rol: datos.rol,
+            imagen: url
           };
           res.redirect('/');
-        }else{
-          res.redirect(`/?error=${"Credenciales no validas"}`)
+        } else {
+          res.redirect(`/?error=${"Credenciales no válidas"}`)
         }
       }
     });
-  }catch{
+  } catch {
     res.redirect(`/?error=${'Ha ocurrido un error'}`)
-}
+  }
 
 
 })
- 
+
 router.post("/logout", (req, res) => {
-  console.log("He llegado aquí")
   req.session.destroy(err => {
     if (err) {
-      console.log(err);
+      res.redirect(`/?error=${"Error al cerrar sesión"}`)
     } else {
       res.redirect('/');
     }
@@ -67,7 +65,12 @@ router.post("/logout", (req, res) => {
 })
 
 
-const multerFactory = multer({ storage: multer.memoryStorage() });
+const multerFactory = multer({
+  storage: multer.memoryStorage(), 
+  limits: {
+    fileSize: 300000,
+  }
+});
 router.post('/crearCuenta', multerFactory.single("imagenUser"), (req, res) => {
   datosUsuario = { //Recojo la información que viene del forms
     nombre: req.body.nombre,
@@ -81,32 +84,43 @@ router.post('/crearCuenta', multerFactory.single("imagenUser"), (req, res) => {
     contrasena: req.body.contrasena,
   }
 
-  console.log(datosUsuario)
-
   const DAOAp = require("../mysql/daoUsuario")
   const midao = new DAOAp(pool)
   const saltRounds = 10; // Número de rondas para el proceso de hashing (mayor es más seguro, pero más lento)
 
-  bcrypt.genSalt(saltRounds, (err, salt) => {
-    bcrypt.hash(datosUsuario.contrasena, salt, (err, hash) => {
-      // Almacena el 'hash' y el 'salt' en la base de datos
-      datosUsuario.contrasena = hash;
-      datosUsuario.salt = salt;
+  if (validarEmail(req.body.correo) && validarnombre(req.body.nombre) && validarnombre(req.body.apellido1) && validarnombre(req.body.apellido2)) {
+    bcrypt.genSalt(saltRounds, (err, salt) => {
+      bcrypt.hash(datosUsuario.contrasena, salt, (err, hash) => {
+        // Almacena el 'hash' y el 'salt' en la base de datos
+        datosUsuario.contrasena = hash;
+        datosUsuario.salt = salt;
 
-      midao.altaUsuario(datosUsuario, (err, datos) => { //Guardamos en la base de datos la información de la reserva
-        console.log(err)
-        if (err) {
-          res.redirect(`/?error=${"Ya existe una cuenta con esos datos"}`); //Si ha ocurrido un error, recargo la ventana con mensaje de fallo
-        }
-        else {
-          res.redirect(`/?exito=${'Cuenta creada con éxito'}`); //Si todo ha ido bien redirijo a /destino con el mensaje de exito
-        }
+        midao.altaUsuario(datosUsuario, (err, datos) => { //Guardamos en la base de datos la información de la reserva
+
+          if (err) {
+            res.redirect(`/?error=${"Ya existe una cuenta con esos datos"}`); //Si ha ocurrido un error, recargo la ventana con mensaje de fallo
+          }
+          else {
+            res.redirect(`/?exito=${'Cuenta creada con éxito'}`); //Si todo ha ido bien redirijo a /destino con el mensaje de exito
+          }
+        });
+
       });
-
     });
-  });
+  }
 
 
 });
+
+function validarEmail(email) {//El mail deben ser letras o numeros, seguido de @ seguido de letras y numeros un punto y mas de dos letras
+  const emailComprobar = /^[A-Za-z0-9._%+-]+@ucm\.es$/
+  return emailComprobar.test(email);
+}
+
+function validarnombre(nombre) {//admite nombres y apellidos compuestos y con tildes 
+  const nombreComprobar = /^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/
+  return nombreComprobar.test(nombre);
+}
+
 
 module.exports = router;

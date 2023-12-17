@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function () {
 
   $("#botonMensajesRecibidos").on("click", function () {
     $("#mensajesRecibidos").fadeIn(1000)
@@ -39,7 +39,7 @@ $(document).ready(function () {
           $("#CorreoEmisor").text(datos.usuario)
           datos.mensajes.forEach(element => {
             if(element.correoEmisor == datos.usuario.correo){
-              console.log(element.correoEmisor)
+    
               agregarCajaEnviadosMensajes(element,$("#cajamensajesEnviados"))
             }
           });
@@ -54,13 +54,16 @@ $(document).ready(function () {
   })
 
   $("#idMandarMensaje").on("click", function (event) {  //TODO validacion en cliente de valores
-
-
+     
+    event.preventDefault()
     var datosMensaje = {
       correoEmisor: $("#correoEmisor").prop("value"),
       correoReceptor: $("#correoReceptor").prop("value"),
       cuerpoMensaje: $("#cuerpoMensaje").prop("value"),
+      fecha : new Date().toLocaleString()
       }
+
+      console.log(datosMensaje.fecha)
 
 
       $.ajax({
@@ -69,10 +72,13 @@ $(document).ready(function () {
         data: datosMensaje,
         success: function (datos, state, jqXHR) { //Si todo ha ido bien pongo un mensaje de acierto
           if (datos !== "0") {
-            console.log("A")
+            $("#MandarMensaje").modal('hide')
             if(!$("#cajamensajesEnviados").hasClass('d-none')){
-              agregarCajaEnviadosMensajes(datosMensaje,$("#cajamensajesEnviados"))
+              actualizarCajaEnviadosMensajes(datosMensaje,$("#cajamensajesEnviados"))
             }
+            $("#correoReceptor").prop("value","")
+            $("#cuerpoMensaje").prop("value","")
+
             alert("Mensaje enviado con éxito ")
           } else {
             alert("No se pudo enviar el mensaje")
@@ -133,6 +139,31 @@ function agregarCajaEnviadosMensajes(mensaje, padre){
 </div>`
 
 padre.append(cajaMensaje)
+padre.removeClass("d-none")
+
+
+}
+
+
+function actualizarCajaEnviadosMensajes(mensaje, padre){
+
+  var cajaMensaje = `<div class="row align-items-center m-2 my-2">
+  <div class="col-12 cajamensaje d-flex flex-column">
+      <div class="d-flex justify-content-between align-items-center mb-1">
+          <h5 class="mb-0">
+               ${mensaje.correoReceptor}
+          </h5>
+          <p class="mb-0"><em>
+          ${mensaje.fecha}  
+              </em></p>
+      </div>
+      <p class="mb-0" style="text-align: left;">
+      ${mensaje.cuerpoMensaje}
+      </p>
+  </div>
+</div>`
+
+padre.children().first().after(cajaMensaje);
 padre.removeClass("d-none")
 
 

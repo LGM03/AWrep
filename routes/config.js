@@ -35,21 +35,31 @@ router.get("/", function (req, res, next) {
                 global.gama = configDatos.gama;
                 global.direccion = configDatos.direccion;
             } // Renderizamos la página principal con la información de todos los destinos
+            if (req.session.usuario && req.session.usuario.rol == 1) {
+                res.render('configuracionSistema', {
+                    gama: global.gama,
+                    logo: global.logo,
+                    titulo: global.titulo,
+                    direccion: global.direccion
+                });
+            } else {
+                res.redirect('/')
+            }
+
+        });
+    } else {
+        // Si ya tenemos la configuración, renderizamos la página directamente
+        if (req.session.usuario && req.session.usuario.rol == 1) {  //Si el usuario es un admin cargo la ventana de configuracion
             res.render('configuracionSistema', {
                 gama: global.gama,
                 logo: global.logo,
                 titulo: global.titulo,
-                direccion : global.direccion
+                direccion: global.direccion
             });
-        });
-    } else {
-        // Si ya tenemos la configuración, renderizamos la página directamente
-        res.render('configuracionSistema', {
-            gama: global.gama,
-            logo: global.logo,
-            titulo: global.titulo,
-            direccion : global.direccion
-        });
+        } else {   //Si no es admin redirijo a ventana principal
+            res.redirect('/')
+        }
+
     }
 
 })
@@ -96,9 +106,14 @@ router.post('/direccion', function (req, res, next) {
     })
 })
 
-const multerFactory = multer({ storage: multer.memoryStorage() });
+const multerFactory = multer({
+    storage: multer.memoryStorage(), 
+    limits: {   //Si la imagen es mas grande de los limites, tira excepcion
+        fileSize: 300000,
+    }
+});
 
-router.post('/logo', multerFactory.single('logo'),function (req, res, next) {
+router.post('/logo', multerFactory.single('logo'), function (req, res, next) {
     const DAOAp = require('../mysql/daoConfig')
     const midao = new DAOAp(pool)
 

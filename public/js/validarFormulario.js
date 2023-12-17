@@ -1,5 +1,5 @@
 
-$(document).ready(function () {
+$(function () {
 
   $('#mostrarContrasena2').change(function () {
     var passwordInput = $('#contraseñaRep');
@@ -77,7 +77,7 @@ $(document).ready(function () {
     }
   })
 
-  $("#idInicioSesion").on("click", function () {
+  $("#idInicioSesion").on("click", function (event) {
     if (!validarEmail($("#correoInicio").prop("value"))) {
       event.preventDefault();
     }
@@ -105,7 +105,7 @@ function validarInicio(datosInicio) { //Toggle es mas bonito que alert
   }
 
   var comprobarEx = /(\.png)$/i;
-  if (!datosInicio.imagenUser || !comprobarEx.exec(datosInicio.imagenUser.name) || datosInicio.imagenUser.size > 60000) {
+  if (!datosInicio.imagenUser || !comprobarEx.exec(datosInicio.imagenUser.name) || datosInicio.imagenUser.size > 300000) {
     alert("Seleccione una imagen válida")
     return false;
   }
@@ -135,30 +135,4 @@ function validarnombre(nombre) {//admite nombres y apellidos compuestos y con ti
 function validarfecha(fecha) {
   const fechaComprobar = /^\d{4}-\d{2}-\d{2}$/;
   return fechaComprobar.test(fecha);
-}
-
-//Validador de formulario de Reserva
-function validarReserva(datosReserva) {
-
-  // Realiza la validación de campos aquí
-  const fechaActual = new Date();
-  const fechaComparar = new Date(datosReserva.fecha);
-
-  if (datosReserva.nombre.trim() === '' || datosReserva.apellido.trim() === '' || !validarnombre(datosReserva.nombre) || !validarnombre(datosReserva.apellido)) {
-    alert('Por favor, ingrese un nombre y apellido válidos.');
-    return false;
-  }
-
-  if (!validarEmail(datosReserva.email)) {
-    alert('Por favor, ingrese una dirección de correo electrónico válida.');
-    return false;
-  } else if (!validarfecha(datosReserva.fecha)) {
-    alert('Por favor, ingrese una fecha válida.');
-    return false;
-  } else if (fechaComparar < fechaActual) {
-    alert('Solo puede reservar en días posteriores al actual');
-    return false;
-  }
-
-  return true; // Si la validación pasa, permite el envío del formulario
 }

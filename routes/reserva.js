@@ -16,15 +16,15 @@ router.get('/porInstyDia', function (req, res, next) {
     const midao = new DAOAp(pool)
 
     var info = {
-        id : req.query.id,
-        dia : req.query.dia
+        id: req.query.id,
+        dia: req.query.dia
     }
 
     midao.leerReservaPorInstyDia(info, (err, datos) => {
         if (err) {
             res.json("0")
         } else {
-            res.json({reservas : datos, esAdmin : req.session.usuario.rol})
+            res.json({ reservas: datos, esAdmin: req.session.usuario.rol })
         }
     })
 })
@@ -51,16 +51,24 @@ router.get('/', function (req, res, next) {
                 global.gama = configDatos.gama;
                 global.direccion = configDatos.direccion;
             } // Renderizamos la página principal con la información de todos los destinos
+            if (req.session.usuario && req.session.usuario.rol !== -1) {  //Si tengo usuario validado o admin cargo gestion de reserva
+                res.render('gestionReserva', {
+                    logo: global.logo, titulo: global.titulo, gama: global.gama,
+                    direccion: global.direccion, sesion: req.session.usuario
+                });
+            } else {   //Si no tengo usuario o tengo usuario no validado, redirijo a ventana principal
+                res.redirect('/')
+            }
+        });
+    } else {
+        if (req.session.usuario && req.session.usuario.rol !== -1) {  //Si tengo usuario validado o admin cargo gestion de reserva
             res.render('gestionReserva', {
                 logo: global.logo, titulo: global.titulo, gama: global.gama,
                 direccion: global.direccion, sesion: req.session.usuario
             });
-        });
-    } else {
-        res.render('gestionReserva', {
-            logo: global.logo, titulo: global.titulo, gama: global.gama,
-            direccion: global.direccion, sesion: req.session.usuario
-        });//Cargo la ventana destino con los usuarios no validados
+        } else {   //Si no tengo usuario o tengo usuario no validado, redirijo a ventana principal
+            res.redirect('/')
+        }
     }
 
 });
@@ -70,14 +78,16 @@ router.get('/porUsuario', function (req, res, next) {
     const DAOAp = require('../mysql/daoReserva')
     const midao = new DAOAp(pool)
 
-    console.log(req.query.correo+ "A")
-    midao.leerReservaPorUsuario(req.query.correo, (err, datos) => {
-        if (err) { 
-            res.json("0")
-        } else {
-            res.json(datos)
-        }
-    })
+
+    if (validarEmail(req.query.correo)) {
+        midao.leerReservaPorUsuario(req.query.correo, (err, datos) => {
+            if (err) {
+                res.json("0")
+            } else {
+                res.json(datos)
+            }
+        })
+    }
 })
 
 
@@ -85,14 +95,15 @@ router.get('/infoUsuarioReserva', function (req, res, next) {
 
     const DAOAp = require('../mysql/daoUsuario')
     const midao = new DAOAp(pool)
-
-    midao.leerPorID(req.query.correo, (err, datos) => {
-        if (err) {
-            res.json("0")
-        } else {
-            res.json(datos)
-        }
-    })
+    if (validarEmail(req.query.correo)) {
+        midao.leerPorID(req.query.correo, (err, datos) => {
+            if (err) {
+                res.json("0")
+            } else {
+                res.json(datos)
+            }
+        })
+    }
 })
 
 
@@ -107,28 +118,30 @@ router.post('/alta', function (req, res, next) {
         instalacion: req.body.instalacion,
     }
 
-    midao.comprobarOcupacion(datosReserva, (err,datos) =>{
-        if (err) {
-            res.json("-1")
-        } else if(datos.length != 0) { //Si hay coincidente guardo en lista de espera
-            midao.listaEspera(datosReserva, (err, datos) => {
-                if (err) {
-                    res.json("-1")
-                } else {
-                    res.json("0")
-                }
-            })
-        }else{ //si no hay reservas coincidentes
-        
-            midao.altaReserva(datosReserva, (err, datos) => {
-                if (err) {
-                    res.json("0")
-                } else {
-                    res.json("1")
-                }
-            })
-        }
-    })
+    if (validarEmail(req.body.correo)) {
+        midao.comprobarOcupacion(datosReserva, (err, datos) => {
+            if (err) {
+                res.json("-1")
+            } else if (datos.length != 0) { //Si hay coincidente guardo en lista de espera
+                midao.listaEspera(datosReserva, (err, datos) => {
+                    if (err) {
+                        res.json("-1")
+                    } else {
+                        res.json("0")
+                    }
+                })
+            } else { //si no hay reservas coincidentes
+
+                midao.altaReserva(datosReserva, (err, datos) => {
+                    if (err) {
+                        res.json("0")
+                    } else {
+                        res.json("1")
+                    }
+                })
+            }
+        })
+    }
 })
 
 router.get('/filtrar', function (req, res, next) {
@@ -165,11 +178,10 @@ router.delete('/borrarReserva', function (req, res, next) {
     const DAOAp = require('../mysql/daoReserva')
     const midao = new DAOAp(pool)
 
-    midao.notificacionAdelantarListaespera(req.body.idReserva , (err, datos) => { //avisamos al usuarion que ahora va a ser el nuevo 
-        
+    midao.notificacionAdelantarListaespera(req.body.idReserva, (err, datos) => { //avisamos al usuarion que ahora va a ser el nuevo 
     })
 
-    midao.borrarReserva(req.body.idReserva , (err, datos) => { //Saca todas las reservas si es el admin
+    midao.borrarReserva(req.body.idReserva, (err, datos) => { //Saca todas las reservas si es el admin
         if (err) {
             res.json("0")
         } else {
@@ -177,7 +189,6 @@ router.delete('/borrarReserva', function (req, res, next) {
             res.json("1")
         }
     })
-
 })
 
 router.delete('/eliminarEspera', function (req, res, next) {
@@ -185,18 +196,13 @@ router.delete('/eliminarEspera', function (req, res, next) {
     const DAOAp = require('../mysql/daoReserva')
     const midao = new DAOAp(pool)
 
-    console.log(req.body.idReserva)
-
-    midao.borrarEspera(req.body.idEspera , (err, datos) => { //Saca todas las reservas si es el admin
+    midao.borrarEspera(req.body.idEspera, (err, datos) => { //Saca todas las reservas si es el admin
         if (err) {
             res.json("0")
         } else {
             res.json("1")
         }
     })
-
-
-
 })
 
 router.get('/leerListaEspera', function (req, res, next) {
@@ -204,7 +210,7 @@ router.get('/leerListaEspera', function (req, res, next) {
     const DAOAp = require('../mysql/daoReserva')
     const midao = new DAOAp(pool)
 
-    midao.leerListaEspera({id : req.query.id,dia : req.query.dia}, (err, datos) => {
+    midao.leerListaEspera({ id: req.query.id, dia: req.query.dia }, (err, datos) => {
         if (err) {
             res.json("0")
         } else {
@@ -213,6 +219,15 @@ router.get('/leerListaEspera', function (req, res, next) {
     })
 })
 
+function validarEmail(email) {//El mail deben ser letras o numeros, seguido de @ seguido de letras y numeros un punto y mas de dos letras
+    const emailComprobar = /^[A-Za-z0-9._%+-]+@ucm\.es$/
+    return emailComprobar.test(email);
+}
+
+function validarnombre(nombre) {//admite nombres y apellidos compuestos y con tildes 
+    const nombreComprobar = /^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/
+    return nombreComprobar.test(nombre);
+}
 
 
 module.exports = router;

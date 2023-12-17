@@ -39,16 +39,24 @@ router.get('/validar', function (req, res, next) {
                         global.gama = configDatos.gama;
                         global.direccion = configDatos.direccion;
                     } // Renderizamos la página principal con la información de todos los destinos
-                    res.render('gestionUsuarios', {
-                        usuarios: datos, logo: global.logo, titulo: global.titulo, gama: global.gama,
-                        direccion: global.direccion,sesion :req.session.usuario
-                    });
+                    if (req.session.usuario && req.session.usuario.rol == 1) {  //Solo puedo acceder a gestion de usuarios si soy admin (rol = 1)
+                        res.render('gestionUsuarios', {
+                            usuarios: datos, logo: global.logo, titulo: global.titulo, gama: global.gama,
+                            direccion: global.direccion, sesion: req.session.usuario
+                        });
+                    } else {
+                        res.redirect('/')
+                    }
                 });
             } else {
-                res.render('gestionUsuarios', {
-                    usuarios: datos, logo: global.logo, titulo: global.titulo, gama: global.gama,
-                    direccion: global.direccion, sesion :req.session.usuario
-                });//Cargo la ventana destino con los usuarios no validados
+                if (req.session.usuario && req.session.usuario.rol == 1) {  //Solo puedo acceder a gestion de usuarios si soy admin (rol = 1)
+                    res.render('gestionUsuarios', {
+                        usuarios: datos, logo: global.logo, titulo: global.titulo, gama: global.gama,
+                        direccion: global.direccion, sesion: req.session.usuario
+                    });
+                } else {
+                    res.redirect('/')
+                }
             }
         }
     });
@@ -62,58 +70,66 @@ router.post('/validar', function (req, res, next) {
     const daome = new DAOAs(pool)
 
 
-    midao.validarUsuario(req.body.correo, (err, datos) => {  //Leo en la BD los destinos con el id de la url
-        if (err) {
-            console.log(err)
-            res.send("0")
-        }
-        else {
-            res.send("1");//Cargo la ventana destino con los usuarios no validados
-        }
-    });
+    if (validarEmail(req.body.correo) && validarEmail(req.session.usuario.correo)) {
+        midao.validarUsuario(req.body.correo, (err, datos) => {  //Leo en la BD los destinos con el id de la url
+            if (err) {
+                res.send("0")
+            }
+            else {
+                var date = new Date().toISOString()
+                var mensaje = "Has sido aceptado dentro de la organizacion"
+                datos = {
+                    correoEmisor: req.session.usuario.correo,
+                    correoReceptor: req.body.correo,
+                    cuerpoMensaje: mensaje,
+                    fecha: date,
+                    rolEmisor: req.session.usuario.rol,
+                }
 
-    var date = new Date().toISOString()
-    var mensaje ="Has sido aceptado dentro de la organizacion"
-    datos={
-        correoEmisor : req.session.usuario.correo,
-        correoReceptor : req.body.correo,
-        cuerpoMensaje : mensaje,
-        fecha: date,
-        rolEmisor :req.session.usuario.rol,
+                daome.mandaNotificacion(datos, (err, datos) => {
+                    if (err) {
+                        res.send("0")
+                    } else {
+                        res.send("1")
+                    }
+                })
+            }
+        });
+
     }
-
-    daome.mandaNotificacion(datos, (err, datos) => {
-    })
 });
 
 router.post('/eliminar', function (req, res, next) {
 
     const DAOAp = require("../mysql/daoGestion")
     const midao = new DAOAp(pool)
-
-    midao.eliminarUsuario(req.body.correo, (err, datos) => {  //Leo en la BD los destinos con el id de la url
-        if (err) {
-            res.send("0")
-        }
-        else {
-            res.send("1");//Cargo la ventana destino con los usuarios no validados
-        }
-    });
+    if (validarEmail(req.body.correo)) {
+        midao.eliminarUsuario(req.body.correo, (err, datos) => {  //Leo en la BD los destinos con el id de la url
+            if (err) {
+                res.send("0")
+            }
+            else {
+                res.send("1");//Cargo la ventana destino con los usuarios no validados
+            }
+        });
+    }
 });
 
 router.post('/hacerAdmin', function (req, res, next) {
     const DAOAp = require('../mysql/daoGestion')
     const midao = new DAOAp(pool)
 
-    midao.hacerAdmin(req.body.correo, (err, datos) => {
-        if (err) {
-            console.log(err)
-            res.json("0")
-        } else {
-            res.json("1")
-        }
-    })
-}) 
+    if (validarEmail(req.body.correo)) {
+        midao.hacerAdmin(req.body.correo, (err, datos) => {
+            if (err) {
+                console.log(err)
+                res.json("0")
+            } else {
+                res.json("1")
+            }
+        })
+    }
+})
 
 router.get('/filtrar', function (req, res, next) {
     const DAOAp = require('../mysql/daoGestion')
@@ -121,32 +137,32 @@ router.get('/filtrar', function (req, res, next) {
 
     const nombreComprobar = /^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/
     const emailComprobar = /^[A-Za-z0-9._%+-]+@ucm\.es$/
-    var filtro={}
+    var filtro = {}
 
-    if(req.query.nombre && nombreComprobar.test(req.query.nombre)){
+    if (req.query.nombre && nombreComprobar.test(req.query.nombre)) {
         filtro.nombre = req.query.nombre
     }
-    if(req.query.apellido1 && nombreComprobar.test(req.query.apellido1)){
+    if (req.query.apellido1 && nombreComprobar.test(req.query.apellido1)) {
         filtro.apellido1 = req.query.apellido1
     }
-    if(req.query.apellido2 && nombreComprobar.test(req.query.apellido2)){
+    if (req.query.apellido2 && nombreComprobar.test(req.query.apellido2)) {
         filtro.apellido2 = req.query.apellido2
     }
-    if(req.query.correo && emailComprobar.test(req.query.correo)){
+    if (req.query.correo && emailComprobar.test(req.query.correo)) {
         filtro.nombre = req.query.nombre
     }
-    if(req.query.curso ){
+    if (req.query.curso) {
         filtro.curso = req.query.curso
     }
-    if(req.query.facultad ){
+    if (req.query.facultad) {
         filtro.facultad = req.query.facultad
     }
-    if(req.query.grupo ){
+    if (req.query.grupo) {
         filtro.grupo = req.query.grupo
     }
 
 
-    midao.filtrar( filtro,(err, datos) => {
+    midao.filtrar(filtro, (err, datos) => {
         if (err) {
             console.log(err)
             res.json("0")
@@ -154,12 +170,12 @@ router.get('/filtrar', function (req, res, next) {
             res.json(datos)
         }
     })
-}) 
+})
 
 router.get('/listarTodos', function (req, res, next) {
     const DAOAp = require('../mysql/daoGestion')
     const midao = new DAOAp(pool)
-    midao.listarTodos( (err, datos) => {
+    midao.listarTodos((err, datos) => {
         if (err) {
             console.log(err)
             res.json("0")
@@ -167,7 +183,12 @@ router.get('/listarTodos', function (req, res, next) {
             res.json(datos)
         }
     })
-}) 
+})
+
+function validarEmail(email) {//El mail deben ser letras o numeros, seguido de @ seguido de letras y numeros un punto y mas de dos letras
+    const emailComprobar = /^[A-Za-z0-9._%+-]+@ucm\.es$/
+    return emailComprobar.test(email);
+}
 
 
 module.exports = router;

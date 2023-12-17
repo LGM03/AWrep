@@ -4,7 +4,7 @@
     <!--  Esta formado por 1 fila que contiene 1 columna de tamaño 2 para el logo y una de tamaño 8 para el texto  -->
     <div class="col-sm-2 ">
       <a href="/"><img id="logo" src="<%=logo%>" alt="Icono Página no cargado" width="90"
-          class="d-flex align-content-center justify-content-center">
+          class="d-flex align-content-center justify-content-center mb-1">
       </a>
     </div>
 
@@ -29,7 +29,6 @@
           <% } %>
 
     </div>
-    <!--##################################################-->
 
     <!--Cuadro Modal inicio de Sesion-->
 
@@ -46,8 +45,8 @@
 
           <!-- cuerpo del diálogo -->
           <div class="modal-body alert alert-secondary">
-
-            <form id="inicioSesion" method="post" action="/user/login">
+            <!--Se debe oider introducir correo y contraseña para iniciar sesion-->
+            <form id="inicioSesion" method="get" action="/user/login">
               <div class="mb-3 row">
                 <label for="correoLogin" class="col-sm-3 col-form-label" id="correoInicio">Correo:</label>
                 <div class="col-sm-9">
@@ -68,7 +67,7 @@
               </div>
             </form>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer"> <!--Parte baja de la ventana modal, cambia a la otra modal si tienes que crear cuenta-->
             <h6>¿No tienes cuenta?</h6>
             <button type="button" class="btn botonsabermas" data-bs-toggle="modal" data-bs-target="#crearCuenta"
               data-bs-dismiss="modal">Crear Cuenta</button>
@@ -93,7 +92,7 @@
           </div>
 
           <!-- cuerpo del diálogo -->
-          <div class="modal-body alert alert-secondary">
+          <div class="modal-body alert alert-secondary"> <!--Una cuenta debe tener nombre, apelllidos, imagen, facultad, grupo y curso-->
 
             <form id="crearCuenta">
               <div class="mb-3 row">
@@ -123,7 +122,7 @@
                 </div>
               </div>
               <div class="mb-3 row">
-                <label for="facultad" class="col-sm-3 col-form-label">Facultad:</label>
+                <label for="facultad" class="col-sm-3 col-form-label">Facultad:</label>  <!--La facultad se introduce con un select, hay tres opciones -->
                 <div class="col-sm-9">
                   <select class="form-control" id="facultad" name="facultad" required>
                     <option value="" disabled selected>Seleccione su facultad:</option>
@@ -134,7 +133,7 @@
                 </div>
               </div>
               <div class="mb-3 row">
-                <label for="curso" class="col-sm-3 col-form-label">Curso:</label>
+                <label for="curso" class="col-sm-3 col-form-label">Curso:</label>  <!--El curso se introduce con un select, hay cuatro opciones -->
                 <div class="col-sm-9">
                   <select class="form-control" id="curso" name="curso" required>
                     <option value="" disabled selected>Seleccione su Curso:</option>
@@ -146,7 +145,7 @@
                 </div>
               </div>
               <div class="mb-3 row">
-                <label for="grupo" class="col-sm-3 col-form-label">Grupo:</label>
+                <label for="grupo" class="col-sm-3 col-form-label">Grupo:</label>  <!--El grupo se introduce con un select, hay tres opciones -->
                 <div class="col-sm-9">
                   <select class="form-control" id="grupo" name="grupo" required>
                     <option value="" disabled selected>Seleccione su Grupo:</option>
@@ -157,9 +156,9 @@
                 </div>
               </div>
               <div class="mb-3 row">
-                <label for="imagenUser" class="col-sm-3 col-form-label">Seleccionar Imagen:</label>
+                <label for="imagenUser" class="col-sm-3 col-form-label">Seleccionar Imagen:</label>  <!--La imagen debe ser de tipo PNG y tamaño inferior a 300 KB, se hacen comprobaciones adicionales en cliente-->
                 <div class="col-sm-9">
-                  <input type="file" class="form-control" id="imagenUser" name="imagenUser" accept="image/png" required size="400000">
+                  <input type="file" class="form-control" id="imagenUser" name="imagenUser" accept="image/png" required size="300000">
                   <!-- La propiedad "accept" limita la selección a archivos de tipo imagen -->
                 </div>
               </div>
@@ -169,7 +168,7 @@
                   <input type="password" class="form-control" name="contraseña" id="contraseña"  placeholder="Ingresa tu contraseña" required>
                   <div class="input-group-append">
                     <div class="input-group-text">
-                      <input type="checkbox" id="mostrarContrasena" class="form-check-input">
+                      <input type="checkbox" id="mostrarContrasena" class="form-check-input"> <!--Este checkbox cambia el tipo de contraseña para que quede visible-->
                       <label class="form-check-label" for="mostrarContrasena">Mostrar Contraseña</label>
                     </div>
                   </div>
@@ -200,7 +199,7 @@
             </form>
           </div>
           <div class="modal-footer">
-            <h6>¿No tienes una cuenta? </h6>
+            <h6>¿No tienes una cuenta? </h6>  <!--Parte baja de la ventana modal, cambia a la otra modal si tienes que crear cuenta-->
             <button type="button" class="btn botonsabermas" data-bs-toggle="modal" data-bs-target="#InicioSesion"
               data-bs-dismiss="modal">Inicia Sesión</button>
           </div>
@@ -212,8 +211,8 @@
     <!--#########################################################3-->
   </div>
 </header>
-<%if(usuario && usuario.rol==1){ %> <!--NAV BAR ADMIN-->
+<%if(usuario && usuario.rol==1){ %> <!--NAV BAR ADMIN Si mi rol es 1, soy admin y tengo una navbar propia-->
   <%-include('navAdmin.ejs')%>
-    <%}else if(usuario){ %> <!--NAV BAR USER -->
+    <%}else if(usuario){ %> <!--NAV BAR USER tengo un usuario soy rol 0 o -1 y tengo una navbar propia -->
       <%-include('navUsuario.ejs')%>
         <% } %>
