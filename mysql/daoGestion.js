@@ -96,7 +96,6 @@ class DAOGestion {   //DAO que accede a los destinos y su respectiva informació
                 connection.query(sql, [idUsu], function (err, resultado) {
                     connection.release(); //Libero la conexion
                     if (err) {
-                        console.log(err)
                         callback(err, null); //Si ha ocurrido un error retorno el error
                     } else {
                         callback(null, resultado); //Si todo ha ido bien retorno la información obtenida 
@@ -183,7 +182,6 @@ class DAOGestion {   //DAO que accede a los destinos y su respectiva informació
                 connection.query(sql, variables, function (err, resultado) {
                     connection.release(); //Libero la conexion
                     if (err) {
-                        console.log(err)
                         callback(err, null); //Si ha ocurrido un error retorno el error
                     } else {
                         callback(null, resultado); //Si todo ha ido bien retorno la información obtenida 
@@ -202,7 +200,6 @@ class DAOGestion {   //DAO que accede a los destinos y su respectiva informació
                 connection.query(sql, [], function (err, resultado) {
                     connection.release(); //Libero la conexion
                     if (err) {
-                        console.log(err)
                         callback(err, null); //Si ha ocurrido un error retorno el error
                     } else {
                         callback(null, resultado); //Si todo ha ido bien retorno la información obtenida 

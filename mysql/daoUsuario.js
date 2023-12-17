@@ -24,7 +24,7 @@ class DAOUsuario{   //DAO que accede a los destinos y su respectiva información
     } 
 
     altaUsuario(datosUsuario, callback) { //guarda en la base de datos la información del usuario
-        console.log(datosUsuario);
+    
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null);  //Si ocurre algun error retornamos el error

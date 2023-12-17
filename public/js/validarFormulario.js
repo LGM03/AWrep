@@ -16,7 +16,7 @@ $(function () {
     //Recojo los valores de las variables del formulario de registro
     event.preventDefault();
     var aux = $("#contraseña").prop("value")
-    console.log(aux)
+
 
     var datosCrearUsuario = new FormData();
     datosCrearUsuario.append("nombre", $("#nombre").val());

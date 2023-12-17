@@ -1,5 +1,5 @@
 
-$(document).ready(function () {
+$(function () {
 
     $("#confirmarReserva").on("click", function (event) {
         event.preventDefault();
@@ -23,8 +23,7 @@ $(document).ready(function () {
         }
 
         //Valido que la reserva este en el rango apropiado
-        console.log("INFO INSTALACION : "+datosInst.horaIni +" : "+ datosInst.horaFin)
-        console.log("INFO RESERVA : "+horaIni+" : "+ horaFin)
+   
         if (new Date(fecha) > new Date() && horaIni < horaFin && horaIni >= datosInst.horaIni && horaFin <= datosInst.horaFin) {
             $.ajax({
                 method: "POST",

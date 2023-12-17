@@ -39,7 +39,6 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
                 connection.query(sql, [datosReserva.instalacion, fechaInicio, fechaFin ,fechaInicio, fechaFin,fechaInicio,fechaFin,fechaInicio,fechaInicio,fechaFin,fechaInicio], function (err, resultado) {
                     connection.release(); //Libero la conexion
                     if (err) {
-                        console.log(err)
                         callback(err, null); //Si ha ocurrido un error retorno el error
                     } else {
                         callback(null, resultado); //Si todo ha ido bien retorno la información obtenida 
@@ -54,7 +53,6 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
             } else {
-                console.log(datosReserva.fechaIni);
                 var fechaInicio = datosReserva.fechaIni.slice(0, 10).replace('T', ' ')
                 const sql = "insert into listaespera (idUsu, idIns,fechaReserva) values (?,?,?) "
                 connection.query(sql, [datosReserva.correo, datosReserva.instalacion ,fechaInicio], function (err, resultado) {
@@ -74,12 +72,10 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
             } else {
-                console.log("AAA" + datos.id+" " + datos.dia)
                 const sql = "SELECT * FROM listaespera inner join ucm_aw_riu_usu_usuarios on idUsu = correo where idIns = ? and fechaReserva = ? order by fechaEntrada"
                 connection.query(sql, [datos.id,datos.dia], function (err, resultado) {
                     connection.release(); //Libero la conexion
                     if (err) {
-                        console.log(err)
                         callback(err, null); //Si ha ocurrido un error retorno el error
                     } else {
                         callback(null, resultado); //Si todo ha ido bien retorno la información obtenida 
@@ -136,7 +132,6 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
                 connection.query(sql, [], function (err, resultado) {
                     connection.release(); //Libero la conexion
                     if (err) {
-                        console.log(err)
                         callback(err, null); //Si ha ocurrido un error retorno el error
                     } else {
                         callback(null, resultado); //Si todo ha ido bien retorno la información obtenida 
@@ -280,7 +275,7 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
                 let mensaje = "Su reserva de la instalacion "+ nombreins + " para el dia "+fechaFormateada+" que se encontraba en lista de espera ahora esta disponible";
 
                 const resultUserCola = await getUserCola(idIns, fechaFormateada);
-                 console.log(resultUserCola);
+              
                 try{
                     userCola=resultUserCola[0].idUsu;
                     let idLista=resultUserCola[0].id;

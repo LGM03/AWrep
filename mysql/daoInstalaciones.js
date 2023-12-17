@@ -35,7 +35,6 @@ class DAOInstalaciones{   //DAO que accede a los destinos y su respectiva inform
                 connection.query(sql, [datos.nombre, datos.tipoReserva,datos.horaInicio,datos.horaFin, datos.aforo,datos.imagenInstalacion], function (err, resultado) {
                     connection.release(); //Libero la conexion
                     if (err) {
-                        console.log(err)
                         callback(err, null); //Si ha ocurrido un error retorno el error
                     } else {
                         callback(null, resultado.insertId); //Si todo ha ido bien retorno la información obtenida 

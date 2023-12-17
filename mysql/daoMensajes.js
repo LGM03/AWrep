@@ -13,7 +13,6 @@ class DAOMensajes{   //DAO que accede a los destinos y su respectiva informació
                 connection.query(sql, [datos.correoEmisor, datos.correoReceptor, datos.cuerpoMensaje, datos.fecha], (err, resultado) => {
                     connection.release();
                     if (err) {
-                        console.log(err);
                         callback(err, null);
                     } else {
                         callback(null, resultado.insertId);
@@ -92,7 +91,6 @@ class DAOMensajes{   //DAO que accede a los destinos y su respectiva informació
                             connection.query(sql, [datos.correoEmisor, datos.correoReceptor, datos.cuerpoMensaje, datos.fecha], (err, resultado) => {
                                 connection.release();
                                 if (err) {
-                                    console.log(err);
                                     callback(err, null);
                                 } else {
                                     callback(null, resultado.insertId);

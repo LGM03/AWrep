@@ -98,8 +98,7 @@ $(function () {
       url: "/estadisticas/porUsuario",
       data: { usuario: usuario },
       success: function (datos, state, jqXHR) {
-        console.log(datos)
-
+      
         if (datos.length == 0) {
 
           $("#miGraficaUsuario").addClass('d-none')
@@ -115,8 +114,6 @@ $(function () {
             dates.push(element.contador)
             inst.push(element.nombre)
           });
-          console.log(dates)
-          console.log(inst)
 
           var barColors = [
             "darkkhaki",

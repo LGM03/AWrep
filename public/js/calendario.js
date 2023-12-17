@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function () {
     //CALENDARIO
     $('#calendario').fullCalendar({
         header: {
@@ -22,12 +22,11 @@ $(document).ready(function () {
                     if (datos.reservas.length == 0) {
                         cell.css("background-color", "#50F469");
                     } else {
-                        console.log(date)
+                        
                         if (comprobarOcupacion(datos.reservas)) { //Si es true no hay huevos libre 
-                            console.log("ROJO")
+                        
                             cell.css("background-color", "#FE1E50");
                         } else {
-                            console.log("amarillo")
                             cell.css("background-color", "#FFE390");
 
                         }
@@ -212,7 +211,7 @@ function comprobarOcupacion(reservas) {
         finAnterior.add(1, 'hour');
 
         if (iniActual.format("HH:mm") > finAnterior.format("HH:mm")) {
-            console.log("C")
+          
             return false
         }
     }

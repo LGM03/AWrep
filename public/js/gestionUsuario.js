@@ -108,7 +108,7 @@ $(function () {
 
         var divContenedor = boton.closest('.cajaUsuario'); // Este es el div padre 
         var correo = divContenedor.find('#correoUser').text(); // Busco el p que contiene el correo 
-        console.log("ASDF" + correo)
+        
         var data = {
             correo: correo
         };
@@ -118,9 +118,8 @@ $(function () {
             url: "/gestionUsuarios/hacerAdmin",
             data: data,
             success: function (datos, state, jqXHR) { // Si todo ha ido bien pongo un mensaje de acierto
-                console.log(datos);
+          
                 if (datos == "1") {
-                    console.log(datos);
                     boton.removeClass('btn btn-secondary mb-2').addClass('alert alert-success p-1');
                     boton.text("Es admin")
                 } else {

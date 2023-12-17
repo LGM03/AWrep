@@ -86,7 +86,6 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
                 connection.query(sql, [], function (err, resultado) {
                     connection.release(); //Libero la conexion
                     if (err) {
-                        console.log(err)
                         callback(err, null); //Si ha ocurrido un error retorno el error
                     } else {
                         callback(null, resultado[0]); //Si todo ha ido bien retorno la información obtenida 

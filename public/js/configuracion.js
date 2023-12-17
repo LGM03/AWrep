@@ -50,7 +50,7 @@ $(function () {
     $("#cambiarGama").on("click", function (event) {
 
         var estilo = $("#hojaEstilosGama").attr('href')
-        console.log(estilo)
+   
         if (estilo == "/css/estiloOscuro.css") {
             var nuevo = "/css/estiloClaro.css"
             $("#hojaEstilosGama").prop("href", "/css/estiloClaro.css")

@@ -63,7 +63,6 @@ router.get('/leerEnviados', function (req, res, next) {
     if (validarEmail(req.session.usuario.correo)) {
         midao.leerTodos(req.session.usuario.correo, (err, datos) => {  //Leo en la BD los destinos con el id de la url
             if (err) {
-                console.log(err)
                 res.send("0") //si ocurre un error cargo la ventana de error 
             }
             else {

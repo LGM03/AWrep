@@ -63,9 +63,6 @@ $(function () {
       fecha : new Date().toLocaleString()
       }
 
-      console.log(datosMensaje.fecha)
-
-
       $.ajax({
         method: "POST",
         url: "/mensajes/mandarMensaje",

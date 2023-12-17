@@ -20,7 +20,6 @@ router.get('/validar', function (req, res, next) {
 
     midao.leerTodos((err, datos) => {  //Leo en la BD los destinos con el id de la url
         if (err) {
-            console.log(err)
             res.send("0") //si ocurre un error cargo la ventana de error 
         }
         else {
@@ -122,7 +121,6 @@ router.post('/hacerAdmin', function (req, res, next) {
     if (validarEmail(req.body.correo)) {
         midao.hacerAdmin(req.body.correo, (err, datos) => {
             if (err) {
-                console.log(err)
                 res.json("0")
             } else {
                 res.json("1")
@@ -164,7 +162,6 @@ router.get('/filtrar', function (req, res, next) {
 
     midao.filtrar(filtro, (err, datos) => {
         if (err) {
-            console.log(err)
             res.json("0")
         } else {
             res.json(datos)
@@ -177,7 +174,6 @@ router.get('/listarTodos', function (req, res, next) {
     const midao = new DAOAp(pool)
     midao.listarTodos((err, datos) => {
         if (err) {
-            console.log(err)
             res.json("0")
         } else {
             res.json(datos)

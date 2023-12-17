@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function () {
 
     $("#periodoCheckbox").change(function () { //Cuando se pulse el checkbox
         if ($(this).is(':checked')) {
@@ -31,8 +31,7 @@ $(document).ready(function () {
                         var existe = false
 
                         datos.datos.forEach(element => {
-                            console.log(element)
-
+                        
                             if ((!filtro.nombre || filtro.nombre === element.nombre) &&
                                 (!filtro.apellido1 || filtro.apellido1 === element.apellido1) &&
                                 (!filtro.apellido2 || filtro.apellido2 === element.apellido2) &&
@@ -89,7 +88,7 @@ $(document).ready(function () {
         var divContenedor = $(this).closest('.cajaUsuario'); // Este es el div padre 
         var idReserva = divContenedor.data("id")
         var fecha =  $(this).closest('em');
-        console.log(fecha)
+  
         var data = {
             idReserva: idReserva
         };

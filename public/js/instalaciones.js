@@ -27,7 +27,6 @@ $(function () {
     } else if ($("#tipoReserva").val() == "Colectiva" && $("#aforo").val() <= 1) {
       alert("Tipo de instalacion y aforo no válidos")
     } else {
-      console.log(datosCrearIns)
       $.ajax({
         method: "POST",
         url: "/instalaciones/crearInstalacion",
