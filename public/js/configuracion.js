@@ -47,26 +47,26 @@ $(function () {
     })
 
 
-    $("#cambiarGama").on("click", function (event) {
+    $("#cambiarGama").on("click", function (event) {  //Cuando se pulsa el boton de cambiar gama
 
         var estilo = $("#hojaEstilosGama").attr('href')
    
-        if (estilo == "/css/estiloOscuro.css") {
+        if (estilo == "/css/estiloOscuro.css") { //Si el estilo era oscuro paso al claro
             var nuevo = "/css/estiloClaro.css"
             $("#hojaEstilosGama").prop("href", "/css/estiloClaro.css")
         } else {
-            var nuevo = "/css/estiloOscuro.css"
+            var nuevo = "/css/estiloOscuro.css" //Si el estilo era claro paso al oscuro
             $("#hojaEstilosGama").prop("href", "/css/estiloOscuro.css")
         }
 
-        $.ajax({
+        $.ajax({  //Guardo en la base de datos el estilo nuevo
             method: "POST",
             url: "/configuracion/gama",
             data: { gama: nuevo },
             success: function (datos, state, jqXHR) { //Si todo ha ido bien pongo un mensaje de acierto
                 if (datos !== "0") {
                 } else {
-                    alert("No se ha podido validar")
+                    alert("No se ha podido cambiar la gama")
                 }
             },
             error: function (jqXHR, statusText, errorThrown) { //Si ha ocurrido un error pongo un mensaje de error
@@ -76,20 +76,20 @@ $(function () {
 
     })
 
-    $("#guardarLogo").on("click", function () {
+    $("#guardarLogo").on("click", function () {  //Cambiar el logo
 
         const fileInput = $("#logoInput")
 
         const file = fileInput[0].files[0];
 
-        var comprobarEx = /(\.png)$/i;
+        var comprobarEx = /(\.png)$/i;  //Compruebo que sea png y su tamaño no sea mayor de 300KB
         if (!file|| !comprobarEx.exec(file.name) || file.size > 300000) {
             alert("Seleccione una imagen válida")
             return false;
         }
 
 
-        if (file) {
+        if (file) { //Si todo va bien hago un update a la base de datos con el nuevo logo
             const formData = new FormData();
             formData.append('logo', file);
 
@@ -99,7 +99,7 @@ $(function () {
                 data: formData,
                 contentType: false,
                 processData: false,
-                success: function (datos, state, jqXHR) {
+                success: function (datos, state, jqXHR) { //Si ya exito escondo el modal y vacio los parametros
                     $("#logConfiguracion").attr("src", datos)
                     $("#logoPequeño").attr("src", datos)
                     $("#cambiarLogo").modal('hide')

@@ -81,16 +81,16 @@ $(function () {
 
                 $.ajax({
                     method: "GET",
-                    url: "/reserva/leerListaEspera",
+                    url: "/reserva/leerListaEspera", //Leo los elementos de la lista de espera
                     data: data,
                     success: function (datos, state, jqXHR) {
 
                         $("#ListaEspera").text("Lista de Espera " + date.format('DD-MM-YY'))
                         if (datos.length == 0) {
-                            mensajeVacio($("#cajasEsperas"), "Lista de Espera vacía")
+                            mensajeVacio($("#cajasEsperas"), "Lista de Espera vacía")  //Si no hay nada aviso al admin
                         } else {
                             datos.forEach(element => {
-                                elementoListaEspera(element, $("#cajasEsperas"))
+                                elementoListaEspera(element, $("#cajasEsperas")) //Si hay algo lo muestro
                             });
                         }
                     },
@@ -101,14 +101,14 @@ $(function () {
 
 
             } else {
-                alert("Inicia sesión con una cuenta validada")
+                alert("Inicia sesión con una cuenta validada") //Si no hay un usuario validado no se le permite ver el calendario 
             }
         }
 
     });
 })
 
-function agregarCajaHistorial(element) {
+function agregarCajaHistorial(element) { //Creacion de cajas de historial
     var fechaIni = moment(element.fecha, 'YYYY-MM-DD HH:mm:ss');
     fechaIni.add(1, 'hour');
     var fechaFin = moment(element.fechafinal, 'YYYY-MM-DD HH:mm:ss');
@@ -120,13 +120,13 @@ function agregarCajaHistorial(element) {
     const cajaReserva = $('<div class="col-10 d-flex flex-column"></div>')
 
     // Contenedor para el nombre y la fecha
-    const infoContainer = $('<div class="d-flex justify-content-between align-items-center mb-1"></div>');
-    const botonX = $('<button type="button" class="btn btn-success m-2"> <span aria-hidden="true">+</span> </button>')
+    const infoContainer = $('<div class="d-flex justify-content-between align-items-center mb-1"></div>'); //Caja de la informacion 
+    const botonX = $('<button type="button" class="btn btn-success m-2"> <span aria-hidden="true">+ Más Información</span> </button>') // boton para mas informacion 
     botonX.addClass("masInfo")
 
-    const nombreCom = $('<h5 class="mb-0"> <strong>Responsable : </strong>' + element.idUsu + '</h5>')
-    const fechaCom = $('<p class="mb-0"><strong>Fecha : </strong>' + fechaIni.format('DD-MM-YYYY') + '</p>')
-    const fechaCom2 = $('<p class="mb-0">  <strong>Horas : </strong> ' + fechaIni.format('HH:mm') + "-" + fechaFin.format('HH:mm') + '</p>')
+    const nombreCom = $('<h5 class="mb-0"> <strong>Responsable : </strong>' + element.idUsu + '</h5>') //id del usuario (correo)
+    const fechaCom = $('<p class="mb-0"><strong>Fecha : </strong>' + fechaIni.format('DD-MM-YYYY') + '</p>') //Fecha 
+    const fechaCom2 = $('<p class="mb-0">  <strong>Horas : </strong> ' + fechaIni.format('HH:mm') + "-" + fechaFin.format('HH:mm') + '</p>') //Rango horario de la reserva
 
     infoContainer.append(botonX);
     infoContainer.append(nombreCom);
@@ -139,12 +139,12 @@ function agregarCajaHistorial(element) {
     $("#cajasHistorial").append(caja);
 }
 
-function elementoListaEspera(element, padre) {
+function elementoListaEspera(element, padre) { //Agrego elementos a la lista de espera
     const caja = $('<div class="row rounded alert alert-secondary infoEspera m-2"></div>');
 
     // Sección de info de la reserva
     const cajaReserva = $('<div class="col-10 d-flex flex-column"></div>')
-    const botonX = $('<button type="button" class="btn btn-danger m-2 eliminarElementoEspera"> <span aria-hidden="true">X</span> </button>')
+    const botonX = $('<button type="button" class="btn btn-danger m-2 eliminarElementoEspera"> <span aria-hidden="true">Eliminar</span> </button>')
 
 
     // Contenedor para el nombre y la fecha
@@ -156,23 +156,23 @@ function elementoListaEspera(element, padre) {
     const facultad = $('<p class="mb-0"><strong>Facultad : </strong>' + element.facultad + '</p>')
     const clase = $('<p class="mb-0">  <strong>Clase : </strong> ' + element.curso + "-" + element.grupo + '</p>')
   
-    infoContainer.append(botonX)
-    infoContainer.append(correo)
-    infoContainer.append(nombreCom);
-    infoContainer.append(facultad);
-    infoContainer.append(clase);
+    infoContainer.append(botonX) //Agrego boton 
+    infoContainer.append(correo) //Agrego correo
+    infoContainer.append(nombreCom);    //Agrego nombre
+    infoContainer.append(facultad); //Agrego facultad
+    infoContainer.append(clase); //Agrego clase = curso + grupo
 
     cajaReserva.append(infoContainer);
 
     caja.append(cajaReserva);
-    caja.data("idEspera",element.id)
+    caja.data("idEspera",element.id) //Le añado el id para poder eliminarlo luego
     padre.append(caja);
 }
 
-function mensajeVacio(padre, info) {
+function mensajeVacio(padre, info) { //Mensaje de listado vacio, muestro una iamgen 
     var contenedor = $("<div class='col-12 text-center cajaInfo'>")
     var mensaje = $("<h2 class='mt-3'></h2>")
-    var imagen = $("<img class='img-fluid w-25' src='/images/vacio.png' alt='Imagen de Vacio'>")
+    var imagen = $("<img class='img-fluid w-25' src='/images/vacio.png' alt='Caja Vacia'>")
     mensaje.text(info)
 
     contenedor.append(mensaje)
@@ -203,7 +203,7 @@ function comprobarOcupacion(reservas) {
         return false;
     }
 
-    for (var i = 1; i < reservas.length; i++) {
+    for (var i = 1; i < reservas.length; i++) {  //Recorro todas las reservas comprobando la ocupacion
 
         var iniActual = moment(reservas[i].fecha, 'YYYY-MM-DD HH:mm:ss');
         iniActual.add(1, 'hour');
@@ -232,14 +232,9 @@ $(document).on("click", ".eliminarElementoEspera", function () {
         data: data,
         success: function (datos, state, jqXHR) { //Si todo ha ido bien pongo un mensaje de acierto
             if (datos !== "0") {
-                
-               
-
                 divContenedor.slideUp(1500,function () {
                     alert("Elemento de lista de Espera eliminado")
                 })
-
-
             } else {
                 alert("No se pudo eliminar el elemento de la reserva")
             }
