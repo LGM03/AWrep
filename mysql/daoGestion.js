@@ -113,7 +113,7 @@ class DAOGestion {   //DAO que accede a los destinos y su respectiva informació
                 var sql = "select * from ucm_aw_riu_usu_usuarios"
                 var condicion = ""
                 var variables = []
-
+                console.log(filtro.Nombre)
                 if (filtro.nombre) {
                     if (condicion !== "") {
                         condicion += " and nombre = ?"

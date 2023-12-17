@@ -3,7 +3,7 @@ $(function () {
   $("#botonMensajesRecibidos").on("click", function () {
     $("#mensajesRecibidos").fadeIn(1000)
     $("#mensajesEnviados").hide()
-
+    $("#mensajesRecibidos .cajaMensaje").hide()
     $.ajax({
       method: "GET",
       url: "/mensajes/leerEnviados",
@@ -29,6 +29,8 @@ $(function () {
   $("#botonMensajesEnviados").on("click", function () {
     $("#mensajesEnviados").fadeIn(1000)
     $("#mensajesRecibidos").hide()
+    
+    $("#mensajesEnviados .cajaMensaje").hide()
 
     $.ajax({
       method: "GET",
@@ -93,7 +95,7 @@ function agregarCajaRecibidosMensajes(mensaje, padre){
 
   var fecha = mensaje.fecha.slice(0,10)
   var hora = mensaje.fecha.slice(11,-8)
-  var cajaMensaje = `<div class="row align-items-center m-2 my-2">
+  var cajaMensaje = `<div class="row align-items-center m-2 my-2 cajaMensaje">
   <div class="col-12 cajamensaje d-flex flex-column">
       <div class="d-flex justify-content-between align-items-center mb-1">
           <h5 class="mb-0">
@@ -119,7 +121,7 @@ function agregarCajaEnviadosMensajes(mensaje, padre){
 
   var fecha = mensaje.fecha.slice(0,10)
   var hora = mensaje.fecha.slice(11,-8)
-  var cajaMensaje = `<div class="row align-items-center m-2 my-2">
+  var cajaMensaje = `<div class="row align-items-center m-2 my-2 cajaMensaje">
   <div class="col-12 cajamensaje d-flex flex-column">
       <div class="d-flex justify-content-between align-items-center mb-1">
           <h5 class="mb-0">
@@ -144,7 +146,7 @@ padre.removeClass("d-none")
 
 function actualizarCajaEnviadosMensajes(mensaje, padre){
 
-  var cajaMensaje = `<div class="row align-items-center m-2 my-2">
+  var cajaMensaje = `<div class="row align-items-center m-2 my-2 cajaMensaje">
   <div class="col-12 cajamensaje d-flex flex-column">
       <div class="d-flex justify-content-between align-items-center mb-1">
           <h5 class="mb-0">

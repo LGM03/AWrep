@@ -100,41 +100,18 @@ $(function () {
             success: function (datos, state, jqXHR) { // Si todo ha ido bien pongo un mensaje de acierto
                 if (datos == "1") {
                     divContenedor.slideUp(1000)
-                    notificarUsuario(idReseva,fecha)
 
                 } else {
                     alert("No se ha podido borrar la reserva");
                 }
             },
             error: function (jqXHR, statusText, errorThrown) { // Si ha ocurrido un error pongo un mensaje de error
-                alert("Ha ocurrido un error con los usuarios");
+                alert("Ha ocurrido un error para borrar la reserva");
             }
         });
     })
 })
 
-function notificarUsuario(idReserva, fecha){
-//Busco al usuario en la lista de espera para ese dia
-$.ajax({
-    method: "POST",
-    url: "/mensajes/notificarUsuario",
-    data: {},
-    success: function (datos, state, jqXHR) { // Si todo ha ido bien pongo un mensaje de acierto
-        if (datos == "1") {
-            notificarUsuario(idReseva,fecha)
-            divContenedor.slideUp(2000)
-
-        } else {
-            alert("No se ha podido borrar la reserva");
-        }
-    },
-    error: function (jqXHR, statusText, errorThrown) { // Si ha ocurrido un error pongo un mensaje de error
-        alert("Ha ocurrido un error con los usuarios");
-    }
-});
-//Le mando el mensaje
-
-}
 
 function agregarCajaReserva(esAdmin, element, padre) {
     const caja = $('<div class="row cajaUsuario rounded m-2"></div>');
