@@ -29,7 +29,7 @@
           <h5 class="mt-3 alert alert-warning">Tu usuario no ha sido validado</h5>
           <%}else{ %>
             <h3 class="textoCabecera text-center">Listado de Reservas</h3>
-
+          <!-- Mostramos un listado de reservas -->
             <form class="bg-light rounded mb-3">
               <%if(sesion.rol==1){ %>
               <div class="mt-3 mb-3 row">
@@ -104,7 +104,7 @@
               <button type="submit" class="btn botonsabermas offset-sm-2 mb-3" id="filtrarReservas">Filtrar</button>
             </form>
             <div class="row" id = "divListaReservas"></div>
-            <!--Por cada destino traido por la base de datos pongo una tarjeta -->
+            <!--Por cada reserva traido por la base de datos pongo una tarjeta -->
 
       </div>
 

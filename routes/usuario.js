@@ -121,7 +121,7 @@ function validarnombre(nombre) {//admite nombres y apellidos compuestos y con ti
   const nombreComprobar = /^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/
   return nombreComprobar.test(nombre);
 }
-function validarnovacio(aux){
+function validarnovacio(aux){// miramos que no se incluyan datos vacios en facultad curso y grupo
   return aux!='';
 }
 

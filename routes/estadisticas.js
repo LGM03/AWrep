@@ -65,7 +65,7 @@ router.get('/', function (req, res, next) {
       }
 });
 
-router.get('/porFacultad', function (req, res, next) {
+router.get('/porFacultad', function (req, res, next) {// consigue lo datos de cada facultad
   const DAOAp = require('../mysql/daoEstadisticas')
   const midao = new DAOAp(pool)
   midao.porFacultad(req.query.facultad ,(err, datos) => {
@@ -77,7 +77,7 @@ router.get('/porFacultad', function (req, res, next) {
   })
 }) 
 
-router.get('/porUsuario', function (req, res, next) {
+router.get('/porUsuario', function (req, res, next) {// muestro las reservas de instalaciones que ha hecho el user
   const DAOAp = require('../mysql/daoEstadisticas')
   const midao = new DAOAp(pool)
   midao.porUsuario(req.query.usuario ,(err, datos) => {

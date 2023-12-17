@@ -16,7 +16,7 @@ $(function () {
     passwordInput.attr('type', this.checked ? 'text' : 'password');
   });
 
-  $("#idCrearCuenta").on("click", function (event) { //TODO limpiar codigo
+  $("#idCrearCuenta").on("click", function (event) { 
     //Recojo los valores de las variables del formulario de registro
     event.preventDefault();
     var aux = $("#contraseña").prop("value")
@@ -46,7 +46,7 @@ $(function () {
       imagenUser: $("#imagenUser")[0].files[0]
     }
 
-    if (validarInicio(datosInicio)) {
+    if (validarInicio(datosInicio)) { // valida la creaccion de un nuevo usuario
       $.ajax({
         method: "POST",
         url: "/user/crearCuenta",
@@ -95,26 +95,26 @@ function validarInicio(datosInicio) { //Toggle es mas bonito que alert
     alert('Por favor, ingrese un nombre y apellido válidos.');
     return false;
   }
-  if (datosInicio.facultad.trim() == '') {
+  if (datosInicio.facultad.trim() == '') {// valida la facultad
     alert('Seleccione una facultad');
     return false;
   }
-  if (datosInicio.curso == "") {
+  if (datosInicio.curso == "") {// valida el curso
     alert('Seleccione un Curso');
     return false;
   }
-  if (datosInicio.grupo == "") {
+  if (datosInicio.grupo == "") {// valida el grupo
     alert('Seleccione un Grupo');
     return false;
   }
 
-  var comprobarEx = /(\.png)$/i;
+  var comprobarEx = /(\.png)$/i; // valida la imagen 
   if (!datosInicio.imagenUser || !comprobarEx.exec(datosInicio.imagenUser.name) || datosInicio.imagenUser.size > 300000) {
     alert("Seleccione una imagen válida")
     return false;
   }
 
-  if (!validarEmail(datosInicio.email)) {
+  if (!validarEmail(datosInicio.email)) {// valida el email
     alert('Por favor, ingrese una dirección de correo electrónico válida.');
     return false;
   } else if (datosInicio.contraseña != datosInicio.contraseñaRep) {

@@ -9,7 +9,7 @@ $(function () {
         }
     })
 
-    $("#filtrarReservas").on("click", function (event) {
+    $("#filtrarReservas").on("click", function (event) {// funcion encargada de mostrar las reservas al pulsar el boton filtrar
         event.preventDefault();
         $("#divListaReservas .cajaUsuario").slideUp(1000);
 
@@ -78,7 +78,6 @@ $(function () {
         var data = {
             idReserva: idReserva
         };
- 
 
         $.ajax({
             method: "DELETE",
@@ -100,7 +99,7 @@ $(function () {
 })
 
 
-function agregarCajaReserva(esAdmin, element, padre) {
+function agregarCajaReserva(esAdmin, element, padre) {// agrega la caja de las reservas 
     const caja = $('<div class="row cajaUsuario rounded m-2"></div>');
     // Sección de info de la reserva
 
@@ -135,7 +134,6 @@ function agregarCajaReserva(esAdmin, element, padre) {
 
     caja.data("id", element.id) //Esto va a permitir saber que reserva hay que eliminar 
     padre.append(caja);
-    console.log(element.id)
     if (esAdmin == 0) {
         cajaPlazo.append(botonCancelar);
     } else {
@@ -143,7 +141,7 @@ function agregarCajaReserva(esAdmin, element, padre) {
     }
 }
 
-function infoUsuario(datos, padre) {
+function infoUsuario(datos, padre) {// agraga la info del usuario que tiene la reserva 
 
     const caja = $('<div class="row alert alert-secondary  rounded m-2"></div>');
     // Sección de info de la reserva
@@ -156,15 +154,15 @@ function infoUsuario(datos, padre) {
     const cajaNombre = $('<div class="col-md-3 col-sm-5  d-flex justify-content-between align-items-center mb-1"></div>');
     const nombreCom = $('<p><strong>' + datos.nombre + '</strong></p>')
     cajaNombre.append(nombreCom)
-
+    // contenedor que guarda el correo
     const cajaCorreo = $('<div class=" col-md-2 col-sm-5  d-flex justify-content-between align-items-center mb-1"></div>');
     const correo = $('<p class="mb-0"><strong>Correo: </strong>' + datos.correo + '</p>')
     cajaCorreo.append(correo)
-
+    //contenedor que guarda los datos de la facultad
     const cajaFacultad = $('<div class="col-md-2 col-sm-5  d-flex justify-content-between align-items-center mb-1"></div>');
     const facultad = $('<p class="mb-0"><strong>Facultad: </strong>' + datos.facultad + '</p>')
     cajaFacultad.append(facultad)
-
+    //cajas que van a ser las encargadas de guardar toda la info
     const cajaClase = $('<div class=" col-md-3 col-sm-5  d-flex justify-content-between align-items-center mb-1"></div>');
     const clases = $('<p class="mb-0">  <strong>Grupo : </strong> <em>' +datos.clase+ '</p>')
     cajaClase.append(clases)
@@ -178,14 +176,14 @@ function infoUsuario(datos, padre) {
     padre.append(caja);
 }
 
-function validarFiltro(datos) {
+function validarFiltro(datos) {//agrega la funcion del filtro a la busqueda revisando si los datos incluidos son validos
     var nombre = $("#nombreFiltrar").prop("value")
     var apellido1 = $("#apellido1Filtrar").prop("value")
     var apellido2 = $("#apellido2Filtrar").prop("value")
     var correo = $("#correoFiltrar").prop("value")
     var facultad = $("#facultadFiltrar").prop("value")
 
-    if (nombre && nombre.trim() !== "") {
+    if (nombre && nombre.trim() !== "") {//revsa el nombre
         if (validarnombre(nombre)) {
             datos.nombre = nombre
         } else {
@@ -194,7 +192,7 @@ function validarFiltro(datos) {
             return false
         }
     }
-    if (apellido1 && apellido1.trim() !== "") {
+    if (apellido1 && apellido1.trim() !== "") {//revisa el apellido
         if (validarnombre(apellido1)) {
             datos.apellido1 = apellido1
         } else {
@@ -203,7 +201,7 @@ function validarFiltro(datos) {
             return false
         }
     }
-    if (apellido2 && apellido2.trim() !== "") {
+    if (apellido2 && apellido2.trim() !== "") {// revisa el otro apellido
         if (validarnombre(apellido2)) {
             datos.apellido2 = apellido2
         } else {
@@ -212,7 +210,7 @@ function validarFiltro(datos) {
             return false
         }
     }
-    if (correo && correo.trim() !== "") {
+    if (correo && correo.trim() !== "") {//revisa el correo
         if (validarEmail(correo)) {
             datos.correo = correo
         } else {
@@ -222,12 +220,12 @@ function validarFiltro(datos) {
         }
     }
 
-    if (datos.fechaFin && datos.fechaIni > datos.fechaFin) {
+    if (datos.fechaFin && datos.fechaIni > datos.fechaFin) {//valida que las fechas sean correcctas
         alert("Periodo de fechas no válido")
         return false
     }
 
-    if (facultad !== "") {
+    if (facultad !== "") {//valida la facultad
         datos.facultad = facultad
     }
     return true
