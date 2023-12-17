@@ -88,7 +88,7 @@ router.post('/crearCuenta', multerFactory.single("imagenUser"), (req, res) => {
   const midao = new DAOAp(pool)
   const saltRounds = 10; // Número de rondas para el proceso de hashing (mayor es más seguro, pero más lento)
 
-  if (validarEmail(req.body.correo) && validarnombre(req.body.nombre) && validarnombre(req.body.apellido1) && validarnombre(req.body.apellido2)) {
+  if (validarEmail(req.body.correo) && validarnombre(req.body.nombre) && validarnombre(req.body.apellido1) && validarnombre(req.body.apellido2) &&validarnovacio(req.body.facultad) && validarnovacio(req.body.curso)&& validarnovacio(req.body.grupo)) {
     bcrypt.genSalt(saltRounds, (err, salt) => {
       bcrypt.hash(datosUsuario.contrasena, salt, (err, hash) => {
         // Almacena el 'hash' y el 'salt' en la base de datos
@@ -121,6 +121,8 @@ function validarnombre(nombre) {//admite nombres y apellidos compuestos y con ti
   const nombreComprobar = /^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/
   return nombreComprobar.test(nombre);
 }
-
+function validarnovacio(aux){
+  return aux!='';
+}
 
 module.exports = router;
