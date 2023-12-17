@@ -9,8 +9,12 @@ $(function () {
   $('#mostrarContrasena').change(function () {
     var passwordInput = $('#contraseña');
     passwordInput.attr('type', this.checked ? 'text' : 'password');
-  });
+  }); 
 
+  $('#mostrarContrasenaLogin').change(function () {
+    var passwordInput = $('#clave1');
+    passwordInput.attr('type', this.checked ? 'text' : 'password');
+  });
 
   $("#idCrearCuenta").on("click", function (event) { //TODO limpiar codigo
     //Recojo los valores de las variables del formulario de registro

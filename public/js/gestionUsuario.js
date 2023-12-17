@@ -285,7 +285,7 @@ function esFiltroValido(datos) {
     return true
 }
 
-function nuevoUsuario(datos) {  //datos.nombre, datos.urlImage, datos.correo
+function nuevoUsuario(datos) {  
 
     const nuevo = `
     <div class="row cajaUsuario rounded m-2 align-items-center">
