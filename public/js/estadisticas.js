@@ -68,13 +68,19 @@ $(function () {
               labels: inst,
               datasets: [{
                 backgroundColor: barColors,
-                data: dates
+                data: dates,
               }]
             },
             options: {
               title: {
                 display: true,
-                text: "Estadisticas reservas facultad de " + facultad
+                text: "Estadisticas reservas facultad de " + facultad,
+                fontColor: "white"
+              },
+              legend: {
+                labels: {
+                  fontColor: "white" // Establece el color de las letras de la leyenda a blanco
+                }
               }
             }
           });
@@ -150,13 +156,19 @@ $(function () {
               labels: inst,
               datasets: [{
                 backgroundColor: barColors,
-                data: dates
+                data: dates,
               }]
             },
             options: {
               title: {
                 display: true,
-                text: "Estadísticas reserva por usuario"
+                text: "Estadísticas reserva del usuario: " +usuario,
+                fontColor: "white"
+              },
+              legend: {
+                labels: {
+                  fontColor: "white" // Establece el color de las letras de la leyenda a blanco
+                }
               }
             }
           });

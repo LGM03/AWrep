@@ -32,6 +32,26 @@
     font: 1em EB-garamont;
 }
 
+#btnEstadFacultad{
+    background-color: #4a6d95 ;
+    box-shadow: 0px 0px 20px white;
+    color: white;
+    font: 1.3em EB-garamont;
+}
+
+#btnEstadMostrarUsu{
+    background-color: #4a6d95 ;
+    color: white;
+    box-shadow: 0px 0px 20px white;
+    font: 1.3em EB-garamont;
+}
+
+.colorEstadisticas{
+    background-color: #4a6d95 ;
+    box-shadow: 0px 0px 20px white;
+    color: white;
+}
+
 .botoncabecera{ /*Los botones de la cabecera tiene fondo morado, de color blanco, fuente 40 EB-garamont*/
     background-color: #0f1b67;
     color: white;
