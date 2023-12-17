@@ -20,6 +20,8 @@
 
     <%- include('cabecera.ejs') %>
 
+    <!-- Barra de botones para los mensajes  -->
+
         <div class="row barrabotones container mx-auto">
             <div class="col-3 text-center">
                 <button id="botonMensajesRecibidos" class="btn btn-lg botonbarramensajes ">Ver Mensajes
@@ -37,7 +39,7 @@
         </div>
 
 
-        <div class="modal fade" id="MandarMensaje" data-bs-backdrop="static">
+        <div class="modal fade" id="MandarMensaje" data-bs-backdrop="static"> <!-- modal encargado de enviar mensaje al user-->
             <!-- data-bs impide que se cierre al pulsar fuera del modal -->
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
@@ -49,7 +51,7 @@
                     </div>
 
                     <!-- cuerpo del diálogo -->
-                    <div class="modal-body alert alert-secondary">
+                    <div class="modal-body alert alert-secondary"> 
 
                         <form id="MandarMensaje">
 
@@ -90,7 +92,7 @@
             </div>
         </div>
 
-        <div class="row text-center zonamensajesRecibidos container mx-auto">
+        <div class="row text-center zonamensajesRecibidos container mx-auto"> <!-- Zona donde salen los mensaje recibidos -->
 
             <div class="col-12 mx-auto" id="mensajesRecibidos">
 
@@ -104,7 +106,7 @@
         </div>
 
 
-        <div class="row text-center zonamensajesEnviados container mx-auto">
+        <div class="row text-center zonamensajesEnviados container mx-auto"> <!-- Zona donde salen los mensaje enviados -->
 
             <div class="col-12 mx-auto" id="mensajesEnviados">
 

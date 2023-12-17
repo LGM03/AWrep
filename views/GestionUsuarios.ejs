@@ -23,7 +23,7 @@
       <div id = "divUsuariosValidar"class="row mb-3 w-100">
         <h3 class  = "textoCabecera text-center">Usuarios Pendientes de Validar</h3>
 
-        <!--Por cada destino traido por la base de datos pongo una tarjeta -->
+        <!--Por cada usuario traido por la base de datos pongo su informacion -->
         <%usuarios.forEach(function(usuario){ %>
           <%if(usuario.rol == -1){ %>
             <div class="row cajaUsuario rounded m-2">
@@ -130,7 +130,7 @@
       </div>
     </form>
 
-    <!--Por cada destino traido por la base de datos pongo una tarjeta -->
+    <!--Por cada usuario traido por la base de datos pongo una tarjeta -->
     <div class="row" id = "usuariosMostrados">
     
   </div>

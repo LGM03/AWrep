@@ -4,7 +4,7 @@ $(function () {
 
   let esAdmin = 1;
 
-  $("#idCrearinstalacion").on("click", function (event) {
+  $("#idCrearinstalacion").on("click", function (event) {// evento cuando clicamos en el boton crear instalacion
     event.preventDefault();
     const fileInput = $("#imagenInstalacion");
 
@@ -36,12 +36,6 @@ $(function () {
         success: function (datos, state, jqXHR) {
           //Cerramos el modal
           if (datos !== "0") { //Si estamos en el / añadimos la tarjeta correspondiente 
-            
-            if (window.location.pathname == "/") {
-              agregarTarjeta(datos)
-            } else {
-              alert("Instalación creada con éxito")
-            }
             $("#CrearInstalacion").modal('hide')
             $("#nombreInstalacion").prop("value", "")
             $("#tipoReserva").prop("value", "")
@@ -50,6 +44,11 @@ $(function () {
             $("#horaFin").prop("value", "")
             $("#aforo").prop("value", "")
             $('#campoAforo').addClass("d-none");
+            if (window.location.pathname == "/") {
+              agregarTarjeta(datos)
+            } else {
+              alert("Instalación creada con éxito")
+            }
           } else {
             alert("No se ha podido crear la instalación")
           }
@@ -76,12 +75,12 @@ $(function () {
 
 })
 
-function agregarTarjeta(datos) {
+function agregarTarjeta(datos) {// muestra las tarjetas de las instalaciones 
 
   var contenedor = $("#zonaTarjetas")
 
-  const nombre = $("#nombreInstalacion").prop("value")
-  const tipo = $("#tipoReserva").prop("value")
+  const nombre = $("#nombreInstalacion").val()
+  const tipo = $("#tipoReserva").val()
 
   var tarjeta = '<div class="col-md-4 pb-4 d-flex">' +
     '<div class="card w-100">' +
@@ -103,7 +102,7 @@ function agregarTarjeta(datos) {
 
 }
 
-function imagenValida(imagen) {
+function imagenValida(imagen) {// comprueba que la imagen de la instalacion sea valida
   var comprobarEx = /(\.png)$/i;
   if (!imagen || !comprobarEx.exec(imagen.name) || imagen.size > 300000) {
     return false;

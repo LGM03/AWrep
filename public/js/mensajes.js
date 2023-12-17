@@ -1,6 +1,6 @@
 $(function () {
 
-  $("#botonMensajesRecibidos").on("click", function () {
+  $("#botonMensajesRecibidos").on("click", function () {//ver mensajes recibidos
     $("#mensajesRecibidos").fadeIn(1000)
     $("#mensajesEnviados").hide()
     $("#mensajesRecibidos .cajaMensaje").hide()
@@ -26,7 +26,7 @@ $(function () {
     });
   })
 
-  $("#botonMensajesEnviados").on("click", function () {
+  $("#botonMensajesEnviados").on("click", function () {// ver mensajes que he enviado
     $("#mensajesEnviados").fadeIn(1000)
     $("#mensajesRecibidos").hide()
     
@@ -91,7 +91,7 @@ $(function () {
   })
 })
 
-function agregarCajaRecibidosMensajes(mensaje, padre){
+function agregarCajaRecibidosMensajes(mensaje, padre){// saco la cakja de los mensajes recibidos
 
   
   var fecha = new Date(mensaje.fecha).toLocaleString()
@@ -117,7 +117,7 @@ padre.removeClass("d-none")
 
 }
 
-function agregarCajaEnviadosMensajes(mensaje, padre){
+function agregarCajaEnviadosMensajes(mensaje, padre){ // saco la caja de los mensajes enviados 
 
   var fecha = new Date(mensaje.fecha).toLocaleString()
   var cajaMensaje = `<div class="row align-items-center m-2 my-2 cajaMensaje">
@@ -143,7 +143,7 @@ padre.removeClass("d-none")
 }
 
 
-function actualizarCajaEnviadosMensajes(mensaje, padre){
+function actualizarCajaEnviadosMensajes(mensaje, padre){// actualizo la caja de los mensajes enviados 
 
   var cajaMensaje = `<div class="row align-items-center m-2 my-2 cajaMensaje">
   <div class="col-12 cajamensaje d-flex flex-column">

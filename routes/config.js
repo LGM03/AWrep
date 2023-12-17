@@ -64,7 +64,7 @@ router.get("/", function (req, res, next) {
 
 })
 
-router.post('/titulo', function (req, res, next) {
+router.post('/titulo', function (req, res, next) {// modifica el titulo
     const DAOAp = require('../mysql/daoConfig')
     const midao = new DAOAp(pool)
 
@@ -78,7 +78,7 @@ router.post('/titulo', function (req, res, next) {
     })
 })
 
-router.post('/gama', function (req, res, next) {
+router.post('/gama', function (req, res, next) {//modifica la gama
     const DAOAp = require('../mysql/daoConfig')
     const midao = new DAOAp(pool)
 
@@ -92,7 +92,7 @@ router.post('/gama', function (req, res, next) {
     })
 })
 
-router.post('/direccion', function (req, res, next) {
+router.post('/direccion', function (req, res, next) {//modifica la direcion fisica de abajo
     const DAOAp = require('../mysql/daoConfig')
     const midao = new DAOAp(pool)
 
@@ -113,7 +113,7 @@ const multerFactory = multer({
     }
 });
 
-router.post('/logo', multerFactory.single('logo'), function (req, res, next) {
+router.post('/logo', multerFactory.single('logo'), function (req, res, next) {// modifica el mogo
     const DAOAp = require('../mysql/daoConfig')
     const midao = new DAOAp(pool)
 

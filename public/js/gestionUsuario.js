@@ -132,7 +132,7 @@ $(function () {
         });
     })
 
-    $("#idFiltrar").on("click", function (event) {
+    $("#idFiltrar").on("click", function (event) {// evento cuando damos al boton de filtrar
         event.preventDefault();
 
         $("#usuariosMostrados").slideUp(1000);
@@ -180,7 +180,7 @@ $(function () {
     });
 
 
-    $("#idListarTodos").on("click", function (event) {
+    $("#idListarTodos").on("click", function (event) {// muestra tdoso los usuarios que poedemos registrar
         event.preventDefault();
 
         $("#usuariosMostrados").slideUp(1000);
@@ -226,7 +226,7 @@ $(function () {
 
 })
 
-function esFiltroValido(datos) {
+function esFiltroValido(datos) {// valida los datos de los usuarios
     var nombre = $("#nombreFiltrar").prop("value")
     var apellido1 = $("#apellido1Filtrar").prop("value")
     var apellido2 = $("#apellido2Filtrar").prop("value")
@@ -236,7 +236,7 @@ function esFiltroValido(datos) {
     var grupo = $("#grupoFiltrar").prop("value")
 
 
-    if (nombre.trim() !== "") {
+    if (nombre.trim() !== "") {//valida nombre
         if (validarnombre(nombre)) {
             datos.nombre = nombre
         } else {
@@ -245,7 +245,7 @@ function esFiltroValido(datos) {
             return false
         }
     }
-    if (apellido1.trim() !== "") {
+    if (apellido1.trim() !== "") {//valida el apellido
         if (validarnombre(apellido1)) {
             datos.apellido1 = apellido1
         } else {
@@ -254,7 +254,7 @@ function esFiltroValido(datos) {
             return false
         }
     }
-    if (apellido2.trim() !== "") {
+    if (apellido2.trim() !== "") {//valida el apellido2
         if (validarnombre(apellido2)) {
             datos.apellido2 = apellido2
         } else {
@@ -263,7 +263,7 @@ function esFiltroValido(datos) {
             return false
         }
     }
-    if (correo.trim() !== "") {
+    if (correo.trim() !== "") {//valida el correo
         if (validarEmail(correo)) {
             datos.correo = correo
         } else {
@@ -273,19 +273,19 @@ function esFiltroValido(datos) {
         }
     }
 
-    if (curso !== "") {
+    if (curso !== "") {//valida el curso
         datos.curso = curso
     }
-    if (facultad !== "") {
+    if (facultad !== "") {// valdia la facultas
         datos.facultad = facultad
     }
-    if (grupo !== "") {
+    if (grupo !== "") {//valida el grupo
         datos.grupo = grupo
     }
     return true
 }
 
-function nuevoUsuario(datos) {  
+function nuevoUsuario(datos) {  // crea la caja de un nuevo usuario
 
     const nuevo = `
     <div class="row cajaUsuario rounded m-2 align-items-center">
@@ -314,7 +314,7 @@ function nuevoUsuario(datos) {
     </div>
 `;
 
-    $("#divUsuarios").append(nuevo)
+    $("#divUsuarios").append(nuevo)// los añadimos al div
 
     if (datos.rol == 1) {
         var boton = '<button class="alert alert-success p-1 w-100"> Es Admin </button>'
@@ -325,7 +325,7 @@ function nuevoUsuario(datos) {
     $(".cajaUsuario:last").find("#zonaBotones").append(boton);
 }
 
-function agregarCajaHistorial(element, divContenedor) {
+function agregarCajaHistorial(element, divContenedor) {// sacamos el historial de reservas de un nuevo usuario
 
     const caja = $('<div class="row cajaInfo bg-secondary text-white rounded m-2"></div>');
     // Sección de info de la reserva
@@ -356,7 +356,7 @@ function agregarCajaHistorial(element, divContenedor) {
     divContenedor.append(caja);
 }
 
-function agregarCajaUsuario(element, padre) {
+function agregarCajaUsuario(element, padre) {// agregamso la caja con la info del usuario
     const caja = $('<div class="row rounded alert alert-secondary m-2"></div>');
 
     // Sección de info de la reserva

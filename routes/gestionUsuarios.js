@@ -98,7 +98,7 @@ router.post('/validar', function (req, res, next) {
     }
 });
 
-router.post('/eliminar', function (req, res, next) {
+router.post('/eliminar', function (req, res, next) {//eliminamos a un user
 
     const DAOAp = require("../mysql/daoGestion")
     const midao = new DAOAp(pool)
@@ -114,7 +114,7 @@ router.post('/eliminar', function (req, res, next) {
     }
 });
 
-router.post('/hacerAdmin', function (req, res, next) {
+router.post('/hacerAdmin', function (req, res, next) {// convertimos a un user en admin
     const DAOAp = require('../mysql/daoGestion')
     const midao = new DAOAp(pool)
 
@@ -129,7 +129,7 @@ router.post('/hacerAdmin', function (req, res, next) {
     }
 })
 
-router.get('/filtrar', function (req, res, next) {
+router.get('/filtrar', function (req, res, next) {// listamos todos los usuarios en funcion de los filtros prevuiamente dados
     const DAOAp = require('../mysql/daoGestion')
     const midao = new DAOAp(pool)
 
@@ -169,7 +169,7 @@ router.get('/filtrar', function (req, res, next) {
     })
 })
 
-router.get('/listarTodos', function (req, res, next) {
+router.get('/listarTodos', function (req, res, next) {// listamso todos los usuarios
     const DAOAp = require('../mysql/daoGestion')
     const midao = new DAOAp(pool)
     midao.listarTodos((err, datos) => {

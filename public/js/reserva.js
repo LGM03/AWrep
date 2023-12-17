@@ -1,7 +1,7 @@
 
 $(function () {
 
-    $("#confirmarReserva").on("click", function (event) {
+    $("#confirmarReserva").on("click", function (event) {//valido que la reverva que se va a ha hacer es apta
         event.preventDefault();
         var datosInst = {
             horaIni: $("#horaIniInstalacion").text().trim(),
@@ -55,7 +55,7 @@ $(function () {
 
     })
 
-    $(document).on("click", ".masInfo", function () {
+    $(document).on("click", ".masInfo", function () {// doy mas ifi sobre la reserva 
         var divContenedor = $(this).closest('.cajaInfo') //Este es el div padre
         var correo = divContenedor.find('h5').text().slice(15,); //busco el p que contiene el correo 
         data={
