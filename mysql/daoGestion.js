@@ -1,5 +1,5 @@
 
-class DAOGestion {   //DAO que accede a los destinos y su respectiva información
+class DAOGestion {   //DAO que accede a las instalaciones y su respectiva información
 
     constructor(pool) { //Constructor guarda pool en un atributo propio
         this.pool = pool

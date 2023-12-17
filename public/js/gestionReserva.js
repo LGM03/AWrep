@@ -63,7 +63,6 @@ $(function () {
                     }
                 },
                 error: function (jqXHR, statusText, errorThrown) {
-                    console.log(errorThrown)
                     alert("Ha ocurrido un error con los usuarios A");
                 }
             })

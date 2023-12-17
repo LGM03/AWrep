@@ -1,5 +1,5 @@
 
-class DAOUsuario{   //DAO que accede a los destinos y su respectiva información
+class DAOUsuario{   //DAO que accede a las instalaciones y su respectiva información
 
     constructor(pool) { //Constructor guarda pool en un atributo propio
         this.pool = pool
@@ -16,7 +16,7 @@ class DAOUsuario{   //DAO que accede a los destinos y su respectiva información
                     if (err) {
                         callback(err, null);
                     } else {
-                        callback(null, resultado[0]);  //Si todo ha ido bien retorno los datos del destino
+                        callback(null, resultado[0]);  //Si todo ha ido bien retorno los datos de la instalacion
                     }
                 });
             }

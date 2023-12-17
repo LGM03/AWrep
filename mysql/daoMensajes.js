@@ -88,7 +88,6 @@ class DAOMensajes{   //DAO que accede a los mensajes y su respectiva informació
                             connection.query(sql, [datos.correoEmisor, datos.correoReceptor, datos.cuerpoMensaje], (err, resultado) => {
                                 connection.release();
                                 if (err) {
-                                    console.log(err)
                                     callback(err,  "0");
                                 } else {
                                     callback(null, resultado.insertId);

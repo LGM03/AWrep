@@ -1,5 +1,5 @@
 
-class DAOConfig {   //DAO que accede a los destinos y su respectiva información
+class DAOConfig {   //DAO que accede a las instalaciones y su respectiva información
 
     constructor(pool) { //Constructor guarda pool en un atributo propio
         this.pool = pool
@@ -158,7 +158,6 @@ class DAOConfig {   //DAO que accede a los destinos y su respectiva información
                 connection.query(sql, variables, function (err, resultado) {
                     connection.release(); //Libero la conexion
                     if (err) {
-                        console.log(err)
                         callback(err, null); //Si ha ocurrido un error retorno el error
                     } else {
                         callback(null, resultado); //Si todo ha ido bien retorno la información obtenida 
@@ -204,10 +203,8 @@ class DAOConfig {   //DAO que accede a los destinos y su respectiva información
                         connection.query(sql, [idReserva], (err, resultado) => {
                             connection.release();  //Libera la conexion
                             if (err) {
-                                console.log(err)
                                 reject(err);
                             } else {
-                                console.log(resultado)
                                 resolve(resultado);
                             }
                         });
@@ -307,10 +304,6 @@ class DAOConfig {   //DAO que accede a los destinos y su respectiva información
                 minutosFinal = "00"
             }
             var horaFin = final.getHours() + ":" + minutosFinal
-
-            console.log("fecha Inicio " + fechaInicio.getHours())
-            console.log("fecha final " + new Date(resultReserva[0].fechafinal).getHours())
-
             // Construir la nueva cadena de fecha en el formato deseado
             var fechaFormateada = año + '-' + mes + '-' + dia;
 

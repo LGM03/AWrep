@@ -70,7 +70,7 @@ router.post('/validar', function (req, res, next) {
 
 
     if (validarEmail(req.body.correo) && validarEmail(req.session.usuario.correo)) {
-        midao.validarUsuario(req.body.correo, (err, datos) => {  //Leo en la BD los destinos con el id de la url
+        midao.validarUsuario(req.body.correo, (err, datos) => {  //Leo en la BD las instalaciones con el id de la url
             if (err) {
                 res.send("0")
             }
@@ -103,12 +103,12 @@ router.post('/eliminar', function (req, res, next) {//eliminamos a un user
     const DAOAp = require("../mysql/daoGestion")
     const midao = new DAOAp(pool)
     if (validarEmail(req.body.correo)) {
-        midao.eliminarUsuario(req.body.correo, (err, datos) => {  //Leo en la BD los destinos con el id de la url
+        midao.eliminarUsuario(req.body.correo, (err, datos) => {  //Leo en la BD las instalaciones con el id de la url
             if (err) {
                 res.send("0")
             }
             else {
-                res.send("1");//Cargo la ventana destino con los usuarios no validados
+                res.send("1");//Cargo la ventana origen con los usuarios no validados
             }
         });
     }

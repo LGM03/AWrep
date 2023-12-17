@@ -34,7 +34,7 @@ router.get("/", function (req, res, next) {
                 global.logo = imageUrl;
                 global.gama = configDatos.gama;
                 global.direccion = configDatos.direccion;
-            } // Renderizamos la página principal con la información de todos los destinos
+            } // Renderizamos la página principal con la información de todos las instalaciones
             if (req.session.usuario && req.session.usuario.rol == 1) {
                 res.render('configuracionSistema', {
                     gama: global.gama,

@@ -145,7 +145,7 @@ router.post('/alta', function (req, res, next) {
 })
 
 router.get('/filtrar', function (req, res, next) {
-    console.log("ASFG")
+
     const DAOAp = require('../mysql/daoReserva')
     const midao = new DAOAp(pool)
 
