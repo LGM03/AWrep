@@ -62,7 +62,7 @@ $(function () {
             "darkorchid"
           ];
 
-          new Chart('miGrafica', {
+          new Chart("miGrafica", {
             type: "pie",
             data: {
               labels: inst,
@@ -74,12 +74,14 @@ $(function () {
             options: {
               title: {
                 display: true,
-                text: "Estadisticas reservas facultad de " + facultad,
-                fontColor: "white"
+                text: "Estadísticas reserva del facultad: " + facultad,
+                fontColor: "white",
+                fontSize: 18, // Tamaño de la letra del título
               },
               legend: {
                 labels: {
-                  fontColor: "white" // Establece el color de las letras de la leyenda a blanco
+                  fontColor: "white", // Establece el color de las letras de la leyenda a blanco
+                  fontSize: 14, // Tamaño de la letra de las etiquetas de la leyenda
                 }
               }
             }
@@ -162,16 +164,19 @@ $(function () {
             options: {
               title: {
                 display: true,
-                text: "Estadísticas reserva del usuario: " +usuario,
-                fontColor: "white"
+                text: "Estadísticas reserva del usuario: " + usuario,
+                fontColor: "white",
+                fontSize: 18, // Tamaño de la letra del título
               },
               legend: {
                 labels: {
-                  fontColor: "white" // Establece el color de las letras de la leyenda a blanco
+                  fontColor: "white", // Establece el color de las letras de la leyenda a blanco
+                  fontSize: 14, // Tamaño de la letra de las etiquetas de la leyenda
                 }
               }
             }
           });
+          
         }
       },
       error: function (jqXHR, statusText, errorThrown) {
