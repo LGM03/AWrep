@@ -95,7 +95,7 @@ function validarInicio(datosInicio) { //Toggle es mas bonito que alert
     alert('Por favor, ingrese un nombre y apellido válidos.');
     return false;
   }
-  if (datosInicio.facultad.trim() == null) {
+  if (datosInicio.facultad.trim() == '') {
     alert('Seleccione una facultad');
     return false;
   }
