@@ -1,12 +1,11 @@
 
-class daoEstadisticas{   //DAO que accede a los destinos y su respectiva información
+class daoEstadisticas{   //DAO que accede a las reservas para hacer estadisticas
 
     constructor(pool) { //Constructor guarda pool en un atributo propio
         this.pool = pool
     }
 
-
-    porFacultad(facultad,callback) { //Lee todos los comentarios en funcion 
+    porFacultad(facultad,callback) { //Lee las estadisticas en funcion de la facultad
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
@@ -23,7 +22,7 @@ class daoEstadisticas{   //DAO que accede a los destinos y su respectiva informa
             }
         });
     }  
-    porUsuario(correo,callback) { //Lee todos los comentarios en funcion 
+    porUsuario(correo,callback) { //Lee las estadisticas en funcion del usuario
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
@@ -40,15 +39,6 @@ class daoEstadisticas{   //DAO que accede a los destinos y su respectiva informa
             }
         });
     } 
-
-
-   
-
-    
-
- 
-   
-
 }
 
 

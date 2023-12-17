@@ -1,16 +1,16 @@
-class DAOMensajes{   //DAO que accede a los destinos y su respectiva información
+class DAOMensajes{   //DAO que accede a los mensajes y su respectiva información
 
     constructor(pool) { //Constructor guarda pool en un atributo propio
         this.pool = pool
     }
     
-    mandaNotificacion(datos,callback){
+    mandaNotificacion(datos,callback){ //Inserto el mensaje en la base de datos 
         this.pool.getConnection((err, connection) => {
             if (err) {
                 callback(err, null);
-            } else {
-                const sql = "INSERT INTO mensajes (correoEmisor, correoReceptor, cuerpoMensaje, fecha) VALUES (?, ?, ?, ?)";
-                connection.query(sql, [datos.correoEmisor, datos.correoReceptor, datos.cuerpoMensaje, datos.fecha], (err, resultado) => {
+            } else { //El parametro de la fecha por defecto es la actual
+                const sql = "INSERT INTO mensajes (correoEmisor, correoReceptor, cuerpoMensaje) VALUES (?, ?, ?)";
+                connection.query(sql, [datos.correoEmisor, datos.correoReceptor, datos.cuerpoMensaje], (err, resultado) => {
                     connection.release();
                     if (err) {
                         callback(err, null);
@@ -20,9 +20,6 @@ class DAOMensajes{   //DAO que accede a los destinos y su respectiva informació
                 });
             }
         });
-
-
-
     }
 
 

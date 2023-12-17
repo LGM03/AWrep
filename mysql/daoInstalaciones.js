@@ -1,10 +1,10 @@
-class DAOInstalaciones{   //DAO que accede a los destinos y su respectiva información
+class DAOInstalaciones{   //DAO que accede a las instalaciones y su respectiva información
 
     constructor(pool) { //Constructor guarda pool en un atributo propio
         this.pool = pool
     }
 
-    leerTodas(callback) { //Lee todos los destinos de la base de datos 
+    leerTodas(callback) { //Lee todos las instalaciones de la base de datos 
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
@@ -26,7 +26,7 @@ class DAOInstalaciones{   //DAO que accede a los destinos y su respectiva inform
         });
     }  
 
-    altaInstalacion(datos,callback) { //Lee todos los comentarios en funcion 
+    altaInstalacion(datos,callback) { //Guarda una instalacion nueva en la base de datos 
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
@@ -44,7 +44,7 @@ class DAOInstalaciones{   //DAO que accede a los destinos y su respectiva inform
         });
     }  
 
-    leerInstalacionID(id,callback) { //Lee todos los comentarios en funcion 
+    leerInstalacionID(id,callback) { //Lee una instalacion en funcion de su id
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
@@ -56,7 +56,7 @@ class DAOInstalaciones{   //DAO que accede a los destinos y su respectiva inform
                         callback(err, null); //Si ha ocurrido un error retorno el error
                     } else {
                         const base64String = resultado[0].imagen.toString('base64');
-                        const imageUrl = `data:image/png;base64,${base64String}`;
+                        const imageUrl = `data:image/png;base64,${base64String}`; //Convierto el buffer en una url 
                         resultado[0].imagen=imageUrl
                         resultado[0].horaInicio = resultado[0].horaInicio.split(':').slice(0, 2).join(':');
                         resultado[0].horaFin = resultado[0].horaFin.split(':').slice(0, 2).join(':');

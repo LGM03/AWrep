@@ -5,7 +5,7 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
         this.pool = pool
     }
 
-    altaTitulo(titulo,callback) { //Lee todos los comentarios en funcion 
+    altaTitulo(titulo,callback) { ///Da de alta un titulo nuevo para la organizacion
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
@@ -23,7 +23,7 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
         });
     }  
 
-    altaGama(gama,callback) { //Lee todos los comentarios en funcion 
+    altaGama(gama,callback) {//Da de alta una gama nueva para la organizacion
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
@@ -41,7 +41,7 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
         });
     }  
 
-    altaDireccion(dir,callback) { //Lee todos los comentarios en funcion 
+    altaDireccion(dir,callback) { //Da de alta una direccion nueva para la organizacion
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
@@ -59,7 +59,7 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
         });
     }  
 
-    altaLogo(logo,callback) { //Lee todos los comentarios en funcion 
+    altaLogo(logo,callback) { //Da de alta un logo nuevo para la organizacion
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
@@ -77,7 +77,7 @@ class DAOConfig{   //DAO que accede a los destinos y su respectiva información
         });
     }  
 
-    leerConfig(callback){
+    leerConfig(callback){ //Leo la configuracion guardada en la base de datos
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error

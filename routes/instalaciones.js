@@ -80,7 +80,7 @@ router.post('/crearInstalacion', multerFactory.single("imagenInstalacion"), func
     horaInicio: req.body.horaInicio,
     horaFin: req.body.horaFin
   }
-  if ($("#nombreInstalacion").val().trim() !== "" && $("#tipoReserva").val() !== null && $("#horaFin").val() !== "" && $("#horaInicio").val() !== "" && imagenValida($("#imagenInstalacion")[0].files[0]) && $("#horaFin").val() > $("#horaInicio").val()) {
+  if (req.body.nombre.trim() !== "" && req.body.tipoReserva !== null && req.body.horaFin !== "" && req.body.horaInicio !== "" && req.body.horaFin>req.body.horaInicio) {
 
     var buffer = req.file.buffer
     const imageBase64 = buffer.toString('base64');
@@ -96,14 +96,5 @@ router.post('/crearInstalacion', multerFactory.single("imagenInstalacion"), func
   }
 
 })
-
-function imagenValida(imagen) {
-  var comprobarEx = /(\.png)$/i;
-  if (!imagen || !comprobarEx.exec(imagen.name) || imagen.size > 300000) {
-    return false;
-  }
-
-  return true
-}
 
 module.exports = router;

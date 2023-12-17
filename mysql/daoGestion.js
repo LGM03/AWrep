@@ -6,7 +6,7 @@ class DAOGestion {   //DAO que accede a los destinos y su respectiva informació
     }
 
 
-    leerValidados(callback) { //Lee todos los comentarios en funcion 
+    leerValidados(callback) { //Lee los usurios validados que no sean admin (rol 0)
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
@@ -26,7 +26,7 @@ class DAOGestion {   //DAO que accede a los destinos y su respectiva informació
 
 
 
-    leerTodos(callback) { //Lee todos los comentarios en funcion 
+    leerTodos(callback) { //Lee todos los usuarios, independientemente del rol
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
@@ -50,7 +50,7 @@ class DAOGestion {   //DAO que accede a los destinos y su respectiva informació
         });
     }
 
-    validarUsuario(correo, callback) {
+    validarUsuario(correo, callback) {  //Permite validar un usuario
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
@@ -69,7 +69,7 @@ class DAOGestion {   //DAO que accede a los destinos y su respectiva informació
     }
 
 
-    eliminarUsuario(correo, callback) {
+    eliminarUsuario(correo, callback) { //Elimina un usuario que no ha sido validado todavia
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
@@ -87,7 +87,7 @@ class DAOGestion {   //DAO que accede a los destinos y su respectiva informació
         });
     }
 
-    hacerAdmin(idUsu, callback) { //Lee todos los comentarios en funcion 
+    hacerAdmin(idUsu, callback) { //Hace admin a un usuario validado
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
@@ -105,12 +105,12 @@ class DAOGestion {   //DAO que accede a los destinos y su respectiva informació
         });
     }
 
-    filtrar(filtro, callback) { //Lee todos los comentarios en funcion 
+    filtrar(filtro, callback) { //Filtra usuarios
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
             } else {
-                const sql = "select * from ucm_aw_riu_usu_usuarios where (? is NULL OR nombre = ?) "+ 
+                const sql = "select * from ucm_aw_riu_usu_usuarios where (? is NULL OR nombre = ?) "+  //Si se no se han introducido parametros o el parametro corresponde
                 "and (? is null or apellido1 = ?)"+
                 "and (? is null or apellido2 = ?)"+
                 "and (? is null or correo = ?)"+
@@ -132,7 +132,7 @@ class DAOGestion {   //DAO que accede a los destinos y su respectiva informació
         });
     }
 
-    listarTodos(callback) { //Lee todos los comentarios en funcion 
+    listarTodos(callback) { //Lee todos los usuarios validos y admins
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
