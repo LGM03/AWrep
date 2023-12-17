@@ -31,19 +31,17 @@ $(function () {
                 data: datosReserva,
                 success: function (datos, state, jqXHR) {
                     if (datos > 0) {
-                        alert("Reserva realizada con éxito ")
                         $("#Reserva").modal('hide')
-                        $("#horaInicio").prop("value", "")
-                        $("#horaFin").prop("value", "")
-                        $("#fechaReserva").prop("value", "")
+                        $("#horaInicioReserva").prop("value", "")
+                        $("#horaFinReserva").prop("value", "")
+                        alert("Reserva realizada con éxito ")
                     } else if(datos == -1) {
                         alert("No se ha podido hacer la reserva. Vuelva a intentarlo")
                     }else{
                         $("#Reserva").modal('hide')
-                        $("#horaInicio").prop("value", "")
-                        $("#horaFin").prop("value", "")
-                        $("#fechaReserva").prop("value", "")
-                        alert("No se ha podido hacer la reserva. Añadido a lista de Espera")
+                        $("#horaInicioReserva").prop("value", "")
+                        $("#horaFinReserva").prop("value", "")
+                        alert("Periodo Ocupado. Se le añade a la lista de Espera")
                     }
 
                 },

@@ -130,9 +130,3 @@ function validarnombre(nombre) {//admite nombres y apellidos compuestos y con ti
   const nombreComprobar = /^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/
   return nombreComprobar.test(nombre);
 }
-
-
-function validarfecha(fecha) {
-  const fechaComprobar = /^\d{4}-\d{2}-\d{2}$/;
-  return fechaComprobar.test(fecha);
-}

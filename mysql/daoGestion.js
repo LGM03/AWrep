@@ -110,75 +110,16 @@ class DAOGestion {   //DAO que accede a los destinos y su respectiva informació
             if (err) {
                 callback(err, null); //Si ha ocurrido un error retorno el error
             } else {
-                var sql = "select * from ucm_aw_riu_usu_usuarios"
-                var condicion = ""
-                var variables = []
-                console.log(filtro.Nombre)
-                if (filtro.nombre) {
-                    if (condicion !== "") {
-                        condicion += " and nombre = ?"
-                    } else {
-                        condicion += " where nombre = ?"
-                    }
-                    variables.push(filtro.nombre)
-                }
+                const sql = "select * from ucm_aw_riu_usu_usuarios where (? is NULL OR nombre = ?) "+ 
+                "and (? is null or apellido1 = ?)"+
+                "and (? is null or apellido2 = ?)"+
+                "and (? is null or correo = ?)"+
+                "and (? is null or facultad = ?)"+
+                "and (? is null or curso = ?)"+
+                "and (? is null or grupo = ?) and rol <>-1 order by nombre"
 
-                if (filtro.apellido1) {
-                    if (condicion !== "") {
-                        condicion += " and apellido1 = ?"
-                    } else {
-                        condicion += " where apellido1 = ?"
-                    }
-                    variables.push(filtro.apellido1)
-                }
-              
-                if (filtro.apellido2) {
-                    if (condicion !== "") {
-                        condicion += " and apellido2 = ?"
-                    } else {
-                        condicion += " where apellido2 = ?"
-                    }
-                    variables.push(filtro.apellido2)
-                }
-
-                if (filtro.correo) {
-                    if (condicion !== "") {
-                        condicion += " and correo = ?"
-                    } else {
-                        condicion += " where correo = ?"
-                    }
-                    variables.push(filtro.correo)
-                }
-
-                if (filtro.facultad) {
-                    if (condicion !== "") {
-                        condicion += " and facultad = ?"
-                    } else {
-                        condicion += " where facultad = ?"
-                    }
-                    variables.push(filtro.facultad)
-                }
-
-                if (filtro.curso) {
-                    if (condicion !== "") {
-                        condicion += " and curso = ?"
-                    } else {
-                        condicion += " where curso = ?"
-                    }
-                    variables.push(filtro.curso)
-                }
-
-                if (filtro.grupo) {
-                    if (condicion !== "") {
-                        condicion += " and grupo = ?"
-                    } else {
-                        condicion += " where grupo = ?"
-                    }
-                    variables.push(filtro.grupo)
-                }
-
-                sql += condicion
-
+                var variables = [filtro.nombre,filtro.nombre,filtro.apellido1,filtro.apellido1,filtro.apellido2,filtro.apellido2,filtro.correo,filtro.correo,filtro.facultad,filtro.facultad,filtro.curso,filtro.curso,filtro.grupo,filtro.grupo ]
+    
                 connection.query(sql, variables, function (err, resultado) {
                     connection.release(); //Libero la conexion
                     if (err) {

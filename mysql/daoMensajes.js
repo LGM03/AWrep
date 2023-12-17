@@ -85,13 +85,13 @@ class DAOMensajes{   //DAO que accede a los destinos y su respectiva informació
                 if (datos.rolEmisor == 1 || (facultadEmisor == facultadReceptor && rolEmisor!=-1) || (rolReceptor==1 && rolEmisor!=-1)) {
                     this.pool.getConnection((err, connection) => {
                         if (err) {
-                            callback(err, null);
+                            callback(err,  "0");
                         } else {
                             const sql = "INSERT INTO mensajes (correoEmisor, correoReceptor, cuerpoMensaje, fecha) VALUES (?, ?, ?, ?)";
                             connection.query(sql, [datos.correoEmisor, datos.correoReceptor, datos.cuerpoMensaje, datos.fecha], (err, resultado) => {
                                 connection.release();
                                 if (err) {
-                                    callback(err, null);
+                                    callback(err,  "0");
                                 } else {
                                     callback(null, resultado.insertId);
                                 }
@@ -99,10 +99,10 @@ class DAOMensajes{   //DAO que accede a los destinos y su respectiva informació
                         }
                     });
                 } else {
-                    callback(err, null); // Change the error handling as needed
+                    callback(err, "0"); // Change the error handling as needed
                 }
             } catch (err) {
-                callback(err, null);
+                callback(err,  "0");
             }
         };
 

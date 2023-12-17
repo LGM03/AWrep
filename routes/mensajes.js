@@ -96,6 +96,8 @@ router.post('/mandarMensaje', function (req, res, next) {
                 res.json(datos)
             }
         })
+    }else{
+        res.json("0")
     }
 })
 

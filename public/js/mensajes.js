@@ -80,7 +80,7 @@ $(function () {
 
             alert("Mensaje enviado con éxito ")
           } else {
-            alert("No se pudo enviar el mensaje")
+            alert("Correo Destinatario no válido")
           }
         },
         error: function (jqXHR, statusText, errorThrown) { //Si ha ocurrido un error pongo un mensaje de error
