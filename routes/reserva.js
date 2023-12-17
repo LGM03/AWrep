@@ -145,33 +145,96 @@ router.post('/alta', function (req, res, next) {
 })
 
 router.get('/filtrar', function (req, res, next) {
-
+    console.log("ASFG")
     const DAOAp = require('../mysql/daoReserva')
     const midao = new DAOAp(pool)
-    if (req.session.usuario.rol == 1) {
 
-        midao.leerReservas((err, datos) => { //Saca todas las reservas si es el admin
-            if (err) {
-                res.json("0")
-            } else {
-                //retorno tambien el rol para saber como construir la vista
-                res.json({ datos: datos, esAdmin: req.session.usuario.rol })
-            }
-        })
+    var filtro = {
+        nombre: req.query.nombre,
+        apellido1: req.query.apellido1,
+        apellido2: req.query.apellido2,
+        correo: req.query.correo,
+        facultad: req.query.facultad,
+        fechaFin: req.query.fechaFin,
+        fechaIni: req.query.fechaIni,
+        instalacion: req.query.instalacion,
 
+    }
+    if (validarFiltro(filtro)) {
+        console.log(filtro)
+
+        if (req.session.usuario.rol == 1) {
+            midao.leerReservas(filtro, (err, datos) => { //Saca todas las reservas si es el admin
+                if (err) {
+                    console.log(err)
+                    res.json("0")
+                } else {
+                    //retorno tambien el rol para saber como construir la vista
+                    res.json({ datos: datos, esAdmin: req.session.usuario.rol })
+                }
+            })
+        } else {
+            midao.leerReservaPorUsuario(req.session.usuario.correo, (err, datos) => { //Si es usuario saca solo sus reservas
+                if (err) {
+                    console.log("A")
+                    res.json("0")
+                } else {
+                    res.json({ datos: datos, esAdmin: req.session.usuario.rol })
+                }
+            })
+        }
     } else {
-        midao.leerReservaPorUsuario(req.session.usuario.correo, (err, datos) => { //Si es usuario saca solo sus reservas
-            if (err) {
-                res.json("0")
-            } else {
-                res.json({ datos: datos, esAdmin: req.session.usuario.rol })
-            }
-        })
+        console.log("error")
+        res.json("0")
     }
 
 })
 
+function validarFiltro(datos) {
 
+    if (datos.nombre && datos.nombre.trim() !== "") {
+        if (!validarnombre(nombre)) {
+            return false
+        }
+    }
+
+    if (datos.apellido1 && datos.apellido1.trim() !== "") {
+        if (!validarnombre(datos.apellido1)) {
+       
+            return false
+        }
+    }
+    if (datos.apellido2 && datos.apellido2.trim() !== "") {
+        if (!validarnombre(datos.apellido2)) {
+        
+            return false
+        }
+    }
+    if (datos.correo && datos.correo.trim() !== "" && !validarEmail(datos.correo)) {
+        return false
+    }
+
+    if (datos.instalacion == "") {
+        datos.instalacion = null
+    }
+
+    if (datos.fechaFin && datos.fechaIni > datos.fechaFin) {
+        return false
+    }
+
+    if( datos.fechaFin == ""){
+        datos.fechaFin= null
+    }
+
+    if( datos.fechaIni == ""){
+        datos.fechaIni= null
+    }
+
+    if (datos.facultad == "") {
+        datos.facultad = null
+    }
+    return true
+}
 
 router.delete('/borrarReserva', function (req, res, next) {
 

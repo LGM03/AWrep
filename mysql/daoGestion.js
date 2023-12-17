@@ -116,7 +116,7 @@ class DAOGestion {   //DAO que accede a los destinos y su respectiva informació
                 "and (? is null or correo = ?)"+
                 "and (? is null or facultad = ?)"+
                 "and (? is null or curso = ?)"+
-                "and (? is null or grupo = ?) and rol <>-1 order by nombre"
+                "and (? is null or grupo = ?) and rol <> -1 order by nombre"
 
                 var variables = [filtro.nombre,filtro.nombre,filtro.apellido1,filtro.apellido1,filtro.apellido2,filtro.apellido2,filtro.correo,filtro.correo,filtro.facultad,filtro.facultad,filtro.curso,filtro.curso,filtro.grupo,filtro.grupo ]
     

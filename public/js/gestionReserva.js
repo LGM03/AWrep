@@ -31,42 +31,29 @@ $(function () {
                         var existe = false
 
                         datos.datos.forEach(element => {
-                        
-                            if ((!filtro.nombre || filtro.nombre === element.nombre) &&
-                                (!filtro.apellido1 || filtro.apellido1 === element.apellido1) &&
-                                (!filtro.apellido2 || filtro.apellido2 === element.apellido2) &&
-                                (!filtro.correo || filtro.correo === element.correo) &&
-                                (!filtro.facultad || filtro.facultad === element.facultad) &&
-                                (!filtro.instalacion || filtro.instalacion === element.nombreIns) &&
 
-                                (!filtro.fechaIni || (filtro.fechaFin && filtro.fechaIni <= element.fecha.slice(0, 10)) || (!filtro.fechaFin && filtro.fechaIni === element.fecha.slice(0, 10))) &&
-                                (!filtro.fechaFin || filtro.fechaFin >= element.fechafinal.slice(0, 10))) {
+                            const arrayBuffer = element.imagenIns.data; //recojo la imagen de la instalacion y la paso a URL
+                            const base64String = btoa(String.fromCharCode.apply(null, new Uint8Array(arrayBuffer)));
+                            const url = `data:image/png;base64,${base64String}`;
 
+                            const arrayBufferUsu = element.imagenUsu.data; //recojo la imagen de la instalacion y la paso a URL
+                            const base64StringUsu = btoa(String.fromCharCode.apply(null, new Uint8Array(arrayBufferUsu)));
+                            const urlUsu = `data:image/png;base64,${base64StringUsu}`;
 
-                                const arrayBuffer = element.imagenIns.data; //recojo la imagen de la instalacion y la paso a URL
-                                const base64String = btoa(String.fromCharCode.apply(null, new Uint8Array(arrayBuffer)));
-                                const url = `data:image/png;base64,${base64String}`;
+                            element.urlImagen = url
+                            element.nombre = element.nombre + " " + element.apellido1 + " " + element.apellido2
+                            element.imagenUsu = urlUsu
+                            element.clase = element.curso + " " + element.grupo
 
-                                const arrayBufferUsu = element.imagenUsu.data; //recojo la imagen de la instalacion y la paso a URL
-                                const base64StringUsu = btoa(String.fromCharCode.apply(null, new Uint8Array(arrayBufferUsu)));
-                                const urlUsu = `data:image/png;base64,${base64StringUsu}`;
+                            var fecha = new Date(element.fecha);
+                            var fechafinal = new Date(element.fechafinal);
+                            element.fecha = fecha.toLocaleString()
+                            element.fechafinal = fechafinal.toLocaleString()
 
-                                element.urlImagen = url
-                                element.nombre = element.nombre + " " + element.apellido1 + " " + element.apellido2
-                                element.imagenUsu = urlUsu
-                                element.clase = element.curso + " " + element.grupo
+                            agregarCajaReserva(datos.esAdmin, element, $("#divListaReservas"))
 
-                                var fecha = new Date(element.fecha);
-                                var fechafinal = new Date(element.fechafinal);
-                                element.fecha = fecha.toLocaleString()
-                                element.fechafinal = fechafinal.toLocaleString()
+                            existe = true
 
-
-
-                                agregarCajaReserva(datos.esAdmin, element, $("#divListaReservas"))
-
-                                existe = true
-                            }
                         });
                     }
                     if (!existe) {
@@ -76,7 +63,8 @@ $(function () {
                     }
                 },
                 error: function (jqXHR, statusText, errorThrown) {
-                    alert("Ha ocurrido un error con los usuarios");
+                    console.log(errorThrown)
+                    alert("Ha ocurrido un error con los usuarios A");
                 }
             })
 
@@ -87,8 +75,8 @@ $(function () {
 
         var divContenedor = $(this).closest('.cajaUsuario'); // Este es el div padre 
         var idReserva = divContenedor.data("id")
-        var fecha =  $(this).closest('em');
-  
+        var fecha = $(this).closest('em');
+
         var data = {
             idReserva: idReserva
         };
@@ -137,7 +125,7 @@ function agregarCajaReserva(esAdmin, element, padre) {
     cajaAforo.append(aforo)
 
     const cajaPlazo = $('<div class=" col-md-3 col-sm-5  d-flex justify-content-between align-items-center mb-1"></div>');
-    const plazo = $('<p class="mb-0">  <strong>Plazo de la Reserva : </strong> <em>'+ element.fecha.slice(0, 10) +'</em> ' + element.fecha.slice(11, -3) + "-" + element.fechafinal.slice(11, -3) + '</p>')
+    const plazo = $('<p class="mb-0">  <strong>Plazo de la Reserva : </strong> <em>' + element.fecha.slice(0, 10) + '</em> ' + element.fecha.slice(11, -3) + "-" + element.fechafinal.slice(11, -3) + '</p>')
     cajaPlazo.append(plazo)
 
     caja.append(cajaImagen)
