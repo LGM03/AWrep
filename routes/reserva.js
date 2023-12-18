@@ -80,7 +80,8 @@ router.get('/porUsuario', function (req, res, next) {
 
 
     if (validarEmail(req.query.correo)) {
-        midao.leerReservaPorUsuario(req.query.correo, (err, datos) => {
+        console.log("hola?" + req.query.correo)
+        midao.todasReservasPorUsuario(req.query.correo, (err, datos) => {
             if (err) {
                 res.json("0")
             } else {

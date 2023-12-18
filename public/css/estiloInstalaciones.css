@@ -38,6 +38,5 @@ p{ /*todos los p tienen tipografia eb-garamont*/
 
 
 #calendario{ /*el calendario tiene como maximo un ancho del 75%*/
-    max-width: 75%; /* Ajusta según sea necesario */
 
 }

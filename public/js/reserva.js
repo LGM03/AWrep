@@ -57,7 +57,8 @@ $(function () {
 
     $(document).on("click", ".masInfo", function () {// doy mas ifi sobre la reserva 
         var divContenedor = $(this).closest('.cajaInfo') //Este es el div padre
-        var correo = divContenedor.find('h5').text().slice(15,); //busco el p que contiene el correo 
+        var correo = divContenedor.find('h5').text().slice(13,); //busco el p que contiene el correo 
+        console.log("ADASD"+correo)
         data={
             correo:correo
         }
@@ -86,11 +87,11 @@ function infoAdicional(element,padre) {
     const cajaReserva = $('<div class="col-10 d-flex flex-column"></div>')
   
     // Contenedor para el nombre y la fecha
-    const infoContainer = $('<div class="d-flex justify-content-between align-items-center mb-1"></div>');
+    const infoContainer = $('<div class=" row d-flex justify-content-between align-items-center mb-1"></div>');
   
-    const nombreCom = $('<h5 class="mb-0"> <strong>Nombre : </strong>'+ element.nombre + ' '+ element.apellido1+ ' '+ element.apellido2+'</h5>')
-    const facultad = $('<p class="mb-0"><strong>Facultad : </strong>'+element.facultad + '</p>')
-    const clase = $('<p class="mb-0">  <strong>Clase : </strong> '+element.curso + "-"+element.grupo+ '</p>')
+    const nombreCom = $('<h5 class=" col-sm-3 mb-0"> <strong>Nombre : </strong>'+ element.nombre + ' '+ element.apellido1+ ' '+ element.apellido2+'</h5>')
+    const facultad = $('<p class=" col-sm-3 mb-0"><strong>Facultad : </strong>'+element.facultad + '</p>')
+    const clase = $('<p class="col-sm-3 mb-0">  <strong>Clase : </strong> '+element.curso + "-"+element.grupo+ '</p>')
 
     infoContainer.append(nombreCom);
     infoContainer.append(facultad);

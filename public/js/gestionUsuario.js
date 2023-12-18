@@ -87,8 +87,6 @@ $(function () {
                         var fechafinal = new Date(element.fechafinal);
                         element.fecha = fecha.toLocaleString()
                         element.fechafinal = fechafinal.toLocaleString()
-
-
                         agregarCajaHistorial(element, divContenedor)
                     });
                 } else {

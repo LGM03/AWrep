@@ -103,15 +103,18 @@ function agregarCajaReserva(esAdmin, element, padre) {// agrega la caja de las r
     // Sección de info de la reserva
 
     const cajaImagen = $('<div class="col-md-2 col-sm-5 d-flex justify-content-between align-items-center "> </div>')
-    const imagen = '<img src="' + element.urlImagen + '" alt="Foto del usuario" class="img-fluid logoUsuario mt-2"></div>'
+    const imagen = '<img src="' + element.urlImagen + '" alt="'+ element.nombreIns+'" class="img-fluid logoUsuario mt-2"></div>'
     cajaImagen.append(imagen)
 
     // Contenedor para el nombre y la fecha
-    const cajaNombre = $('<div class="col-md-3 col-sm-5  d-flex justify-content-between align-items-center mb-1"></div>');
+    const cajaNombre = $('<div class="col-md-2 col-sm-5  d-flex justify-content-between align-items-center mb-1"></div>');
     const nombreCom = $('<h5 class="mb-0"> <strong>Instalación : </strong>' + element.nombreIns + '</h5>')
     cajaNombre.append(nombreCom)
 
-    var botonCancelar = $('<button class="btn btn-danger m-2 cancelarReserva"> X </button>');
+    
+    const cajaBoton = $('<div class=" col-md-2 col-sm-5  d-flex justify-content-between align-items-center mb-1"></div>');
+    var botonCancelar = $('<button class="btn btn-danger m-2 cancelarReserva"> X Cancelar </button>');
+    cajaBoton.append(botonCancelar)
 
     const cajatipo = $('<div class=" col-md-2 col-sm-5  d-flex justify-content-between align-items-center mb-1"></div>');
     const tipo = $('<p class="mb-0"><strong>Tipo: </strong>' + element.tipoReserva + '</p>')
@@ -121,7 +124,7 @@ function agregarCajaReserva(esAdmin, element, padre) {// agrega la caja de las r
     const aforo = $('<p class="mb-0"><strong>Aforo: </strong>' + element.aforo + '</p>')
     cajaAforo.append(aforo)
 
-    const cajaPlazo = $('<div class=" col-md-3 col-sm-5  d-flex justify-content-between align-items-center mb-1"></div>');
+    const cajaPlazo = $('<div class=" col-md-2 col-sm-5  d-flex justify-content-between align-items-center mb-1"></div>');
     const plazo = $('<p class="mb-0">  <strong>Plazo de la Reserva : </strong> <em>' + element.fecha.slice(0, 10) + '</em> ' + element.fecha.slice(11, -3) + "-" + element.fechafinal.slice(11, -3) + '</p>')
     cajaPlazo.append(plazo)
 
@@ -134,7 +137,7 @@ function agregarCajaReserva(esAdmin, element, padre) {// agrega la caja de las r
     caja.data("id", element.id) //Esto va a permitir saber que reserva hay que eliminar 
     padre.append(caja);
     if (esAdmin == 0) {
-        cajaPlazo.append(botonCancelar);
+        caja.append(cajaBoton);
     } else {
         infoUsuario(element, caja)
     }

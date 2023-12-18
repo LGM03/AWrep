@@ -36,6 +36,11 @@ $(function () {
         success: function (datos, state, jqXHR) {
           //Cerramos el modal
           if (datos !== "0") { //Si estamos en el / añadimos la tarjeta correspondiente 
+            if (window.location.pathname == "/") {
+              agregarTarjeta(datos)
+            } else {
+              alert("Instalación creada con éxito")
+            }
             $("#CrearInstalacion").modal('hide')
             $("#nombreInstalacion").prop("value", "")
             $("#tipoReserva").prop("value", "")
@@ -44,11 +49,6 @@ $(function () {
             $("#horaFin").prop("value", "")
             $("#aforo").prop("value", "")
             $('#campoAforo').addClass("d-none");
-            if (window.location.pathname == "/") {
-              agregarTarjeta(datos)
-            } else {
-              alert("Instalación creada con éxito")
-            }
           } else {
             alert("No se ha podido crear la instalación")
           }

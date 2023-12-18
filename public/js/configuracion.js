@@ -12,6 +12,7 @@ $(function () {
                 if (datos !== "0") {
                     $("#Titulo").text(tituloNuevo)
                     $("title").text(tituloNuevo)
+                    $("#footerTitulo").text(tituloNuevo)
                 } else {
                     alert("No se ha podido validar")
                 }
@@ -43,7 +44,6 @@ $(function () {
                 alert("No se ha podido guardar la configuracion")
             }
         });
-        $("#cambiarTitulo").modal('hide')
     })
 
 
@@ -101,7 +101,7 @@ $(function () {
                 processData: false,
                 success: function (datos, state, jqXHR) { //Si ya exito escondo el modal y vacio los parametros
                     $("#logConfiguracion").attr("src", datos)
-                    $("#logoPequeño").attr("src", datos)
+                    $("#logoPequeño").attr("href", datos)
                     $("#cambiarLogo").modal('hide')
                     $("#logoInput").prop("value","")
                 },

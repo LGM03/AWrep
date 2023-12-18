@@ -47,9 +47,10 @@ $(function () {
 
                 $("#historiales").removeClass("d-none")
                 $("#historiales .cajaInfo").slideUp(1500);
+                $("#historiales .cajaInfo").addClass("d-none")
 
                 $("#cajasEsperas .infoEspera").slideUp(1500);
-                $("#cajasEsperas .cajaInfo").slideUp(1500)
+                $("#cajasEsperas .cajaInfo").slideUp(1500);
 
                 var urlParams = new URLSearchParams(window.location.search); //Recojo el id de la instalacion de la url
                 var inst = urlParams.get('id');
@@ -114,19 +115,19 @@ function agregarCajaHistorial(element) { //Creacion de cajas de historial
     var fechaFin = moment(element.fechafinal, 'YYYY-MM-DD HH:mm:ss');
     fechaFin.add(1, 'hour');
 
-    const caja = $('<div class="row cajaInfo rounded m-2"></div>');
+    const caja = $('<div class="row cajaInfo d-flex rounded m-2"></div>');
 
     // Sección de info de la reserva
-    const cajaReserva = $('<div class="col-10 d-flex flex-column"></div>')
+    const cajaReserva = $('<div class="col-11 d-flex flex-column"></div>')
 
     // Contenedor para el nombre y la fecha
-    const infoContainer = $('<div class="d-flex justify-content-between align-items-center mb-1"></div>'); //Caja de la informacion 
-    const botonX = $('<button type="button" class="btn btn-success m-2"> <span aria-hidden="true">+ Más Información</span> </button>') // boton para mas informacion 
+    const infoContainer = $('<div class=" row d-flex justify-content-between align-items-center mb-1"></div>'); //Caja de la informacion 
+    const botonX = $('<button type="button" class=" col-sm-3 btn btn-success m-1"> <span aria-hidden="true">+ Más Info</span> </button>') // boton para mas informacion 
     botonX.addClass("masInfo")
 
-    const nombreCom = $('<h5 class="mb-0"> <strong>Responsable : </strong>' + element.idUsu + '</h5>') //id del usuario (correo)
-    const fechaCom = $('<p class="mb-0"><strong>Fecha : </strong>' + fechaIni.format('DD-MM-YYYY') + '</p>') //Fecha 
-    const fechaCom2 = $('<p class="mb-0">  <strong>Horas : </strong> ' + fechaIni.format('HH:mm') + "-" + fechaFin.format('HH:mm') + '</p>') //Rango horario de la reserva
+    const nombreCom = $('<h5 class=" col-sm-3 mb-0"> <strong>Responsable </strong>' + element.idUsu + '</h5>') //id del usuario (correo)
+    const fechaCom = $('<p class=" col-sm-2 mb-0"><strong>Fecha </strong>' + fechaIni.format('DD-MM-YYYY') + '</p>') //Fecha 
+    const fechaCom2 = $('<p class=" col-sm-2 mb-0">  <strong>Horas </strong> ' + fechaIni.format('HH:mm') + "-" + fechaFin.format('HH:mm') + '</p>') //Rango horario de la reserva
 
     infoContainer.append(botonX);
     infoContainer.append(nombreCom);
@@ -143,18 +144,18 @@ function elementoListaEspera(element, padre) { //Agrego elementos a la lista de 
     const caja = $('<div class="row rounded alert alert-secondary infoEspera m-2"></div>');
 
     // Sección de info de la reserva
-    const cajaReserva = $('<div class="col-10 d-flex flex-column"></div>')
-    const botonX = $('<button type="button" class="btn btn-danger m-2 eliminarElementoEspera"> <span aria-hidden="true">Eliminar</span> </button>')
+    const cajaReserva = $('<div class=" row d-flex flex-column"></div>')
+    const botonX = $('<button type="button" class=" col-lg-2 btn btn-danger m-2 eliminarElementoEspera"> <span aria-hidden="true">Eliminar</span> </button>')
 
 
     // Contenedor para el nombre y la fecha
-    const infoContainer = $('<div class="d-flex justify-content-between align-items-center mx-auto"></div>');
+    const infoContainer = $('<div class=" row d-flex justify-content-between align-items-center mx-auto"></div>');
 
-    const correo = $('<h5 class="mb-0"> <strong>Correo : </strong>' + element.correo + '</h5>')
+    const correo = $('<h5 class=" col-md-2 mb-0"> <strong>Correo </strong>' + element.correo + '</h5>')
 
-    const nombreCom = $('<h5 class="mb-0"> <strong>Nombre : </strong>' + element.nombre + ' ' + element.apellido1 + ' ' + element.apellido2 + '</h5>')
-    const facultad = $('<p class="mb-0"><strong>Facultad : </strong>' + element.facultad + '</p>')
-    const clase = $('<p class="mb-0">  <strong>Clase : </strong> ' + element.curso + "-" + element.grupo + '</p>')
+    const nombreCom = $('<h5 class= "  col-sm-2  mb-0"> <strong>Nombre </strong>' + element.nombre + ' ' + element.apellido1 + ' ' + element.apellido2 + '</h5>')
+    const facultad = $('<p class=" col-sm-2 mb-0"><strong>Facultad </strong>' + element.facultad + '</p>')
+    const clase = $('<p class=" col-sm-2 mb-0">  <strong>Clase </strong> ' + element.curso + "-" + element.grupo + '</p>')
   
     infoContainer.append(botonX) //Agrego boton 
     infoContainer.append(correo) //Agrego correo
