@@ -117,10 +117,10 @@ class DAOConfig {   //DAO que accede a las instalaciones y su respectiva informa
                 "and (? is null or ucm_aw_riu_usu_usuarios.facultad = ?)"+
                 "and (? is null or ucm_aw_riu_ins_instalaciones.nombre  = ?)"+
                 "and ucm_aw_riu_usu_usuarios.correo = ?"+
-                "and( (? is null or fecha=?) or (? is null or (fecha<=? and fecha>=?)))"
+                "and (? is null or (? is null and DATE(fecha)=?) or (? is not null and (DATE(fecha)<=? and DATE(fecha)>=?)))"
                 var variables = [filtro.nombre, filtro.nombre, filtro.apellido1, filtro.apellido1, filtro.apellido2, filtro.apellido2 ,
-                    filtro.correo,filtro.correo, filtro.facultad,filtro.facultad,filtro.instalacion,filtro.instalacion,filtro.usuario,filtro.fechaIni,filtro.fechaIni,
-                    filtro.fechaFin,filtro.fechaFin,filtro.fechaIni
+                    filtro.correo,filtro.correo, filtro.facultad,filtro.facultad,filtro.instalacion,filtro.instalacion,filtro.usuario,filtro.fechaIni,filtro.fechaFin,
+                    filtro.fechaIni,filtro.fechaFin,filtro.fechaFin,filtro.fechaIni
                     ]
                 connection.query(sql, variables, function (err, resultado) {
                     connection.release(); //Libero la conexion
@@ -165,23 +165,28 @@ class DAOConfig {   //DAO que accede a las instalaciones y su respectiva informa
                 callback(err, null); //Si ha ocurrido un error retorno el error
             } else {
                 //Si el parametro es nulo o coincide con el valor
-                const sql = "select ucm_aw_riu_res_reservas.fecha, ucm_aw_riu_res_reservas.fechafinal, ucm_aw_riu_ins_instalaciones.nombre as nombreIns, ucm_aw_riu_ins_instalaciones.tipoReserva,  ucm_aw_riu_ins_instalaciones.horaInicio,  ucm_aw_riu_ins_instalaciones.horaFin,  ucm_aw_riu_ins_instalaciones.aforo,  ucm_aw_riu_ins_instalaciones.imagen as imagenIns, ucm_aw_riu_usu_usuarios.nombre,ucm_aw_riu_usu_usuarios.apellido1,ucm_aw_riu_usu_usuarios.apellido2,ucm_aw_riu_usu_usuarios.facultad,ucm_aw_riu_usu_usuarios.curso,ucm_aw_riu_usu_usuarios.grupo,ucm_aw_riu_usu_usuarios.imagen as imagenUsu ,ucm_aw_riu_usu_usuarios.correo from ucm_aw_riu_res_reservas inner join ucm_aw_riu_ins_instalaciones on ucm_aw_riu_ins_instalaciones.id = idIns inner join ucm_aw_riu_usu_usuarios on correo = idUsu"+
+                const sql = "select ucm_aw_riu_res_reservas.fecha, ucm_aw_riu_res_reservas.fechafinal, ucm_aw_riu_ins_instalaciones.nombre as nombreIns, ucm_aw_riu_ins_instalaciones.tipoReserva,  ucm_aw_riu_ins_instalaciones.horaInicio,"+  
+                " ucm_aw_riu_ins_instalaciones.horaFin,  ucm_aw_riu_ins_instalaciones.aforo,  ucm_aw_riu_ins_instalaciones.imagen as imagenIns, "+
+                " ucm_aw_riu_usu_usuarios.nombre,ucm_aw_riu_usu_usuarios.apellido1,ucm_aw_riu_usu_usuarios.apellido2,ucm_aw_riu_usu_usuarios.facultad,"+
+                " ucm_aw_riu_usu_usuarios.curso,ucm_aw_riu_usu_usuarios.grupo,ucm_aw_riu_usu_usuarios.imagen as imagenUsu ,ucm_aw_riu_usu_usuarios.correo"+
+                " from ucm_aw_riu_res_reservas inner join ucm_aw_riu_ins_instalaciones on ucm_aw_riu_ins_instalaciones.id = idIns inner join ucm_aw_riu_usu_usuarios on correo = idUsu"+
                 " where (? is NULL OR ucm_aw_riu_usu_usuarios.nombre = ?) "+ 
                 "and (? is null or ucm_aw_riu_usu_usuarios.apellido1 = ?)"+
                 "and (? is null or ucm_aw_riu_usu_usuarios.apellido2 = ?)"+
                 "and (? is null or ucm_aw_riu_usu_usuarios.correo = ?)"+
                 "and (? is null or ucm_aw_riu_usu_usuarios.facultad = ?)"+
                 "and (? is null or ucm_aw_riu_ins_instalaciones.nombre  = ?)"+
-                "and( (? is null or fecha=?) or (? is null or (fecha<=? and fecha>=? )))"
+                "and (? is null or (? is null and DATE(fecha)=?) or (? is not null and (DATE(fecha)<=? and DATE(fecha)>=?)))"
 
                 var variables = [filtro.nombre, filtro.nombre, filtro.apellido1, filtro.apellido1, filtro.apellido2, filtro.apellido2 ,
-                filtro.correo,filtro.correo, filtro.facultad,filtro.facultad,filtro.instalacion,filtro.instalacion,filtro.fechaIni,filtro.fechaIni,
-                filtro.fechaFin,filtro.fechaFin,filtro.fechaIni
+                filtro.correo,filtro.correo, filtro.facultad,filtro.facultad,filtro.instalacion,filtro.instalacion,filtro.fechaIni,filtro.fechaFin,
+                filtro.fechaIni,filtro.fechaFin,filtro.fechaFin,filtro.fechaIni
                 ]
                 
                 connection.query(sql, variables, function (err, resultado) {
                     connection.release(); //Libero la conexion
                     if (err) {
+                        console.log(err)
                         callback(err, null); //Si ha ocurrido un error retorno el error
                     } else {
                         callback(null, resultado); //Si todo ha ido bien retorno la información obtenida 

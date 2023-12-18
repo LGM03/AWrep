@@ -227,6 +227,11 @@ function validarFiltro(datos) {//agrega la funcion del filtro a la busqueda revi
         return false
     }
 
+    if(datos.fechaFin && !datos.fechaIni){
+        alert("Periodo de fechas no válido")
+        return false
+    }
+
     if (facultad !== "") {//valida la facultad
         datos.facultad = facultad
     }
