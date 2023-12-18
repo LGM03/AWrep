@@ -84,7 +84,7 @@ $(function () {
         if (datos !== "0") {
           $("#MandarMensaje").modal('hide')
           if (!$("#cajamensajesEnviados").hasClass('d-none')) {
-            $("#mensajesVacio").removeClass('d-none')
+            $("#mensajesVacio").addClass('d-none')
             actualizarCajaEnviadosMensajes(datosMensaje, $("#cajamensajesEnviados"))
           }
           $("#correoReceptor").prop("value", "")
