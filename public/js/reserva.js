@@ -58,7 +58,7 @@ $(function () {
     $(document).on("click", ".masInfo", function () {// doy mas ifi sobre la reserva 
         var divContenedor = $(this).closest('.cajaInfo') //Este es el div padre
         var correo = divContenedor.find('h5').text().slice(13,); //busco el p que contiene el correo 
-        console.log("ADASD"+correo)
+    
         data={
             correo:correo
         }
